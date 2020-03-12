@@ -3,27 +3,57 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09C227A470BFD8839C9491BB /* Pods_Arc_Mini.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49BFAF13CA1E780FC2651251 /* Pods_Arc_Mini.framework */; };
+		C91F7ACB241644500013A5D5 /* CornerRadiusStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91F7ACA241644500013A5D5 /* CornerRadiusStyle.swift */; };
+		C953392724126E250005E98F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C953392624126E250005E98F /* MapKit.framework */; };
+		C953392924126E670005E98F /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C953392824126E670005E98F /* MapView.swift */; };
+		C953392B24127CF30005E98F /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C953392A24127CF30005E98F /* TimelineView.swift */; };
+		C95E0E1C24179616008418A1 /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C95E0E1B24179616008418A1 /* Rubik-Medium.ttf */; };
+		C95E0E1F2417969E008418A1 /* TimelineHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E0E1E2417969E008418A1 /* TimelineHeader.swift */; };
+		C95E0E21241797D9008418A1 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E0E20241797D8008418A1 /* Colors.swift */; };
+		C95E0E252417AEB8008418A1 /* VisitListBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E0E242417AEB8008418A1 /* VisitListBox.swift */; };
+		C95E0E272417B19C008418A1 /* PathListBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E0E262417B19C008418A1 /* PathListBox.swift */; };
+		C95E0E292417B6DD008418A1 /* ArcTimelineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E0E282417B6DD008418A1 /* ArcTimelineItem.swift */; };
+		C95E0E2D2417B773008418A1 /* ArcVisit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E0E2B2417B773008418A1 /* ArcVisit.swift */; };
+		C95E0E2E2417B773008418A1 /* ArcPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E0E2C2417B773008418A1 /* ArcPath.swift */; };
 		C9822A83240CF8D5006B70F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9822A82240CF8D5006B70F4 /* AppDelegate.swift */; };
 		C9822A85240CF8D5006B70F4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9822A84240CF8D5006B70F4 /* SceneDelegate.swift */; };
-		C9822A87240CF8D5006B70F4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9822A86240CF8D5006B70F4 /* ContentView.swift */; };
+		C9822A87240CF8D5006B70F4 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9822A86240CF8D5006B70F4 /* RootView.swift */; };
 		C9822A89240CF8D8006B70F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9822A88240CF8D8006B70F4 /* Assets.xcassets */; };
 		C9822A8C240CF8D8006B70F4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9822A8B240CF8D8006B70F4 /* Preview Assets.xcassets */; };
 		C9822A8F240CF8D8006B70F4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9822A8D240CF8D8006B70F4 /* LaunchScreen.storyboard */; };
+		C9EB6644241A60FA00F545AF /* ArcStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB6643241A60FA00F545AF /* ArcStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		49BFAF13CA1E780FC2651251 /* Pods_Arc_Mini.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Arc_Mini.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		85A052185CDD9B73636FE978 /* Pods-Arc Mini.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Arc Mini.debug.xcconfig"; path = "Target Support Files/Pods-Arc Mini/Pods-Arc Mini.debug.xcconfig"; sourceTree = "<group>"; };
+		C91F7ACA241644500013A5D5 /* CornerRadiusStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusStyle.swift; sourceTree = "<group>"; };
+		C953392624126E250005E98F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		C953392824126E670005E98F /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		C953392A24127CF30005E98F /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
+		C95E0E1B24179616008418A1 /* Rubik-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Medium.ttf"; sourceTree = "<group>"; };
+		C95E0E1E2417969E008418A1 /* TimelineHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineHeader.swift; sourceTree = "<group>"; };
+		C95E0E20241797D8008418A1 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		C95E0E242417AEB8008418A1 /* VisitListBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitListBox.swift; sourceTree = "<group>"; };
+		C95E0E262417B19C008418A1 /* PathListBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathListBox.swift; sourceTree = "<group>"; };
+		C95E0E282417B6DD008418A1 /* ArcTimelineItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcTimelineItem.swift; sourceTree = "<group>"; };
+		C95E0E2B2417B773008418A1 /* ArcVisit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcVisit.swift; sourceTree = "<group>"; };
+		C95E0E2C2417B773008418A1 /* ArcPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcPath.swift; sourceTree = "<group>"; };
 		C9822A7F240CF8D5006B70F4 /* Arc Mini.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Arc Mini.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9822A82240CF8D5006B70F4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9822A84240CF8D5006B70F4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C9822A86240CF8D5006B70F4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C9822A86240CF8D5006B70F4 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		C9822A88240CF8D8006B70F4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9822A8B240CF8D8006B70F4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C9822A8E240CF8D8006B70F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9822A90240CF8D8006B70F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9EB6643241A60FA00F545AF /* ArcStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcStore.swift; sourceTree = "<group>"; };
+		E9A51D53A86269BDF7C3EB1A /* Pods-Arc Mini.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Arc Mini.release.xcconfig"; path = "Target Support Files/Pods-Arc Mini/Pods-Arc Mini.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +61,89 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C953392724126E250005E98F /* MapKit.framework in Frameworks */,
+				09C227A470BFD8839C9491BB /* Pods_Arc_Mini.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0309A64F2B5F60D9E14F1F4E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C953392624126E250005E98F /* MapKit.framework */,
+				49BFAF13CA1E780FC2651251 /* Pods_Arc_Mini.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B22ED509648B34F49EC36016 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				85A052185CDD9B73636FE978 /* Pods-Arc Mini.debug.xcconfig */,
+				E9A51D53A86269BDF7C3EB1A /* Pods-Arc Mini.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		C91F7ACC241645A90013A5D5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C95C555F2413C02C0038EB3B /* Timeline */,
+				C953392824126E670005E98F /* MapView.swift */,
+				C9822A86240CF8D5006B70F4 /* RootView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C95C555F2413C02C0038EB3B /* Timeline */ = {
+			isa = PBXGroup;
+			children = (
+				C95E0E1E2417969E008418A1 /* TimelineHeader.swift */,
+				C953392A24127CF30005E98F /* TimelineView.swift */,
+				C95E0E242417AEB8008418A1 /* VisitListBox.swift */,
+				C95E0E262417B19C008418A1 /* PathListBox.swift */,
+			);
+			path = Timeline;
+			sourceTree = "<group>";
+		};
+		C95E0E1A241795E6008418A1 /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				C9822A88240CF8D8006B70F4 /* Assets.xcassets */,
+				C95E0E20241797D8008418A1 /* Colors.swift */,
+				C95E0E1D2417961B008418A1 /* Fonts */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+		C95E0E1D2417961B008418A1 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C95E0E1B24179616008418A1 /* Rubik-Medium.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		C95E0E2A2417B6E8008418A1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C95E0E2C2417B773008418A1 /* ArcPath.swift */,
+				C95E0E2B2417B773008418A1 /* ArcVisit.swift */,
+				C95E0E282417B6DD008418A1 /* ArcTimelineItem.swift */,
+				C9EB6643241A60FA00F545AF /* ArcStore.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		C9822A76240CF8D5006B70F4 = {
 			isa = PBXGroup;
 			children = (
 				C9822A81240CF8D5006B70F4 /* Arc Mini */,
 				C9822A80240CF8D5006B70F4 /* Products */,
+				B22ED509648B34F49EC36016 /* Pods */,
+				0309A64F2B5F60D9E14F1F4E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,12 +158,14 @@
 		C9822A81240CF8D5006B70F4 /* Arc Mini */ = {
 			isa = PBXGroup;
 			children = (
-				C9822A82240CF8D5006B70F4 /* AppDelegate.swift */,
-				C9822A84240CF8D5006B70F4 /* SceneDelegate.swift */,
-				C9822A86240CF8D5006B70F4 /* ContentView.swift */,
-				C9822A88240CF8D8006B70F4 /* Assets.xcassets */,
-				C9822A8D240CF8D8006B70F4 /* LaunchScreen.storyboard */,
+				C95E0E1A241795E6008418A1 /* Design */,
 				C9822A90240CF8D8006B70F4 /* Info.plist */,
+				C9822A8D240CF8D8006B70F4 /* LaunchScreen.storyboard */,
+				C9822A82240CF8D5006B70F4 /* AppDelegate.swift */,
+				C91F7ACA241644500013A5D5 /* CornerRadiusStyle.swift */,
+				C9822A84240CF8D5006B70F4 /* SceneDelegate.swift */,
+				C95E0E2A2417B6E8008418A1 /* Models */,
+				C91F7ACC241645A90013A5D5 /* Views */,
 				C9822A8A240CF8D8006B70F4 /* Preview Content */,
 			);
 			path = "Arc Mini";
@@ -82,9 +186,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C9822A93240CF8D8006B70F4 /* Build configuration list for PBXNativeTarget "Arc Mini" */;
 			buildPhases = (
+				1FDFEF4AD23C914CE0F6B354 /* [CP] Check Pods Manifest.lock */,
 				C9822A7B240CF8D5006B70F4 /* Sources */,
 				C9822A7C240CF8D5006B70F4 /* Frameworks */,
 				C9822A7D240CF8D5006B70F4 /* Resources */,
+				8D8C8963E71905193BAF6937 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -136,10 +242,53 @@
 				C9822A8F240CF8D8006B70F4 /* LaunchScreen.storyboard in Resources */,
 				C9822A8C240CF8D8006B70F4 /* Preview Assets.xcassets in Resources */,
 				C9822A89240CF8D8006B70F4 /* Assets.xcassets in Resources */,
+				C95E0E1C24179616008418A1 /* Rubik-Medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1FDFEF4AD23C914CE0F6B354 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Arc Mini-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8D8C8963E71905193BAF6937 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Arc Mini/Pods-Arc Mini-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Arc Mini/Pods-Arc Mini-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Arc Mini/Pods-Arc Mini-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C9822A7B240CF8D5006B70F4 /* Sources */ = {
@@ -147,8 +296,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9822A83240CF8D5006B70F4 /* AppDelegate.swift in Sources */,
+				C95E0E21241797D9008418A1 /* Colors.swift in Sources */,
+				C953392924126E670005E98F /* MapView.swift in Sources */,
+				C95E0E292417B6DD008418A1 /* ArcTimelineItem.swift in Sources */,
 				C9822A85240CF8D5006B70F4 /* SceneDelegate.swift in Sources */,
-				C9822A87240CF8D5006B70F4 /* ContentView.swift in Sources */,
+				C95E0E2D2417B773008418A1 /* ArcVisit.swift in Sources */,
+				C91F7ACB241644500013A5D5 /* CornerRadiusStyle.swift in Sources */,
+				C95E0E272417B19C008418A1 /* PathListBox.swift in Sources */,
+				C953392B24127CF30005E98F /* TimelineView.swift in Sources */,
+				C9822A87240CF8D5006B70F4 /* RootView.swift in Sources */,
+				C95E0E1F2417969E008418A1 /* TimelineHeader.swift in Sources */,
+				C95E0E252417AEB8008418A1 /* VisitListBox.swift in Sources */,
+				C9EB6644241A60FA00F545AF /* ArcStore.swift in Sources */,
+				C95E0E2E2417B773008418A1 /* ArcPath.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +442,7 @@
 		};
 		C9822A94240CF8D8006B70F4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 85A052185CDD9B73636FE978 /* Pods-Arc Mini.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -294,15 +455,16 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bigpaua.Arc-Mini";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bigpaua.ArcMini;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		C9822A95240CF8D8006B70F4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E9A51D53A86269BDF7C3EB1A /* Pods-Arc Mini.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -315,10 +477,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bigpaua.Arc-Mini";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bigpaua.ArcMini;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

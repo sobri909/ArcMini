@@ -7,14 +7,24 @@
 //
 
 import UIKit
+import LocoKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    static let store = ArcStore()
+    static let recorder = TimelineRecorder(store: store, classifier: TimelineClassifier.highlander)
 
+    static let todaySegment = AppDelegate.store.segment(for: Calendar.current.dateInterval(of: .day, for: Date())!)
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        LocoKitService.apiKey = "bee1aa1af978486b9186780a07cc240e"
+        ActivityTypesCache.highlander.store = AppDelegate.store
+
+        LocomotionManager.highlander.requestLocationPermission(background: true)
+        
+        AppDelegate.recorder.startRecording()
+
         return true
     }
 
