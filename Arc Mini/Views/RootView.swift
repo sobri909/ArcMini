@@ -13,7 +13,7 @@ struct RootView: View {
     var body: some View {
         GeometryReader { metrics in
             ZStack(alignment: .bottom) {
-                MapView().edgesIgnoringSafeArea(.all)
+                MapView(segment: AppDelegate.todaySegment).edgesIgnoringSafeArea(.all)
                 VStack {
                     TimelineView(segment: AppDelegate.todaySegment)
                         .frame(width: metrics.size.width, height: 400)

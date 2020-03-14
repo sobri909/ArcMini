@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		09C227A470BFD8839C9491BB /* Pods_Arc_Mini.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49BFAF13CA1E780FC2651251 /* Pods_Arc_Mini.framework */; };
 		C91F7ACB241644500013A5D5 /* CornerRadiusStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91F7ACA241644500013A5D5 /* CornerRadiusStyle.swift */; };
+		C92BF626241D06AD0089E4AD /* VisitCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92BF622241D06AD0089E4AD /* VisitCircle.swift */; };
+		C92BF627241D06AD0089E4AD /* PathPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92BF623241D06AD0089E4AD /* PathPolyline.swift */; };
+		C92BF628241D06AD0089E4AD /* VisitAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92BF624241D06AD0089E4AD /* VisitAnnotation.swift */; };
+		C92BF629241D06AD0089E4AD /* VisitAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92BF625241D06AD0089E4AD /* VisitAnnotationView.swift */; };
 		C953392724126E250005E98F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C953392624126E250005E98F /* MapKit.framework */; };
 		C953392924126E670005E98F /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C953392824126E670005E98F /* MapView.swift */; };
 		C953392B24127CF30005E98F /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C953392A24127CF30005E98F /* TimelineView.swift */; };
@@ -33,6 +37,10 @@
 		49BFAF13CA1E780FC2651251 /* Pods_Arc_Mini.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Arc_Mini.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		85A052185CDD9B73636FE978 /* Pods-Arc Mini.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Arc Mini.debug.xcconfig"; path = "Target Support Files/Pods-Arc Mini/Pods-Arc Mini.debug.xcconfig"; sourceTree = "<group>"; };
 		C91F7ACA241644500013A5D5 /* CornerRadiusStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusStyle.swift; sourceTree = "<group>"; };
+		C92BF622241D06AD0089E4AD /* VisitCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitCircle.swift; sourceTree = "<group>"; };
+		C92BF623241D06AD0089E4AD /* PathPolyline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathPolyline.swift; sourceTree = "<group>"; };
+		C92BF624241D06AD0089E4AD /* VisitAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitAnnotation.swift; sourceTree = "<group>"; };
+		C92BF625241D06AD0089E4AD /* VisitAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitAnnotationView.swift; sourceTree = "<group>"; };
 		C953392624126E250005E98F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C953392824126E670005E98F /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		C953392A24127CF30005E98F /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
@@ -90,11 +98,24 @@
 		C91F7ACC241645A90013A5D5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C95C555F2413C02C0038EB3B /* Timeline */,
-				C953392824126E670005E98F /* MapView.swift */,
 				C9822A86240CF8D5006B70F4 /* RootView.swift */,
+				C91F7ACA241644500013A5D5 /* CornerRadiusStyle.swift */,
+				C92BF62A241D06B70089E4AD /* Map */,
+				C95C555F2413C02C0038EB3B /* Timeline */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		C92BF62A241D06B70089E4AD /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				C953392824126E670005E98F /* MapView.swift */,
+				C92BF623241D06AD0089E4AD /* PathPolyline.swift */,
+				C92BF624241D06AD0089E4AD /* VisitAnnotation.swift */,
+				C92BF625241D06AD0089E4AD /* VisitAnnotationView.swift */,
+				C92BF622241D06AD0089E4AD /* VisitCircle.swift */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 		C95C555F2413C02C0038EB3B /* Timeline */ = {
@@ -162,7 +183,6 @@
 				C9822A90240CF8D8006B70F4 /* Info.plist */,
 				C9822A8D240CF8D8006B70F4 /* LaunchScreen.storyboard */,
 				C9822A82240CF8D5006B70F4 /* AppDelegate.swift */,
-				C91F7ACA241644500013A5D5 /* CornerRadiusStyle.swift */,
 				C9822A84240CF8D5006B70F4 /* SceneDelegate.swift */,
 				C95E0E2A2417B6E8008418A1 /* Models */,
 				C91F7ACC241645A90013A5D5 /* Views */,
@@ -301,6 +321,7 @@
 				C95E0E292417B6DD008418A1 /* ArcTimelineItem.swift in Sources */,
 				C9822A85240CF8D5006B70F4 /* SceneDelegate.swift in Sources */,
 				C95E0E2D2417B773008418A1 /* ArcVisit.swift in Sources */,
+				C92BF627241D06AD0089E4AD /* PathPolyline.swift in Sources */,
 				C91F7ACB241644500013A5D5 /* CornerRadiusStyle.swift in Sources */,
 				C95E0E272417B19C008418A1 /* PathListBox.swift in Sources */,
 				C953392B24127CF30005E98F /* TimelineView.swift in Sources */,
@@ -308,7 +329,10 @@
 				C95E0E1F2417969E008418A1 /* TimelineHeader.swift in Sources */,
 				C95E0E252417AEB8008418A1 /* VisitListBox.swift in Sources */,
 				C9EB6644241A60FA00F545AF /* ArcStore.swift in Sources */,
+				C92BF626241D06AD0089E4AD /* VisitCircle.swift in Sources */,
+				C92BF628241D06AD0089E4AD /* VisitAnnotation.swift in Sources */,
 				C95E0E2E2417B773008418A1 /* ArcPath.swift in Sources */,
+				C92BF629241D06AD0089E4AD /* VisitAnnotationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
