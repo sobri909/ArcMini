@@ -10,7 +10,7 @@ class PathPolyline: MKPolyline {
     var renderer: MKPolylineRenderer {
         let renderer = MKPolylineRenderer(polyline: self)
         renderer.strokeColor = color
-        renderer.lineWidth = 3
+        renderer.lineWidth = 5
         return renderer
     }
     

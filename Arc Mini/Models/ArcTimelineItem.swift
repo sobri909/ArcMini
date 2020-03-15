@@ -7,6 +7,7 @@
 //
 
 import LocoKit
+import SwiftUI
 
 protocol ArcTimelineItem where Self: TimelineItem {
     var title: String { get }
@@ -43,6 +44,19 @@ extension ArcTimelineItem {
         ArcVisit.titleDateFormatter.dateStyle = dateStyle
         ArcVisit.titleDateFormatter.timeStyle = timeStyle
         return ArcVisit.titleDateFormatter.string(from: date)
+    }
+
+    var uiColor: UIColor {
+        if self.isDataGap { return .black }
+        if let path = self as? ArcPath {
+            if let activityType = path.activityType { return UIColor.color(for: activityType) }
+        }
+        if let activityType = modeActivityType { return UIColor.color(for: activityType) }
+        return UIColor.color(for: .stationary)
+    }
+
+    var color: Color {
+        return Color(uiColor)
     }
 
 }

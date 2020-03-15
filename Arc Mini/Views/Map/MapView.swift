@@ -43,7 +43,7 @@ struct MapView: UIViewRepresentable {
 
         var coords = path.samples.compactMap { $0.location?.coordinate }
         let line = PathPolyline(coordinates: &coords, count: coords.count)
-        line.color = .brown
+        line.color = path.uiColor
 
         map.addOverlay(line)
     }
