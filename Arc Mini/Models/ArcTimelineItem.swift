@@ -48,16 +48,12 @@ extension ArcTimelineItem {
 
     var uiColor: UIColor {
         if self.isDataGap { return .black }
-        if let path = self as? ArcPath {
-            if let activityType = path.activityType { return UIColor.color(for: activityType) }
-        }
+        if let activityType = (self as? ArcPath)?.activityType { return UIColor.color(for: activityType) }
         if let activityType = modeActivityType { return UIColor.color(for: activityType) }
         return UIColor.color(for: .stationary)
     }
 
-    var color: Color {
-        return Color(uiColor)
-    }
+    var color: Color { return Color(uiColor) }
 
 }
 

@@ -15,13 +15,15 @@ struct PathListBox: View {
 
     var body: some View {
         HStack {
+            Rectangle().fill(path.color).frame(width: 3).cornerRadius(1.5)
+            Spacer().frame(width: 34)
             VStack(alignment: .leading) {
                 Text(path.title).font(.system(size: 14, weight: .medium))
                 Text(String(duration: path.duration)).font(.system(size: 14, weight: .regular))
             }
             Spacer()
         }
-        .padding([.leading], 140)
+        .padding([.leading], 102)
         .padding([.trailing], 20)
     }
 
