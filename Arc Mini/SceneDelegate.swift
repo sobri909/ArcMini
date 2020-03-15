@@ -37,7 +37,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-        print("sceneDidBecomeActive")
         AppDelegate.todaySegment.startUpdating()
     }
 
@@ -46,7 +45,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {}
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-        print("sceneDidEnterBackground")
         AppDelegate.todaySegment.stopUpdating()
     }
 

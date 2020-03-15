@@ -7,7 +7,7 @@ class VisitAnnotationView: MKAnnotationView {
    
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        image = UIImage(named: "dot")
+        image = UIImage(named: "visitAnnotation")
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -54,7 +54,7 @@ struct MapView: UIViewRepresentable {
         map.addAnnotation(VisitAnnotation(coordinate: center.coordinate, visit: visit))
 
         let circle = VisitCircle(center: center.coordinate, radius: visit.radius2sd)
-        circle.color = .orange
+        circle.color = .arcPurple
         map.addOverlay(circle, level: .aboveLabels)
     }
 
