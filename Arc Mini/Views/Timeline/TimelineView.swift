@@ -16,26 +16,41 @@ struct TimelineView: View {
     init(segment: TimelineSegment) {
         self.segment = segment
         UITableView.appearance().separatorStyle = .none
+        UITableViewCell.appearance().selectionStyle = .none
     }
 
     var body: some View {
         GeometryReader { metrics in
-            List {
-                Section(header: TimelineHeader().frame(width: metrics.size.width)) {
-                    ForEach(self.segment.timelineItems.reversed(), id: \.itemId) { timelineItem -> AnyView in
-                        if timelineItem.isVisit {
-                            return AnyView(VisitListBox(visit: timelineItem as! ArcVisit)
-                                .listRowInsets(EdgeInsets()))
-
-                        } else {
-                            return AnyView(PathListBox(path: timelineItem as! ArcPath)
-                                .listRowInsets(EdgeInsets()))
+            NavigationView {
+                List {
+                    Section(header: TimelineHeader().frame(width: metrics.size.width)) {
+                        ForEach(self.segment.timelineItems) { timelineItem in
+                            ZStack {
+                                self.listBox(for: timelineItem)
+                                NavigationLink(destination: ItemDetailsView(timelineItem: timelineItem)) {
+                                    EmptyView()
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                            }
                         }
                     }
                 }
+                .navigationBarTitle("Timeline")
+                .navigationBarHidden(true)
             }
-            .frame(width: metrics.size.width, height: 400)
         }
+    }
+
+    func listBox(for timelineItem: TimelineItem) -> AnyView {
+        if let visit = timelineItem as? ArcVisit {
+            return AnyView(VisitListBox(visit: visit)
+                .listRowInsets(EdgeInsets()))
+        }
+        if let path = timelineItem as? ArcPath {
+            return AnyView(PathListBox(path: path )
+                .listRowInsets(EdgeInsets()))
+        }
+        fatalError("nah")
     }
 
 }

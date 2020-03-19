@@ -21,8 +21,6 @@ struct MapView: UIViewRepresentable {
     }
 
     func updateUIView(_ map: MKMapView, context: Context) {
-        print("MapView.updateUIView")
-
         map.removeOverlays(map.overlays)
         map.removeAnnotations(map.annotations)
 
