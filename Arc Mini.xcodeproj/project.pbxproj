@@ -24,6 +24,7 @@
 		C95E0E292417B6DD008418A1 /* ArcTimelineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E0E282417B6DD008418A1 /* ArcTimelineItem.swift */; };
 		C95E0E2D2417B773008418A1 /* ArcVisit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E0E2B2417B773008418A1 /* ArcVisit.swift */; };
 		C95E0E2E2417B773008418A1 /* ArcPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E0E2C2417B773008418A1 /* ArcPath.swift */; };
+		C97DCDEB242395C3006437B7 /* ItemDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97DCDEA242395C3006437B7 /* ItemDetailsView.swift */; };
 		C9822A83240CF8D5006B70F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9822A82240CF8D5006B70F4 /* AppDelegate.swift */; };
 		C9822A85240CF8D5006B70F4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9822A84240CF8D5006B70F4 /* SceneDelegate.swift */; };
 		C9822A87240CF8D5006B70F4 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9822A86240CF8D5006B70F4 /* RootView.swift */; };
@@ -52,6 +53,7 @@
 		C95E0E282417B6DD008418A1 /* ArcTimelineItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcTimelineItem.swift; sourceTree = "<group>"; };
 		C95E0E2B2417B773008418A1 /* ArcVisit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcVisit.swift; sourceTree = "<group>"; };
 		C95E0E2C2417B773008418A1 /* ArcPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcPath.swift; sourceTree = "<group>"; };
+		C97DCDEA242395C3006437B7 /* ItemDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsView.swift; sourceTree = "<group>"; };
 		C9822A7F240CF8D5006B70F4 /* Arc Mini.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Arc Mini.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9822A82240CF8D5006B70F4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9822A84240CF8D5006B70F4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				C91F7ACA241644500013A5D5 /* CornerRadiusStyle.swift */,
 				C92BF62A241D06B70089E4AD /* Map */,
 				C95C555F2413C02C0038EB3B /* Timeline */,
+				C97DCDEA242395C3006437B7 /* ItemDetailsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				C92BF628241D06AD0089E4AD /* VisitAnnotation.swift in Sources */,
 				C95E0E2E2417B773008418A1 /* ArcPath.swift in Sources */,
 				C92BF629241D06AD0089E4AD /* VisitAnnotationView.swift in Sources */,
+				C97DCDEB242395C3006437B7 /* ItemDetailsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
