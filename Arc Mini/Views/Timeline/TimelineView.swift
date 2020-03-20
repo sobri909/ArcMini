@@ -24,7 +24,7 @@ struct TimelineView: View {
             NavigationView {
                 List {
                     Section(header: TimelineHeader().frame(width: metrics.size.width)) {
-                        ForEach(self.segment.timelineItems) { timelineItem in
+                        ForEach(self.segment.timelineItems.reversed()) { timelineItem in
                             ZStack {
                                 self.listBox(for: timelineItem)
                                 NavigationLink(destination: ItemDetailsView(timelineItem: timelineItem)) {
