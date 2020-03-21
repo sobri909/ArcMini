@@ -12,9 +12,11 @@ import LocoKit
 struct TimelineView: View {
 
     @ObservedObject var segment: TimelineSegment
+    @ObservedObject var selectedItems: ObservableItems
 
-    init(segment: TimelineSegment) {
+    init(segment: TimelineSegment, selectedItems: ObservableItems) {
         self.segment = segment
+        self.selectedItems = selectedItems
         UITableView.appearance().separatorStyle = .none
         UITableViewCell.appearance().selectionStyle = .none
     }
@@ -27,7 +29,7 @@ struct TimelineView: View {
                         ForEach(self.segment.timelineItems.reversed()) { timelineItem in
                             ZStack {
                                 self.listBox(for: timelineItem)
-                                NavigationLink(destination: ItemDetailsView(timelineItem: timelineItem)) {
+                                NavigationLink(destination: ItemDetailsView(timelineItem: timelineItem, selectedItems: self.selectedItems)) {
                                     EmptyView()
                                 }
                                 .buttonStyle(PlainButtonStyle())
@@ -55,8 +57,8 @@ struct TimelineView: View {
 
 }
 
-struct TimelineView_Previews: PreviewProvider {
-    static var previews: some View {
-        TimelineView(segment: AppDelegate.todaySegment)
-    }
-}
+//struct TimelineView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TimelineView(segment: AppDelegate.todaySegment)
+//    }
+//}

@@ -28,6 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return _todaySegment!
     }
 
+    static var selectedItems = ObservableItems()
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         LocoKitService.apiKey = "bee1aa1af978486b9186780a07cc240e"
         ActivityTypesCache.highlander.store = AppDelegate.store

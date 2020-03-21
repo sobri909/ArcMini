@@ -7,15 +7,25 @@
 //
 
 import SwiftUI
+import LocoKit
 
 struct RootView: View {
+
+    @ObservedObject var todaySegment: TimelineSegment
+    @ObservedObject var selectedItems: ObservableItems
+
+    init(todaySegment: TimelineSegment, selectedItems: ObservableItems) {
+        self.todaySegment = todaySegment
+        self.selectedItems = selectedItems
+    }
 
     var body: some View {
         GeometryReader { metrics in
             ZStack(alignment: .bottom) {
-                MapView(segment: AppDelegate.todaySegment).edgesIgnoringSafeArea(.all)
+                MapView(segment: self.todaySegment, selectedItems: self.selectedItems)
+                    .edgesIgnoringSafeArea(.all)
                 VStack {
-                    TimelineView(segment: AppDelegate.todaySegment)
+                    TimelineView(segment: self.todaySegment, selectedItems: self.selectedItems)
                         .frame(width: metrics.size.width, height: 400)
                 }
             }
@@ -24,8 +34,9 @@ struct RootView: View {
     
 }
 
-struct RootView_Previews: PreviewProvider {
-    static var previews: some View {
-        RootView()
-    }
-}
+//struct RootView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RootView()
+//    }
+//}
+

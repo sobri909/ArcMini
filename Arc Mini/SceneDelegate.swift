@@ -18,10 +18,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         print("sceneWillConnectTo")
 
-        let rootView = RootView()
-
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
+            let rootView = RootView(todaySegment: AppDelegate.todaySegment, selectedItems: AppDelegate.selectedItems)
             window.rootViewController = UIHostingController(rootView: rootView)
             self.window = window
             window.makeKeyAndVisible()

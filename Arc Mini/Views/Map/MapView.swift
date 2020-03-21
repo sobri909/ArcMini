@@ -10,12 +10,20 @@ import SwiftUI
 import LocoKit
 import MapKit
 
-struct MapView: UIViewRepresentable {
+final class MapView: UIViewRepresentable {
 
     @ObservedObject var segment: TimelineSegment
+    @ObservedObject var selectedItems: ObservableItems
+
+    init(segment: TimelineSegment, selectedItems: ObservableItems) {
+        self.segment = segment
+        self.selectedItems = selectedItems
+    }
 
     func makeUIView(context: Context) -> MKMapView {
         let map = MKMapView()
+        map.isPitchEnabled = false
+        map.isRotateEnabled = false
         map.delegate = context.coordinator
         return map
     }
@@ -24,36 +32,50 @@ struct MapView: UIViewRepresentable {
         map.removeOverlays(map.overlays)
         map.removeAnnotations(map.annotations)
 
+        var zoomOverlays: [MKOverlay] = []
+
         for timelineItem in segment.timelineItems {
+            let disabled = (!selectedItems.items.isEmpty && !selectedItems.items.contains(timelineItem))
+
             if let path = timelineItem as? ArcPath {
-                add(path, to: map)
+                if let overlay = add(path, to: map, disabled: disabled), !disabled {
+                    zoomOverlays.append(overlay)
+                }
 
             } else if let visit = timelineItem as? ArcVisit {
-                add(visit, to: map)
+                if let overlay = add(visit, to: map, disabled: disabled), !disabled {
+                    zoomOverlays.append(overlay)
+                }
+
             }
         }
 
-        zoomToShow(overlays: map.overlays, in: map)
+        zoomToShow(overlays: zoomOverlays, in: map)
     }
 
-    func add(_ path: ArcPath, to map: MKMapView) {
-        if path.samples.isEmpty { return }
+    func add(_ path: ArcPath, to map: MKMapView, disabled: Bool) -> MKOverlay? {
+        if path.samples.isEmpty { return nil }
 
         var coords = path.samples.compactMap { $0.location?.coordinate }
-        let line = PathPolyline(coordinates: &coords, count: coords.count)
-        line.color = path.uiColor
+        let line = PathPolyline(coordinates: &coords, count: coords.count, color: path.uiColor, disabled: disabled)
 
         map.addOverlay(line)
+
+        return line
     }
 
-    func add(_ visit: Visit, to map: MKMapView) {
-        guard let center = visit.center else { return }
+    func add(_ visit: Visit, to map: MKMapView, disabled: Bool) -> MKOverlay? {
+        guard let center = visit.center else { return nil }
 
-        map.addAnnotation(VisitAnnotation(coordinate: center.coordinate, visit: visit))
+        if !disabled {
+            map.addAnnotation(VisitAnnotation(coordinate: center.coordinate, visit: visit))
+        }
 
         let circle = VisitCircle(center: center.coordinate, radius: visit.radius2sd)
-        circle.color = .arcPurple
+        circle.color = disabled ? .lightGray : .arcPurple
         map.addOverlay(circle, level: .aboveLabels)
+
+        return circle
     }
 
     func zoomToShow(overlays: [MKOverlay], in map: MKMapView) {

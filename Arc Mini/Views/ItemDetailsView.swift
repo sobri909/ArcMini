@@ -12,9 +12,18 @@ import LocoKit
 struct ItemDetailsView: View {
 
     var timelineItem: TimelineItem
-    
+
+    @ObservedObject var selectedItems: ObservableItems
+
+    init(timelineItem: TimelineItem, selectedItems: ObservableItems) {
+        self.timelineItem = timelineItem
+        self.selectedItems = selectedItems
+    }
+
     var body: some View {
-        Text("Test")
+        Text((timelineItem as! ArcTimelineItem).title)
+            .onAppear { self.selectedItems.items.insert(self.timelineItem) }
+            .onDisappear { self.selectedItems.items.remove(self.timelineItem) }
     }
 
 }
