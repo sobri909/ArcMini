@@ -26,7 +26,7 @@ struct TimelineView: View {
             NavigationView {
                 List {
                     Section(header: TimelineHeader().frame(width: metrics.size.width)) {
-                        ForEach(self.segment.timelineItems.reversed()) { timelineItem in
+                        ForEach(self.filteredListItems) { timelineItem in
                             ZStack {
                                 self.listBox(for: timelineItem)
                                 NavigationLink(destination: ItemDetailsView(timelineItem: timelineItem, selectedItems: self.selectedItems)) {
@@ -41,6 +41,11 @@ struct TimelineView: View {
                 .navigationBarHidden(true)
             }
         }
+    }
+
+    // TODO: need "thinking..." boxes represented in the list array somehow
+    var filteredListItems: [TimelineItem] {
+        return self.segment.timelineItems.reversed().filter { $0.dateRange != nil }
     }
 
     func listBox(for timelineItem: TimelineItem) -> AnyView {
