@@ -62,8 +62,9 @@ class LastFm {
 
     static func fetchPlayedTracks(for username: String, from: Date, to: Date? = nil) -> Promise<RecentTracksResponse?> {
         return Promise { seal in
-            var urlString = apiRoot + "?format=json&api_key=" + PrivateSettings.lastFmAPIKey
+            guard let apiKey = Settings.lastFmAPIKey else { seal.fulfill(nil); return }
 
+            var urlString = apiRoot + "?format=json&api_key=" + apiKey
             urlString += "&method=user.getRecentTracks&user=" + username
             urlString += String(format: "&from=%.0f", from.timeIntervalSince1970)
             if let to = to { urlString += String(format: "&to=%.0f", to.timeIntervalSince1970) }
