@@ -27,7 +27,6 @@ struct ItemDetailsView: View {
     var body: some View {
         Text((timelineItem as! ArcTimelineItem).title)
             .introspectNavigationController { nav in
-                print("nav.navigationBar: \(nav.navigationBar)")
                 nav.setNavigationBarHidden(false, animated: true)
                 nav.navigationBar.tintColor = .arcSelected
                 nav.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left")

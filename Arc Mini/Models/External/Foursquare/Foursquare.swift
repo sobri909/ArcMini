@@ -71,7 +71,7 @@ class Foursquare {
     static func fetchVenues(for location: CLLocation, query: String? = nil) -> Promise<[Venue]?> {
         return Promise { seal in
             guard let clientId = Settings.foursquareClientId else { seal.fulfill(nil); return }
-            guard let clientSecret = Settings.foursquareClientId else { seal.fulfill(nil); return }
+            guard let clientSecret = Settings.foursquareClientSecret else { seal.fulfill(nil); return }
 
             var urlString = "https://api.foursquare.com/v2/venues/search"
 
@@ -110,7 +110,6 @@ class Foursquare {
 
                 if let error = handle(response: response) {
                     print("ERROR: \(error)")
-//                    Bugsnag.notifyError(error)
                 }
 
                 guard let data = data else {
@@ -238,7 +237,7 @@ class Foursquare {
                 }
 
                 if let error = handle(response: response) {
-//                    Bugsnag.notifyError(error)
+                    print("ERROR: \(error)")
                 }
 
                 guard let data = data else {

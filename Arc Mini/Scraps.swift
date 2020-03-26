@@ -71,6 +71,10 @@ func onMain(_ closure: @escaping () -> ()) {
     }
 }
 
+func delay(_ delay: TimeInterval, closure: @escaping () -> ()) {
+    DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: closure)
+}
+
 func background(qos: DispatchQoS.QoSClass? = nil, closure: @escaping () -> ()) {
     if let qos = qos {
         DispatchQueue.global(qos: qos).async(execute: closure)

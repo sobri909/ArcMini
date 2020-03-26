@@ -92,7 +92,7 @@ class ArcStore: TimelineStore {
     }
 
     func place(for query: String, arguments: StatementArguments = StatementArguments()) -> Place? {
-        return try! pool.read { db in
+        return try! arcPool.read { db in
             guard let row = try Row.fetchOne(db, sql: query, arguments: arguments) else { return nil }
             return place(for: row)
         }
@@ -103,7 +103,7 @@ class ArcStore: TimelineStore {
     }
 
     public func places(for query: String, arguments: StatementArguments = StatementArguments()) -> [Place] {
-        return try! pool.read { db in
+        return try! arcPool.read { db in
             var places: [Place] = []
             let rows = try Row.fetchCursor(db, sql: query, arguments: arguments)
             while let row = try rows.next() { places.append(place(for: row)) }
@@ -112,7 +112,7 @@ class ArcStore: TimelineStore {
     }
 
     func countPlaces(where query: String = "1", arguments: StatementArguments = StatementArguments()) -> Int {
-        return try! pool.read { db in
+        return try! arcPool.read { db in
             return try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM Place WHERE " + query, arguments: arguments)!
         }
     }

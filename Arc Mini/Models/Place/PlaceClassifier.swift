@@ -11,11 +11,12 @@ import CloudKit
 import CoreLocation
 import PromiseKit
 
-class PlaceClassifier {
+class PlaceClassifier: ObservableObject {
 
     var visit: ArcVisit?
     var segment: ItemSegment?
     var overlappersOnly = false
+    @Published var results = [PlaceClassifierResultItem]()
 
     init?(visit: ArcVisit, overlappersOnly: Bool = false) {
         if visit.center == nil { return nil }
@@ -65,6 +66,8 @@ class PlaceClassifier {
 
             scores.append(PlaceClassifierResultItem(place: place, score: finalScore))
         }
+
+        self.results = scores.sorted { $0.score > $1.score }
 
         return PlaceClassifierResults(results: scores)
     }

@@ -12,10 +12,30 @@ import LocoKit
 struct VisitEditView: View {
 
     var visit: ArcVisit
+    @ObservedObject var placeClassifier: PlaceClassifier
+
+    init(visit: ArcVisit) {
+        self.visit = visit
+        self.placeClassifier = PlaceClassifier(visit: visit)!
+        fetchPlaces()
+    }
 
     var body: some View {
-        Text("Boobs")
+        List {
+            ForEach(placeClassifier.results, id: \.place.placeId) { result in
+                HStack {
+                    Text(result.place.name)
+                }
+            }
+        }
     }
+
+    // MARK: - Search
+
+    func fetchPlaces() {
+        placeClassifier.fetchRemotePlaces(query: "").cauterize()
+    }
+
 }
 
 //struct VisitEditView_Previews: PreviewProvider {
