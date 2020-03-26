@@ -18,12 +18,43 @@ struct ItemDetailsView: View {
     init(timelineItem: TimelineItem, selectedItems: ObservableItems) {
         self.timelineItem = timelineItem
         self.selectedItems = selectedItems
+
+        let appearance = UINavigationBarAppearance()
+        appearance.setBackIndicatorImage(UIImage(systemName: "arrow.left"), transitionMaskImage: nil)
+        UINavigationBar.appearance().standardAppearance = appearance
     }
 
     var body: some View {
         Text((timelineItem as! ArcTimelineItem).title)
+            .introspectNavigationController { nav in
+                print("nav.navigationBar: \(nav.navigationBar)")
+                nav.setNavigationBarHidden(false, animated: true)
+                nav.navigationBar.tintColor = .arcSelected
+                nav.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left")
+            }
+            .navigationBarItems(trailing:
+                NavigationLink(destination: editView(for: timelineItem)) {
+                    HStack(alignment: .firstTextBaseline) {
+                        Image(systemName: "square.and.pencil").foregroundColor(.arcSelected)
+                        Text("EDIT")
+                            .font(.custom("Rubik-Medium", size: 12))
+                            .foregroundColor(.arcSelected)
+                            .kerning(1)
+                    }
+                }
+            )
             .onAppear { self.selectedItems.items.insert(self.timelineItem) }
             .onDisappear { self.selectedItems.items.remove(self.timelineItem) }
+    }
+
+    func editView(for timelineItem: TimelineItem) -> AnyView {
+        if let visit = timelineItem as? ArcVisit {
+            return AnyView(VisitEditView(visit: visit))
+        }
+        if let path = timelineItem as? ArcPath {
+            return AnyView(PathEditView(path: path))
+        }
+        fatalError("nah")
     }
 
 }

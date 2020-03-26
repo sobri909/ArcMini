@@ -17,6 +17,8 @@ protocol ArcTimelineItem where Self: TimelineItem {
 
 extension ArcTimelineItem {
 
+    var arcStore: ArcStore? { return store as? ArcStore }
+
     var startTimeString: String? {
         return startString(dateStyle: .none, timeStyle: .short)
     }

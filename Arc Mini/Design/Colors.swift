@@ -81,6 +81,8 @@ extension UIColor {
 
     // MARK: - Misc
 
+    static var arcSelected: UIColor { return UIColor(0x9A217D) }
+
     static var arcRecordingOffRed: UIColor { return .arcRed }
     static var arcRecordingOnGreen: UIColor { return .arcGreen }
 

@@ -8,11 +8,13 @@
 
 import SwiftUI
 import LocoKit
+import Introspect
 
 struct TimelineView: View {
 
     @ObservedObject var segment: TimelineSegment
     @ObservedObject var selectedItems: ObservableItems
+    @State private var listOffset: CGRect = CGRect()
 
     init(segment: TimelineSegment, selectedItems: ObservableItems) {
         self.segment = segment
@@ -25,6 +27,7 @@ struct TimelineView: View {
         GeometryReader { metrics in
             NavigationView {
                 List {
+                    EmptyView().background(GeometryGetter(rect: self.$listOffset))
                     Section(header: TimelineHeader().frame(width: metrics.size.width)) {
                         ForEach(self.filteredListItems) { timelineItem in
                             ZStack {
@@ -37,8 +40,12 @@ struct TimelineView: View {
                         }
                     }
                 }
-                .navigationBarTitle("Timeline")
+                .navigationBarTitle("")
                 .navigationBarHidden(true)
+                .introspectNavigationController { nav in
+                    nav.navigationBar.tintColor = .arcSelected
+                    nav.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left")
+                }
             }
         }
     }
@@ -54,7 +61,7 @@ struct TimelineView: View {
                 .listRowInsets(EdgeInsets()))
         }
         if let path = timelineItem as? ArcPath {
-            return AnyView(PathListBox(path: path )
+            return AnyView(PathListBox(path: path)
                 .listRowInsets(EdgeInsets()))
         }
         fatalError("nah")
