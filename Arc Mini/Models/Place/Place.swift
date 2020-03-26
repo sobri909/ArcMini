@@ -54,7 +54,7 @@ class Place: TimelineObject, Hashable, Encodable {
 
     func save(immediate: Bool = true) {
         do {
-            try store?.pool.write { db in
+            try AppDelegate.store.arcPool.write { db in
                 self.transactionDate = Date()
                 try self.save(in: db)
                 self.lastSaved = self.transactionDate
@@ -67,7 +67,7 @@ class Place: TimelineObject, Hashable, Encodable {
     func saveNoDate() {
         hasChanges = true
         do {
-            try store?.pool.write { db in
+            try AppDelegate.store.arcPool.write { db in
                 try self.save(in: db)
             }
         } catch {
