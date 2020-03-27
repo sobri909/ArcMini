@@ -215,17 +215,14 @@
 		C95E0E2A2417B6E8008418A1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C90D786D2428FFD2004ABFD0 /* Place */,
 				C9F32F48242A5BD200184862 /* External */,
+				C9D4717D242E2EF4005F2AA3 /* Timeline */,
+				C90D786D2428FFD2004ABFD0 /* Place */,
 				C99F5EB8242A2EFC00E172AE /* ArcCoordinatesMatrix.swift */,
 				C99F5EB9242A2EFC00E172AE /* ArcHistogram.swift */,
-				C95E0E2C2417B773008418A1 /* ArcPath.swift */,
 				C9EB6643241A60FA00F545AF /* ArcStore.swift */,
-				C95E0E282417B6DD008418A1 /* ArcTimelineItem.swift */,
-				C95E0E2B2417B773008418A1 /* ArcVisit.swift */,
 				C90D786E2429006F004ABFD0 /* Migrations.swift */,
 				C99F5EB5242A2C5000E172AE /* Note.swift */,
-				C9872DA42424FC06000B5EE3 /* ObservableItems.swift */,
 				C99F5EC8242A4EFA00E172AE /* Settings.swift */,
 				C99F5EB4242A2C5000E172AE /* TrackPlay.swift */,
 				C9B86B87242CAD8900D52C0D /* ArcError.swift */,
@@ -283,6 +280,17 @@
 				C99F5EC3242A3F8600E172AE /* FSOAuth.m */,
 			);
 			path = Foursquare;
+			sourceTree = "<group>";
+		};
+		C9D4717D242E2EF4005F2AA3 /* Timeline */ = {
+			isa = PBXGroup;
+			children = (
+				C95E0E2C2417B773008418A1 /* ArcPath.swift */,
+				C95E0E282417B6DD008418A1 /* ArcTimelineItem.swift */,
+				C95E0E2B2417B773008418A1 /* ArcVisit.swift */,
+				C9872DA42424FC06000B5EE3 /* ObservableItems.swift */,
+			);
+			path = Timeline;
 			sourceTree = "<group>";
 		};
 		C9F32F48242A5BD200184862 /* External */ = {

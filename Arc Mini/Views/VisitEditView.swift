@@ -17,7 +17,6 @@ struct VisitEditView: View {
     init(visit: ArcVisit) {
         self.visit = visit
         self.placeClassifier = PlaceClassifier(visit: visit)!
-        fetchPlaces()
     }
 
     var body: some View {
@@ -27,13 +26,17 @@ struct VisitEditView: View {
                     Text(result.place.name)
                 }
             }
+        }.onAppear {
+            self.fetchPlaces()
         }
     }
 
     // MARK: - Search
 
     func fetchPlaces() {
-        placeClassifier.fetchRemotePlaces(query: "").cauterize()
+        placeClassifier.fetchRemotePlaces().done {
+            _ = self.placeClassifier.results()
+        }.cauterize()
     }
 
 }
