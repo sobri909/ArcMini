@@ -28,6 +28,13 @@ class ArcVisit: LocoKit.Visit, ArcTimelineItem {
     var placeId: UUID? { didSet { hasChanges = true } }
     var manualPlace = false { didSet { hasChanges = true } }
 
+    private var _placeClassifier: PlaceClassifier?
+    var placeClassifier: PlaceClassifier {
+        if let cached = _placeClassifier, cached.location == self.center { return cached }
+        _placeClassifier = PlaceClassifier(visit: self)
+        return _placeClassifier!
+    }
+
     // swarm
     var swarmCheckinId: String? { didSet { hasChanges = true } }
 

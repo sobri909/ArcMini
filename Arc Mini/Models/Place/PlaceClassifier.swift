@@ -40,6 +40,7 @@ class PlaceClassifier: ObservableObject {
 
     // MARK - Results searching
 
+    @discardableResult
     func results(query: String = "") -> PlaceClassifierResults {
         if overlappersOnly && !query.isEmpty {
             print("CANT USE A QUERY ON AN OVERLAPPERS ONLY CLASSIFIER!")
@@ -81,7 +82,7 @@ class PlaceClassifier: ObservableObject {
 
 extension PlaceClassifier {
 
-    private var location: CLLocation? {
+    var location: CLLocation? {
         if let center = segment?.center { return center }
         if let center = visit?.center { return center }
         return nil

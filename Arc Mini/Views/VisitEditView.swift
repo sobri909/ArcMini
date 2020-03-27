@@ -12,11 +12,13 @@ import LocoKit
 struct VisitEditView: View {
 
     var visit: ArcVisit
+    @ObservedObject var selectedItems: ObservableItems
     @ObservedObject var placeClassifier: PlaceClassifier
 
-    init(visit: ArcVisit) {
+    init(visit: ArcVisit, selectedItems: ObservableItems, placeClassifier: PlaceClassifier) {
         self.visit = visit
-        self.placeClassifier = PlaceClassifier(visit: visit)!
+        self.selectedItems = selectedItems
+        self.placeClassifier = placeClassifier
     }
 
     var body: some View {
@@ -26,7 +28,11 @@ struct VisitEditView: View {
                     Text(result.place.name)
                 }
             }
-        }.onAppear {
+        }
+        .onAppear {
+            self.selectedItems.items.removeAll()
+            self.selectedItems.items.insert(self.visit)
+            self.placeClassifier.results()
             self.fetchPlaces()
         }
     }
@@ -35,7 +41,7 @@ struct VisitEditView: View {
 
     func fetchPlaces() {
         placeClassifier.fetchRemotePlaces().done {
-            _ = self.placeClassifier.results()
+            self.placeClassifier.results()
         }.cauterize()
     }
 

@@ -42,13 +42,15 @@ struct ItemDetailsView: View {
                     }
                 }
             )
-            .onAppear { self.selectedItems.items.insert(self.timelineItem) }
-            .onDisappear { self.selectedItems.items.remove(self.timelineItem) }
+            .onAppear {
+                self.selectedItems.items.removeAll()
+                self.selectedItems.items.insert(self.timelineItem)
+            }
     }
 
     func editView(for timelineItem: TimelineItem) -> AnyView {
         if let visit = timelineItem as? ArcVisit {
-            return AnyView(VisitEditView(visit: visit))
+            return AnyView(VisitEditView(visit: visit, selectedItems: selectedItems, placeClassifier: visit.placeClassifier))
         }
         if let path = timelineItem as? ArcPath {
             return AnyView(PathEditView(path: path))

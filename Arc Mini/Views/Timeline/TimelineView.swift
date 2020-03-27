@@ -40,6 +40,7 @@ struct TimelineView: View {
                         }
                     }
                 }
+                .onAppear { self.selectedItems.items.removeAll() }
                 .navigationBarTitle("")
                 .navigationBarHidden(true)
                 .introspectNavigationController { nav in
