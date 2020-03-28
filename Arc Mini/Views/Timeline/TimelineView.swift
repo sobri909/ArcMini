@@ -8,7 +8,6 @@
 
 import SwiftUI
 import LocoKit
-import Introspect
 
 struct TimelineView: View {
 
@@ -43,10 +42,6 @@ struct TimelineView: View {
                 .onAppear { self.selectedItems.items.removeAll() }
                 .navigationBarTitle("")
                 .navigationBarHidden(true)
-                .introspectNavigationController { nav in
-                    nav.navigationBar.tintColor = .arcSelected
-                    nav.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.left")
-                }
             }
         }
     }

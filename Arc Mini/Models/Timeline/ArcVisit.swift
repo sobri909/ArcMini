@@ -19,6 +19,32 @@ class ArcVisit: LocoKit.Visit, ArcTimelineItem {
         return formatter
     }()
 
+    // MARK: - Init
+
+    public required init(in store: TimelineStore) { super.init(in: store) }
+
+    public required init(from dict: [String: Any?], in store: TimelineStore) {
+
+        // ArcVisit
+        if let uuidString = dict["placeId"] as? String {
+            self.placeId = UUID(uuidString: uuidString)
+        }
+        self.manualPlace = dict["manualPlace"] as? Bool ?? false
+        self.streetAddress = dict["streetAddress"] as? String
+        self.customTitle = dict["customTitle"] as? String
+        self.swarmCheckinId = dict["swarmCheckinId"] as? String
+
+        // ArcTimelineItem
+        self.activeEnergyBurned = dict["activeEnergyBurned"] as? Double
+        self.averageHeartRate = dict["averageHeartRate"] as? Double
+        self.maxHeartRate = dict["maxHeartRate"] as? Double
+        if let steps = dict["hkStepCount"] as? Double {
+            self.hkStepCount = Int(steps)
+        }
+
+        super.init(from: dict, in: store)
+    }
+
     // MARK: - Place
 
     var placeId: UUID? { didSet { hasChanges = true } }
@@ -227,6 +253,70 @@ class ArcVisit: LocoKit.Visit, ArcTimelineItem {
         container["placeId"] = placeId?.uuidString
         container["swarmCheckinId"] = swarmCheckinId
     }
-    
+
+    // MARK: - Codable
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        // ArcVisit
+        self.streetAddress = try? container.decode(String.self, forKey: .streetAddress)
+        self.manualPlace = try container.decode(Bool.self, forKey: .manualPlace)
+        self.customTitle = try? container.decode(String.self, forKey: .customTitle)
+
+        // ArcTimelineItem
+        self.hkStepCount = try? container.decode(Int.self, forKey: .hkStepCount)
+        self.activeEnergyBurned = try? container.decode(Double.self, forKey: .activeEnergyBurned)
+        self.averageHeartRate = try? container.decode(Double.self, forKey: .averageHeartRate)
+        self.maxHeartRate = try? container.decode(Double.self, forKey: .maxHeartRate)
+
+        // PersistentVisit
+        try super.init(from: decoder)
+    }
+
+    override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        // ArcItem
+        if activeEnergyBurned != nil { try container.encode(activeEnergyBurned, forKey: .activeEnergyBurned) }
+        if averageHeartRate != nil { try container.encode(averageHeartRate, forKey: .averageHeartRate) }
+        if maxHeartRate != nil { try container.encode(maxHeartRate, forKey: .maxHeartRate) }
+        if hkStepCount != nil { try container.encode(hkStepCount, forKey: .hkStepCount) }
+
+        // ArcVisit
+        if streetAddress != nil { try container.encode(streetAddress, forKey: .streetAddress) }
+        if customTitle != nil { try container.encode(customTitle, forKey: .customTitle) }
+        if placeId != nil {
+            try container.encode(placeId, forKey: .placeId)
+            try container.encode(manualPlace, forKey: .manualPlace)
+            try container.encode(place, forKey: .place)
+        }
+        if swarmCheckinId != nil {
+            try container.encode(swarmCheckinId, forKey: .swarmCheckinId)
+        }
+
+        if !notes.isEmpty { try container.encode(notes, forKey: .notes) }
+
+        try super.encode(to: encoder)
+    }
+
+    enum CodingKeys: String, CodingKey {
+
+        // ArcItem
+        case notes
+        case activeEnergyBurned
+        case averageHeartRate
+        case maxHeartRate
+        case hkStepCount
+
+        // ArcVisit
+        case streetAddress
+        case manualPlace
+        case placeCKRecordName
+        case customTitle
+        case placeId
+        case place
+        case swarmCheckinId
+    }
 }
 

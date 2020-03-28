@@ -196,6 +196,15 @@
 			path = Maths;
 			sourceTree = "<group>";
 		};
+		C952400D242F652A00F4522D /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				C9EB6643241A60FA00F545AF /* ArcStore.swift */,
+				C90D786E2429006F004ABFD0 /* Migrations.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
 		C95C555F2413C02C0038EB3B /* Timeline */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,13 +237,12 @@
 		C95E0E2A2417B6E8008418A1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C952400D242F652A00F4522D /* Database */,
 				C9F32F48242A5BD200184862 /* External */,
 				C9D4717D242E2EF4005F2AA3 /* Timeline */,
 				C90D786D2428FFD2004ABFD0 /* Place */,
 				C9524008242F50BA00F4522D /* Maths */,
 				C9524006242F502700F4522D /* RecordingManager.swift */,
-				C9EB6643241A60FA00F545AF /* ArcStore.swift */,
-				C90D786E2429006F004ABFD0 /* Migrations.swift */,
 				C99F5EB5242A2C5000E172AE /* Note.swift */,
 				C99F5EC8242A4EFA00E172AE /* Settings.swift */,
 				C99F5EB4242A2C5000E172AE /* TrackPlay.swift */,

@@ -15,12 +15,6 @@ struct VisitEditView: View {
     @ObservedObject var selectedItems: ObservableItems
     @ObservedObject var placeClassifier: PlaceClassifier
 
-    init(visit: ArcVisit, selectedItems: ObservableItems, placeClassifier: PlaceClassifier) {
-        self.visit = visit
-        self.selectedItems = selectedItems
-        self.placeClassifier = placeClassifier
-    }
-
     var body: some View {
         List {
             ForEach(placeClassifier.results, id: \.place.placeId) { result in
@@ -29,7 +23,7 @@ struct VisitEditView: View {
                 }) {
                     if self.visit.place == result.place {
                         Text(result.place.name)
-                            .font(.system(size: 18, weight: .semibold))
+                            .font(.system(size: 17, weight: .semibold))
                     } else {
                         Text(result.place.name)
                             .font(.system(size: 17, weight: .regular))

@@ -25,6 +25,12 @@ extension Date {
     var weekday: Weekday { return Weekday(rawValue: greg.dateComponents([.weekday], from: self).weekday!)! }
 }
 
+extension String {
+    func localised(comment: String = "") -> String {
+        return NSLocalizedString(self, comment: comment)
+    }
+}
+
 extension Bundle {
     static var buildNumber: Int {
         return Int(main.infoDictionary![kCFBundleVersionKey as String] as! String)!
@@ -61,7 +67,7 @@ extension URL {
     }
 }
 
-// MARK:GCD
+// MARK: - GCD
 
 func onMain(_ closure: @escaping () -> ()) {
     if Thread.isMainThread {
