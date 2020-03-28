@@ -6,6 +6,7 @@
 //  Copyright © 2017 Big Paua. All rights reserved.
 //
 
+import GRDB
 import LocoKit
 import SwiftNotes
 
@@ -208,6 +209,24 @@ class ArcVisit: LocoKit.Visit, ArcTimelineItem {
         }
     }
 
+    // MARK: - Persistable
+
+    override func encode(to container: inout PersistenceContainer) {
+        super.encode(to: &container)
+
+        // ArcItem
+        container["activeEnergyBurned"] = activeEnergyBurned
+        container["averageHeartRate"] = averageHeartRate
+        container["maxHeartRate"] = maxHeartRate
+        container["hkStepCount"] = hkStepCount
+
+        // ArcVisit
+        container["streetAddress"] = streetAddress
+        container["manualPlace"] = manualPlace
+        container["customTitle"] = customTitle
+        container["placeId"] = placeId?.uuidString
+        container["swarmCheckinId"] = swarmCheckinId
+    }
     
 }
 
