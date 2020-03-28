@@ -13,11 +13,11 @@ import MapKit
 final class MapView: UIViewRepresentable {
 
     @ObservedObject var segment: TimelineSegment
-    @ObservedObject var selectedItems: ObservableItems
+    @ObservedObject var mapState: MapState
 
-    init(segment: TimelineSegment, selectedItems: ObservableItems) {
+    init(segment: TimelineSegment, mapState: MapState) {
         self.segment = segment
-        self.selectedItems = selectedItems
+        self.mapState = mapState
     }
 
     func makeUIView(context: Context) -> MKMapView {
@@ -35,7 +35,7 @@ final class MapView: UIViewRepresentable {
         var zoomOverlays: [MKOverlay] = []
 
         for timelineItem in segment.timelineItems {
-            let disabled = (!selectedItems.items.isEmpty && !selectedItems.items.contains(timelineItem))
+            let disabled = (!mapState.selectedItems.isEmpty && !mapState.selectedItems.contains(timelineItem))
 
             if let path = timelineItem as? ArcPath {
                 if let overlay = add(path, to: map, disabled: disabled), !disabled {

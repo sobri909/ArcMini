@@ -12,7 +12,7 @@ import LocoKit
 struct PathEditView: View {
 
     var path: ArcPath
-    @ObservedObject var selectedItems: ObservableItems
+    @EnvironmentObject var mapState: MapState
     var classifierResults: ClassifierResults
 
     var body: some View {
@@ -37,9 +37,10 @@ struct PathEditView: View {
                 }
             }
         }
+        .navigationBarTitle("", displayMode: .inline)
         .onAppear {
-            self.selectedItems.items.removeAll()
-            self.selectedItems.items.insert(self.path)
+            self.mapState.selectedItems.removeAll()
+            self.mapState.selectedItems.insert(self.path)
         }
     }
 

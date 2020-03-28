@@ -13,14 +13,10 @@ import Introspect
 struct ItemDetailsView: View {
 
     var timelineItem: TimelineItem
-    @ObservedObject var selectedItems: ObservableItems
+    @EnvironmentObject var mapState: MapState
 
     var body: some View {
         Text((timelineItem as! ArcTimelineItem).title)
-            .introspectNavigationController { nav in
-                nav.isNavigationBarHidden = false
-                nav.navigationBar.tintColor = .arcSelected
-            }
             .navigationBarItems(trailing:
                 NavigationLink(destination: editView(for: timelineItem)) {
                     HStack(alignment: .firstTextBaseline) {
@@ -32,18 +28,23 @@ struct ItemDetailsView: View {
                     }
                 }
             )
+            .navigationBarTitle("", displayMode: .inline)
+            .introspectNavigationController { nav in
+                nav.isNavigationBarHidden = false
+                nav.navigationBar.tintColor = .arcSelected
+            }
             .onAppear {
-                self.selectedItems.items.removeAll()
-                self.selectedItems.items.insert(self.timelineItem)
+                self.mapState.selectedItems.removeAll()
+                self.mapState.selectedItems.insert(self.timelineItem)
             }
     }
 
     func editView(for timelineItem: TimelineItem) -> AnyView {
         if let visit = timelineItem as? ArcVisit {
-            return AnyView(VisitEditView(visit: visit, selectedItems: selectedItems, placeClassifier: visit.placeClassifier))
+            return AnyView(VisitEditView(visit: visit, placeClassifier: visit.placeClassifier))
         }
         if let path = timelineItem as? ArcPath, let classifierResults = path.classifierResults {
-            return AnyView(PathEditView(path: path, selectedItems: selectedItems, classifierResults: classifierResults))
+            return AnyView(PathEditView(path: path, classifierResults: classifierResults))
         }
         return AnyView(EmptyView())
     }

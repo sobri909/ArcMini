@@ -12,20 +12,15 @@ import LocoKit
 struct RootView: View {
 
     @ObservedObject var todaySegment: TimelineSegment
-    @ObservedObject var selectedItems: ObservableItems
-
-    init(todaySegment: TimelineSegment, selectedItems: ObservableItems) {
-        self.todaySegment = todaySegment
-        self.selectedItems = selectedItems
-    }
+    @EnvironmentObject var mapState: MapState
 
     var body: some View {
         GeometryReader { metrics in
             ZStack(alignment: .bottom) {
-                MapView(segment: self.todaySegment, selectedItems: self.selectedItems)
+                MapView(segment: self.todaySegment, mapState: self.mapState)
                     .edgesIgnoringSafeArea(.all)
                 VStack {
-                    TimelineView(segment: self.todaySegment, selectedItems: self.selectedItems)
+                    TimelineView(segment: self.todaySegment)
                         .frame(width: metrics.size.width, height: 400)
                 }
             }

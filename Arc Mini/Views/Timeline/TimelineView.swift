@@ -12,12 +12,10 @@ import LocoKit
 struct TimelineView: View {
 
     @ObservedObject var segment: TimelineSegment
-    @ObservedObject var selectedItems: ObservableItems
-    @State private var listOffset: CGRect = CGRect()
+    @EnvironmentObject var mapState: MapState
 
-    init(segment: TimelineSegment, selectedItems: ObservableItems) {
+    init(segment: TimelineSegment) {
         self.segment = segment
-        self.selectedItems = selectedItems
         UITableView.appearance().separatorStyle = .none
         UITableViewCell.appearance().selectionStyle = .none
     }
@@ -26,12 +24,11 @@ struct TimelineView: View {
         GeometryReader { metrics in
             NavigationView {
                 List {
-                    EmptyView().background(GeometryGetter(rect: self.$listOffset))
                     Section(header: TimelineHeader().frame(width: metrics.size.width)) {
                         ForEach(self.filteredListItems) { timelineItem in
                             ZStack {
                                 self.listBox(for: timelineItem)
-                                NavigationLink(destination: ItemDetailsView(timelineItem: timelineItem, selectedItems: self.selectedItems)) {
+                                NavigationLink(destination: ItemDetailsView(timelineItem: timelineItem)) {
                                     EmptyView()
                                 }
                                 .buttonStyle(PlainButtonStyle())
@@ -39,7 +36,7 @@ struct TimelineView: View {
                         }
                     }
                 }
-                .onAppear { self.selectedItems.items.removeAll() }
+                .onAppear { self.mapState.selectedItems.removeAll() }
                 .navigationBarTitle("")
                 .navigationBarHidden(true)
             }
