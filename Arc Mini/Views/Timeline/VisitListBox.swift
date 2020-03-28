@@ -27,7 +27,7 @@ struct VisitListBox: View {
             }
             Image("defaultPlaceIcon24")
             Spacer().frame(width: 24)
-            Text("Visit Title").font(.system(size: 16, weight: .semibold))
+            Text(visit.title).font(.system(size: 16, weight: .semibold))
             Spacer()
             
         }

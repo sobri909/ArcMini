@@ -20,7 +20,7 @@ class PlaceCache {
 
     static var cache = PlaceCache()
 
-    var store: ArcStore { return AppDelegate.store }
+    var store: ArcStore { return RecordingManager.store }
 
     lazy var updatesQueue: OperationQueue = {
         let queue = OperationQueue()

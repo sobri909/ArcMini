@@ -23,7 +23,7 @@ class Note: TimelineObject, Encodable {
         self.date = date
         self.body = body
         self.deleted = false
-        AppDelegate.store.add(self)
+        RecordingManager.store.add(self)
     }
 
     init(from dict: [String: Any?]) {
@@ -36,8 +36,7 @@ class Note: TimelineObject, Encodable {
         self.body = dict["body"] as! String
         self.deleted = dict["deleted"] as? Bool ?? false
         self.lastSaved = dict["lastSaved"] as? Date
-
-        AppDelegate.store.add(self)
+        RecordingManager.store.add(self)
     }
 
     // MARK: - TimelineObject
@@ -71,7 +70,7 @@ class Note: TimelineObject, Encodable {
 
     var source = "ArcMini"
     var objectId: UUID { return noteId }
-    var store: TimelineStore? { return AppDelegate.store }
+    var store: TimelineStore? { return RecordingManager.store }
 
     // MARK: - PersistableRecord
 

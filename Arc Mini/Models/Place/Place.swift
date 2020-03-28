@@ -54,7 +54,7 @@ class Place: TimelineObject, Hashable, Encodable {
 
     func save(immediate: Bool = true) {
         do {
-            try AppDelegate.store.arcPool.write { db in
+            try RecordingManager.store.arcPool.write { db in
                 self.transactionDate = Date()
                 try self.save(in: db)
                 self.lastSaved = self.transactionDate
@@ -67,7 +67,7 @@ class Place: TimelineObject, Hashable, Encodable {
     func saveNoDate() {
         hasChanges = true
         do {
-            try AppDelegate.store.arcPool.write { db in
+            try RecordingManager.store.arcPool.write { db in
                 try self.save(in: db)
             }
         } catch {
@@ -77,7 +77,7 @@ class Place: TimelineObject, Hashable, Encodable {
 
     var source = "ArcMini"
     var objectId: UUID { return placeId }
-    var store: TimelineStore? { return AppDelegate.store }
+    var store: TimelineStore? { return RecordingManager.store }
 
     // MARK: - PersistableRecord
 
@@ -137,7 +137,7 @@ class Place: TimelineObject, Hashable, Encodable {
         self.radius = Radius(mean: max(radius.mean, Place.minimumPlaceRadius), sd: radius.sd)
         self.center = center
         self.name = name
-        AppDelegate.store.add(self)
+        RecordingManager.store.add(self)
     }
 
     init(from dict: [String: Any?]) {
@@ -224,7 +224,7 @@ class Place: TimelineObject, Hashable, Encodable {
             setVisitTimesHistograms(from: visitTimesStrings)
         }
 
-        AppDelegate.store.add(self)
+        RecordingManager.store.add(self)
     }
 
     func setVisitTimesHistograms(from visitTimesStrings: [String]) {
@@ -349,7 +349,7 @@ class Place: TimelineObject, Hashable, Encodable {
     var _lastVisit: DateInterval?
     var lastVisit: DateInterval? {
         if let cached = _lastVisit { return cached }
-        guard let visit = AppDelegate.store.item(
+        guard let visit = RecordingManager.store.item(
             where: "placeId = ? AND deleted = 0 ORDER BY startDate DESC",
             arguments: [placeId.uuidString]) else { return nil }
         if !visit.isCurrentItem {

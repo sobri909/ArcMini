@@ -24,8 +24,16 @@ struct VisitEditView: View {
     var body: some View {
         List {
             ForEach(placeClassifier.results, id: \.place.placeId) { result in
-                HStack {
-                    Text(result.place.name)
+                Button(action: {
+                    self.visit.usePlace(result.place, manualPlace: true)
+                }) {
+                    if self.visit.place == result.place {
+                        Text(result.place.name)
+                            .font(.system(size: 18, weight: .semibold))
+                    } else {
+                        Text(result.place.name)
+                            .font(.system(size: 17, weight: .regular))
+                    }
                 }
             }
         }

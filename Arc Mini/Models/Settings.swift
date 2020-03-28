@@ -208,7 +208,7 @@ class Settings {
     static var _firstTimelineItem: TimelineItem?
     static var firstTimelineItem: TimelineItem? {
         if let cached = _firstTimelineItem, !cached.deleted, cached.startDate != nil { return cached }
-        let firstItem = AppDelegate.store.item(where: "startDate IS NOT NULL AND deleted = 0 ORDER BY startDate")
+        let firstItem = RecordingManager.store.item(where: "startDate IS NOT NULL AND deleted = 0 ORDER BY startDate")
         _firstTimelineItem = firstItem
         return _firstTimelineItem
     }

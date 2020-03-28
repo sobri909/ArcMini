@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            let rootView = RootView(todaySegment: AppDelegate.todaySegment, selectedItems: AppDelegate.selectedItems)
+            let rootView = RootView(todaySegment: RecordingManager.highlander.todaySegment, selectedItems: AppDelegate.selectedItems)
             window.rootViewController = UIHostingController(rootView: rootView)
             self.window = window
             window.makeKeyAndVisible()
@@ -36,7 +36,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-        AppDelegate.todaySegment.startUpdating()
+        RecordingManager.highlander.todaySegment.startUpdating()
     }
 
     func sceneWillResignActive(_ scene: UIScene) {}
@@ -44,7 +44,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {}
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-        AppDelegate.todaySegment.stopUpdating()
+        RecordingManager.highlander.todaySegment.stopUpdating()
     }
 
 }

@@ -12,32 +12,13 @@ import LocoKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    static let store = ArcStore()
-    static let recorder = TimelineRecorder(store: store, classifier: TimelineClassifier.highlander)
-
-    private static var _todaySegment: TimelineSegment?
-    static var todaySegment: TimelineSegment {
-        // flush outdated
-        if let dateRange = _todaySegment?.dateRange, !dateRange.containsNow { _todaySegment = nil }
-
-        // create if missing
-        if _todaySegment == nil {
-            _todaySegment = AppDelegate.store.segment(for: Calendar.current.dateInterval(of: .day, for: Date())!)
-        }
-
-        return _todaySegment!
-    }
-
     static var selectedItems = ObservableItems()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         LocoKitService.apiKey = "bee1aa1af978486b9186780a07cc240e"
-        ActivityTypesCache.highlander.store = AppDelegate.store
-
+        ActivityTypesCache.highlander.store = RecordingManager.store
         LocomotionManager.highlander.requestLocationPermission(background: true)
-        
-        AppDelegate.recorder.startRecording()
-
+        RecordingManager.recorder.startRecording()
         return true
     }
 
