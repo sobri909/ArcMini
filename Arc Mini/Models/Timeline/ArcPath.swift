@@ -242,6 +242,13 @@ class ArcPath: Path, ArcTimelineItem {
 
     // MARK: - TimelineItem
 
+    override func sampleTypesChanged() {
+        super.sampleTypesChanged()
+        _manualActivityType = nil
+        _needsUserCleanup = nil
+        _uncertainActivityType = nil
+        _unknownActivityType = nil
+    }
     override func scoreForConsuming(item: TimelineItem) -> ConsumptionScore {
 
         // a manual place can't be consumed
