@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "SwiftNotes",
+        "repositoryURL": "https://github.com/sobri909/SwiftNotes",
+        "state": {
+          "branch": "master",
+          "revision": "1240d0b252551d78f2eb37a0bd468b9fa0a398e3",
+          "version": null
+        }
+      },
+      {
         "package": "Introspect",
         "repositoryURL": "https://github.com/timbersoftware/SwiftUI-Introspect.git",
         "state": {

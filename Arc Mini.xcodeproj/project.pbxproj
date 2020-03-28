@@ -19,6 +19,7 @@
 		C92BF627241D06AD0089E4AD /* PathPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92BF623241D06AD0089E4AD /* PathPolyline.swift */; };
 		C92BF628241D06AD0089E4AD /* VisitAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92BF624241D06AD0089E4AD /* VisitAnnotation.swift */; };
 		C92BF629241D06AD0089E4AD /* VisitAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92BF625241D06AD0089E4AD /* VisitAnnotationView.swift */; };
+		C9524005242F3DE000F4522D /* SwiftNotes in Frameworks */ = {isa = PBXBuildFile; productRef = C9524004242F3DE000F4522D /* SwiftNotes */; };
 		C953392724126E250005E98F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C953392624126E250005E98F /* MapKit.framework */; };
 		C953392924126E670005E98F /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C953392824126E670005E98F /* MapView.swift */; };
 		C953392B24127CF30005E98F /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C953392A24127CF30005E98F /* TimelineView.swift */; };
@@ -117,6 +118,7 @@
 			files = (
 				C953392724126E250005E98F /* MapKit.framework in Frameworks */,
 				C99F5EB3242A240D00E172AE /* PromiseKit in Frameworks */,
+				C9524005242F3DE000F4522D /* SwiftNotes in Frameworks */,
 				C9C96AB224278052006D2E5B /* Introspect in Frameworks */,
 				09C227A470BFD8839C9491BB /* Pods_Arc_Mini.framework in Frameworks */,
 				C9F32F4A242A60A100184862 /* HealthKit.framework in Frameworks */,
@@ -324,6 +326,7 @@
 			packageProductDependencies = (
 				C9C96AB124278052006D2E5B /* Introspect */,
 				C99F5EB2242A240D00E172AE /* PromiseKit */,
+				C9524004242F3DE000F4522D /* SwiftNotes */,
 			);
 			productName = "Arc Mini";
 			productReference = C9822A7F240CF8D5006B70F4 /* Arc Mini.app */;
@@ -357,6 +360,7 @@
 			packageReferences = (
 				C9C96AB024278051006D2E5B /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				C99F5EB1242A240C00E172AE /* XCRemoteSwiftPackageReference "PromiseKit" */,
+				C9524003242F3DE000F4522D /* XCRemoteSwiftPackageReference "SwiftNotes" */,
 			);
 			productRefGroup = C9822A80240CF8D5006B70F4 /* Products */;
 			projectDirPath = "";
@@ -668,6 +672,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		C9524003242F3DE000F4522D /* XCRemoteSwiftPackageReference "SwiftNotes" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sobri909/SwiftNotes";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		C99F5EB1242A240C00E172AE /* XCRemoteSwiftPackageReference "PromiseKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mxcl/PromiseKit";
@@ -687,6 +699,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C9524004242F3DE000F4522D /* SwiftNotes */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C9524003242F3DE000F4522D /* XCRemoteSwiftPackageReference "SwiftNotes" */;
+			productName = SwiftNotes;
+		};
 		C99F5EB2242A240D00E172AE /* PromiseKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C99F5EB1242A240C00E172AE /* XCRemoteSwiftPackageReference "PromiseKit" */;

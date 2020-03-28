@@ -8,7 +8,5 @@ target 'Arc Mini' do
 
   # uncomment these lines for local LocoKit development
   pod 'LocoKit', :path => '~/Projects/LocoKit'
-  
-  pod 'SwiftNotes'
 
 end
