@@ -10,4 +10,5 @@ import LocoKit
 
 class MapState: ObservableObject {
     @Published var selectedItems: Set<TimelineItem> = []
+    @Published var itemSegments: Array<ItemSegment> = []
 }

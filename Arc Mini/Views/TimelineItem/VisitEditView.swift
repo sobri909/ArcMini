@@ -29,7 +29,7 @@ struct VisitEditView: View {
                             Text(result.place.name)
                                 .font(.system(size: 17, weight: .regular))
                         }
-                    }
+                    }.buttonStyle(RowButtonStyle())
                 }
             }
         }
@@ -37,8 +37,12 @@ struct VisitEditView: View {
         .onAppear {
             self.mapState.selectedItems.removeAll()
             self.mapState.selectedItems.insert(self.visit)
+            self.mapState.itemSegments = self.visit.segmentsByActivityType
             self.placeClassifier.results()
             self.fetchPlaces()
+        }
+        .onDisappear {
+            self.mapState.itemSegments.removeAll()
         }
     }
 

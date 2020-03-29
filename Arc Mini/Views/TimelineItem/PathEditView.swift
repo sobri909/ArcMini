@@ -34,13 +34,17 @@ struct PathEditView: View {
                             .font(.system(size: 15, weight: .semibold))
                             .foregroundColor(Color(UIColor.arcGray1))
                     }
-                }
+                }.buttonStyle(RowButtonStyle())
             }
         }
         .navigationBarTitle("", displayMode: .inline)
         .onAppear {
             self.mapState.selectedItems.removeAll()
             self.mapState.selectedItems.insert(self.path)
+            self.mapState.itemSegments = self.path.segmentsByActivityType
+        }
+        .onDisappear {
+            self.mapState.itemSegments.removeAll()
         }
     }
 

@@ -7,7 +7,7 @@ class PathPolyline: MKPolyline {
 
     var color: UIColor?
 
-    convenience init(coordinates: UnsafePointer<CLLocationCoordinate2D>, count: Int, color: UIColor, disabled: Bool) {
+    convenience init(coordinates: UnsafePointer<CLLocationCoordinate2D>, count: Int, color: UIColor, disabled: Bool = false) {
         self.init(coordinates: coordinates, count: count)
         self.color = disabled ? UIColor.lightGray.withAlphaComponent(0.5) : color
     }

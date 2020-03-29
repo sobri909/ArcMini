@@ -18,6 +18,13 @@ struct TimelineView: View {
         self.segment = segment
         UITableView.appearance().separatorStyle = .none
         UITableViewCell.appearance().selectionStyle = .none
+        UINavigationBar.appearance().tintColor = .arcSelected
+//        UINavigationBar.appearance().isTranslucent = false // causes crash
+
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.shadowColor = .clear
+        UINavigationBar.appearance().standardAppearance = barAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = barAppearance
     }
 
     var body: some View {
@@ -36,9 +43,9 @@ struct TimelineView: View {
                         }
                     }
                 }
-                .onAppear { self.mapState.selectedItems.removeAll() }
                 .navigationBarTitle("")
                 .navigationBarHidden(true)
+                .onAppear { self.mapState.selectedItems.removeAll() }
             }
         }
     }

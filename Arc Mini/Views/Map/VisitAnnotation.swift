@@ -7,11 +7,9 @@ import LocoKit
 class VisitAnnotation: NSObject, MKAnnotation {
 
     var coordinate: CLLocationCoordinate2D
-    var visit: Visit
 
-    init(coordinate: CLLocationCoordinate2D, visit: Visit) {
+    init(coordinate: CLLocationCoordinate2D) {
         self.coordinate = coordinate
-        self.visit = visit
         super.init()
     }
 

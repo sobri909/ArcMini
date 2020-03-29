@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LocoKit
 
 enum Weekday: Int, CaseIterable {
     case all = 0
@@ -20,6 +21,10 @@ enum Weekday: Int, CaseIterable {
 }
 
 let greg = Calendar(identifier: Calendar.Identifier.gregorian)
+
+extension ActivityTypeName {
+    var color: UIColor { return UIColor.color(for: self) }
+}
 
 extension Date {
     var weekday: Weekday { return Weekday(rawValue: greg.dateComponents([.weekday], from: self).weekday!)! }

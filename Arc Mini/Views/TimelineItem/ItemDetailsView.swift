@@ -8,7 +8,6 @@
 
 import SwiftUI
 import LocoKit
-import Introspect
 
 struct ItemDetailsView: View {
 
@@ -17,26 +16,28 @@ struct ItemDetailsView: View {
 
     var body: some View {
         Text((timelineItem as! ArcTimelineItem).title)
-            .navigationBarItems(trailing:
-                NavigationLink(destination: editView(for: timelineItem)) {
-                    HStack(alignment: .firstTextBaseline) {
-                        Image(systemName: "square.and.pencil").foregroundColor(.arcSelected)
-                        Text("EDIT")
-                            .font(.custom("Rubik-Medium", size: 12))
-                            .foregroundColor(.arcSelected)
-                            .kerning(1)
-                    }
-                }
-            )
+            .navigationBarItems(trailing: editButton)
             .navigationBarTitle("", displayMode: .inline)
-            .introspectNavigationController { nav in
-                nav.isNavigationBarHidden = false
-                nav.navigationBar.tintColor = .arcSelected
-            }
             .onAppear {
                 self.mapState.selectedItems.removeAll()
                 self.mapState.selectedItems.insert(self.timelineItem)
+                self.mapState.itemSegments = self.timelineItem.segmentsByActivityType
+        }
+        .onDisappear {
+            self.mapState.itemSegments.removeAll()
+        }
+    }
+
+    var editButton: AnyView {
+        return AnyView(NavigationLink(destination: editView(for: timelineItem)) {
+            HStack(alignment: .firstTextBaseline) {
+                Image(systemName: "square.and.pencil").foregroundColor(.arcSelected)
+                Text("EDIT")
+                    .font(.custom("Rubik-Medium", size: 12))
+                    .foregroundColor(.arcSelected)
+                    .kerning(1)
             }
+        })
     }
 
     func editView(for timelineItem: TimelineItem) -> AnyView {
