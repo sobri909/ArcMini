@@ -182,8 +182,6 @@ class ArcPath: Path, ArcTimelineItem {
     }
 
     func trainActivityType(to confirmedType: ActivityTypeName) {
-        if isDataGap { return }
-
         let previousType = movingActivityType
 
         for sample in samples {
