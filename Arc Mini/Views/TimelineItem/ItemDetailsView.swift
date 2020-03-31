@@ -23,9 +23,6 @@ struct ItemDetailsView: View {
                 self.mapState.selectedItems.insert(self.timelineItem)
                 self.mapState.itemSegments = self.timelineItem.segmentsByActivityType
         }
-        .onDisappear {
-            self.mapState.itemSegments.removeAll()
-        }
     }
 
     var editButton: AnyView {

@@ -46,7 +46,7 @@ struct VisitListBox: View {
                     }
                     .foregroundColor(.red)
                 }
-                NavigationLink(destination: SegmentsEditView(timelineItem: visit)) {
+                NavigationLink(destination: ItemSegmentsView(timelineItem: visit)) {
                     Text("Edit individual segments")
                     Image(systemName: "ellipsis")
                 }

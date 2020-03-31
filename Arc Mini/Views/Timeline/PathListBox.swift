@@ -31,7 +31,7 @@ struct PathListBox: View {
                     Text("Edit trip")
                     Image(systemName: "square.and.pencil")
                 }
-                NavigationLink(destination: SegmentsEditView(timelineItem: path)) {
+                NavigationLink(destination: ItemSegmentsView(timelineItem: path)) {
                     Text("Edit individual segments")
                     Image(systemName: "ellipsis")
                 }

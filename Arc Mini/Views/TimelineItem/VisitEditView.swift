@@ -41,9 +41,6 @@ struct VisitEditView: View {
             self.placeClassifier.results()
             self.fetchPlaces()
         }
-        .onDisappear {
-            self.mapState.itemSegments.removeAll()
-        }
     }
 
     // MARK: - Search

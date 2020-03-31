@@ -1,5 +1,5 @@
 //
-//  SegmentsEditView.swift
+//  ItemSegmentsView.swift
 //  Arc Mini
 //
 //  Created by Matt Greenfield on 28/3/20.
@@ -9,7 +9,7 @@
 import SwiftUI
 import LocoKit
 
-struct SegmentsEditView: View {
+struct ItemSegmentsView: View {
 
     var timelineItem: ArcTimelineItem
     @EnvironmentObject var mapState: MapState
@@ -24,21 +24,27 @@ struct SegmentsEditView: View {
     var body: some View {
         List {
             ForEach(timelineItem.segmentsByActivityType.reversed(), id: \.id) { segment in
-                HStack {
-                    Circle().fill(Color(segment.activityType?.color ?? UIColor.black)).frame(width: 10, height: 10)
-                    if segment.isDataGap {
-                        Text("Data Gap".localised())
-                            .font(.system(size: 17, weight: .regular))
-                            .foregroundColor(.red)
+                ZStack {
+                    HStack {
+                        Circle().fill(Color(segment.activityType?.color ?? UIColor.black)).frame(width: 10, height: 10)
+                        if segment.isDataGap {
+                            Text("Data Gap".localised())
+                                .font(.system(size: 17, weight: .regular))
+                                .foregroundColor(.red)
 
-                    } else {
-                        Text(segment.activityType?.displayName.capitalized.localised() ?? "Unknown".localised())
-                            .font(.system(size: 17, weight: .regular))
+                        } else {
+                            Text(segment.activityType?.displayName.capitalized.localised() ?? "Unknown".localised())
+                                .font(.system(size: 17, weight: .regular))
+                        }
+                        Spacer()
+                        Text(self.rightText(for: segment))
+                            .font(.system(size: 15, weight: .semibold))
+                            .foregroundColor(Color(UIColor.arcGray1))
                     }
-                    Spacer()
-                    Text(self.rightText(for: segment))
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(Color(UIColor.arcGray1))
+                    NavigationLink(destination: ItemSegmentEditView(itemSegment: segment, classifierResults: segment.classifierResults!)) {
+                        EmptyView()
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
             }
         }
@@ -47,9 +53,6 @@ struct SegmentsEditView: View {
             self.mapState.selectedItems.removeAll()
             self.mapState.selectedItems.insert(self.timelineItem)
             self.mapState.itemSegments = self.timelineItem.segmentsByActivityType
-        }
-        .onDisappear {
-            self.mapState.itemSegments.removeAll()
         }
     }
 

@@ -43,9 +43,6 @@ struct PathEditView: View {
             self.mapState.selectedItems.insert(self.path)
             self.mapState.itemSegments = self.path.segmentsByActivityType
         }
-        .onDisappear {
-            self.mapState.itemSegments.removeAll()
-        }
     }
 
     func pathTypeMatches(_ result: ClassifierResultItem) -> Bool {

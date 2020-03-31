@@ -11,11 +11,11 @@ import LocoKit
 
 struct TimelineView: View {
 
-    @ObservedObject var segment: TimelineSegment
+    @ObservedObject var timelineSegment: TimelineSegment
     @EnvironmentObject var mapState: MapState
 
     init(segment: TimelineSegment) {
-        self.segment = segment
+        self.timelineSegment = segment
         UITableView.appearance().separatorStyle = .none
         UITableViewCell.appearance().selectionStyle = .none
         UINavigationBar.appearance().tintColor = .arcSelected
@@ -45,14 +45,17 @@ struct TimelineView: View {
                 }
                 .navigationBarTitle("")
                 .navigationBarHidden(true)
-                .onAppear { self.mapState.selectedItems.removeAll() }
+                .onAppear {
+                    self.mapState.selectedItems.removeAll()
+                    self.mapState.itemSegments.removeAll()
+                }
             }
         }
     }
 
     // TODO: need "thinking..." boxes represented in the list array somehow
     var filteredListItems: [TimelineItem] {
-        return self.segment.timelineItems.reversed().filter { $0.dateRange != nil }
+        return self.timelineSegment.timelineItems.reversed().filter { $0.dateRange != nil }
     }
 
     func listBox(for timelineItem: TimelineItem) -> AnyView {
