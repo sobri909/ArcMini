@@ -31,24 +31,27 @@ struct TimelineView: View {
     var body: some View {
         GeometryReader { metrics in
             NavigationView {
-                List {
-                    Section(header: TimelineHeader().frame(width: metrics.size.width)) {
-                        ForEach(self.filteredListItems) { timelineItem in
-                            ZStack {
-                                self.listBox(for: timelineItem)
-                                NavigationLink(destination: ItemDetailsView(timelineItem: timelineItem)) {
-                                    EmptyView()
+                VStack {
+                    TimelineHeader().frame(width: metrics.size.width)
+                    List {
+                        Section(header: EmptyView().frame(width: metrics.size.width, height: 0)) {
+                            ForEach(self.filteredListItems) { timelineItem in
+                                ZStack {
+                                    self.listBox(for: timelineItem)
+                                    NavigationLink(destination: ItemDetailsView(timelineItem: timelineItem)) {
+                                        EmptyView()
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
                                 }
-                                .buttonStyle(PlainButtonStyle())
                             }
                         }
                     }
-                }
-                .navigationBarTitle("")
-                .navigationBarHidden(true)
-                .onAppear {
-                    self.mapState.selectedItems.removeAll()
-                    self.mapState.itemSegments.removeAll()
+                    .navigationBarTitle("")
+                    .navigationBarHidden(true)
+                    .onAppear {
+                        self.mapState.selectedItems.removeAll()
+                        self.mapState.itemSegments.removeAll()
+                    }
                 }
             }
         }
