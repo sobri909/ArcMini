@@ -41,8 +41,8 @@ struct ItemDetailsView: View {
         if let visit = timelineItem as? ArcVisit {
             return AnyView(VisitEditView(visit: visit, placeClassifier: visit.placeClassifier))
         }
-        if let path = timelineItem as? ArcPath, let classifierResults = path.classifierResults {
-            return AnyView(PathEditView(path: path, classifierResults: classifierResults))
+        if let path = timelineItem as? ArcPath {
+            return AnyView(PathEditView(path: path))
         }
         return AnyView(EmptyView())
     }

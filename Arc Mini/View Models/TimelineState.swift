@@ -9,5 +9,26 @@
 import LocoKit
 
 class TimelineState: ObservableObject {
+
     @Published var timelineSegments: Array<TimelineSegment> = []
+
+    init() {
+        if let dateRange = Calendar.current.dateInterval(of: .day, for: Date()) {
+            let todaySegment = RecordingManager.store.segment(for: dateRange)
+            timelineSegments.append(todaySegment)
+        }
+    }
+
+    func sceneDidBecomeActive() {
+        for segment in timelineSegments {
+            segment.startUpdating()
+        }
+    }
+
+    func sceneDidEnterBackground() {
+        for segment in timelineSegments {
+            segment.stopUpdating()
+        }
+    }
+
 }

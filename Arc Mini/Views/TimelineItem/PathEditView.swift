@@ -13,7 +13,13 @@ struct PathEditView: View {
 
     var path: ArcPath
     @EnvironmentObject var mapState: MapState
-    var classifierResults: ClassifierResults
+
+    var classifierResults: ClassifierResults {
+        if let results = path.classifierResults {
+            return results
+        }
+        return ClassifierResults(results: [], moreComing: true)
+    }
 
     var body: some View {
         List {

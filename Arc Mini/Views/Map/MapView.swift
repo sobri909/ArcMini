@@ -12,12 +12,12 @@ import MapKit
 
 final class MapView: UIViewRepresentable {
 
-    @ObservedObject var segment: TimelineSegment
     @ObservedObject var mapState: MapState
+    @ObservedObject var timelineState: TimelineState
 
-    init(segment: TimelineSegment, mapState: MapState) {
-        self.segment = segment
+    init(mapState: MapState, timelineState: TimelineState) {
         self.mapState = mapState
+        self.timelineState = timelineState
     }
 
     func makeUIView(context: Context) -> MKMapView {
@@ -33,6 +33,8 @@ final class MapView: UIViewRepresentable {
         map.removeAnnotations(map.annotations)
 
         var zoomOverlays: [MKOverlay] = []
+
+        guard let segment = timelineState.timelineSegments.first else { return }
 
         for timelineItem in segment.timelineItems {
             let disabled = isDisabled(timelineItem)

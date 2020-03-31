@@ -35,21 +35,6 @@ class RecordingManager {
           }
     }
 
-    // MARK: -
-
-    private var _todaySegment: TimelineSegment?
-    var todaySegment: TimelineSegment {
-        // flush outdated
-        if let dateRange = _todaySegment?.dateRange, !dateRange.containsNow { _todaySegment = nil }
-
-        // create if missing
-        if _todaySegment == nil {
-            _todaySegment = RecordingManager.store.segment(for: Calendar.current.dateInterval(of: .day, for: Date())!)
-        }
-
-        return _todaySegment!
-    }
-
     // MARK: - Recording state changes
     
     func willStartSleeping() {

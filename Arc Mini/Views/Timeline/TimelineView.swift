@@ -12,10 +12,11 @@ import LocoKit
 struct TimelineView: View {
 
     @ObservedObject var timelineSegment: TimelineSegment
+    @EnvironmentObject var timelineState: TimelineState
     @EnvironmentObject var mapState: MapState
 
-    init(segment: TimelineSegment) {
-        self.timelineSegment = segment
+    init(timelineSegment: TimelineSegment) {
+        self.timelineSegment = timelineSegment
         UITableView.appearance().separatorStyle = .none
         UITableViewCell.appearance().selectionStyle = .none
         UINavigationBar.appearance().tintColor = .arcSelected

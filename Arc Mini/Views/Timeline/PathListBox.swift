@@ -27,7 +27,7 @@ struct PathListBox: View {
             .padding([.leading], 102)
             .padding([.trailing], 20)
             .contextMenu {
-                NavigationLink(destination: PathEditView(path: path, classifierResults: path.classifierResults!)) {
+                NavigationLink(destination: PathEditView(path: path)) {
                     Text("Edit trip")
                     Image(systemName: "square.and.pencil")
                 }

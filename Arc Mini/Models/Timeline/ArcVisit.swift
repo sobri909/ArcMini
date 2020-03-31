@@ -85,11 +85,9 @@ class ArcVisit: LocoKit.Visit, ArcTimelineItem {
             // don't need a place if have a custom title
             guard self.customTitle == nil else { return }
 
-            guard let classifier = PlaceClassifier(visit: self, overlappersOnly: true) else { return }
-
             self.lastPlaceFind = Date()
 
-            let results = classifier.results()
+            let results = PlaceClassifier(visit: self, overlappersOnly: true).results()
 
             // got a result, and it's a previously used place? yay
             if let result = results.first, result.place.visitsCount > 0 {

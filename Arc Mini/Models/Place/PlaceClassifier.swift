@@ -18,8 +18,7 @@ class PlaceClassifier: ObservableObject {
     var overlappersOnly = false
     @Published var results = [PlaceClassifierResultItem]()
 
-    init?(visit: ArcVisit, overlappersOnly: Bool = false) {
-        if visit.center == nil { return nil }
+    init(visit: ArcVisit, overlappersOnly: Bool = false) {
         self.visit = visit
         self.overlappersOnly = overlappersOnly
         PlaceCache.cache.flushFoursquareResultsIndexes()

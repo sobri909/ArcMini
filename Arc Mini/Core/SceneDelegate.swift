@@ -14,12 +14,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     var mapState = MapState()
+    var timelineState = TimelineState()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            let rootView = RootView(todaySegment: RecordingManager.highlander.todaySegment).environmentObject(mapState)
+            let rootView = RootView()
+                .environmentObject(timelineState)
+                .environmentObject(mapState)
             window.rootViewController = UIHostingController(rootView: rootView)
             self.window = window
             window.makeKeyAndVisible()
@@ -35,7 +38,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-        RecordingManager.highlander.todaySegment.startUpdating()
+        timelineState.sceneDidBecomeActive()
     }
 
     func sceneWillResignActive(_ scene: UIScene) {}
@@ -43,7 +46,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {}
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-        RecordingManager.highlander.todaySegment.stopUpdating()
+        timelineState.sceneDidEnterBackground()
     }
 
 }
