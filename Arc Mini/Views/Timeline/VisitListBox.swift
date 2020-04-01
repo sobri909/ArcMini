@@ -13,6 +13,8 @@ struct VisitListBox: View {
 
     @ObservedObject var visit: ArcVisit
 
+    @State var showDeleteAlert = false
+
     var body: some View {
         VStack {
             HStack(alignment: .top, spacing: 0) {
@@ -39,12 +41,26 @@ struct VisitListBox: View {
                 }
                 if !visit.isCurrentItem {
                     Button(action: {
-                        // TODO
+                        self.showDeleteAlert = true
                     }) {
                         Text("Delete visit")
                         Image(systemName: "trash")
                     }
                     .foregroundColor(.red)
+                    .alert(isPresented: $showDeleteAlert) {
+                        Alert(
+                            title: Text("Delete this visit?"),
+                            message: Text("The visit will be merged into the previous or following timeline item.\n\n"
+                                + "If you change your mind, you can revert the change from that item's Individual Segments view."),
+                            primaryButton: .destructive(Text("Delete"), action: {
+                                print("TimelineProcessor.safeDelete()")
+                                TimelineProcessor.safeDelete(self.visit) { keeper in
+                                    print("KEEPER: \(keeper)")
+                                }
+                            }),
+                            secondaryButton: .cancel()
+                        )
+                    }
                 }
                 NavigationLink(destination: ItemSegmentsView(timelineItem: visit)) {
                     Text("Edit individual segments")
@@ -53,7 +69,7 @@ struct VisitListBox: View {
             }
         }
     }
-    
+
 }
 
 //struct VisitListBox_Previews: PreviewProvider {
