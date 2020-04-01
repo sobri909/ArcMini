@@ -11,7 +11,7 @@ import LocoKit
 
 struct PathEditView: View {
 
-    var path: ArcPath
+    @ObservedObject var path: ArcPath
     @EnvironmentObject var mapState: MapState
 
     var classifierResults: ClassifierResults {

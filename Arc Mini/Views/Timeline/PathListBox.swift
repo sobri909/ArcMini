@@ -11,7 +11,7 @@ import LocoKit
 
 struct PathListBox: View {
 
-    var path: ArcPath
+    @ObservedObject var path: ArcPath
     
     var body: some View {
         ZStack {

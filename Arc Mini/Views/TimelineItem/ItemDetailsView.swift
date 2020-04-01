@@ -11,7 +11,7 @@ import LocoKit
 
 struct ItemDetailsView: View {
 
-    var timelineItem: TimelineItem
+    @ObservedObject var timelineItem: TimelineItem
     @EnvironmentObject var mapState: MapState
 
     var body: some View {

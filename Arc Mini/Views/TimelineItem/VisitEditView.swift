@@ -11,7 +11,7 @@ import LocoKit
 
 struct VisitEditView: View {
 
-    var visit: ArcVisit
+    @ObservedObject var visit: ArcVisit
     @EnvironmentObject var mapState: MapState
     @ObservedObject var placeClassifier: PlaceClassifier
 

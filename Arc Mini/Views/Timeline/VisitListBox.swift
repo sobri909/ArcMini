@@ -11,7 +11,7 @@ import LocoKit
 
 struct VisitListBox: View {
 
-    var visit: ArcVisit
+    @ObservedObject var visit: ArcVisit
 
     var body: some View {
         VStack {
