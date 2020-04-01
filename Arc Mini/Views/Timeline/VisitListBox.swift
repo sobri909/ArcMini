@@ -53,10 +53,7 @@ struct VisitListBox: View {
                             message: Text("The visit will be merged into the previous or following timeline item.\n\n"
                                 + "If you change your mind, you can revert the change from that item's Individual Segments view."),
                             primaryButton: .destructive(Text("Delete"), action: {
-                                print("TimelineProcessor.safeDelete()")
-                                TimelineProcessor.safeDelete(self.visit) { keeper in
-                                    print("KEEPER: \(keeper)")
-                                }
+                                TimelineProcessor.safeDelete(self.visit)
                             }),
                             secondaryButton: .cancel()
                         )
