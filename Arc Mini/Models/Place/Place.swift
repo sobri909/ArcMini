@@ -5,6 +5,7 @@
 
 import GRDB
 import LocoKit
+import SwiftUI
 import CoreLocation
 
 class Place: TimelineObject, Hashable, Encodable {
@@ -269,7 +270,11 @@ class Place: TimelineObject, Hashable, Encodable {
 
     // MARK: -
 
-    var categoryIcon: UIImage {
+    var categoryImage: Image {
+        return Image(uiImage: categoryUIImage)
+    }
+
+    var categoryUIImage: UIImage {
         // have a proper icon?
         if let categoryId = foursquareCategoryId { return UIImage(foursquareCategoryId: categoryId) }
 

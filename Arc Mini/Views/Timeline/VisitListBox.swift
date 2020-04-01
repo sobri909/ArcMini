@@ -28,7 +28,7 @@ struct VisitListBox: View {
                             .font(.system(size: 13, weight: .regular))
                     }
                 }
-                Image("defaultPlaceIcon24")
+                self.categoryImage.renderingMode(.template).foregroundColor(self.categoryColor)
                 Spacer().frame(width: 24)
                 Text(visit.title).font(.system(size: 16, weight: .semibold))
                 Spacer()
@@ -65,6 +65,19 @@ struct VisitListBox: View {
                 }
             }
         }
+    }
+
+    var categoryImage: Image {
+        if let image = visit.place?.categoryImage { return image }
+        return Image("defaultPlaceIcon24")
+    }
+
+    var categoryColor: Color {
+        if let prev = visit.previousItem as? ArcPath, let dateRange = visit.dateRange, dateRange.start.isSameDayAs(dateRange.end) {
+            return prev.color
+        }
+        if let next = visit.nextItem as? ArcPath { return next.color }
+        return Color(UIColor.arcGreen)
     }
 
 }
