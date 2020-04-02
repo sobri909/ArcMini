@@ -14,6 +14,7 @@ struct ItemSegmentEditView: View {
     var itemSegment: ItemSegment
     var classifierResults: ClassifierResults
     @EnvironmentObject var mapState: MapState
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         List {
@@ -28,6 +29,7 @@ struct ItemSegmentEditView: View {
                         path._unknownActivityType = false
                         path.save()
                     }
+                    self.presentationMode.wrappedValue.dismiss()
                 }) {
                     HStack {
                         Text(result.name.displayName.capitalized.localised())

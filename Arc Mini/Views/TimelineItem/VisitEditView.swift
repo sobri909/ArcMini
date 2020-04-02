@@ -14,6 +14,7 @@ struct VisitEditView: View {
     @ObservedObject var visit: ArcVisit
     @EnvironmentObject var mapState: MapState
     @ObservedObject var placeClassifier: PlaceClassifier
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     var body: some View {
         VStack {
@@ -21,6 +22,7 @@ struct VisitEditView: View {
                 ForEach(placeClassifier.results, id: \.place.placeId) { result in
                     Button(action: {
                         self.visit.usePlace(result.place, manualPlace: true)
+                        self.presentationMode.wrappedValue.dismiss()
                     }) {
                         if self.visit.place == result.place {
                             Text(result.place.name)

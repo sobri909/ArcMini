@@ -13,6 +13,7 @@ struct PathEditView: View {
 
     @ObservedObject var path: ArcPath
     @EnvironmentObject var mapState: MapState
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     var classifierResults: ClassifierResults {
         if let results = path.classifierResults {
@@ -26,6 +27,7 @@ struct PathEditView: View {
             ForEach(Array(classifierResults), id: \.name) { result in
                 Button(action: {
                     self.path.trainActivityType(to: result.name)
+                    self.presentationMode.wrappedValue.dismiss()
                 }) {
                     HStack {
                         if self.pathTypeMatches(result) {
