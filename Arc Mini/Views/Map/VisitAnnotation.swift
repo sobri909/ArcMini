@@ -2,7 +2,6 @@
 // Copyright (c) 2016 Big Paua. All rights reserved.
 
 import MapKit
-import LocoKit
 
 class VisitAnnotation: NSObject, MKAnnotation {
 

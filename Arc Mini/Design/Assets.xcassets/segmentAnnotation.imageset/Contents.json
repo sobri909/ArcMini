@@ -5,12 +5,12 @@
       "scale" : "1x"
     },
     {
-      "filename" : "visitAnnotation@2x.png",
+      "filename" : "segmentAnnotation@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "visitAnnotation@3x.png",
+      "filename" : "segmentAnnotation@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

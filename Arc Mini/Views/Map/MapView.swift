@@ -86,7 +86,7 @@ final class MapView: UIViewRepresentable {
         }
 
         let circle = VisitCircle(center: center.coordinate, radius: visit.radius2sd)
-        circle.color = disabled ? .lightGray : .arcPurple
+        circle.color = disabled ? .lightGray : .arcSelected
         map.addOverlay(circle, level: .aboveLabels)
 
         return circle
@@ -112,13 +112,16 @@ final class MapView: UIViewRepresentable {
         guard sample.hasUsableCoordinate else { return nil }
         guard let location = sample.location else { return nil }
 
-        map.addAnnotation(VisitAnnotation(coordinate: location.coordinate))
+        map.addAnnotation(SegmentAnnotation(coordinate: location.coordinate))
 
-        let circle = VisitCircle(center: location.coordinate, radius: location.horizontalAccuracy)
-        circle.color = .arcPurple
-        map.addOverlay(circle, level: .aboveLabels)
+        if sample.activityType == .stationary {
+            let circle = VisitCircle(center: location.coordinate, radius: location.horizontalAccuracy)
+            circle.color = .arcSelected
+            map.addOverlay(circle, level: .aboveLabels)
+            return circle
+        }
 
-        return circle
+        return nil
     }
 
     // MARK: - Zoom
@@ -160,7 +163,9 @@ final class MapView: UIViewRepresentable {
         }
 
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-            return (annotation as? VisitAnnotation)?.view
+            if let annotation = annotation as? VisitAnnotation { return annotation.view }
+            if let annotation = annotation as? SegmentAnnotation { return annotation.view }
+            return nil
         }
     }
 

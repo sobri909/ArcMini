@@ -42,6 +42,8 @@
 		C9822A89240CF8D8006B70F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9822A88240CF8D8006B70F4 /* Assets.xcassets */; };
 		C9822A8F240CF8D8006B70F4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9822A8D240CF8D8006B70F4 /* LaunchScreen.storyboard */; };
 		C9872DA52424FC06000B5EE3 /* ObservableItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9872DA42424FC06000B5EE3 /* ObservableItems.swift */; };
+		C98783042435F1EB001B4E7D /* SegmentAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98783032435F1EB001B4E7D /* SegmentAnnotationView.swift */; };
+		C98967EC2435F27200D55AFE /* SegmentAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98967EB2435F27200D55AFE /* SegmentAnnotation.swift */; };
 		C9916AA824262D7C00670FDB /* GeometryGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9916AA724262D7C00670FDB /* GeometryGetter.swift */; };
 		C99325942430EE59005299DC /* RowButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99325932430EE59005299DC /* RowButtonStyle.swift */; };
 		C99F5EB3242A240D00E172AE /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = C99F5EB2242A240D00E172AE /* PromiseKit */; };
@@ -101,6 +103,8 @@
 		C9822A8E240CF8D8006B70F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9822A90240CF8D8006B70F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9872DA42424FC06000B5EE3 /* ObservableItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableItems.swift; sourceTree = "<group>"; };
+		C98783032435F1EB001B4E7D /* SegmentAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentAnnotationView.swift; sourceTree = "<group>"; };
+		C98967EB2435F27200D55AFE /* SegmentAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentAnnotation.swift; sourceTree = "<group>"; };
 		C9916AA724262D7C00670FDB /* GeometryGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryGetter.swift; sourceTree = "<group>"; };
 		C99325932430EE59005299DC /* RowButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowButtonStyle.swift; sourceTree = "<group>"; };
 		C99F5EB4242A2C5000E172AE /* TrackPlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPlay.swift; sourceTree = "<group>"; };
@@ -192,6 +196,8 @@
 				C92BF624241D06AD0089E4AD /* VisitAnnotation.swift */,
 				C92BF625241D06AD0089E4AD /* VisitAnnotationView.swift */,
 				C92BF622241D06AD0089E4AD /* VisitCircle.swift */,
+				C98783032435F1EB001B4E7D /* SegmentAnnotationView.swift */,
+				C98967EB2435F27200D55AFE /* SegmentAnnotation.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -490,6 +496,7 @@
 				C95E0E292417B6DD008418A1 /* ArcTimelineItem.swift in Sources */,
 				C9C5C009242FB2C700BC064E /* MapState.swift in Sources */,
 				C9F32F47242A5BBE00184862 /* Health.swift in Sources */,
+				C98783042435F1EB001B4E7D /* SegmentAnnotationView.swift in Sources */,
 				C99F5EB7242A2C5000E172AE /* Note.swift in Sources */,
 				C99F5EB6242A2C5000E172AE /* TrackPlay.swift in Sources */,
 				C9822A85240CF8D5006B70F4 /* SceneDelegate.swift in Sources */,
@@ -523,6 +530,7 @@
 				C99F5EBD242A307400E172AE /* LastFm.swift in Sources */,
 				C90D78682428FFCE004ABFD0 /* PlaceCache.swift in Sources */,
 				C90D786C2428FFCE004ABFD0 /* Place.scores.swift in Sources */,
+				C98967EC2435F27200D55AFE /* SegmentAnnotation.swift in Sources */,
 				C952400B242F51D200F4522D /* ArcHistogram.swift in Sources */,
 				C92BF629241D06AD0089E4AD /* VisitAnnotationView.swift in Sources */,
 				C97DCDEB242395C3006437B7 /* ItemDetailsView.swift in Sources */,

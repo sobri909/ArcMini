@@ -9,7 +9,7 @@ class VisitCircle: MKCircle {
 
     var renderer: MKCircleRenderer {
         let renderer = MKCircleRenderer(circle: self)
-        renderer.fillColor = color?.withAlphaComponent(0.2)
+        renderer.fillColor = color?.withAlphaComponent(0.4)
         renderer.strokeColor = nil
         renderer.lineWidth = 0
         return renderer
