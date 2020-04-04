@@ -19,9 +19,10 @@ struct RootView: View {
             ZStack(alignment: .bottom) {
                 MapView(mapState: self.mapState, timelineState: self.timelineState)
                     .edgesIgnoringSafeArea(.all)
-                VStack {
-                    TimelineView(timelineSegment: self.timelineState.timelineSegments.first!)
-                        .frame(width: metrics.size.width, height: 400)
+                VStack(spacing: 0) {
+                    TimelineHeader().frame(width: metrics.size.width)
+                    TimelineScrollView()
+                        .frame(width: metrics.size.width, height: metrics.size.height * 0.6 - 55)
                 }
             }
         }

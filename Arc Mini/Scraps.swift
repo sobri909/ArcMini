@@ -22,26 +22,14 @@ enum Weekday: Int, CaseIterable {
 
 let greg = Calendar(identifier: Calendar.Identifier.gregorian)
 
-extension ActivityTypeName {
-    var color: UIColor { return UIColor.color(for: self) }
-}
-
-extension ItemSegment {
-    func trainActivityType(to confirmedType: ActivityTypeName) {
-        var changed = false
-        for sample in samples where sample.confirmedType != confirmedType {
-            sample.confirmedType = confirmedType
-            changed = true
-        }
-        if changed {
-            (timelineItem as? ArcTimelineItem)?.samplesChanged()
-//            UserActivityTypesCache.highlander.updateModelsContaining(self)
-        }
-    }
-}
-
 extension Date {
+    var nextDay: Date { return Calendar.current.date(byAdding: .day, value: 1, to: self)! }
+    var previousDay: Date { return Calendar.current.date(byAdding: .day, value: -1, to: self)! }
     var weekday: Weekday { return Weekday(rawValue: greg.dateComponents([.weekday], from: self).weekday!)! }
+}
+
+extension DateInterval: Identifiable {
+    public var id: Int { return hashValue }
 }
 
 extension String {

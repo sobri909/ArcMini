@@ -10,25 +10,34 @@ import LocoKit
 
 class TimelineState: ObservableObject {
 
-    @Published var timelineSegments: Array<TimelineSegment> = []
+    @Published var dateRanges: Array<DateInterval> = []
+    @Published var currentCardIndex = 0
 
     init() {
-        if let dateRange = Calendar.current.dateInterval(of: .day, for: Date()) {
-            let todaySegment = RecordingManager.store.segment(for: dateRange)
-            timelineSegments.append(todaySegment)
-        }
+        dateRanges.append(Calendar.current.dateInterval(of: .day, for: Date().previousDay)!)
+        dateRanges.append(Calendar.current.dateInterval(of: .day, for: Date())!)
+    }
+
+    var visibleDateRange: DateInterval? {
+        guard currentCardIndex < dateRanges.count else { return nil }
+        return dateRanges[currentCardIndex]
+    }
+
+    var visibleTimelineSegment: TimelineSegment? {
+        guard let dateRange = visibleDateRange else { return nil }
+        return RecordingManager.store.segment(for: dateRange)
     }
 
     func sceneDidBecomeActive() {
-        for segment in timelineSegments {
-            segment.startUpdating()
-        }
+//        for segment in timelineSegments {
+//            segment.startUpdating()
+//        }
     }
 
     func sceneDidEnterBackground() {
-        for segment in timelineSegments {
-            segment.stopUpdating()
-        }
+//        for segment in timelineSegments {
+//            segment.stopUpdating()
+//        }
     }
 
 }

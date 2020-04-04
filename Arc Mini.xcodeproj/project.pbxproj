@@ -34,6 +34,7 @@
 		C95E0E292417B6DD008418A1 /* ArcTimelineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E0E282417B6DD008418A1 /* ArcTimelineItem.swift */; };
 		C95E0E2D2417B773008418A1 /* ArcVisit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E0E2B2417B773008418A1 /* ArcVisit.swift */; };
 		C95E0E2E2417B773008418A1 /* ArcPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E0E2C2417B773008418A1 /* ArcPath.swift */; };
+		C970732D243889D400E3B938 /* LocoKit+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C970732C243889D400E3B938 /* LocoKit+extensions.swift */; };
 		C97C193C2432164700FC45A1 /* ItemSegmentEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97C193B2432164700FC45A1 /* ItemSegmentEditView.swift */; };
 		C97DCDEB242395C3006437B7 /* ItemDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97DCDEA242395C3006437B7 /* ItemDetailsView.swift */; };
 		C9822A83240CF8D5006B70F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9822A82240CF8D5006B70F4 /* AppDelegate.swift */; };
@@ -59,6 +60,8 @@
 		C9C6FBF2243333D3004F868C /* TimelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C6FBF1243333D3004F868C /* TimelineState.swift */; };
 		C9C96AAF242760A2006D2E5B /* VisitEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C96AAE242760A2006D2E5B /* VisitEditView.swift */; };
 		C9C96AB224278052006D2E5B /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = C9C96AB124278052006D2E5B /* Introspect */; };
+		C9DBE4272437462B00FCB8E5 /* PagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DBE4262437462B00FCB8E5 /* PagerView.swift */; };
+		C9DBE429243746FF00FCB8E5 /* TimelineScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DBE428243746FF00FCB8E5 /* TimelineScrollView.swift */; };
 		C9EB6644241A60FA00F545AF /* ArcStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB6643241A60FA00F545AF /* ArcStore.swift */; };
 		C9F32F47242A5BBE00184862 /* Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F32F46242A5BBE00184862 /* Health.swift */; };
 		C9F32F4A242A60A100184862 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F32F49242A60A100184862 /* HealthKit.framework */; };
@@ -93,6 +96,7 @@
 		C95E0E282417B6DD008418A1 /* ArcTimelineItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcTimelineItem.swift; sourceTree = "<group>"; };
 		C95E0E2B2417B773008418A1 /* ArcVisit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcVisit.swift; sourceTree = "<group>"; };
 		C95E0E2C2417B773008418A1 /* ArcPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcPath.swift; sourceTree = "<group>"; };
+		C970732C243889D400E3B938 /* LocoKit+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocoKit+extensions.swift"; sourceTree = "<group>"; };
 		C97C193B2432164700FC45A1 /* ItemSegmentEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSegmentEditView.swift; sourceTree = "<group>"; };
 		C97DCDEA242395C3006437B7 /* ItemDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsView.swift; sourceTree = "<group>"; };
 		C9822A7F240CF8D5006B70F4 /* Arc Mini.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Arc Mini.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,6 +124,8 @@
 		C9C5C008242FB2C700BC064E /* MapState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapState.swift; sourceTree = "<group>"; };
 		C9C6FBF1243333D3004F868C /* TimelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineState.swift; sourceTree = "<group>"; };
 		C9C96AAE242760A2006D2E5B /* VisitEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitEditView.swift; sourceTree = "<group>"; };
+		C9DBE4262437462B00FCB8E5 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
+		C9DBE428243746FF00FCB8E5 /* TimelineScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineScrollView.swift; sourceTree = "<group>"; };
 		C9EB6643241A60FA00F545AF /* ArcStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcStore.swift; sourceTree = "<group>"; };
 		C9F32F46242A5BBE00184862 /* Health.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Health.swift; sourceTree = "<group>"; };
 		C9F32F49242A60A100184862 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
@@ -184,6 +190,7 @@
 				C9822A86240CF8D5006B70F4 /* RootView.swift */,
 				C9916AA724262D7C00670FDB /* GeometryGetter.swift */,
 				C99325932430EE59005299DC /* RowButtonStyle.swift */,
+				C9DBE4262437462B00FCB8E5 /* PagerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -196,8 +203,8 @@
 				C92BF624241D06AD0089E4AD /* VisitAnnotation.swift */,
 				C92BF625241D06AD0089E4AD /* VisitAnnotationView.swift */,
 				C92BF622241D06AD0089E4AD /* VisitCircle.swift */,
-				C98783032435F1EB001B4E7D /* SegmentAnnotationView.swift */,
 				C98967EB2435F27200D55AFE /* SegmentAnnotation.swift */,
+				C98783032435F1EB001B4E7D /* SegmentAnnotationView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -223,10 +230,11 @@
 		C95C555F2413C02C0038EB3B /* Timeline */ = {
 			isa = PBXGroup;
 			children = (
+				C9DBE428243746FF00FCB8E5 /* TimelineScrollView.swift */,
 				C95E0E1E2417969E008418A1 /* TimelineHeader.swift */,
 				C953392A24127CF30005E98F /* TimelineView.swift */,
-				C95E0E242417AEB8008418A1 /* VisitListBox.swift */,
 				C95E0E262417B19C008418A1 /* PathListBox.swift */,
+				C95E0E242417AEB8008418A1 /* VisitListBox.swift */,
 			);
 			path = Timeline;
 			sourceTree = "<group>";
@@ -293,6 +301,7 @@
 				C9C6FBF3243333D9004F868C /* View Models */,
 				C91F7ACC241645A90013A5D5 /* Views */,
 				C99F5EBE242A371C00E172AE /* Scraps.swift */,
+				C970732C243889D400E3B938 /* LocoKit+extensions.swift */,
 			);
 			path = "Arc Mini";
 			sourceTree = "<group>";
@@ -491,6 +500,7 @@
 				C9822A83240CF8D5006B70F4 /* AppDelegate.swift in Sources */,
 				C95E0E21241797D9008418A1 /* Colors.swift in Sources */,
 				C99325942430EE59005299DC /* RowButtonStyle.swift in Sources */,
+				C9DBE4272437462B00FCB8E5 /* PagerView.swift in Sources */,
 				C952400C242F51D200F4522D /* ArcCoordinatesMatrix.swift in Sources */,
 				C953392924126E670005E98F /* MapView.swift in Sources */,
 				C95E0E292417B6DD008418A1 /* ArcTimelineItem.swift in Sources */,
@@ -531,9 +541,11 @@
 				C90D78682428FFCE004ABFD0 /* PlaceCache.swift in Sources */,
 				C90D786C2428FFCE004ABFD0 /* Place.scores.swift in Sources */,
 				C98967EC2435F27200D55AFE /* SegmentAnnotation.swift in Sources */,
+				C9DBE429243746FF00FCB8E5 /* TimelineScrollView.swift in Sources */,
 				C952400B242F51D200F4522D /* ArcHistogram.swift in Sources */,
 				C92BF629241D06AD0089E4AD /* VisitAnnotationView.swift in Sources */,
 				C97DCDEB242395C3006437B7 /* ItemDetailsView.swift in Sources */,
+				C970732D243889D400E3B938 /* LocoKit+extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

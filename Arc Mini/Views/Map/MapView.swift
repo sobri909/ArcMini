@@ -34,19 +34,19 @@ final class MapView: UIViewRepresentable {
 
         var zoomOverlays: [MKOverlay] = []
 
-        guard let segment = timelineState.timelineSegments.first else { return }
+        if let segment = timelineState.visibleTimelineSegment {
+            for timelineItem in segment.timelineItems {
+                let disabled = isDisabled(timelineItem)
 
-        for timelineItem in segment.timelineItems {
-            let disabled = isDisabled(timelineItem)
+                if let path = timelineItem as? ArcPath {
+                    if let overlay = add(path, to: map, disabled: disabled), !disabled {
+                        if mapState.itemSegments.isEmpty { zoomOverlays.append(overlay) }
+                    }
 
-            if let path = timelineItem as? ArcPath {
-                if let overlay = add(path, to: map, disabled: disabled), !disabled {
-                    if mapState.itemSegments.isEmpty { zoomOverlays.append(overlay) }
-                }
-
-            } else if let visit = timelineItem as? ArcVisit {
-                if let overlay = add(visit, to: map, disabled: disabled), !disabled {
-                    if mapState.itemSegments.isEmpty { zoomOverlays.append(overlay) }
+                } else if let visit = timelineItem as? ArcVisit {
+                    if let overlay = add(visit, to: map, disabled: disabled), !disabled {
+                        if mapState.itemSegments.isEmpty { zoomOverlays.append(overlay) }
+                    }
                 }
             }
         }

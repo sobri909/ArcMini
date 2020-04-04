@@ -18,21 +18,21 @@ struct TimelineView: View {
     init(timelineSegment: TimelineSegment) {
         self.timelineSegment = timelineSegment
         UITableView.appearance().separatorStyle = .none
+        UITableView.appearance().showsVerticalScrollIndicator = false
         UITableViewCell.appearance().selectionStyle = .none
-        UINavigationBar.appearance().tintColor = .arcSelected
-//        UINavigationBar.appearance().isTranslucent = false // causes crash
 
         let barAppearance = UINavigationBarAppearance()
         barAppearance.shadowColor = .clear
         UINavigationBar.appearance().standardAppearance = barAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = barAppearance
+        UINavigationBar.appearance().tintColor = .arcSelected
+        // UINavigationBar.appearance().isTranslucent = false // causes crash
     }
 
     var body: some View {
         GeometryReader { metrics in
             NavigationView {
                 VStack {
-                    TimelineHeader().frame(width: metrics.size.width)
                     List {
                         Section(header: EmptyView().frame(width: metrics.size.width, height: 0)) {
                             ForEach(self.filteredListItems) { timelineItem in
