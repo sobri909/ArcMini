@@ -12,10 +12,9 @@ struct TimelineScrollView: View {
 
     @EnvironmentObject var timelineState: TimelineState
     @EnvironmentObject var mapState: MapState
-    @State private var currentPage = 0
 
     var body: some View {
-        PagerView(pageCount: timelineState.dateRanges.count, currentIndex: $currentPage) {
+        PagerView(pageCount: timelineState.dateRanges.count, currentIndex: $timelineState.currentCardIndex) {
             ForEach(timelineState.dateRanges) { dateRange in
                 TimelineView(timelineSegment: RecordingManager.store.segment(for: dateRange))
             }
