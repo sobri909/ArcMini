@@ -19,14 +19,12 @@ struct VisitListBox: View {
         VStack {
             HStack(alignment: .top, spacing: 0) {
                 VStack(alignment: .leading) {
-                    if visit.dateRange != nil {
-                        Text(visit.startTimeString!)
-                            .frame(width: 72, alignment: .leading)
-                            .font(.system(size: 16, weight: .medium))
-                        Text(String(duration: visit.dateRange!.duration, style: .abbreviated))
-                            .frame(width: 72, alignment: .leading)
-                            .font(.system(size: 13, weight: .regular))
-                    }
+                    Text(visit.startTimeString ?? "")
+                        .frame(width: 72, alignment: .leading)
+                        .font(.system(size: 16, weight: .medium))
+                    Text(String(duration: visit.duration, style: .abbreviated))
+                        .frame(width: 72, alignment: .leading)
+                        .font(.system(size: 13, weight: .regular))
                 }
                 self.categoryImage.renderingMode(.template).foregroundColor(self.categoryColor)
                 Spacer().frame(width: 24)
