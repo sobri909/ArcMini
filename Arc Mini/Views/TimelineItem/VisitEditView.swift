@@ -11,10 +11,12 @@ import LocoKit
 
 struct VisitEditView: View {
 
-    @ObservedObject var visit: ArcVisit
     @EnvironmentObject var mapState: MapState
-    @ObservedObject var placeClassifier: PlaceClassifier
+    @EnvironmentObject var timelineState: TimelineState
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
+    @ObservedObject var visit: ArcVisit
+    @ObservedObject var placeClassifier: PlaceClassifier
 
     var body: some View {
         VStack {
@@ -35,13 +37,20 @@ struct VisitEditView: View {
                 }
             }
         }
+        .navigationBarHidden(true)
         .navigationBarTitle("", displayMode: .inline)
         .onAppear {
-            self.mapState.selectedItems.removeAll()
-            self.mapState.selectedItems.insert(self.visit)
+            self.mapState.selectedItems = [self.visit]
             self.mapState.itemSegments = self.visit.segmentsByActivityType
+            self.timelineState.backButtonHidden = false
             self.placeClassifier.results()
             self.fetchPlaces()
+        }
+        .onReceive(self.timelineState.$tappedBackButton) { tappedBackButton in
+            if tappedBackButton {
+                self.presentationMode.wrappedValue.dismiss()
+                self.timelineState.tappedBackButton = false
+            }
         }
     }
 

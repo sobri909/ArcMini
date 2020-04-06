@@ -11,30 +11,64 @@ import LocoKit
 
 struct ItemDetailsView: View {
 
-    @ObservedObject var timelineItem: TimelineItem
     @EnvironmentObject var mapState: MapState
+    @EnvironmentObject var timelineState: TimelineState
+    @ObservedObject var timelineItem: TimelineItem
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
+    @State var tappedEditButton = false
+
+    init(timelineItem: TimelineItem) {
+        self.timelineItem = timelineItem
+    }
 
     var body: some View {
-        Text((timelineItem as! ArcTimelineItem).title)
-            .navigationBarItems(trailing: editButton)
-            .navigationBarTitle("", displayMode: .inline)
-            .onAppear {
-                self.mapState.selectedItems.removeAll()
-                self.mapState.selectedItems.insert(self.timelineItem)
-                self.mapState.itemSegments = self.timelineItem.segmentsByActivityType
+        List {
+            Text((timelineItem as! ArcTimelineItem).title)
+                .font(.custom("SofiaProBold", size: 22))
+                .foregroundColor(.brandTertiaryDark)
+                .padding(.top, 24)
+            HStack {
+                Spacer()
+                self.editButton
+            }.padding(.trailing, 14)
+        }
+        .navigationBarHidden(true)
+        .navigationBarTitle("", displayMode: .inline)
+        .onAppear {
+            self.mapState.selectedItems = [self.timelineItem]
+            self.mapState.itemSegments = self.timelineItem.segmentsByActivityType
+            self.timelineState.mapHeightPercent = TimelineState.subMapHeightPercent
+            self.timelineState.backButtonHidden = false
+        }
+        .onReceive(self.timelineState.$tappedBackButton) { tappedBackButton in
+            if tappedBackButton {
+                self.presentationMode.wrappedValue.dismiss()
+                self.timelineState.tappedBackButton = false
+            }
         }
     }
 
-    var editButton: AnyView {
-        return AnyView(NavigationLink(destination: editView(for: timelineItem)) {
-            HStack(alignment: .firstTextBaseline) {
-                Image(systemName: "square.and.pencil").foregroundColor(.arcSelected)
-                Text("EDIT")
-                    .font(.custom("Rubik-Medium", size: 12))
-                    .foregroundColor(.arcSelected)
-                    .kerning(1)
+    var editButton: some View {
+        ZStack(alignment: .trailing) {
+            Button(action: {
+                self.tappedEditButton = true
+            }) {
+                HStack(alignment: .center) {
+                    Image(systemName: "square.and.pencil")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.brandSecondaryBase)
+                        .offset(x: 0, y: -1)
+                    Text("Edit")
+                        .font(.system(size: 15, weight: .bold))
+                        .foregroundColor(Color(0x2D2D73))
+                }
             }
-        })
+            .frame(height: 50)
+            NavigationLink(destination: editView(for: timelineItem), isActive: $tappedEditButton) {
+                EmptyView()
+            }
+        }
     }
 
     func editView(for timelineItem: TimelineItem) -> AnyView {

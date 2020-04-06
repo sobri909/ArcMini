@@ -20,9 +20,10 @@ struct RootView: View {
                 MapView(mapState: self.mapState, timelineState: self.timelineState)
                     .edgesIgnoringSafeArea(.all)
                 VStack(spacing: 0) {
-                    TimelineHeader().frame(width: metrics.size.width)
+                    NavBarView()
+                    Spacer()                    
                     TimelineScrollView()
-                        .frame(width: metrics.size.width, height: metrics.size.height * 0.6 - 55)
+                        .frame(width: metrics.size.width, height: metrics.size.height * (1.0 - self.timelineState.mapHeightPercent))
                 }
             }
         }

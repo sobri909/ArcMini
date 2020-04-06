@@ -13,6 +13,7 @@ struct PathEditView: View {
 
     @ObservedObject var path: ArcPath
     @EnvironmentObject var mapState: MapState
+    @EnvironmentObject var timelineState: TimelineState
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     var classifierResults: ClassifierResults {
@@ -45,11 +46,12 @@ struct PathEditView: View {
                 }.buttonStyle(RowButtonStyle())
             }
         }
+        .navigationBarHidden(true)
         .navigationBarTitle("", displayMode: .inline)
         .onAppear {
-            self.mapState.selectedItems.removeAll()
-            self.mapState.selectedItems.insert(self.path)
+            self.mapState.selectedItems = [self.path]
             self.mapState.itemSegments = self.path.segmentsByActivityType
+            self.timelineState.backButtonHidden = false
         }
     }
 

@@ -34,6 +34,7 @@ struct TimelineView: View {
             NavigationView {
                 VStack {
                     List {
+                        TimelineHeader().frame(width: metrics.size.width)
                         Section(header: EmptyView().frame(width: metrics.size.width, height: 0)) {
                             ForEach(self.filteredListItems) { timelineItem in
                                 ZStack {
@@ -51,6 +52,8 @@ struct TimelineView: View {
                     .onAppear {
                         self.mapState.selectedItems.removeAll()
                         self.mapState.itemSegments.removeAll()
+                        self.timelineState.backButtonHidden = true
+                        self.timelineState.mapHeightPercent = TimelineState.rootMapHeightPercent
                     }
                 }
             }

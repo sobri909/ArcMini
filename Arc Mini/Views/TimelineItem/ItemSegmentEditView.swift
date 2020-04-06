@@ -14,6 +14,7 @@ struct ItemSegmentEditView: View {
     var itemSegment: ItemSegment
     var classifierResults: ClassifierResults
     @EnvironmentObject var mapState: MapState
+    @EnvironmentObject var timelineState: TimelineState
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
@@ -42,12 +43,22 @@ struct ItemSegmentEditView: View {
                 }.buttonStyle(RowButtonStyle())
             }
         }
+        .navigationBarHidden(true)
+        .navigationBarTitle("", displayMode: .inline)
         .onAppear {
-            self.mapState.selectedItems.removeAll()
             if let timelineItem = self.itemSegment.timelineItem {
-                self.mapState.selectedItems.insert(timelineItem)
+                self.mapState.selectedItems = [timelineItem]
+            } else {
+                self.mapState.selectedItems = []
             }
             self.mapState.itemSegments = [self.itemSegment]
+            self.timelineState.backButtonHidden = false
+        }
+        .onReceive(self.timelineState.$tappedBackButton) { tappedBackButton in
+            if tappedBackButton {
+                self.presentationMode.wrappedValue.dismiss()
+                self.timelineState.tappedBackButton = false
+            }
         }
     }
 

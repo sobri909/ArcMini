@@ -13,6 +13,8 @@ struct ItemSegmentsView: View {
 
     var timelineItem: ArcTimelineItem
     @EnvironmentObject var mapState: MapState
+    @EnvironmentObject var timelineState: TimelineState
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     let formatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -48,11 +50,18 @@ struct ItemSegmentsView: View {
                 }
             }
         }
+        .navigationBarHidden(true)
         .navigationBarTitle("", displayMode: .inline)
         .onAppear {
-            self.mapState.selectedItems.removeAll()
-            self.mapState.selectedItems.insert(self.timelineItem)
+            self.mapState.selectedItems = [self.timelineItem]
             self.mapState.itemSegments = self.timelineItem.segmentsByActivityType
+            self.timelineState.backButtonHidden = false
+        }
+        .onReceive(self.timelineState.$tappedBackButton) { tappedBackButton in
+            if tappedBackButton {
+                self.presentationMode.wrappedValue.dismiss()
+                self.timelineState.tappedBackButton = false
+            }
         }
     }
 

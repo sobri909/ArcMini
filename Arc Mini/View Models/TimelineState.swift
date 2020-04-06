@@ -10,8 +10,15 @@ import LocoKit
 
 class TimelineState: ObservableObject {
 
+    static let rootMapHeightPercent: CGFloat = 0.4
+    static let subMapHeightPercent: CGFloat = 0.4 // should be 0.35, but view sizing is an issue at the moment
+
     @Published var dateRanges: Array<DateInterval> = []
     @Published var currentCardIndex = 0
+    
+    @Published var mapHeightPercent: CGFloat = rootMapHeightPercent
+    @Published var backButtonHidden = true
+    @Published var tappedBackButton = false
 
     init() {
         dateRanges.append(Calendar.current.dateInterval(of: .day, for: Date().previousDay)!)
@@ -28,6 +35,7 @@ class TimelineState: ObservableObject {
         return RecordingManager.store.segment(for: dateRange)
     }
 
+    // TODO: move these to ArcStore
     func sceneDidBecomeActive() {
 //        for segment in timelineSegments {
 //            segment.startUpdating()
