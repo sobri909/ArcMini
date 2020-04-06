@@ -29,6 +29,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Rubik-Medium.ttf</string>
+		<string>SofiaProBold.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
