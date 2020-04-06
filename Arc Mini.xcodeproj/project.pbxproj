@@ -17,6 +17,7 @@
 		C90D786C2428FFCE004ABFD0 /* Place.scores.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90D78672428FFCE004ABFD0 /* Place.scores.swift */; };
 		C90D786F2429006F004ABFD0 /* Migrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90D786E2429006F004ABFD0 /* Migrations.swift */; };
 		C918CF2C243A33150019D350 /* SofiaProBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C918CF2B243A33150019D350 /* SofiaProBold.ttf */; };
+		C918CF2E243B1EE90019D350 /* TimelineRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C918CF2D243B1EE90019D350 /* TimelineRootView.swift */; };
 		C92BF626241D06AD0089E4AD /* VisitCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92BF622241D06AD0089E4AD /* VisitCircle.swift */; };
 		C92BF627241D06AD0089E4AD /* PathPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92BF623241D06AD0089E4AD /* PathPolyline.swift */; };
 		C92BF628241D06AD0089E4AD /* VisitAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92BF624241D06AD0089E4AD /* VisitAnnotation.swift */; };
@@ -27,7 +28,7 @@
 		C952400C242F51D200F4522D /* ArcCoordinatesMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C952400A242F51D200F4522D /* ArcCoordinatesMatrix.swift */; };
 		C953392724126E250005E98F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C953392624126E250005E98F /* MapKit.framework */; };
 		C953392924126E670005E98F /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C953392824126E670005E98F /* MapView.swift */; };
-		C953392B24127CF30005E98F /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C953392A24127CF30005E98F /* TimelineView.swift */; };
+		C953392B24127CF30005E98F /* TimelineDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C953392A24127CF30005E98F /* TimelineDayView.swift */; };
 		C95E0E1C24179616008418A1 /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C95E0E1B24179616008418A1 /* Rubik-Medium.ttf */; };
 		C95E0E1F2417969E008418A1 /* TimelineHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E0E1E2417969E008418A1 /* TimelineHeader.swift */; };
 		C95E0E21241797D9008418A1 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E0E20241797D8008418A1 /* Colors.swift */; };
@@ -81,6 +82,7 @@
 		C90D78672428FFCE004ABFD0 /* Place.scores.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.scores.swift; sourceTree = "<group>"; };
 		C90D786E2429006F004ABFD0 /* Migrations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Migrations.swift; sourceTree = "<group>"; };
 		C918CF2B243A33150019D350 /* SofiaProBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SofiaProBold.ttf; sourceTree = "<group>"; };
+		C918CF2D243B1EE90019D350 /* TimelineRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineRootView.swift; sourceTree = "<group>"; };
 		C92BF622241D06AD0089E4AD /* VisitCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitCircle.swift; sourceTree = "<group>"; };
 		C92BF623241D06AD0089E4AD /* PathPolyline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathPolyline.swift; sourceTree = "<group>"; };
 		C92BF624241D06AD0089E4AD /* VisitAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitAnnotation.swift; sourceTree = "<group>"; };
@@ -90,7 +92,7 @@
 		C952400A242F51D200F4522D /* ArcCoordinatesMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcCoordinatesMatrix.swift; sourceTree = "<group>"; };
 		C953392624126E250005E98F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C953392824126E670005E98F /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		C953392A24127CF30005E98F /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
+		C953392A24127CF30005E98F /* TimelineDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineDayView.swift; sourceTree = "<group>"; };
 		C95E0E1B24179616008418A1 /* Rubik-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Medium.ttf"; sourceTree = "<group>"; };
 		C95E0E1E2417969E008418A1 /* TimelineHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineHeader.swift; sourceTree = "<group>"; };
 		C95E0E20241797D8008418A1 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -195,10 +197,10 @@
 		C91F7ACC241645A90013A5D5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C9822A86240CF8D5006B70F4 /* RootView.swift */,
 				C92BF62A241D06B70089E4AD /* Map */,
 				C95C555F2413C02C0038EB3B /* Timeline */,
 				C9F98B78242FAB46003D2A23 /* TimelineItem */,
-				C9822A86240CF8D5006B70F4 /* RootView.swift */,
 				C99325932430EE59005299DC /* RowButtonStyle.swift */,
 				C9DBE4262437462B00FCB8E5 /* PagerView.swift */,
 				C90C27362439DCCC00A36251 /* NavBarView.swift */,
@@ -241,9 +243,10 @@
 		C95C555F2413C02C0038EB3B /* Timeline */ = {
 			isa = PBXGroup;
 			children = (
+				C918CF2D243B1EE90019D350 /* TimelineRootView.swift */,
 				C9DBE428243746FF00FCB8E5 /* TimelineScrollView.swift */,
+				C953392A24127CF30005E98F /* TimelineDayView.swift */,
 				C95E0E1E2417969E008418A1 /* TimelineHeader.swift */,
-				C953392A24127CF30005E98F /* TimelineView.swift */,
 				C95E0E262417B19C008418A1 /* PathListBox.swift */,
 				C95E0E242417AEB8008418A1 /* VisitListBox.swift */,
 			);
@@ -532,7 +535,7 @@
 				C99F5EC5242A3F8600E172AE /* FSOAuth.m in Sources */,
 				C95E0E272417B19C008418A1 /* PathListBox.swift in Sources */,
 				C90D786B2428FFCE004ABFD0 /* Place.stats.swift in Sources */,
-				C953392B24127CF30005E98F /* TimelineView.swift in Sources */,
+				C953392B24127CF30005E98F /* TimelineDayView.swift in Sources */,
 				C99F5EBF242A371C00E172AE /* Scraps.swift in Sources */,
 				C99F5EC9242A4EFA00E172AE /* Settings.swift in Sources */,
 				C9822A87240CF8D5006B70F4 /* RootView.swift in Sources */,
@@ -550,6 +553,7 @@
 				C95E0E2E2417B773008418A1 /* ArcPath.swift in Sources */,
 				C9524007242F502700F4522D /* RecordingManager.swift in Sources */,
 				C99F5EBD242A307400E172AE /* LastFm.swift in Sources */,
+				C918CF2E243B1EE90019D350 /* TimelineRootView.swift in Sources */,
 				C90D78682428FFCE004ABFD0 /* PlaceCache.swift in Sources */,
 				C90D786C2428FFCE004ABFD0 /* Place.scores.swift in Sources */,
 				C98967EC2435F27200D55AFE /* SegmentAnnotation.swift in Sources */,

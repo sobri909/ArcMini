@@ -21,9 +21,11 @@ struct RootView: View {
                     .edgesIgnoringSafeArea(.all)
                 VStack(spacing: 0) {
                     NavBarView()
-                    Spacer()                    
-                    TimelineScrollView()
-                        .frame(width: metrics.size.width, height: metrics.size.height * (1.0 - self.timelineState.mapHeightPercent))
+                    Spacer()
+                    NavigationView {
+                        TimelineRootView()
+                    }
+                    .frame(width: metrics.size.width, height: metrics.size.height * (1.0 - self.timelineState.mapHeightPercent))
                 }
             }
         }

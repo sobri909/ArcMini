@@ -23,6 +23,9 @@ enum Weekday: Int, CaseIterable {
 let greg = Calendar(identifier: Calendar.Identifier.gregorian)
 
 extension Date {
+    var isToday: Bool { return Calendar.current.isDateInToday(self) }
+    var isYesterday: Bool { return Calendar.current.isDateInYesterday(self) }
+    var isTomorrow: Bool { return Calendar.current.isDateInTomorrow(self) }
     var nextDay: Date { return Calendar.current.date(byAdding: .day, value: 1, to: self)! }
     var previousDay: Date { return Calendar.current.date(byAdding: .day, value: -1, to: self)! }
     var weekday: Weekday { return Weekday(rawValue: greg.dateComponents([.weekday], from: self).weekday!)! }

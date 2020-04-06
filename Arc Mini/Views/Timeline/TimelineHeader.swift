@@ -9,18 +9,34 @@
 import SwiftUI
 
 struct TimelineHeader: View {
+
+    @EnvironmentObject var timelineState: TimelineState
+
     var body: some View {
         HStack {
-            Text("TIMELINE")
-                .font(.custom("Rubik-Medium", size: 12))
-                .foregroundColor(.arcSelected)
-                .kerning(1)
+            Text(dailyTitle)
+                .font(.system(size: 17, weight: .semibold))
+                .foregroundColor(.brandTertiaryDark)
             Spacer()
         }
         .padding([.leading, .trailing], 20)
-        .frame(height: 55)
-        .background(Color.white)
+        .frame(height: 56)
     }
+
+    var dailyTitle: String {
+        guard let day = timelineState.visibleDateRange?.start else { return "Eh?" }
+        let formatter = TimelineState.dateFormatter
+        if day.isToday || day.isYesterday {
+            formatter.dateFormat = nil
+            formatter.doesRelativeDateFormatting = true
+            formatter.dateStyle = .long
+            formatter.timeStyle = .none
+        } else {
+            formatter.setLocalizedDateFormatFromTemplate("EEE d MMM yyyy")
+        }
+        return formatter.string(from: day)
+    }
+    
 }
 
 struct TimelineHeader_Previews: PreviewProvider {

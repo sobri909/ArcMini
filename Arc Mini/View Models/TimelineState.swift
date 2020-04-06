@@ -13,6 +13,8 @@ class TimelineState: ObservableObject {
     static let rootMapHeightPercent: CGFloat = 0.4
     static let subMapHeightPercent: CGFloat = 0.4 // should be 0.35, but view sizing is an issue at the moment
 
+    static let dateFormatter = DateFormatter() // reusable cached formatter
+
     @Published var dateRanges: Array<DateInterval> = []
     @Published var currentCardIndex = 0
     
@@ -23,6 +25,7 @@ class TimelineState: ObservableObject {
     init() {
         dateRanges.append(Calendar.current.dateInterval(of: .day, for: Date().previousDay)!)
         dateRanges.append(Calendar.current.dateInterval(of: .day, for: Date())!)
+        currentCardIndex = 1
     }
 
     var visibleDateRange: DateInterval? {

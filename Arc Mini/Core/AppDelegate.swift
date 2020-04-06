@@ -17,6 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ActivityTypesCache.highlander.store = RecordingManager.store
         LocomotionManager.highlander.requestLocationPermission(background: true)
         RecordingManager.recorder.startRecording()
+
+        UITableView.appearance().separatorStyle = .none
+        UITableView.appearance().showsVerticalScrollIndicator = false
+        UITableViewCell.appearance().selectionStyle = .none
+        
         return true
     }
 
