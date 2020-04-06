@@ -19,7 +19,7 @@ struct PathListBox: View {
                 Rectangle().fill(path.color).frame(width: 3).cornerRadius(1.5)
                 Spacer().frame(width: 34)
                 VStack(alignment: .leading) {
-                    Text(path.title).font(.system(size: 14, weight: .medium))
+                    Text(title).font(.system(size: 14, weight: .medium))
                     Text(String(duration: path.duration)).font(.system(size: 14, weight: .regular))
                 }
                 Spacer()
@@ -37,6 +37,13 @@ struct PathListBox: View {
                 }
             }
         }
+    }
+
+    var title: String {
+        var debug = ""
+        if path.hasBrokenNextItemEdge { debug += "↑" }
+        if path.hasBrokenPreviousItemEdge { debug += "↓" }
+        return debug + path.title
     }
 
 }

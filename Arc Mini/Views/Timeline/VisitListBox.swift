@@ -28,7 +28,7 @@ struct VisitListBox: View {
                 }
                 self.categoryImage.renderingMode(.template).foregroundColor(self.categoryColor)
                 Spacer().frame(width: 24)
-                Text(visit.title).font(.system(size: 16, weight: .semibold))
+                Text(title).font(.system(size: 16, weight: .semibold))
                 Spacer()
             }
             .padding([.leading, .trailing], 20)
@@ -63,6 +63,13 @@ struct VisitListBox: View {
                 }
             }
         }
+    }
+
+    var title: String {
+        var debug = ""
+        if visit.hasBrokenNextItemEdge { debug += "↑" }
+        if visit.hasBrokenPreviousItemEdge { debug += "↓" }
+        return debug + visit.title
     }
 
     var categoryImage: Image {
