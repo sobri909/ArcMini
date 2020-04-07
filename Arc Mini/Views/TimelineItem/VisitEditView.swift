@@ -43,6 +43,7 @@ struct VisitEditView: View {
             self.mapState.selectedItems = [self.visit]
             self.mapState.itemSegments = self.visit.segmentsByActivityType
             self.timelineState.backButtonHidden = false
+            self.timelineState.todayButtonHidden = true
             self.placeClassifier.results()
             self.fetchPlaces()
         }

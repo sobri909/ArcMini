@@ -53,6 +53,7 @@ struct ItemSegmentEditView: View {
             }
             self.mapState.itemSegments = [self.itemSegment]
             self.timelineState.backButtonHidden = false
+            self.timelineState.todayButtonHidden = true
         }
         .onReceive(self.timelineState.$tappedBackButton) { tappedBackButton in
             if tappedBackButton {

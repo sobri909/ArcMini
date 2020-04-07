@@ -52,6 +52,7 @@ struct PathEditView: View {
             self.mapState.selectedItems = [self.path]
             self.mapState.itemSegments = self.path.segmentsByActivityType
             self.timelineState.backButtonHidden = false
+            self.timelineState.todayButtonHidden = true
         }
     }
 

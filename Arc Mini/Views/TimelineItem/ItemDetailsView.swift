@@ -40,6 +40,7 @@ struct ItemDetailsView: View {
             self.mapState.itemSegments = self.timelineItem.segmentsByActivityType
             self.timelineState.mapHeightPercent = TimelineState.subMapHeightPercent
             self.timelineState.backButtonHidden = false
+            self.timelineState.todayButtonHidden = true
         }
         .onReceive(self.timelineState.$tappedBackButton) { tappedBackButton in
             if tappedBackButton {

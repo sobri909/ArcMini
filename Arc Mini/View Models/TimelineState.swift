@@ -20,8 +20,12 @@ class TimelineState: ObservableObject {
     @Published var currentCardIndex = 0
 
     @Published var mapHeightPercent: CGFloat = rootMapHeightPercent
+    
     @Published var backButtonHidden = true
+    @Published var todayButtonHidden = true
+
     @Published var tappedBackButton = false
+    @Published var tappedTodayButton = false
 
     private var cardIndexSink: AnyCancellable?
 
@@ -30,7 +34,8 @@ class TimelineState: ObservableObject {
         dateRanges.append(Calendar.current.dateInterval(of: .day, for: Date())!)
         currentCardIndex = 1
 
-        cardIndexSink = $currentCardIndex.sink(receiveValue: { newValue in
+        cardIndexSink = $currentCardIndex.sink(receiveValue: { newCardIndex in
+            self.updateTodayButton(newCardIndex: newCardIndex)
             delay(0.3) { self.updateEdges() }
         })
     }
@@ -47,13 +52,18 @@ class TimelineState: ObservableObject {
 
     // MARK: -
 
+    func updateTodayButton(newCardIndex: Int? = nil) {
+        let dateRange = dateRanges[newCardIndex ?? currentCardIndex]
+        todayButtonHidden = dateRange.containsNow
+    }
+
     func updateEdges() {
         if currentCardIndex == 0, let firstRange = dateRanges.first {
             dateRanges.insert(firstRange.previousRange(of: .day)!, at: 0)
             currentCardIndex += 1
         }
         if currentCardIndex == dateRanges.count - 1, let lastRange = dateRanges.last {
-            if let nextRange = lastRange.nextRange(of: .day), nextRange.start.timeIntervalSinceNow > 0 {
+            if let nextRange = lastRange.nextRange(of: .day), nextRange.start.timeIntervalSinceNow < 0 {
                 dateRanges.append(nextRange)
             }
         }

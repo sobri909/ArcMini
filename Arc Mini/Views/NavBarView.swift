@@ -17,6 +17,8 @@ struct NavBarView: View {
             Spacer().frame(width: 8)
             self.backButton.opacity(self.timelineState.backButtonHidden ? 0 : 1)
             Spacer()
+            self.todayButton.opacity(self.timelineState.todayButtonHidden ? 0 : 1)
+            Spacer().frame(width: 8)
         }.padding(.top, 12)
     }
 
@@ -29,6 +31,21 @@ struct NavBarView: View {
         .frame(width: 40, height: 40)
         .background(Color.black.opacity(0.38))
         .cornerRadius(20)
+    }
+
+    var todayButton: some View {
+        Button(action: {
+            self.tappedTodayButton()
+        }) {
+            Image(systemName: "chevron.right.2").foregroundColor(.white)
+        }
+        .frame(width: 40, height: 40)
+        .background(Color.black.opacity(0.38))
+        .cornerRadius(20)
+    }
+
+    func tappedTodayButton() {
+        timelineState.currentCardIndex = timelineState.dateRanges.count - 1
     }
 
 }

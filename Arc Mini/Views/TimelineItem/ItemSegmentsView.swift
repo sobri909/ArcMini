@@ -56,6 +56,7 @@ struct ItemSegmentsView: View {
             self.mapState.selectedItems = [self.timelineItem]
             self.mapState.itemSegments = self.timelineItem.segmentsByActivityType
             self.timelineState.backButtonHidden = false
+            self.timelineState.todayButtonHidden = true
         }
         .onReceive(self.timelineState.$tappedBackButton) { tappedBackButton in
             if tappedBackButton {

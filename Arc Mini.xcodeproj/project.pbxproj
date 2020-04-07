@@ -193,8 +193,8 @@
 			isa = PBXGroup;
 			children = (
 				C9C827AC243C7B1E00F3199B /* Calendar+extensions.swift */,
-				C9C827AE243C830500F3199B /* DispatchQueue.swift */,
 				C970732C243889D400E3B938 /* LocoKit+extensions.swift */,
+				C9C827AE243C830500F3199B /* DispatchQueue.swift */,
 				C99F5EBE242A371C00E172AE /* Scraps.swift */,
 			);
 			path = Extensions;
@@ -204,12 +204,12 @@
 			isa = PBXGroup;
 			children = (
 				C9822A86240CF8D5006B70F4 /* RootView.swift */,
+				C90C27362439DCCC00A36251 /* NavBarView.swift */,
 				C92BF62A241D06B70089E4AD /* Map */,
 				C95C555F2413C02C0038EB3B /* Timeline */,
 				C9F98B78242FAB46003D2A23 /* TimelineItem */,
 				C99325932430EE59005299DC /* RowButtonStyle.swift */,
 				C9DBE4262437462B00FCB8E5 /* PagerView.swift */,
-				C90C27362439DCCC00A36251 /* NavBarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

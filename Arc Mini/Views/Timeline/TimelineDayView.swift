@@ -33,6 +33,7 @@ struct TimelineDayView: View {
             self.mapState.selectedItems.removeAll()
             self.mapState.itemSegments.removeAll()
             self.timelineState.backButtonHidden = true
+            self.timelineState.updateTodayButton()
             self.timelineState.mapHeightPercent = TimelineState.rootMapHeightPercent
         }
     }
