@@ -102,10 +102,13 @@ final class MapView: UIViewRepresentable {
 
         var coords = segment.samples.compactMap { $0.location?.coordinate }
 
-        let line = PathPolyline(coordinates: &coords, count: coords.count, color: segment.activityType?.color ?? .black)
-        map.addOverlay(line)
+        if segment.activityType != .stationary {
+            let line = PathPolyline(coordinates: &coords, count: coords.count, color: segment.activityType?.color ?? .black)
+            map.addOverlay(line)
+            return line
+        }
 
-        return line
+        return nil
     }
 
     func add(_ sample: LocomotionSample, to map: MKMapView) -> MKOverlay? {
