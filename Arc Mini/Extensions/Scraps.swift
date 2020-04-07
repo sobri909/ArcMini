@@ -7,33 +7,6 @@
 //
 
 import UIKit
-import LocoKit
-
-enum Weekday: Int, CaseIterable {
-    case all = 0
-    case sunday = 1
-    case monday = 2
-    case tuesday = 3
-    case wednesday = 4
-    case thursday = 5
-    case friday = 6
-    case saturday = 7
-}
-
-let greg = Calendar(identifier: Calendar.Identifier.gregorian)
-
-extension Date {
-    var isToday: Bool { return Calendar.current.isDateInToday(self) }
-    var isYesterday: Bool { return Calendar.current.isDateInYesterday(self) }
-    var isTomorrow: Bool { return Calendar.current.isDateInTomorrow(self) }
-    var nextDay: Date { return Calendar.current.date(byAdding: .day, value: 1, to: self)! }
-    var previousDay: Date { return Calendar.current.date(byAdding: .day, value: -1, to: self)! }
-    var weekday: Weekday { return Weekday(rawValue: greg.dateComponents([.weekday], from: self).weekday!)! }
-}
-
-extension DateInterval: Identifiable {
-    public var id: Int { return hashValue }
-}
 
 extension String {
     func localised(comment: String = "") -> String {
@@ -74,27 +47,5 @@ extension URL {
             queryStrings[key] = value
         }
         return queryStrings
-    }
-}
-
-// MARK: - GCD
-
-func onMain(_ closure: @escaping () -> ()) {
-    if Thread.isMainThread {
-        closure()
-    } else {
-        DispatchQueue.main.async(execute: closure)
-    }
-}
-
-func delay(_ delay: TimeInterval, closure: @escaping () -> ()) {
-    DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: closure)
-}
-
-func background(qos: DispatchQoS.QoSClass? = nil, closure: @escaping () -> ()) {
-    if let qos = qos {
-        DispatchQueue.global(qos: qos).async(execute: closure)
-    } else {
-        DispatchQueue.global().async(execute: closure)
     }
 }

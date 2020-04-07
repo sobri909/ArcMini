@@ -60,6 +60,8 @@
 		C9B86B88242CAD8900D52C0D /* ArcError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B86B87242CAD8900D52C0D /* ArcError.swift */; };
 		C9C5C009242FB2C700BC064E /* MapState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C5C008242FB2C700BC064E /* MapState.swift */; };
 		C9C6FBF2243333D3004F868C /* TimelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C6FBF1243333D3004F868C /* TimelineState.swift */; };
+		C9C827AD243C7B1E00F3199B /* Calendar+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C827AC243C7B1E00F3199B /* Calendar+extensions.swift */; };
+		C9C827AF243C830500F3199B /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C827AE243C830500F3199B /* DispatchQueue.swift */; };
 		C9C96AAF242760A2006D2E5B /* VisitEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C96AAE242760A2006D2E5B /* VisitEditView.swift */; };
 		C9C96AB224278052006D2E5B /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = C9C96AB124278052006D2E5B /* Introspect */; };
 		C9DBE4272437462B00FCB8E5 /* PagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DBE4262437462B00FCB8E5 /* PagerView.swift */; };
@@ -127,6 +129,8 @@
 		C9B86B87242CAD8900D52C0D /* ArcError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcError.swift; sourceTree = "<group>"; };
 		C9C5C008242FB2C700BC064E /* MapState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapState.swift; sourceTree = "<group>"; };
 		C9C6FBF1243333D3004F868C /* TimelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineState.swift; sourceTree = "<group>"; };
+		C9C827AC243C7B1E00F3199B /* Calendar+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+extensions.swift"; sourceTree = "<group>"; };
+		C9C827AE243C830500F3199B /* DispatchQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueue.swift; sourceTree = "<group>"; };
 		C9C96AAE242760A2006D2E5B /* VisitEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitEditView.swift; sourceTree = "<group>"; };
 		C9DBE4262437462B00FCB8E5 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
 		C9DBE428243746FF00FCB8E5 /* TimelineScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineScrollView.swift; sourceTree = "<group>"; };
@@ -188,6 +192,8 @@
 		C918CF2A2439E4230019D350 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C9C827AC243C7B1E00F3199B /* Calendar+extensions.swift */,
+				C9C827AE243C830500F3199B /* DispatchQueue.swift */,
 				C970732C243889D400E3B938 /* LocoKit+extensions.swift */,
 				C99F5EBE242A371C00E172AE /* Scraps.swift */,
 			);
@@ -524,6 +530,7 @@
 				C98783042435F1EB001B4E7D /* SegmentAnnotationView.swift in Sources */,
 				C99F5EB7242A2C5000E172AE /* Note.swift in Sources */,
 				C99F5EB6242A2C5000E172AE /* TrackPlay.swift in Sources */,
+				C9C827AD243C7B1E00F3199B /* Calendar+extensions.swift in Sources */,
 				C9822A85240CF8D5006B70F4 /* SceneDelegate.swift in Sources */,
 				C97C193C2432164700FC45A1 /* ItemSegmentEditView.swift in Sources */,
 				C90D78542428FBA2004ABFD0 /* PathEditView.swift in Sources */,
@@ -537,6 +544,7 @@
 				C90D786B2428FFCE004ABFD0 /* Place.stats.swift in Sources */,
 				C953392B24127CF30005E98F /* TimelineDayView.swift in Sources */,
 				C99F5EBF242A371C00E172AE /* Scraps.swift in Sources */,
+				C9C827AF243C830500F3199B /* DispatchQueue.swift in Sources */,
 				C99F5EC9242A4EFA00E172AE /* Settings.swift in Sources */,
 				C9822A87240CF8D5006B70F4 /* RootView.swift in Sources */,
 				C95E0E1F2417969E008418A1 /* TimelineHeader.swift in Sources */,

@@ -7,6 +7,7 @@
 //
 
 import LocoKit
+import Combine
 
 class TimelineState: ObservableObject {
 
@@ -17,15 +18,21 @@ class TimelineState: ObservableObject {
 
     @Published var dateRanges: Array<DateInterval> = []
     @Published var currentCardIndex = 0
-    
+
     @Published var mapHeightPercent: CGFloat = rootMapHeightPercent
     @Published var backButtonHidden = true
     @Published var tappedBackButton = false
+
+    private var cardIndexSink: AnyCancellable?
 
     init() {
         dateRanges.append(Calendar.current.dateInterval(of: .day, for: Date().previousDay)!)
         dateRanges.append(Calendar.current.dateInterval(of: .day, for: Date())!)
         currentCardIndex = 1
+
+        cardIndexSink = $currentCardIndex.sink(receiveValue: { newValue in
+            delay(0.3) { self.updateEdges() }
+        })
     }
 
     var visibleDateRange: DateInterval? {
@@ -36,6 +43,20 @@ class TimelineState: ObservableObject {
     var visibleTimelineSegment: TimelineSegment? {
         guard let dateRange = visibleDateRange else { return nil }
         return RecordingManager.store.segment(for: dateRange)
+    }
+
+    // MARK: -
+
+    func updateEdges() {
+        if currentCardIndex == 0, let firstRange = dateRanges.first {
+            dateRanges.insert(firstRange.previousRange(of: .day)!, at: 0)
+            currentCardIndex += 1
+        }
+        if currentCardIndex == dateRanges.count - 1, let lastRange = dateRanges.last {
+            if let nextRange = lastRange.nextRange(of: .day), nextRange.start.timeIntervalSinceNow > 0 {
+                dateRanges.append(nextRange)
+            }
+        }
     }
 
     // TODO: move these to ArcStore
