@@ -29,6 +29,7 @@ struct PagerView<Content: View>: View {
         GeometryReader { geometry in
             HStack(spacing: 0) {
                 self.content.frame(width: geometry.size.width)
+                    .background(Color("background"))
             }
             .frame(width: geometry.size.width, alignment: .leading)
             .offset(x: -CGFloat(self.currentIndex) * geometry.size.width)

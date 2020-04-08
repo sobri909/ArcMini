@@ -26,6 +26,7 @@ struct PathListBox: View {
             }
             .padding([.leading], 102)
             .padding([.trailing], 20)
+            .background(Color("background"))
             .contextMenu {
                 NavigationLink(destination: PathEditView(path: path)) {
                     Text("Edit trip")

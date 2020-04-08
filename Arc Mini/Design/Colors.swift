@@ -12,8 +12,6 @@ import LocoKit
 extension Color {
 
     static var arcSelected: Color { return Color(0x9A217D) }
-    static var brandSecondaryBase: Color { return Color(0x353561) }
-    static var brandTertiaryDark: Color { return Color(0x161620) }
 
     // MARK: - Hex init
 

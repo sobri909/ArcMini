@@ -15,6 +15,11 @@ struct TimelineDayView: View {
     @EnvironmentObject var timelineState: TimelineState
     @EnvironmentObject var mapState: MapState
 
+    init(timelineSegment: TimelineSegment) {
+        self.timelineSegment = timelineSegment
+        UITableView.appearance().backgroundColor = UIColor(named: "background")
+    }
+
     var body: some View {
         List {
             ForEach(self.filteredListItems) { timelineItem in
@@ -36,6 +41,7 @@ struct TimelineDayView: View {
             self.timelineState.updateTodayButton()
             self.timelineState.mapHeightPercent = TimelineState.rootMapHeightPercent
         }
+        .background(Color("background"))
     }
 
     // TODO: need "thinking..." boxes represented in the list array somehow

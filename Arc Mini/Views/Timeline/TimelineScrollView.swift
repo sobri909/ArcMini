@@ -19,6 +19,7 @@ struct TimelineScrollView: View {
                 TimelineDayView(timelineSegment: RecordingManager.store.segment(for: dateRange))
             }
         }
+        .background(Color("background"))
     }
     
 }

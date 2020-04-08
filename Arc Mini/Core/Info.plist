@@ -28,7 +28,6 @@
 	<string>Arc Mini needs to monitor your movement to record your daily timelines</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Rubik-Medium.ttf</string>
 		<string>SofiaProBold.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>

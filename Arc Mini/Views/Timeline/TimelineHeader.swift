@@ -16,11 +16,12 @@ struct TimelineHeader: View {
         HStack {
             Text(dailyTitle)
                 .font(.system(size: 17, weight: .semibold))
-                .foregroundColor(.brandTertiaryDark)
+                .foregroundColor(Color("brandTertiaryDark"))
             Spacer()
         }
         .padding([.leading, .trailing], 20)
         .frame(height: 56)
+        .background(Color("background"))
     }
 
     var dailyTitle: String {

@@ -26,6 +26,7 @@ struct RootView: View {
                         TimelineRootView()
                     }
                     .frame(width: metrics.size.width, height: metrics.size.height * (1.0 - self.timelineState.mapHeightPercent))
+                    .background(Color("background"))
                 }
             }
         }

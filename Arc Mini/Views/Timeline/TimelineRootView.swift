@@ -13,7 +13,7 @@ struct TimelineRootView: View {
     @EnvironmentObject var timelineState: TimelineState
 
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             TimelineHeader()
             TimelineScrollView()
         }

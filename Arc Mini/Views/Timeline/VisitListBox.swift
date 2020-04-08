@@ -32,6 +32,7 @@ struct VisitListBox: View {
                 Spacer()
             }
             .padding([.leading, .trailing], 20)
+            .background(Color("background"))
             .contextMenu {
                 NavigationLink(destination: VisitEditView(visit: visit, placeClassifier: visit.placeClassifier)) {
                     Text("Edit visit")

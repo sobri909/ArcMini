@@ -26,7 +26,7 @@ struct ItemDetailsView: View {
         List {
             Text((timelineItem as! ArcTimelineItem).title)
                 .font(.custom("SofiaProBold", size: 22))
-                .foregroundColor(.brandTertiaryDark)
+                .foregroundColor(Color("brandTertiaryDark"))
                 .padding(.top, 24)
             HStack {
                 Spacer()
@@ -58,7 +58,7 @@ struct ItemDetailsView: View {
                 HStack(alignment: .center) {
                     Image(systemName: "square.and.pencil")
                         .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(.brandSecondaryBase)
+                        .foregroundColor(Color("brandSecondaryBase"))
                         .offset(x: 0, y: -1)
                     Text("Edit")
                         .font(.system(size: 15, weight: .bold))
