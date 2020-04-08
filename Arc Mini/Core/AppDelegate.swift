@@ -8,6 +8,8 @@
 
 import UIKit
 import LocoKit
+import SwiftNotes
+import BackgroundTasks
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,13 +18,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         LocoKitService.apiKey = "bee1aa1af978486b9186780a07cc240e"
         ActivityTypesCache.highlander.store = RecordingManager.store
         LocomotionManager.highlander.requestLocationPermission(background: true)
+        LocomotionManager.highlander.coordinateAssessor = CoordinateTrustManager(store: RecordingManager.store)
         RecordingManager.recorder.startRecording()
 
+        UIDevice.current.isBatteryMonitoringEnabled = true
+
+        if UIDevice.current.batteryState == .charging || UIDevice.current.batteryState == .full {
+            registerBackgroundTasks()
+        }
+
+        when(UIDevice.batteryStateDidChangeNotification) { _ in
+            if UIDevice.current.batteryState == .charging {
+                print("batteryStateDidChange: CHARGING")
+                self.registerBackgroundTasks()
+            }
+        }
+
+        applyUIAppearanceOverrides()
+        
+        return true
+    }
+
+    func applyUIAppearanceOverrides() {
         UITableView.appearance().separatorStyle = .none
         UITableView.appearance().showsVerticalScrollIndicator = false
         UITableViewCell.appearance().selectionStyle = .none
-        
-        return true
+    }
+
+    func registerBackgroundTasks() {
+        let scheduler = BGTaskScheduler.shared
+        scheduler.register(forTaskWithIdentifier: "com.bigpaua.ArcMini.updateTrustFactors",
+                           using: Jobs.highlander.secondaryQueue.underlyingQueue) { task in
+            print("UPDATE TRUST FACTORS: START")
+            (LocomotionManager.highlander.coordinateAssessor as? CoordinateTrustManager)?.updateTrustFactors()
+            print("UPDATE TRUST FACTORS: COMPLETED")
+            task.setTaskCompleted(success: true)
+        }
     }
 
     // MARK: UISceneSession Lifecycle
