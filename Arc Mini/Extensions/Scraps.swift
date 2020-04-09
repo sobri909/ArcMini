@@ -12,6 +12,29 @@ extension String {
     func localised(comment: String = "") -> String {
         return NSLocalizedString(self, comment: comment)
     }
+
+    func appendLineToURL(fileURL: URL) throws {
+        try appendingFormat("\n").appendToURL(fileURL: fileURL)
+    }
+
+    func appendToURL(fileURL: URL) throws {
+        let dataObj = data(using: String.Encoding.utf8)!
+        try dataObj.appendToURL(fileURL)
+    }
+}
+
+extension Data {
+    func appendToURL(_ fileURL: URL) throws {
+        if let fileHandle = try? FileHandle(forWritingTo: fileURL) {
+            defer {
+                fileHandle.closeFile()
+            }
+            fileHandle.seekToEndOfFile()
+            fileHandle.write(self)
+        } else {
+            try write(to: fileURL, options: .atomic)
+        }
+    }
 }
 
 extension Bundle {

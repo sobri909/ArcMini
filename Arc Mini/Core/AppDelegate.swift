@@ -15,6 +15,8 @@ import BackgroundTasks
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        logger.info("APP LAUNCHED")
+
         LocoKitService.apiKey = "bee1aa1af978486b9186780a07cc240e"
         ActivityTypesCache.highlander.store = RecordingManager.store
         LocomotionManager.highlander.requestLocationPermission(background: true)
@@ -22,7 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         RecordingManager.recorder.startRecording()
 
         UIDevice.current.isBatteryMonitoringEnabled = true
-
 
         registerBackgroundTasks()
 
