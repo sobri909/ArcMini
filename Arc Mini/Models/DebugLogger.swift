@@ -9,6 +9,7 @@
 import os.log
 import Logging
 import LoggingFormatAndPipe
+import Combine
 
 let logger = Logger(label: "com.bigpaua.ArcMini.main") { _ in
     return LoggingFormatAndPipe.Handler(
@@ -17,9 +18,11 @@ let logger = Logger(label: "com.bigpaua.ArcMini.main") { _ in
     )
 }
 
-class DebugLogger: LoggingFormatAndPipe.Pipe {
+class DebugLogger: LoggingFormatAndPipe.Pipe, ObservableObject {
 
     static let highlander = DebugLogger()
+
+    public let objectWillChange = ObservableObjectPublisher()
 
     private init() {
         do {
@@ -40,16 +43,21 @@ class DebugLogger: LoggingFormatAndPipe.Pipe {
         }
     }
 
+    func delete(_ url: URL) throws {
+        try FileManager.default.removeItem(at: url)
+        onMain { self.objectWillChange.send() }
+    }
+
     // MARK: -
 
     private lazy var sessionLogFileURL: URL = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd.HHmm"
+        formatter.dateFormat = "yyyy-MM-dd HH.mm"
         let filename = formatter.string(from: Date())
         return logsDir.appendingPathComponent(filename + ".log")
     }()
 
-    private var logsDir: URL {
+    var logsDir: URL {
         let dir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).last!
         return dir.appendingPathComponent("Logs", isDirectory: true)
     }

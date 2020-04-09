@@ -27,7 +27,7 @@ struct TimelineHeader: View {
             self.showingDebugLogs = true
         }
         .sheet(isPresented: $showingDebugLogs) {
-            DebugLogsView()
+            DebugLogsView().environmentObject(DebugLogger.highlander)
         }
     }
 
