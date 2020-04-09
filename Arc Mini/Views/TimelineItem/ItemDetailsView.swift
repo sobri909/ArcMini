@@ -58,11 +58,11 @@ struct ItemDetailsView: View {
                 HStack(alignment: .center) {
                     Image(systemName: "square.and.pencil")
                         .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(Color("brandSecondaryBase"))
+                        .foregroundColor(Color("brandSecondary80"))
                         .offset(x: 0, y: -1)
                     Text("Edit")
                         .font(.system(size: 15, weight: .bold))
-                        .foregroundColor(Color(0x2D2D73))
+                        .foregroundColor(Color("brandSecondaryDark"))
                 }
             }
             .frame(height: 50)
