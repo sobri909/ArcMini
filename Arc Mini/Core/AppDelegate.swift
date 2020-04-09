@@ -23,14 +23,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         UIDevice.current.isBatteryMonitoringEnabled = true
 
-        if UIDevice.current.batteryState == .charging || UIDevice.current.batteryState == .full {
-            registerBackgroundTasks()
+
+        registerBackgroundTasks()
+
+        if UIDevice.current.batteryState != .unplugged {
+            scheduleBackgroundTasks()
         }
 
         when(UIDevice.batteryStateDidChangeNotification) { _ in
-            if UIDevice.current.batteryState == .charging {
-                print("batteryStateDidChange: CHARGING")
-                self.registerBackgroundTasks()
+            if UIDevice.current.batteryState != .unplugged {
+                self.scheduleBackgroundTasks()
             }
         }
 
@@ -47,15 +49,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func registerBackgroundTasks() {
         let scheduler = BGTaskScheduler.shared
-        scheduler.register(forTaskWithIdentifier: "com.bigpaua.ArcMini.updateTrustFactors",
-                           using: Jobs.highlander.secondaryQueue.underlyingQueue) { task in
-            print("UPDATE TRUST FACTORS: START")
+        scheduler.register(
+            forTaskWithIdentifier: "com.bigpaua.ArcMini.updateTrustFactors",
+            using: Jobs.highlander.secondaryQueue.underlyingQueue)
+        { task in
+            logger.info("UPDATE TRUST FACTORS: START")
             (LocomotionManager.highlander.coordinateAssessor as? CoordinateTrustManager)?.updateTrustFactors()
-            print("UPDATE TRUST FACTORS: COMPLETED")
+            logger.info("UPDATE TRUST FACTORS: COMPLETED")
             task.setTaskCompleted(success: true)
         }
     }
 
+    func scheduleBackgroundTasks() {
+        if LocomotionManager.highlander.recordingState == .recording { return }
+        scheduleBackgroundTask("com.bigpaua.ArcMini.updateTrustFactors", requiresPower: true)
+    }
+
+    func scheduleBackgroundTask(_ identifier: String, requiresPower: Bool, requiresNetwork: Bool = false) {
+        let request = BGProcessingTaskRequest(identifier: identifier)
+        request.requiresNetworkConnectivity = requiresNetwork
+        request.requiresExternalPower = requiresPower
+        do {
+            try BGTaskScheduler.shared.submit(request)
+        } catch {
+            logger.error("FAILED REQUEST: \(identifier)")
+        }
+    }
+    
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
