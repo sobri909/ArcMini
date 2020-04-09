@@ -53,7 +53,7 @@ class LastFm {
 //                    }
 //
 //                } catch {
-//                    print("ERROR: \(error)")
+//                    logger.error("ERROR: \(error)")
 //                }
 //
 //            }.cauterize()
@@ -73,7 +73,7 @@ class LastFm {
 
             let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
                 if let error = error {
-                    print("ERROR: \(error)")
+                    logger.error("ERROR: \(error)")
                     seal.fulfill(nil)
                     return
                 }
@@ -88,7 +88,7 @@ class LastFm {
                     seal.fulfill(result)
 
                 } catch {
-                    print("ERROR: \(error)")
+                    logger.error("ERROR: \(error)")
                     seal.fulfill(nil)
                 }
             }

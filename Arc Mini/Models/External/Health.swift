@@ -44,7 +44,7 @@ class Health {
                 onMain {
                     Health.readPermissions[type] = permission
                     if !permission {
-                        print("FFS. NO PERMISSION (\(type))")
+                        logger.error("FFS. NO PERMISSION (\(type))")
                     }
                 }
             }
@@ -57,7 +57,7 @@ class Health {
 //        guard AppDelegate.applicationState == .active else { completion?(); return }
         store.requestAuthorization(toShare: Health.writeTypes, read: Health.readTypes) { success, error in
             if let error = error {
-                print("requestPermissions ERROR: \(error)")
+                logger.error("requestPermissions ERROR: \(error)")
             }
             completion?()
         }
@@ -201,7 +201,7 @@ class Health {
         { query, samples, error in
             if let error = error {
                 if (error as? HKError)?.code == .errorDatabaseInaccessible {
-                    print("bloodPressureSystolicType HKError.errorDatabaseInaccessible")
+                    logger.error("bloodPressureSystolicType HKError.errorDatabaseInaccessible")
                 }
             }
 
@@ -228,7 +228,7 @@ class Health {
         { query, samples, error in
             if let error = error {
                 if (error as? HKError)?.code == .errorDatabaseInaccessible {
-                    print("bloodPressureDiastolicType HKError.errorDatabaseInaccessible")
+                    logger.error("bloodPressureDiastolicType HKError.errorDatabaseInaccessible")
                 }
             }
 
@@ -265,7 +265,7 @@ class Health {
         { query, samples, error in
             if let error = error {
                 if (error as? HKError)?.code == .errorDatabaseInaccessible {
-                    print("fetchHeartRateSamples HKError.errorDatabaseInaccessible")
+                    logger.error("fetchHeartRateSamples HKError.errorDatabaseInaccessible")
                 }
             }
 

@@ -11,6 +11,24 @@
         }
       },
       {
+        "package": "swift-log",
+        "repositoryURL": "https://github.com/apple/swift-log",
+        "state": {
+          "branch": null,
+          "revision": "74d7b91ceebc85daf387ebb206003f78813f71aa",
+          "version": "1.2.0"
+        }
+      },
+      {
+        "package": "swift-log-format-and-pipe",
+        "repositoryURL": "https://github.com/Adorkable/swift-log-format-and-pipe",
+        "state": {
+          "branch": null,
+          "revision": "bd29badb9e6b18122ec10b84eed534db83cad279",
+          "version": "0.1.1"
+        }
+      },
+      {
         "package": "SwiftNotes",
         "repositoryURL": "https://github.com/sobri909/SwiftNotes",
         "state": {

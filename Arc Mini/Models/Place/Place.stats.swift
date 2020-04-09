@@ -50,9 +50,7 @@ extension Place {
                 return
             }
             
-            #if MERELEASE || DEBUG
-            print("UPDATING: \(self.name)")
-            #endif
+            logger.info("UPDATING: \(self.name)")
 
             self.updateEndTimes(visits: visits)
             self.updateStartTimes(visits: visits)
@@ -64,9 +62,7 @@ extension Place {
             self.needsUpdate = false
             self.save()
 
-            #if MERELEASE || DEBUG
-            print("UPDATED: \(self.name)")
-            #endif
+            logger.info("UPDATED: \(self.name)")
 
             done()
         }

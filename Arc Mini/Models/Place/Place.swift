@@ -61,7 +61,7 @@ class Place: TimelineObject, Hashable, Encodable {
                 self.lastSaved = self.transactionDate
             }
         } catch {
-            print("ERROR: \(error)")
+            logger.error("ERROR: \(error)")
         }
     }
 
@@ -72,7 +72,7 @@ class Place: TimelineObject, Hashable, Encodable {
                 try self.save(in: db)
             }
         } catch {
-            print("ERROR: \(error)")
+            logger.error("ERROR: \(error)")
         }
     }
 
@@ -230,7 +230,7 @@ class Place: TimelineObject, Hashable, Encodable {
 
     func setVisitTimesHistograms(from visitTimesStrings: [String]) {
         guard visitTimesStrings.count == Weekday.allCases.count else {
-            print("visitTimesStrings has wrong count: \(visitTimesStrings.count)")
+            logger.error("visitTimesStrings has wrong count: \(visitTimesStrings.count)")
             return
         }
 

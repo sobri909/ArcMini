@@ -105,7 +105,7 @@ class PlaceCache {
 
                                 // update name if changed
                                 if venue.name != place.name {
-                                    print("UPDATING PLACE NAME: (old: \(place.name), new: \(venue.name))")
+                                    logger.info("UPDATING PLACE NAME: (old: \(place.name), new: \(venue.name))")
                                     place.name = venue.name
                                     place.save()
                                 }
@@ -143,7 +143,7 @@ class PlaceCache {
 
     func updateQueuedPlaces(task: BGProcessingTask) {
         if backgroundTaskExpired {
-            print("UPDATE QUEUED PLACES: BG TASK EXPIRED")
+            logger.info("UPDATE QUEUED PLACES: BG TASK EXPIRED")
             task.setTaskCompleted(success: false)
             return
         }
@@ -164,7 +164,7 @@ class PlaceCache {
             return
         }
 
-        print("UPDATE QUEUED PLACES: COMPLETED")
+        logger.info("UPDATE QUEUED PLACES: COMPLETED")
         task.setTaskCompleted(success: true)
     }
 

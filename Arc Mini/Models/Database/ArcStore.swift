@@ -192,21 +192,21 @@ class ArcStore: TimelineStore {
         do {
             try migrator.migrate(pool)
         } catch {
-            print("ERROR: \(error)")
+            logger.info("ERROR: \(error)")
             fatalError()
         }
 
         do {
             try auxiliaryDbMigrator.migrate(auxiliaryPool)
         } catch {
-            print("ERROR: \(error)")
+            logger.info("ERROR: \(error)")
             fatalError()
         }
 
         do {
             try arcMigrator.migrate(arcPool)
         } catch {
-            print("ERROR: \(error)")
+            logger.info("ERROR: \(error)")
             fatalError()
         }
 

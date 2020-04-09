@@ -61,6 +61,9 @@
 		C9C6FBF2243333D3004F868C /* TimelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C6FBF1243333D3004F868C /* TimelineState.swift */; };
 		C9C827AD243C7B1E00F3199B /* Calendar+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C827AC243C7B1E00F3199B /* Calendar+extensions.swift */; };
 		C9C827AF243C830500F3199B /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C827AE243C830500F3199B /* DispatchQueue.swift */; };
+		C9C827B2243DDA7100F3199B /* Logging in Frameworks */ = {isa = PBXBuildFile; productRef = C9C827B1243DDA7100F3199B /* Logging */; };
+		C9C827B5243DEB0000F3199B /* LoggingFormatAndPipe in Frameworks */ = {isa = PBXBuildFile; productRef = C9C827B4243DEB0000F3199B /* LoggingFormatAndPipe */; };
+		C9C827B7243DEB7F00F3199B /* DebugLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C827B6243DEB7F00F3199B /* DebugLogger.swift */; };
 		C9C96AAF242760A2006D2E5B /* VisitEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C96AAE242760A2006D2E5B /* VisitEditView.swift */; };
 		C9C96AB224278052006D2E5B /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = C9C96AB124278052006D2E5B /* Introspect */; };
 		C9DBE4272437462B00FCB8E5 /* PagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DBE4262437462B00FCB8E5 /* PagerView.swift */; };
@@ -129,6 +132,7 @@
 		C9C6FBF1243333D3004F868C /* TimelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineState.swift; sourceTree = "<group>"; };
 		C9C827AC243C7B1E00F3199B /* Calendar+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+extensions.swift"; sourceTree = "<group>"; };
 		C9C827AE243C830500F3199B /* DispatchQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueue.swift; sourceTree = "<group>"; };
+		C9C827B6243DEB7F00F3199B /* DebugLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogger.swift; sourceTree = "<group>"; };
 		C9C96AAE242760A2006D2E5B /* VisitEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitEditView.swift; sourceTree = "<group>"; };
 		C9DBE4262437462B00FCB8E5 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
 		C9DBE428243746FF00FCB8E5 /* TimelineScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineScrollView.swift; sourceTree = "<group>"; };
@@ -146,8 +150,10 @@
 			files = (
 				C953392724126E250005E98F /* MapKit.framework in Frameworks */,
 				C99F5EB3242A240D00E172AE /* PromiseKit in Frameworks */,
+				C9C827B2243DDA7100F3199B /* Logging in Frameworks */,
 				C9524005242F3DE000F4522D /* SwiftNotes in Frameworks */,
 				C9C96AB224278052006D2E5B /* Introspect in Frameworks */,
+				C9C827B5243DEB0000F3199B /* LoggingFormatAndPipe in Frameworks */,
 				09C227A470BFD8839C9491BB /* Pods_Arc_Mini.framework in Frameworks */,
 				C9F32F4A242A60A100184862 /* HealthKit.framework in Frameworks */,
 			);
@@ -288,6 +294,7 @@
 				C99F5EC8242A4EFA00E172AE /* Settings.swift */,
 				C99F5EB4242A2C5000E172AE /* TrackPlay.swift */,
 				C9B86B87242CAD8900D52C0D /* ArcError.swift */,
+				C9C827B6243DEB7F00F3199B /* DebugLogger.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -409,6 +416,8 @@
 				C9C96AB124278052006D2E5B /* Introspect */,
 				C99F5EB2242A240D00E172AE /* PromiseKit */,
 				C9524004242F3DE000F4522D /* SwiftNotes */,
+				C9C827B1243DDA7100F3199B /* Logging */,
+				C9C827B4243DEB0000F3199B /* LoggingFormatAndPipe */,
 			);
 			productName = "Arc Mini";
 			productReference = C9822A7F240CF8D5006B70F4 /* Arc Mini.app */;
@@ -443,6 +452,8 @@
 				C9C96AB024278051006D2E5B /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				C99F5EB1242A240C00E172AE /* XCRemoteSwiftPackageReference "PromiseKit" */,
 				C9524003242F3DE000F4522D /* XCRemoteSwiftPackageReference "SwiftNotes" */,
+				C9C827B0243DDA7100F3199B /* XCRemoteSwiftPackageReference "swift-log" */,
+				C9C827B3243DEB0000F3199B /* XCRemoteSwiftPackageReference "swift-log-format-and-pipe" */,
 			);
 			productRefGroup = C9822A80240CF8D5006B70F4 /* Products */;
 			projectDirPath = "";
@@ -550,6 +561,7 @@
 				C9C96AAF242760A2006D2E5B /* VisitEditView.swift in Sources */,
 				C9EB6644241A60FA00F545AF /* ArcStore.swift in Sources */,
 				C92BF626241D06AD0089E4AD /* VisitCircle.swift in Sources */,
+				C9C827B7243DEB7F00F3199B /* DebugLogger.swift in Sources */,
 				C90D78692428FFCE004ABFD0 /* PlaceClassifier.swift in Sources */,
 				C90D786A2428FFCE004ABFD0 /* Place.swift in Sources */,
 				C92BF628241D06AD0089E4AD /* VisitAnnotation.swift in Sources */,
@@ -784,6 +796,22 @@
 				minimumVersion = 6.13.1;
 			};
 		};
+		C9C827B0243DDA7100F3199B /* XCRemoteSwiftPackageReference "swift-log" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-log";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
+		C9C827B3243DEB0000F3199B /* XCRemoteSwiftPackageReference "swift-log-format-and-pipe" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Adorkable/swift-log-format-and-pipe";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.1;
+			};
+		};
 		C9C96AB024278051006D2E5B /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/timbersoftware/SwiftUI-Introspect.git";
@@ -804,6 +832,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C99F5EB1242A240C00E172AE /* XCRemoteSwiftPackageReference "PromiseKit" */;
 			productName = PromiseKit;
+		};
+		C9C827B1243DDA7100F3199B /* Logging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C9C827B0243DDA7100F3199B /* XCRemoteSwiftPackageReference "swift-log" */;
+			productName = Logging;
+		};
+		C9C827B4243DEB0000F3199B /* LoggingFormatAndPipe */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C9C827B3243DEB0000F3199B /* XCRemoteSwiftPackageReference "swift-log-format-and-pipe" */;
+			productName = LoggingFormatAndPipe;
 		};
 		C9C96AB124278052006D2E5B /* Introspect */ = {
 			isa = XCSwiftPackageProductDependency;

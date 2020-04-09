@@ -42,7 +42,7 @@ class PlaceClassifier: ObservableObject {
     @discardableResult
     func results(query: String = "") -> PlaceClassifierResults {
         if overlappersOnly && !query.isEmpty {
-            print("CANT USE A QUERY ON AN OVERLAPPERS ONLY CLASSIFIER!")
+            logger.error("CANT USE A QUERY ON AN OVERLAPPERS ONLY CLASSIFIER!")
         }
 
         let places = placesFor(query: query)

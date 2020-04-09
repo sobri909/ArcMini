@@ -53,7 +53,7 @@ class Note: TimelineObject, Encodable {
                 self.lastSaved = self.transactionDate
             }
         } catch {
-            print("ERROR: \(error)")
+            logger.error("ERROR: \(error)")
         }
     }
 
@@ -64,7 +64,7 @@ class Note: TimelineObject, Encodable {
                 try self.save(in: db)
             }
         } catch {
-            print("ERROR: \(error)")
+            logger.error("ERROR: \(error)")
         }
     }
 
