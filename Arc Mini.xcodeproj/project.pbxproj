@@ -22,6 +22,8 @@
 		C92BF627241D06AD0089E4AD /* PathPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92BF623241D06AD0089E4AD /* PathPolyline.swift */; };
 		C92BF628241D06AD0089E4AD /* VisitAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92BF624241D06AD0089E4AD /* VisitAnnotation.swift */; };
 		C92BF629241D06AD0089E4AD /* VisitAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92BF625241D06AD0089E4AD /* VisitAnnotationView.swift */; };
+		C93062B1243F1B0D00DE47CC /* DebugLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93062B0243F1B0D00DE47CC /* DebugLogsView.swift */; };
+		C93062B3243F209F00DE47CC /* DebugLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93062B2243F209F00DE47CC /* DebugLogView.swift */; };
 		C9524005242F3DE000F4522D /* SwiftNotes in Frameworks */ = {isa = PBXBuildFile; productRef = C9524004242F3DE000F4522D /* SwiftNotes */; };
 		C9524007242F502700F4522D /* RecordingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9524006242F502700F4522D /* RecordingManager.swift */; };
 		C952400B242F51D200F4522D /* ArcHistogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9524009242F51D200F4522D /* ArcHistogram.swift */; };
@@ -91,6 +93,8 @@
 		C92BF623241D06AD0089E4AD /* PathPolyline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathPolyline.swift; sourceTree = "<group>"; };
 		C92BF624241D06AD0089E4AD /* VisitAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitAnnotation.swift; sourceTree = "<group>"; };
 		C92BF625241D06AD0089E4AD /* VisitAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitAnnotationView.swift; sourceTree = "<group>"; };
+		C93062B0243F1B0D00DE47CC /* DebugLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogsView.swift; sourceTree = "<group>"; };
+		C93062B2243F209F00DE47CC /* DebugLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogView.swift; sourceTree = "<group>"; };
 		C9524006242F502700F4522D /* RecordingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingManager.swift; sourceTree = "<group>"; };
 		C9524009242F51D200F4522D /* ArcHistogram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcHistogram.swift; sourceTree = "<group>"; };
 		C952400A242F51D200F4522D /* ArcCoordinatesMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcCoordinatesMatrix.swift; sourceTree = "<group>"; };
@@ -212,6 +216,7 @@
 				C92BF62A241D06B70089E4AD /* Map */,
 				C95C555F2413C02C0038EB3B /* Timeline */,
 				C9F98B78242FAB46003D2A23 /* TimelineItem */,
+				C93062B4243F214700DE47CC /* Debug */,
 				C99325932430EE59005299DC /* RowButtonStyle.swift */,
 				C9DBE4262437462B00FCB8E5 /* PagerView.swift */,
 			);
@@ -230,6 +235,15 @@
 				C98783032435F1EB001B4E7D /* SegmentAnnotationView.swift */,
 			);
 			path = Map;
+			sourceTree = "<group>";
+		};
+		C93062B4243F214700DE47CC /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				C93062B0243F1B0D00DE47CC /* DebugLogsView.swift */,
+				C93062B2243F209F00DE47CC /* DebugLogView.swift */,
+			);
+			path = Debug;
 			sourceTree = "<group>";
 		};
 		C9524008242F50BA00F4522D /* Maths */ = {
@@ -549,6 +563,7 @@
 				C99F5EC5242A3F8600E172AE /* FSOAuth.m in Sources */,
 				C95E0E272417B19C008418A1 /* PathListBox.swift in Sources */,
 				C90D786B2428FFCE004ABFD0 /* Place.stats.swift in Sources */,
+				C93062B3243F209F00DE47CC /* DebugLogView.swift in Sources */,
 				C953392B24127CF30005E98F /* TimelineDayView.swift in Sources */,
 				C99F5EBF242A371C00E172AE /* Scraps.swift in Sources */,
 				C9C827AF243C830500F3199B /* DispatchQueue.swift in Sources */,
@@ -558,6 +573,7 @@
 				C9B86B88242CAD8900D52C0D /* ArcError.swift in Sources */,
 				C9F98B77242FAB38003D2A23 /* ItemSegmentsView.swift in Sources */,
 				C95E0E252417AEB8008418A1 /* VisitListBox.swift in Sources */,
+				C93062B1243F1B0D00DE47CC /* DebugLogsView.swift in Sources */,
 				C9C96AAF242760A2006D2E5B /* VisitEditView.swift in Sources */,
 				C9EB6644241A60FA00F545AF /* ArcStore.swift in Sources */,
 				C92BF626241D06AD0089E4AD /* VisitCircle.swift in Sources */,

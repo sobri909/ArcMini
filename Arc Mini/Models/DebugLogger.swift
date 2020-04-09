@@ -54,4 +54,17 @@ class DebugLogger: LoggingFormatAndPipe.Pipe {
         return dir.appendingPathComponent("Logs", isDirectory: true)
     }
 
+    var logFileURLs: [URL] {
+        do {
+            let files = try FileManager.default.contentsOfDirectory(at: logsDir, includingPropertiesForKeys: nil)
+            return files
+                .filter { !$0.hasDirectoryPath && $0.pathExtension.lowercased() == "log" }
+                .sorted { $0.path > $1.path }
+
+        } catch {
+            logger.error("ERROR: \(error)")
+            return []
+        }
+    }
+
 }

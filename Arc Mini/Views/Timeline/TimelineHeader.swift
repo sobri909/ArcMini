@@ -11,6 +11,7 @@ import SwiftUI
 struct TimelineHeader: View {
 
     @EnvironmentObject var timelineState: TimelineState
+    @State var showingDebugLogs = false
 
     var body: some View {
         HStack {
@@ -22,6 +23,12 @@ struct TimelineHeader: View {
         .padding([.leading, .trailing], 20)
         .frame(height: 56)
         .background(Color("background"))
+        .onTapGesture(count: 3) {
+            self.showingDebugLogs = true
+        }
+        .sheet(isPresented: $showingDebugLogs) {
+            DebugLogsView()
+        }
     }
 
     var dailyTitle: String {
