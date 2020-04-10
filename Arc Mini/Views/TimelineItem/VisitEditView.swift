@@ -8,6 +8,7 @@
 
 import SwiftUI
 import LocoKit
+import CoreLocation
 
 struct VisitEditView: View {
 
@@ -26,12 +27,18 @@ struct VisitEditView: View {
                         self.visit.usePlace(result.place, manualPlace: true)
                         self.presentationMode.wrappedValue.dismiss()
                     }) {
-                        if self.visit.place == result.place {
-                            Text(result.place.name)
-                                .font(.system(size: 17, weight: .semibold))
-                        } else {
-                            Text(result.place.name)
-                                .font(.system(size: 17, weight: .regular))
+                        HStack {
+                            if self.visit.place == result.place {
+                                Text(result.place.name)
+                                    .font(.system(size: 17, weight: .semibold))
+                            } else {
+                                Text(result.place.name)
+                                    .font(.system(size: 17, weight: .regular))
+                            }
+                            Spacer()
+                            Text(self.rightText(for: result.place))
+                                .font(.system(size: 15, weight: .semibold))
+                                .foregroundColor(Color(UIColor.arcGray1))
                         }
                     }.buttonStyle(RowButtonStyle())
                 }
@@ -53,6 +60,11 @@ struct VisitEditView: View {
                 self.timelineState.tappedBackButton = false
             }
         }
+    }
+
+    func rightText(for place: Place) -> String {
+        guard let distanceAway = place.edgeToEdgeDistanceFrom(visit) else { return "" }
+        return distanceAway < 2 ? "" : String(metres: distanceAway, style: .medium)
     }
 
     // MARK: - Search
