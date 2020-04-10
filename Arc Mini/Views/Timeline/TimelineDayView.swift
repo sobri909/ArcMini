@@ -40,6 +40,13 @@ struct TimelineDayView: View {
             self.timelineState.backButtonHidden = true
             self.timelineState.updateTodayButton()
             self.timelineState.mapHeightPercent = TimelineState.rootMapHeightPercent
+
+            // do place finds
+            for case let visit as ArcVisit in self.timelineSegment.timelineItems {
+                if visit.isWorthKeeping {
+                    visit.findAPlace()
+                }
+            }
         }
         .background(Color("background"))
     }
