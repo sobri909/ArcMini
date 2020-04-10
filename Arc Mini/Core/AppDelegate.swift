@@ -14,6 +14,10 @@ import BackgroundTasks
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    static var highlander: AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         logger.info("APP LAUNCHED")
 
@@ -50,6 +54,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func registerBackgroundTasks() {
         let scheduler = BGTaskScheduler.shared
+        scheduler.register(forTaskWithIdentifier: "com.bigpaua.ArcMini.placeModelUpdates", using: nil) { task in
+            logger.info("UPDATE QUEUED PLACES: START")
+            PlaceCache.cache.updateQueuedPlaces(task: task as! BGProcessingTask)
+        }
         scheduler.register(
             forTaskWithIdentifier: "com.bigpaua.ArcMini.updateTrustFactors",
             using: Jobs.highlander.secondaryQueue.underlyingQueue)
@@ -63,6 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func scheduleBackgroundTasks() {
         if LocomotionManager.highlander.recordingState == .recording { return }
+        scheduleBackgroundTask("com.bigpaua.ArcMini.placeModelUpdates", requiresPower: true)
         scheduleBackgroundTask("com.bigpaua.ArcMini.updateTrustFactors", requiresPower: true)
     }
 
