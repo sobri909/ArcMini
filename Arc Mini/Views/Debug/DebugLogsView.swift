@@ -17,7 +17,11 @@ struct DebugLogsView: View {
             List {
                 ForEach(debugLogger.logFileURLs, id: \.absoluteString) { url in
                     NavigationLink(destination: DebugLogView(logURL: url)) {
-                        Text((url.lastPathComponent as NSString).deletingPathExtension)
+                        HStack {
+                            Text((url.lastPathComponent as NSString).deletingPathExtension)
+                            Spacer()
+                            Text(self.rightText(for: url))
+                        }
                     }
                 }
                 .onDelete(perform: delete)
@@ -25,6 +29,18 @@ struct DebugLogsView: View {
             .navigationBarTitle("Session Logs")
             .navigationBarItems(trailing: EditButton())
         }
+    }
+
+    func rightText(for url: URL) -> String {
+        guard let duration = duration(for: url) else { return "" }
+        return String(duration: duration, style: .abbreviated, maximumUnits: 1)
+    }
+
+    func duration(for url: URL) -> TimeInterval? {
+        guard let resourceValues = try? url.resourceValues(forKeys: [.creationDateKey, .contentModificationDateKey]) else { return nil }
+        guard let created = resourceValues.creationDate else { return nil }
+        guard let modified = resourceValues.contentModificationDate else { return nil }
+        return modified.timeIntervalSince(created)
     }
 
     func delete(at offsets: IndexSet) {

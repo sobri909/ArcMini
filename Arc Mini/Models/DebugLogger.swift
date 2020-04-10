@@ -64,7 +64,8 @@ class DebugLogger: LoggingFormatAndPipe.Pipe, ObservableObject {
 
     var logFileURLs: [URL] {
         do {
-            let files = try FileManager.default.contentsOfDirectory(at: logsDir, includingPropertiesForKeys: nil)
+            let files = try FileManager.default.contentsOfDirectory(at: logsDir,
+                                                                    includingPropertiesForKeys: [.creationDateKey, .contentModificationDateKey])
             return files
                 .filter { !$0.hasDirectoryPath && $0.pathExtension.lowercased() == "log" }
                 .sorted { $0.path > $1.path }
