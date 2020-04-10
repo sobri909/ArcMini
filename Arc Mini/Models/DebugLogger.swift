@@ -13,7 +13,7 @@ import Combine
 
 let logger = Logger(label: "com.bigpaua.ArcMini.main") { _ in
     return LoggingFormatAndPipe.Handler(
-        formatter: BasicFormatter.adorkable,
+        formatter: DebugLogger.LogDateFormatter(),
         pipe: DebugLogger.highlander
     )
 }
@@ -72,6 +72,18 @@ class DebugLogger: LoggingFormatAndPipe.Pipe, ObservableObject {
         } catch {
             logger.error("ERROR: \(error)")
             return []
+        }
+    }
+
+    class LogDateFormatter: LoggingFormatAndPipe.Formatter {
+        var timestampFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "HH:mm:ss.SSS"
+            return formatter
+        }()
+
+        func processLog(level: Logger.Level, message: Logger.Message, prettyMetadata: String?, file: String, function: String, line: UInt) -> String {
+            return String(format: "[%@] \(message)", self.timestampFormatter.string(from: Date()))
         }
     }
 

@@ -17,14 +17,17 @@ struct DebugLogView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     var body: some View {
-        ScrollView {
-            Text(logText).font(.system(size: fontSize, weight: .regular, design: .monospaced))
+        GeometryReader { metrics in
+            ScrollView {
+                Text(self.logText).font(.system(size: self.fontSize, weight: .regular, design: .monospaced))
+                    .frame(width: metrics.size.width, alignment: .leading)
+            }
+            .navigationBarTitle(LocalizedStringKey((self.logURL.lastPathComponent as NSString).deletingPathExtension), displayMode: .inline)
+            .navigationBarItems(trailing: HStack(spacing: 0) {
+                self.fontSizeButton
+                self.deleteButton
+            })
         }
-        .navigationBarTitle(LocalizedStringKey((logURL.lastPathComponent as NSString).deletingPathExtension), displayMode: .inline)
-        .navigationBarItems(trailing: HStack {
-            self.fontSizeButton
-            self.deleteButton
-        })
     }
 
     var fontSizeButton: some View {
