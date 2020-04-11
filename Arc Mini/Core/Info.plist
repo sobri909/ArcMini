@@ -4,7 +4,10 @@
 <dict>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
+		<string>com.bigpaua.ArcMini.placeModelUpdates</string>
+		<string>com.bigpaua.ArcMini.activityTypeModelUpdates</string>
 		<string>com.bigpaua.ArcMini.updateTrustFactors</string>
+		<string>com.bigpaua.ArcMini.sanitiseStore</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>

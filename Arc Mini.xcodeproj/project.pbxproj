@@ -24,6 +24,10 @@
 		C92BF629241D06AD0089E4AD /* VisitAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92BF625241D06AD0089E4AD /* VisitAnnotationView.swift */; };
 		C93062B1243F1B0D00DE47CC /* DebugLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93062B0243F1B0D00DE47CC /* DebugLogsView.swift */; };
 		C93062B3243F209F00DE47CC /* DebugLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93062B2243F209F00DE47CC /* DebugLogView.swift */; };
+		C94808102441BE6100091943 /* UserActivityTypesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948080C2441BE6100091943 /* UserActivityTypesCache.swift */; };
+		C94808112441BE6100091943 /* UserActivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948080D2441BE6100091943 /* UserActivityType.swift */; };
+		C94808122441BE6100091943 /* UserActivityTypeClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948080E2441BE6100091943 /* UserActivityTypeClassifier.swift */; };
+		C94808132441BE6100091943 /* UserTimelineClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948080F2441BE6100091943 /* UserTimelineClassifier.swift */; };
 		C9524005242F3DE000F4522D /* SwiftNotes in Frameworks */ = {isa = PBXBuildFile; productRef = C9524004242F3DE000F4522D /* SwiftNotes */; };
 		C9524007242F502700F4522D /* RecordingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9524006242F502700F4522D /* RecordingManager.swift */; };
 		C952400B242F51D200F4522D /* ArcHistogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9524009242F51D200F4522D /* ArcHistogram.swift */; };
@@ -94,6 +98,10 @@
 		C92BF625241D06AD0089E4AD /* VisitAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitAnnotationView.swift; sourceTree = "<group>"; };
 		C93062B0243F1B0D00DE47CC /* DebugLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogsView.swift; sourceTree = "<group>"; };
 		C93062B2243F209F00DE47CC /* DebugLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogView.swift; sourceTree = "<group>"; };
+		C948080C2441BE6100091943 /* UserActivityTypesCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityTypesCache.swift; sourceTree = "<group>"; };
+		C948080D2441BE6100091943 /* UserActivityType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityType.swift; sourceTree = "<group>"; };
+		C948080E2441BE6100091943 /* UserActivityTypeClassifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityTypeClassifier.swift; sourceTree = "<group>"; };
+		C948080F2441BE6100091943 /* UserTimelineClassifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTimelineClassifier.swift; sourceTree = "<group>"; };
 		C9524006242F502700F4522D /* RecordingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingManager.swift; sourceTree = "<group>"; };
 		C9524009242F51D200F4522D /* ArcHistogram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcHistogram.swift; sourceTree = "<group>"; };
 		C952400A242F51D200F4522D /* ArcCoordinatesMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcCoordinatesMatrix.swift; sourceTree = "<group>"; };
@@ -244,6 +252,17 @@
 			path = Debug;
 			sourceTree = "<group>";
 		};
+		C94808142441BE6D00091943 /* ActivityType */ = {
+			isa = PBXGroup;
+			children = (
+				C948080D2441BE6100091943 /* UserActivityType.swift */,
+				C948080E2441BE6100091943 /* UserActivityTypeClassifier.swift */,
+				C948080C2441BE6100091943 /* UserActivityTypesCache.swift */,
+				C948080F2441BE6100091943 /* UserTimelineClassifier.swift */,
+			);
+			path = ActivityType;
+			sourceTree = "<group>";
+		};
 		C9524008242F50BA00F4522D /* Maths */ = {
 			isa = PBXGroup;
 			children = (
@@ -296,6 +315,7 @@
 		C95E0E2A2417B6E8008418A1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C94808142441BE6D00091943 /* ActivityType */,
 				C952400D242F652A00F4522D /* Database */,
 				C9F32F48242A5BD200184862 /* External */,
 				C9D4717D242E2EF4005F2AA3 /* Timeline */,
@@ -546,6 +566,7 @@
 				C9C5C009242FB2C700BC064E /* MapState.swift in Sources */,
 				C9F32F47242A5BBE00184862 /* Health.swift in Sources */,
 				C98783042435F1EB001B4E7D /* SegmentAnnotationView.swift in Sources */,
+				C94808112441BE6100091943 /* UserActivityType.swift in Sources */,
 				C99F5EB7242A2C5000E172AE /* Note.swift in Sources */,
 				C99F5EB6242A2C5000E172AE /* TrackPlay.swift in Sources */,
 				C9C827AD243C7B1E00F3199B /* Calendar+extensions.swift in Sources */,
@@ -563,6 +584,7 @@
 				C953392B24127CF30005E98F /* TimelineDayView.swift in Sources */,
 				C99F5EBF242A371C00E172AE /* Scraps.swift in Sources */,
 				C9C827AF243C830500F3199B /* DispatchQueue.swift in Sources */,
+				C94808132441BE6100091943 /* UserTimelineClassifier.swift in Sources */,
 				C99F5EC9242A4EFA00E172AE /* Settings.swift in Sources */,
 				C9822A87240CF8D5006B70F4 /* RootView.swift in Sources */,
 				C95E0E1F2417969E008418A1 /* TimelineHeader.swift in Sources */,
@@ -576,6 +598,7 @@
 				C9C827B7243DEB7F00F3199B /* DebugLogger.swift in Sources */,
 				C90D78692428FFCE004ABFD0 /* PlaceClassifier.swift in Sources */,
 				C90D786A2428FFCE004ABFD0 /* Place.swift in Sources */,
+				C94808122441BE6100091943 /* UserActivityTypeClassifier.swift in Sources */,
 				C92BF628241D06AD0089E4AD /* VisitAnnotation.swift in Sources */,
 				C99F5EC6242A3F8600E172AE /* Foursquare.swift in Sources */,
 				C95E0E2E2417B773008418A1 /* ArcPath.swift in Sources */,
@@ -587,6 +610,7 @@
 				C98967EC2435F27200D55AFE /* SegmentAnnotation.swift in Sources */,
 				C9DBE429243746FF00FCB8E5 /* TimelineScrollView.swift in Sources */,
 				C952400B242F51D200F4522D /* ArcHistogram.swift in Sources */,
+				C94808102441BE6100091943 /* UserActivityTypesCache.swift in Sources */,
 				C92BF629241D06AD0089E4AD /* VisitAnnotationView.swift in Sources */,
 				C97DCDEB242395C3006437B7 /* ItemDetailsView.swift in Sources */,
 				C970732D243889D400E3B938 /* LocoKit+extensions.swift in Sources */,

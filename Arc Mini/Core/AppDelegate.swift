@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        logger.info("APP LAUNCHED")
+        logger.info("didFinishLaunchingWithOptions")
 
         LocoKitService.apiKey = "bee1aa1af978486b9186780a07cc240e"
         ActivityTypesCache.highlander.store = RecordingManager.store
@@ -54,10 +54,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func registerBackgroundTasks() {
         let scheduler = BGTaskScheduler.shared
+
         scheduler.register(forTaskWithIdentifier: "com.bigpaua.ArcMini.placeModelUpdates", using: nil) { task in
             logger.info("UPDATE QUEUED PLACES: START")
             PlaceCache.cache.updateQueuedPlaces(task: task as! BGProcessingTask)
         }
+
+        scheduler.register(forTaskWithIdentifier: "com.bigpaua.ArcMini.activityTypeModelUpdates", using: nil) { task in
+            logger.info("UPDATE QUEUED MODELS: START")
+            UserActivityTypesCache.highlander.updateQueuedModels(task: task as! BGProcessingTask)
+        }
+
         scheduler.register(
             forTaskWithIdentifier: "com.bigpaua.ArcMini.updateTrustFactors",
             using: Jobs.highlander.secondaryQueue.underlyingQueue)
@@ -67,12 +74,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             logger.info("UPDATE TRUST FACTORS: COMPLETED")
             task.setTaskCompleted(success: true)
         }
+
+        scheduler.register(
+            forTaskWithIdentifier: "com.bigpaua.ArcMini.sanitiseStore",
+            using: Jobs.highlander.secondaryQueue.underlyingQueue)
+        { task in
+            logger.info("SANITISE STORE: START")
+            TimelineProcessor.sanitise(store: RecordingManager.store)
+            task.setTaskCompleted(success: true)
+            logger.info("SANITISE STORE: COMPLETED")
+        }
     }
 
     func scheduleBackgroundTasks() {
         if LocomotionManager.highlander.recordingState == .recording { return }
         scheduleBackgroundTask("com.bigpaua.ArcMini.placeModelUpdates", requiresPower: true)
+        scheduleBackgroundTask("com.bigpaua.ArcMini.activityTypeModelUpdates", requiresPower: true)
         scheduleBackgroundTask("com.bigpaua.ArcMini.updateTrustFactors", requiresPower: true)
+        scheduleBackgroundTask("com.bigpaua.ArcMini.sanitiseStore", requiresPower: true)
     }
 
     func scheduleBackgroundTask(_ identifier: String, requiresPower: Bool, requiresNetwork: Bool = false) {
@@ -81,11 +100,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         request.requiresExternalPower = requiresPower
         do {
             try BGTaskScheduler.shared.submit(request)
+            logger.info("scheduleBackgroundTask: \(identifier.split(separator: ".").last!)")
         } catch {
             logger.error("FAILED REQUEST: \(identifier)")
         }
     }
-    
+
+    func applicationWillTerminate(_ application: UIApplication) {
+        logger.info("applicationWillTerminate")
+    }
+
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
@@ -99,7 +123,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
 
 }
 

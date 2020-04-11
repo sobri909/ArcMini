@@ -16,7 +16,7 @@ class RecordingManager {
     // MARK: -
 
     static let store = ArcStore()
-    static let recorder = TimelineRecorder(store: store, classifier: TimelineClassifier.highlander)
+    static let recorder = TimelineRecorder(store: store, classifier: UserTimelineClassifier.highlander)
 
     // MARK: -
 
@@ -31,19 +31,24 @@ class RecordingManager {
 
     private init() {
         when(loco, does: .willStartSleepMode) { _ in
-              self.willStartSleeping()
-          }
+            self.willStartSleeping()
+        }
+        when(loco, does: .didStartSleepMode) { _ in
+            self.didStartSleeping()
+        }
     }
 
     // MARK: - Recording state changes
     
     func willStartSleeping() {
         sleepStart = Date()
-
-        // find a place for the visit
         if let currentVisit = currentVisit, !currentVisit.hasPlace {
             currentVisit.findAPlace()
         }
+    }
+
+    func didStartSleeping() {
+        AppDelegate.highlander.scheduleBackgroundTasks()
     }
 
 }
