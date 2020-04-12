@@ -41,11 +41,9 @@ extension UIColor {
 
     static var arcGray1: UIColor { return UIColor(0x6F7072) }
     static var arcGray2: UIColor { return UIColor(0x999999) }
-    static var arcGray3: UIColor { return UIColor(0xE2E2E2) }
 
     static var arcGrey1: UIColor { return arcGray1 }
     static var arcGrey2: UIColor { return arcGray2 }
-    static var arcGrey3: UIColor { return arcGray3 }
 
     // MARK: - Branding Colours
 

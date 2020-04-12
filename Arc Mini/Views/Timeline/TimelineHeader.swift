@@ -12,6 +12,7 @@ struct TimelineHeader: View {
 
     @EnvironmentObject var timelineState: TimelineState
     @State var showingDebugLogs = false
+    @State var showingMenu = false
 
     var body: some View {
         HStack {
@@ -19,12 +20,24 @@ struct TimelineHeader: View {
                 .font(.system(size: 17, weight: .semibold))
                 .foregroundColor(Color("brandTertiaryDark"))
             Spacer()
+            Button(action: {
+                self.showingMenu = true
+            }) {
+                Image(systemName: "ellipsis").foregroundColor(Color("brandSecondary80"))
+            }
+            .frame(width: 56, height: 56)
         }
-        .padding([.leading, .trailing], 20)
+        .padding([.leading], 20)
+        .padding([.trailing], 4)
         .frame(height: 56)
         .background(Color("background"))
-        .onTapGesture(count: 3) {
-            self.showingDebugLogs = true
+        .actionSheet(isPresented: $showingMenu) {
+            ActionSheet(title: Text("Timeline").foregroundColor(Color.red), buttons: [
+                .default(Text("Debug Log")) {
+                    self.showingDebugLogs = true
+                },
+                .destructive(Text("Close"))
+            ])
         }
         .sheet(isPresented: $showingDebugLogs) {
             DebugLogsView().environmentObject(DebugLogger.highlander)
