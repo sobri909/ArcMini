@@ -219,12 +219,12 @@
 			children = (
 				C9822A86240CF8D5006B70F4 /* RootView.swift */,
 				C90C27362439DCCC00A36251 /* NavBarView.swift */,
+				C9DBE4262437462B00FCB8E5 /* PagerView.swift */,
+				C99325932430EE59005299DC /* RowButtonStyle.swift */,
 				C92BF62A241D06B70089E4AD /* Map */,
 				C95C555F2413C02C0038EB3B /* Timeline */,
 				C9F98B78242FAB46003D2A23 /* TimelineItem */,
 				C93062B4243F214700DE47CC /* Debug */,
-				C99325932430EE59005299DC /* RowButtonStyle.swift */,
-				C9DBE4262437462B00FCB8E5 /* PagerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
