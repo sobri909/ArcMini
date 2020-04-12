@@ -21,16 +21,19 @@ struct TimelineDayView: View {
     }
 
     var body: some View {
-        List {
-            ForEach(self.filteredListItems) { timelineItem in
-                ZStack {
-                    self.listBox(for: timelineItem)
-                    NavigationLink(destination: ItemDetailsView(timelineItem: timelineItem)) {
-                        EmptyView()
-                    }.hidden()
+        ZStack(alignment: .trailing) {
+            List {
+                ForEach(self.filteredListItems) { timelineItem in
+                    ZStack {
+                        self.listBox(for: timelineItem)
+                        NavigationLink(destination: ItemDetailsView(timelineItem: timelineItem)) {
+                            EmptyView()
+                        }.hidden()
+                    }
+                    .listRowInsets(EdgeInsets())
                 }
-                .listRowInsets(EdgeInsets())
             }
+            Rectangle().fill(Color("arcGray3")).frame(width: 0.5).edgesIgnoringSafeArea(.all)
         }
         .navigationBarTitle("")
         .navigationBarHidden(true)
