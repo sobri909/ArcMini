@@ -100,9 +100,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         request.requiresExternalPower = requiresPower
         do {
             try BGTaskScheduler.shared.submit(request)
-            logger.info("scheduleBackgroundTask: \(identifier.split(separator: ".").last!)")
         } catch {
-            logger.error("FAILED REQUEST: \(identifier)")
+            logger.error("FAILED TO SCHEDULE: \(identifier)")
         }
     }
 

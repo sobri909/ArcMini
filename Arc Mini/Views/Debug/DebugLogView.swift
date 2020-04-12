@@ -16,6 +16,10 @@ struct DebugLogView: View {
     @EnvironmentObject var debugLogger: DebugLogger
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
+    var canDelete: Bool {
+        return logURL.lastPathComponent != DebugLogger.highlander.sessionLogFileURL.lastPathComponent
+    }
+
     var body: some View {
         GeometryReader { metrics in
             ScrollView {
@@ -25,7 +29,9 @@ struct DebugLogView: View {
             .navigationBarTitle(LocalizedStringKey((self.logURL.lastPathComponent as NSString).deletingPathExtension), displayMode: .inline)
             .navigationBarItems(trailing: HStack(spacing: 0) {
                 self.fontSizeButton
-                self.deleteButton
+                if self.canDelete {
+                    self.deleteButton
+                }
             })
         }
     }

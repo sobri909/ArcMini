@@ -46,6 +46,10 @@ struct DebugLogsView: View {
     func delete(at offsets: IndexSet) {
         for index in offsets {
             let url = debugLogger.logFileURLs[index]
+
+            // can't delete the current session log file
+            if url.lastPathComponent == DebugLogger.highlander.sessionLogFileURL.lastPathComponent { continue }
+
             do {
                 try debugLogger.delete(url)
             } catch {

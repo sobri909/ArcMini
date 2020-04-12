@@ -50,7 +50,7 @@ class DebugLogger: LoggingFormatAndPipe.Pipe, ObservableObject {
 
     // MARK: -
 
-    private lazy var sessionLogFileURL: URL = {
+    private(set) lazy var sessionLogFileURL: URL = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH.mm"
         let filename = formatter.string(from: Date())
