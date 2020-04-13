@@ -14,9 +14,13 @@ import BackgroundTasks
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    static var thermalState: ProcessInfo.ThermalState = .nominal
+
     static var highlander: AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
     }
+
+    // MARK: - App lifecycle
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         logger.info("didFinishLaunchingWithOptions")
@@ -29,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         UIDevice.current.isBatteryMonitoringEnabled = true
 
+        thermalStateChanged()
         registerBackgroundTasks()
 
         if UIDevice.current.batteryState != .unplugged {
@@ -41,10 +46,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
+        when(ProcessInfo.thermalStateDidChangeNotification) { _ in
+            self.thermalStateChanged()
+        }
+
         applyUIAppearanceOverrides()
         
         return true
     }
+
+    func applicationWillTerminate(_ application: UIApplication) {
+        logger.info("applicationWillTerminate")
+    }
+
+    // MARK: -
 
     func applyUIAppearanceOverrides() {
         UITableView.appearance().separatorStyle = .none
@@ -105,8 +120,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    func applicationWillTerminate(_ application: UIApplication) {
-        logger.info("applicationWillTerminate")
+    func thermalStateChanged() {
+        AppDelegate.thermalState = ProcessInfo.processInfo.thermalState
+        logger.info("thermalState: \(AppDelegate.thermalState.stringValue)")
     }
 
     // MARK: UISceneSession Lifecycle

@@ -158,6 +158,37 @@ class ArcVisit: LocoKit.Visit, ArcTimelineItem {
 
     var _trackPlays: [TrackPlay]?
 
+    // MARK: - Leaving probability
+
+    var leavingProbabilityNow: Double? {
+        return leavingProbability(at: Date())
+    }
+
+    func leavingProbability(at date: Date) -> Double? {
+        return place?.leavingScoreFor(duration: self.duration + date.timeIntervalSinceNow, at: date)
+    }
+
+    var predictedLeavingTime: Date? {
+        var testDate = Date()
+        var peakDate: Date?
+        var peakProbability = 0.0
+        while true {
+            guard let probability = leavingProbability(at: testDate) else { break }
+
+            if probability >= 1 { break }
+
+            // store the latest peak
+            if probability > peakProbability {
+                peakProbability = probability
+                peakDate = testDate
+            }
+
+            testDate = testDate.addingTimeInterval(.oneMinute)
+        }
+
+        return peakDate
+    }
+
     // MARK: - ArcTimelineItem
 
     var title: String {

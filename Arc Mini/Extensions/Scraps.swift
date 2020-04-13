@@ -72,3 +72,15 @@ extension URL {
         return queryStrings
     }
 }
+
+extension ProcessInfo.ThermalState {
+    var stringValue: String {
+        switch self {
+        case .nominal: return "nominal"
+        case .fair: return "fair"
+        case .serious: return "serious"
+        case .critical: return "critical"
+        @unknown default: return "@unknown"
+        }
+    }
+}
