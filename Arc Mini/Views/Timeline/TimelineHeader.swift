@@ -11,8 +11,12 @@ import SwiftUI
 struct TimelineHeader: View {
 
     @EnvironmentObject var timelineState: TimelineState
-    @State var showingDebugLogs = false
+
     @State var showingMenu = false
+    @State var showingDebugView = false
+    @State var debugView: DebugView = .logs
+
+    enum DebugView { case logs, recording }
 
     var body: some View {
         HStack {
@@ -31,16 +35,25 @@ struct TimelineHeader: View {
         .padding([.trailing], 4)
         .frame(height: 56)
         .background(Color("background"))
+        .sheet(isPresented: $showingDebugView) {
+            if self.debugView == .logs {
+                DebugLogsView().environmentObject(DebugLogger.highlander)
+            } else if self.debugView == .recording {
+                RecordingDebugView()
+            }
+        }
         .actionSheet(isPresented: $showingMenu) {
             ActionSheet(title: Text("Timeline").foregroundColor(Color.red), buttons: [
-                .default(Text("Debug Log")) {
-                    self.showingDebugLogs = true
+                .default(Text("Debug Logs")) {
+                    self.debugView = .logs
+                    self.showingDebugView = true
+                },
+                .default(Text("Recording Debug Info")) {
+                    self.debugView = .recording
+                    self.showingDebugView = true
                 },
                 .destructive(Text("Close"))
             ])
-        }
-        .sheet(isPresented: $showingDebugLogs) {
-            DebugLogsView().environmentObject(DebugLogger.highlander)
         }
     }
 
