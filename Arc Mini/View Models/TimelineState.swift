@@ -63,7 +63,7 @@ class TimelineState: ObservableObject {
             currentCardIndex += 1
         }
         if currentCardIndex == dateRanges.count - 1, let lastRange = dateRanges.last {
-            if let nextRange = lastRange.nextRange(of: .day), nextRange.start.timeIntervalSinceNow < 0 {
+            if let nextRange = lastRange.nextRange(of: .day), (nextRange.start.timeIntervalSinceNow < 0 || nextRange.containsNow) {
                 dateRanges.append(nextRange)
             }
         }
