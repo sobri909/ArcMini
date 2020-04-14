@@ -44,12 +44,12 @@ extension DateInterval: Identifiable {
     func nextRange(of rangeType: Calendar.Component) -> DateInterval? {
         let acceptable: [Calendar.Component] = [.day, .weekOfYear, .month, .year]
         guard acceptable.contains(rangeType) else { return nil }
-        return DateInterval.range(of: rangeType, for: end.addingTimeInterval(.oneDay))
+        return DateInterval.range(of: rangeType, for: end.addingTimeInterval(.oneHour))
     }
 
     func previousRange(of rangeType: Calendar.Component) -> DateInterval? {
         let acceptable: [Calendar.Component] = [.day, .weekOfYear, .month, .year]
         guard acceptable.contains(rangeType) else { return nil }
-        return DateInterval.range(of: rangeType, for: start.addingTimeInterval(-.oneDay))
+        return DateInterval.range(of: rangeType, for: start.addingTimeInterval(-.oneHour))
     }
 }
