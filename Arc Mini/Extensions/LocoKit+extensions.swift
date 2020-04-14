@@ -47,7 +47,7 @@ extension ItemSegment {
         }
         if changed {
             (timelineItem as? ArcTimelineItem)?.samplesChanged()
-//            UserActivityTypesCache.highlander.updateModelsContaining(self)
+            UserActivityTypesCache.highlander.updateModelsContaining(self)
         }
     }
 }

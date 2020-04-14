@@ -83,7 +83,7 @@ class ArcPath: Path, ArcTimelineItem {
 
         if _manualActivityType != previousValue { save() }
 
-//        if _manualActivityType == true { UserActivityTypesCache.highlander.updateModelsContaining(self) }
+        if _manualActivityType == true { UserActivityTypesCache.highlander.updateModelsContaining(self) }
     }
 
     func updateActivityTypeConfidence() {
@@ -207,11 +207,11 @@ class ArcPath: Path, ArcTimelineItem {
         samplesChanged()
 
         // update the ML model
-//        UserActivityTypesCache.highlander.updateModelsContaining(self, activityType: confirmedType)
+        UserActivityTypesCache.highlander.updateModelsContaining(self, activityType: confirmedType)
 
         // previous type model might need an update too
         if confirmedType != previousType {
-//            UserActivityTypesCache.highlander.updateModelsContaining(self, activityType: previousType)
+            UserActivityTypesCache.highlander.updateModelsContaining(self, activityType: previousType)
         }
 
         trigger(.updatedTimelineItem, on: self)
