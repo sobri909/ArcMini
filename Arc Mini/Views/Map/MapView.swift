@@ -141,9 +141,9 @@ final class MapView: UIViewRepresentable {
             }
         }
 
+        // NOTE: iPhone X notch is 30px high, and top safe area is 44px. so to get 20px padding from notch the top padding is 6px
         let safeHeight = UIScreen.main.bounds.height - map.safeAreaInsets.top - map.safeAreaInsets.bottom
-        
-        let padding = UIEdgeInsets(top: 10, left: 20, bottom: safeHeight * timelineState.bodyHeightPercent + 20, right: 20)
+        let padding = UIEdgeInsets(top: 6, left: 20, bottom: safeHeight * timelineState.bodyHeightPercent + 20, right: 20)
 
         map.setVisibleMapRect(mapRect!, edgePadding: padding, animated: true)
     }
