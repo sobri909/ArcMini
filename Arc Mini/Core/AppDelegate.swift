@@ -63,8 +63,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applyUIAppearanceOverrides() {
         UITableView.appearance().separatorStyle = .none
-        UITableView.appearance().showsVerticalScrollIndicator = false
-        UITableViewCell.appearance().selectionStyle = .none
+        UITableView.appearance().showsVerticalScrollIndicator = false // TODO: want this per view, not global
+        UITableViewCell.appearance().selectionStyle = .none // TODO: want this per view, not global
     }
 
     func registerBackgroundTasks() {
