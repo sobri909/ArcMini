@@ -19,10 +19,12 @@ struct SystemDebugView: View {
                     self.row(leftText: "Primary queue jobs", rightText: String(describing: Jobs.highlander.primaryQueue.operationCount))
                     self.row(leftText: "Secondary queue jobs", rightText: String(describing: Jobs.highlander.secondaryQueue.operationCount))
                     NavigationLink(destination: PlacesPendingUpdateView()) {
-                        self.row(leftText: "Places pending update", rightText: String(describing: RecordingManager.store.placesPendingUpdateCount))
+                        self.row(leftText: "Places pending update",
+                                 rightText: String(describing: RecordingManager.store.countPlaces(where: "needsUpdate = 1")))
                     }
                     NavigationLink(destination: ModelsPendingUpdateView()) {
-                        self.row(leftText: "UD models pending update", rightText: String(describing: RecordingManager.store.modelsPendingUpdateCount))
+                        self.row(leftText: "UD models pending update",
+                                 rightText: String(describing: RecordingManager.store.countModels(where: "isShared = 0 AND needsUpdate = 1")))
                     }
                 }
             }

@@ -18,7 +18,7 @@ struct ModelsPendingUpdateView: View {
     }
 
     var pendingModelNames: [String] {
-        let names = try? RecordingManager.store.arcPool.read { db in
+        let names = try? RecordingManager.store.auxiliaryPool.read { db in
             return try String.fetchAll(db, sql: "SELECT geoKey FROM ActivityTypeModel WHERE isShared = 0 AND needsUpdate = 1")
         }
         return names ?? []
