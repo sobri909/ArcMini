@@ -20,6 +20,7 @@ class TimelineState: ObservableObject {
     @Published var currentCardIndex = 0
 
     @Published var mapHeightPercent: CGFloat = rootMapHeightPercent
+    var bodyHeightPercent: CGFloat { return 1.0 - mapHeightPercent }
     
     @Published var backButtonHidden = true
     @Published var todayButtonHidden = true

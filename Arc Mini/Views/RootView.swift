@@ -25,7 +25,7 @@ struct RootView: View {
                     NavigationView {
                         TimelineRootView()
                     }
-                    .frame(width: metrics.size.width, height: metrics.size.height * (1.0 - self.timelineState.mapHeightPercent))
+                    .frame(width: metrics.size.width, height: metrics.size.height * self.timelineState.bodyHeightPercent)
                     .background(Color("background"))
                 }
             }

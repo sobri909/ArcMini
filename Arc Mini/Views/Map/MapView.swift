@@ -141,8 +141,9 @@ final class MapView: UIViewRepresentable {
             }
         }
 
-        let padding = UIEdgeInsets(top: 20, left: 20, bottom: UIScreen.main.bounds.height * (1.0 - timelineState.mapHeightPercent) + 20,
-                                   right: 20)
+        let safeHeight = UIScreen.main.bounds.height - map.safeAreaInsets.top - map.safeAreaInsets.bottom
+        
+        let padding = UIEdgeInsets(top: 10, left: 20, bottom: safeHeight * timelineState.bodyHeightPercent + 20, right: 20)
 
         map.setVisibleMapRect(mapRect!, edgePadding: padding, animated: true)
     }
