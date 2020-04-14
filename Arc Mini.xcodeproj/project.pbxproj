@@ -24,6 +24,8 @@
 		C92BF628241D06AD0089E4AD /* VisitAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92BF624241D06AD0089E4AD /* VisitAnnotation.swift */; };
 		C92BF629241D06AD0089E4AD /* VisitAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92BF625241D06AD0089E4AD /* VisitAnnotationView.swift */; };
 		C92EE1662445A73D005DDDCB /* SystemDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92EE1652445A73D005DDDCB /* SystemDebugView.swift */; };
+		C92EE1682445BA4F005DDDCB /* PlacesPendingUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92EE1672445BA4F005DDDCB /* PlacesPendingUpdateView.swift */; };
+		C92EE16A2445C2DB005DDDCB /* ModelsPendingUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92EE1692445C2DB005DDDCB /* ModelsPendingUpdateView.swift */; };
 		C93062B1243F1B0D00DE47CC /* DebugLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93062B0243F1B0D00DE47CC /* DebugLogsView.swift */; };
 		C93062B3243F209F00DE47CC /* DebugLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93062B2243F209F00DE47CC /* DebugLogView.swift */; };
 		C94808102441BE6100091943 /* UserActivityTypesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948080C2441BE6100091943 /* UserActivityTypesCache.swift */; };
@@ -100,6 +102,8 @@
 		C92BF624241D06AD0089E4AD /* VisitAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitAnnotation.swift; sourceTree = "<group>"; };
 		C92BF625241D06AD0089E4AD /* VisitAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitAnnotationView.swift; sourceTree = "<group>"; };
 		C92EE1652445A73D005DDDCB /* SystemDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemDebugView.swift; sourceTree = "<group>"; };
+		C92EE1672445BA4F005DDDCB /* PlacesPendingUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesPendingUpdateView.swift; sourceTree = "<group>"; };
+		C92EE1692445C2DB005DDDCB /* ModelsPendingUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsPendingUpdateView.swift; sourceTree = "<group>"; };
 		C93062B0243F1B0D00DE47CC /* DebugLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogsView.swift; sourceTree = "<group>"; };
 		C93062B2243F209F00DE47CC /* DebugLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogView.swift; sourceTree = "<group>"; };
 		C948080C2441BE6100091943 /* UserActivityTypesCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityTypesCache.swift; sourceTree = "<group>"; };
@@ -254,6 +258,8 @@
 				C93062B2243F209F00DE47CC /* DebugLogView.swift */,
 				C928C2EE2443522300586121 /* RecordingDebugView.swift */,
 				C92EE1652445A73D005DDDCB /* SystemDebugView.swift */,
+				C92EE1672445BA4F005DDDCB /* PlacesPendingUpdateView.swift */,
+				C92EE1692445C2DB005DDDCB /* ModelsPendingUpdateView.swift */,
 			);
 			path = Debug;
 			sourceTree = "<group>";
@@ -568,6 +574,7 @@
 				C9DBE4272437462B00FCB8E5 /* Pager.swift in Sources */,
 				C952400C242F51D200F4522D /* ArcCoordinatesMatrix.swift in Sources */,
 				C953392924126E670005E98F /* MapView.swift in Sources */,
+				C92EE1682445BA4F005DDDCB /* PlacesPendingUpdateView.swift in Sources */,
 				C95E0E292417B6DD008418A1 /* ArcTimelineItem.swift in Sources */,
 				C9C5C009242FB2C700BC064E /* MapState.swift in Sources */,
 				C9F32F47242A5BBE00184862 /* Health.swift in Sources */,
@@ -622,6 +629,7 @@
 				C92BF629241D06AD0089E4AD /* VisitAnnotationView.swift in Sources */,
 				C97DCDEB242395C3006437B7 /* ItemDetailsView.swift in Sources */,
 				C970732D243889D400E3B938 /* LocoKit+extensions.swift in Sources */,
+				C92EE16A2445C2DB005DDDCB /* ModelsPendingUpdateView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

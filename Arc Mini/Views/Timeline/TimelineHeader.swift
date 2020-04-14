@@ -16,7 +16,7 @@ struct TimelineHeader: View {
     @State var showingDebugView = false
     @State var debugView: DebugView = .logs
 
-    enum DebugView { case logs, recording }
+    enum DebugView { case logs, system, recording }
 
     var body: some View {
         HStack {
@@ -38,6 +38,8 @@ struct TimelineHeader: View {
         .sheet(isPresented: $showingDebugView) {
             if self.debugView == .logs {
                 DebugLogsView().environmentObject(DebugLogger.highlander)
+            } else if self.debugView == .system {
+                SystemDebugView()
             } else if self.debugView == .recording {
                 RecordingDebugView()
             }
@@ -46,6 +48,10 @@ struct TimelineHeader: View {
             ActionSheet(title: Text("Timeline").foregroundColor(Color.red), buttons: [
                 .default(Text("Debug Logs")) {
                     self.debugView = .logs
+                    self.showingDebugView = true
+                },
+                .default(Text("System Debug Info")) {
+                    self.debugView = .system
                     self.showingDebugView = true
                 },
                 .default(Text("Recording Debug Info")) {
