@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		09C227A470BFD8839C9491BB /* Pods_Arc_Mini.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49BFAF13CA1E780FC2651251 /* Pods_Arc_Mini.framework */; };
-		C90C27372439DCCC00A36251 /* NavBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90C27362439DCCC00A36251 /* NavBarView.swift */; };
+		C90C27372439DCCC00A36251 /* NavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90C27362439DCCC00A36251 /* NavBar.swift */; };
 		C90D78542428FBA2004ABFD0 /* PathEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90D78532428FBA2004ABFD0 /* PathEditView.swift */; };
 		C90D78682428FFCE004ABFD0 /* PlaceCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90D78632428FFCE004ABFD0 /* PlaceCache.swift */; };
 		C90D78692428FFCE004ABFD0 /* PlaceClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90D78642428FFCE004ABFD0 /* PlaceClassifier.swift */; };
@@ -23,6 +23,7 @@
 		C92BF627241D06AD0089E4AD /* PathPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92BF623241D06AD0089E4AD /* PathPolyline.swift */; };
 		C92BF628241D06AD0089E4AD /* VisitAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92BF624241D06AD0089E4AD /* VisitAnnotation.swift */; };
 		C92BF629241D06AD0089E4AD /* VisitAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92BF625241D06AD0089E4AD /* VisitAnnotationView.swift */; };
+		C92EE1662445A73D005DDDCB /* SystemDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92EE1652445A73D005DDDCB /* SystemDebugView.swift */; };
 		C93062B1243F1B0D00DE47CC /* DebugLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93062B0243F1B0D00DE47CC /* DebugLogsView.swift */; };
 		C93062B3243F209F00DE47CC /* DebugLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93062B2243F209F00DE47CC /* DebugLogView.swift */; };
 		C94808102441BE6100091943 /* UserActivityTypesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948080C2441BE6100091943 /* UserActivityTypesCache.swift */; };
@@ -72,7 +73,7 @@
 		C9C827B7243DEB7F00F3199B /* DebugLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C827B6243DEB7F00F3199B /* DebugLogger.swift */; };
 		C9C96AAF242760A2006D2E5B /* VisitEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C96AAE242760A2006D2E5B /* VisitEditView.swift */; };
 		C9C96AB224278052006D2E5B /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = C9C96AB124278052006D2E5B /* Introspect */; };
-		C9DBE4272437462B00FCB8E5 /* PagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DBE4262437462B00FCB8E5 /* PagerView.swift */; };
+		C9DBE4272437462B00FCB8E5 /* Pager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DBE4262437462B00FCB8E5 /* Pager.swift */; };
 		C9DBE429243746FF00FCB8E5 /* TimelineScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DBE428243746FF00FCB8E5 /* TimelineScrollView.swift */; };
 		C9EB6644241A60FA00F545AF /* ArcStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB6643241A60FA00F545AF /* ArcStore.swift */; };
 		C9F32F47242A5BBE00184862 /* Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F32F46242A5BBE00184862 /* Health.swift */; };
@@ -83,7 +84,7 @@
 /* Begin PBXFileReference section */
 		49BFAF13CA1E780FC2651251 /* Pods_Arc_Mini.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Arc_Mini.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		85A052185CDD9B73636FE978 /* Pods-Arc Mini.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Arc Mini.debug.xcconfig"; path = "Target Support Files/Pods-Arc Mini/Pods-Arc Mini.debug.xcconfig"; sourceTree = "<group>"; };
-		C90C27362439DCCC00A36251 /* NavBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarView.swift; sourceTree = "<group>"; };
+		C90C27362439DCCC00A36251 /* NavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBar.swift; sourceTree = "<group>"; };
 		C90D78532428FBA2004ABFD0 /* PathEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathEditView.swift; sourceTree = "<group>"; };
 		C90D78632428FFCE004ABFD0 /* PlaceCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceCache.swift; sourceTree = "<group>"; };
 		C90D78642428FFCE004ABFD0 /* PlaceClassifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceClassifier.swift; sourceTree = "<group>"; };
@@ -98,6 +99,7 @@
 		C92BF623241D06AD0089E4AD /* PathPolyline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathPolyline.swift; sourceTree = "<group>"; };
 		C92BF624241D06AD0089E4AD /* VisitAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitAnnotation.swift; sourceTree = "<group>"; };
 		C92BF625241D06AD0089E4AD /* VisitAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitAnnotationView.swift; sourceTree = "<group>"; };
+		C92EE1652445A73D005DDDCB /* SystemDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemDebugView.swift; sourceTree = "<group>"; };
 		C93062B0243F1B0D00DE47CC /* DebugLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogsView.swift; sourceTree = "<group>"; };
 		C93062B2243F209F00DE47CC /* DebugLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogView.swift; sourceTree = "<group>"; };
 		C948080C2441BE6100091943 /* UserActivityTypesCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityTypesCache.swift; sourceTree = "<group>"; };
@@ -146,7 +148,7 @@
 		C9C827AE243C830500F3199B /* DispatchQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueue.swift; sourceTree = "<group>"; };
 		C9C827B6243DEB7F00F3199B /* DebugLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogger.swift; sourceTree = "<group>"; };
 		C9C96AAE242760A2006D2E5B /* VisitEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitEditView.swift; sourceTree = "<group>"; };
-		C9DBE4262437462B00FCB8E5 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
+		C9DBE4262437462B00FCB8E5 /* Pager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pager.swift; sourceTree = "<group>"; };
 		C9DBE428243746FF00FCB8E5 /* TimelineScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineScrollView.swift; sourceTree = "<group>"; };
 		C9EB6643241A60FA00F545AF /* ArcStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcStore.swift; sourceTree = "<group>"; };
 		C9F32F46242A5BBE00184862 /* Health.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Health.swift; sourceTree = "<group>"; };
@@ -220,8 +222,8 @@
 			isa = PBXGroup;
 			children = (
 				C9822A86240CF8D5006B70F4 /* RootView.swift */,
-				C90C27362439DCCC00A36251 /* NavBarView.swift */,
-				C9DBE4262437462B00FCB8E5 /* PagerView.swift */,
+				C90C27362439DCCC00A36251 /* NavBar.swift */,
+				C9DBE4262437462B00FCB8E5 /* Pager.swift */,
 				C99325932430EE59005299DC /* RowButtonStyle.swift */,
 				C92BF62A241D06B70089E4AD /* Map */,
 				C95C555F2413C02C0038EB3B /* Timeline */,
@@ -251,6 +253,7 @@
 				C93062B0243F1B0D00DE47CC /* DebugLogsView.swift */,
 				C93062B2243F209F00DE47CC /* DebugLogView.swift */,
 				C928C2EE2443522300586121 /* RecordingDebugView.swift */,
+				C92EE1652445A73D005DDDCB /* SystemDebugView.swift */,
 			);
 			path = Debug;
 			sourceTree = "<group>";
@@ -562,7 +565,7 @@
 				C9822A83240CF8D5006B70F4 /* AppDelegate.swift in Sources */,
 				C95E0E21241797D9008418A1 /* Colors.swift in Sources */,
 				C99325942430EE59005299DC /* RowButtonStyle.swift in Sources */,
-				C9DBE4272437462B00FCB8E5 /* PagerView.swift in Sources */,
+				C9DBE4272437462B00FCB8E5 /* Pager.swift in Sources */,
 				C952400C242F51D200F4522D /* ArcCoordinatesMatrix.swift in Sources */,
 				C953392924126E670005E98F /* MapView.swift in Sources */,
 				C95E0E292417B6DD008418A1 /* ArcTimelineItem.swift in Sources */,
@@ -578,7 +581,7 @@
 				C90D78542428FBA2004ABFD0 /* PathEditView.swift in Sources */,
 				C95E0E2D2417B773008418A1 /* ArcVisit.swift in Sources */,
 				C92BF627241D06AD0089E4AD /* PathPolyline.swift in Sources */,
-				C90C27372439DCCC00A36251 /* NavBarView.swift in Sources */,
+				C90C27372439DCCC00A36251 /* NavBar.swift in Sources */,
 				C9C6FBF2243333D3004F868C /* TimelineState.swift in Sources */,
 				C928C2EF2443522300586121 /* RecordingDebugView.swift in Sources */,
 				C99F5EC5242A3F8600E172AE /* FSOAuth.m in Sources */,
@@ -590,6 +593,7 @@
 				C9C827AF243C830500F3199B /* DispatchQueue.swift in Sources */,
 				C94808132441BE6100091943 /* UserTimelineClassifier.swift in Sources */,
 				C99F5EC9242A4EFA00E172AE /* Settings.swift in Sources */,
+				C92EE1662445A73D005DDDCB /* SystemDebugView.swift in Sources */,
 				C9822A87240CF8D5006B70F4 /* RootView.swift in Sources */,
 				C95E0E1F2417969E008418A1 /* TimelineHeader.swift in Sources */,
 				C9B86B88242CAD8900D52C0D /* ArcError.swift in Sources */,

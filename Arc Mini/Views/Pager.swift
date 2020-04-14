@@ -1,5 +1,5 @@
 //
-//  PagerView.swift
+//  Pager.swift
 //  Arc Mini
 //
 //  Created by Matt Greenfield on 3/4/20.
@@ -10,7 +10,7 @@ import SwiftUI
 
 // https://swiftwithmajid.com/2019/12/25/building-pager-view-in-swiftui/
 
-struct PagerView<Content: View>: View {
+struct Pager<Content: View>: View {
 
     @EnvironmentObject var timelineState: TimelineState
 

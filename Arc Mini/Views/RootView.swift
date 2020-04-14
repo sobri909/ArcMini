@@ -20,7 +20,7 @@ struct RootView: View {
                 MapView(mapState: self.mapState, timelineState: self.timelineState)
                     .edgesIgnoringSafeArea(.all)
                 VStack(spacing: 0) {
-                    NavBarView()
+                    NavBar()
                     Spacer()
                     NavigationView {
                         TimelineRootView()

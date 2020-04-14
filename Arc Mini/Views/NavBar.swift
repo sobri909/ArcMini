@@ -1,5 +1,5 @@
 //
-//  NavBarView.swift
+//  NavBar.swift
 //  Arc Mini
 //
 //  Created by Matt Greenfield on 5/4/20.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct NavBarView: View {
+struct NavBar: View {
 
     @EnvironmentObject var timelineState: TimelineState
 
@@ -54,6 +54,6 @@ struct NavBarView: View {
 
 struct NavBarView_Previews: PreviewProvider {
     static var previews: some View {
-        NavBarView()
+        NavBar()
     }
 }
