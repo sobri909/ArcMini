@@ -3,3 +3,4 @@ Pods
 *.xcscmblueprint
 metadata
 tags
+Config.plist

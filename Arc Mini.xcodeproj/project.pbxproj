@@ -66,6 +66,7 @@
 		C99F5EC6242A3F8600E172AE /* Foursquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99F5EC4242A3F8600E172AE /* Foursquare.swift */; };
 		C99F5EC9242A4EFA00E172AE /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99F5EC8242A4EFA00E172AE /* Settings.swift */; };
 		C9B86B88242CAD8900D52C0D /* ArcError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B86B87242CAD8900D52C0D /* ArcError.swift */; };
+		C9BF95372446F959000F3299 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9BF95362446F959000F3299 /* Config.plist */; };
 		C9C5C009242FB2C700BC064E /* MapState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C5C008242FB2C700BC064E /* MapState.swift */; };
 		C9C6FBF2243333D3004F868C /* TimelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C6FBF1243333D3004F868C /* TimelineState.swift */; };
 		C9C827AD243C7B1E00F3199B /* Calendar+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C827AC243C7B1E00F3199B /* Calendar+extensions.swift */; };
@@ -146,6 +147,7 @@
 		C99F5EC4242A3F8600E172AE /* Foursquare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Foursquare.swift; sourceTree = "<group>"; };
 		C99F5EC8242A4EFA00E172AE /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		C9B86B87242CAD8900D52C0D /* ArcError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcError.swift; sourceTree = "<group>"; };
+		C9BF95362446F959000F3299 /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		C9C5C008242FB2C700BC064E /* MapState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapState.swift; sourceTree = "<group>"; };
 		C9C6FBF1243333D3004F868C /* TimelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineState.swift; sourceTree = "<group>"; };
 		C9C827AC243C7B1E00F3199B /* Calendar+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+extensions.swift"; sourceTree = "<group>"; };
@@ -379,6 +381,7 @@
 			children = (
 				C99F5EC1242A3F8500E172AE /* Arc Mini-Bridging-Header.h */,
 				C9822A90240CF8D8006B70F4 /* Info.plist */,
+				C9BF95362446F959000F3299 /* Config.plist */,
 				C9822A82240CF8D5006B70F4 /* AppDelegate.swift */,
 				C9822A84240CF8D5006B70F4 /* SceneDelegate.swift */,
 				C9822A8D240CF8D8006B70F4 /* LaunchScreen.storyboard */,
@@ -512,6 +515,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9BF95372446F959000F3299 /* Config.plist in Resources */,
 				C918CF2C243A33150019D350 /* SofiaProBold.ttf in Resources */,
 				C9822A8F240CF8D8006B70F4 /* LaunchScreen.storyboard in Resources */,
 				C9822A89240CF8D8006B70F4 /* Assets.xcassets in Resources */,
