@@ -139,7 +139,7 @@
 		C99F5EB5242A2C5000E172AE /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		C99F5EBC242A307400E172AE /* LastFm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastFm.swift; sourceTree = "<group>"; };
 		C99F5EBE242A371C00E172AE /* Scraps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scraps.swift; sourceTree = "<group>"; };
-		C99F5EC1242A3F8500E172AE /* Arc Mini-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Arc Mini-Bridging-Header.h"; sourceTree = "<group>"; };
+		C99F5EC1242A3F8500E172AE /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		C99F5EC2242A3F8600E172AE /* FSOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSOAuth.h; sourceTree = "<group>"; };
 		C99F5EC3242A3F8600E172AE /* FSOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSOAuth.m; sourceTree = "<group>"; };
 		C99F5EC4242A3F8600E172AE /* Foursquare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Foursquare.swift; sourceTree = "<group>"; };
@@ -368,7 +368,7 @@
 		C99F5EC0242A376100E172AE /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				C99F5EC1242A3F8500E172AE /* Arc Mini-Bridging-Header.h */,
+				C99F5EC1242A3F8500E172AE /* BridgingHeader.h */,
 				C9822A90240CF8D8006B70F4 /* Info.plist */,
 				C9BF95362446F959000F3299 /* Config.plist */,
 				C9822A82240CF8D5006B70F4 /* AppDelegate.swift */,
@@ -770,7 +770,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigpaua.ArcMini;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Arc Mini/Core/Arc Mini-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Arc Mini/Core/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -794,7 +794,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigpaua.ArcMini;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Arc Mini/Core/Arc Mini-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Arc Mini/Core/BridgingHeader.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
