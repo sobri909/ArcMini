@@ -33,10 +33,6 @@
 	<string>Arc Mini needs to know your location to record your daily location timelines</string>
 	<key>NSMotionUsageDescription</key>
 	<string>Arc Mini needs to monitor your movement to record your daily timelines</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>SofiaProBold.ttf</string>
-	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

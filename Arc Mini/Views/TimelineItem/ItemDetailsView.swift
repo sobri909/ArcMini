@@ -15,19 +15,32 @@ struct ItemDetailsView: View {
     @EnvironmentObject var timelineState: TimelineState
     @ObservedObject var timelineItem: TimelineItem
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
     @State var tappedEditButton = false
+
+    var arcItem: ArcTimelineItem { return timelineItem as! ArcTimelineItem }
+
+    // MARK: -
 
     init(timelineItem: TimelineItem) {
         self.timelineItem = timelineItem
     }
 
+    // MARK: -
+
     var body: some View {
         List {
-            Text((timelineItem as! ArcTimelineItem).title)
-                .font(.custom("SofiaProBold", size: 22))
-                .foregroundColor(Color("brandTertiaryDark"))
-                .padding(.top, 24)
+            VStack(alignment: .leading) {
+                Spacer().frame(height: 24)
+                Text(arcItem.title)
+                    .font(.system(size: 22, weight: .bold))
+                    .foregroundColor(Color("brandTertiaryDark"))
+                    .frame(height: 28)
+                Spacer().frame(height: 2)
+                Text(self.dateRangeString)
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundColor(Color("brandTertiaryLight"))
+                    .frame(height: 26)
+            }
             HStack {
                 Spacer()
                 self.editButton
@@ -48,6 +61,21 @@ struct ItemDetailsView: View {
                 self.timelineState.tappedBackButton = false
             }
         }
+    }
+
+    var dateRangeString: String {
+        guard let dateRange = timelineItem.dateRange else { return "" }
+        guard let startString = arcItem.startTimeString else { return "" }
+
+        if dateRange.start.isToday, let endString = arcItem.endTimeString {
+            return String(format: "%@ · %@ - %@", dateRange.shortDurationString, startString, endString)
+        }
+
+        if let endDateString = arcItem.startString(dateStyle: .long, timeStyle: .none, relative: true) {
+            return String(format: "%@ · %@, %@", dateRange.shortDurationString, startString, endDateString)
+        }
+
+        return ""
     }
 
     var editButton: some View {

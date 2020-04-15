@@ -16,7 +16,6 @@
 		C90D786B2428FFCE004ABFD0 /* Place.stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90D78662428FFCE004ABFD0 /* Place.stats.swift */; };
 		C90D786C2428FFCE004ABFD0 /* Place.scores.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90D78672428FFCE004ABFD0 /* Place.scores.swift */; };
 		C90D786F2429006F004ABFD0 /* Migrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90D786E2429006F004ABFD0 /* Migrations.swift */; };
-		C918CF2C243A33150019D350 /* SofiaProBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C918CF2B243A33150019D350 /* SofiaProBold.ttf */; };
 		C918CF2E243B1EE90019D350 /* TimelineRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C918CF2D243B1EE90019D350 /* TimelineRootView.swift */; };
 		C928C2EF2443522300586121 /* RecordingDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C928C2EE2443522300586121 /* RecordingDebugView.swift */; };
 		C92BF626241D06AD0089E4AD /* VisitCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92BF622241D06AD0089E4AD /* VisitCircle.swift */; };
@@ -95,7 +94,6 @@
 		C90D78662428FFCE004ABFD0 /* Place.stats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.stats.swift; sourceTree = "<group>"; };
 		C90D78672428FFCE004ABFD0 /* Place.scores.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.scores.swift; sourceTree = "<group>"; };
 		C90D786E2429006F004ABFD0 /* Migrations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Migrations.swift; sourceTree = "<group>"; };
-		C918CF2B243A33150019D350 /* SofiaProBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SofiaProBold.ttf; sourceTree = "<group>"; };
 		C918CF2D243B1EE90019D350 /* TimelineRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineRootView.swift; sourceTree = "<group>"; };
 		C928C2EE2443522300586121 /* RecordingDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingDebugView.swift; sourceTree = "<group>"; };
 		C92BF622241D06AD0089E4AD /* VisitCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitCircle.swift; sourceTree = "<group>"; };
@@ -313,17 +311,8 @@
 			children = (
 				C9822A88240CF8D8006B70F4 /* Assets.xcassets */,
 				C95E0E20241797D8008418A1 /* Colors.swift */,
-				C95E0E1D2417961B008418A1 /* Fonts */,
 			);
 			path = Design;
-			sourceTree = "<group>";
-		};
-		C95E0E1D2417961B008418A1 /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-				C918CF2B243A33150019D350 /* SofiaProBold.ttf */,
-			);
-			path = Fonts;
 			sourceTree = "<group>";
 		};
 		C95E0E2A2417B6E8008418A1 /* Models */ = {
@@ -516,7 +505,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9BF95372446F959000F3299 /* Config.plist in Resources */,
-				C918CF2C243A33150019D350 /* SofiaProBold.ttf in Resources */,
 				C9822A8F240CF8D8006B70F4 /* LaunchScreen.storyboard in Resources */,
 				C9822A89240CF8D8006B70F4 /* Assets.xcassets in Resources */,
 			);

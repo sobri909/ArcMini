@@ -52,4 +52,8 @@ extension DateInterval: Identifiable {
         guard acceptable.contains(rangeType) else { return nil }
         return DateInterval.range(of: rangeType, for: start.addingTimeInterval(-.oneHour))
     }
+
+    var shortDurationString: String {
+        return String(duration: duration, style: .short)
+    }
 }
