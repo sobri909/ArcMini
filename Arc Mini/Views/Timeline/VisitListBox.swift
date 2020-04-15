@@ -47,15 +47,7 @@ struct VisitListBox: View {
                     }
                     .foregroundColor(.red)
                     .alert(isPresented: $showDeleteAlert) {
-                        Alert(
-                            title: Text("Delete this visit?"),
-                            message: Text("The visit will be merged into the previous or following timeline item.\n\n"
-                                + "If you change your mind, you can revert the change from that item's Individual Segments view."),
-                            primaryButton: .destructive(Text("Delete"), action: {
-                                TimelineProcessor.safeDelete(self.visit)
-                            }),
-                            secondaryButton: .cancel()
-                        )
+                        Alert.delete(visit: self.visit)
                     }
                 }
                 NavigationLink(destination: ItemSegmentsView(timelineItem: visit)) {

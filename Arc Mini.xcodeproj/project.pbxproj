@@ -66,6 +66,7 @@
 		C99F5EC9242A4EFA00E172AE /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99F5EC8242A4EFA00E172AE /* Settings.swift */; };
 		C9B86B88242CAD8900D52C0D /* ArcError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B86B87242CAD8900D52C0D /* ArcError.swift */; };
 		C9BF95372446F959000F3299 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9BF95362446F959000F3299 /* Config.plist */; };
+		C9BF9539244744CC000F3299 /* DeleteVisitAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF9538244744CC000F3299 /* DeleteVisitAlert.swift */; };
 		C9C5C009242FB2C700BC064E /* MapState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C5C008242FB2C700BC064E /* MapState.swift */; };
 		C9C6FBF2243333D3004F868C /* TimelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C6FBF1243333D3004F868C /* TimelineState.swift */; };
 		C9C827AD243C7B1E00F3199B /* Calendar+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C827AC243C7B1E00F3199B /* Calendar+extensions.swift */; };
@@ -146,6 +147,7 @@
 		C99F5EC8242A4EFA00E172AE /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		C9B86B87242CAD8900D52C0D /* ArcError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcError.swift; sourceTree = "<group>"; };
 		C9BF95362446F959000F3299 /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
+		C9BF9538244744CC000F3299 /* DeleteVisitAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteVisitAlert.swift; sourceTree = "<group>"; };
 		C9C5C008242FB2C700BC064E /* MapState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapState.swift; sourceTree = "<group>"; };
 		C9C6FBF1243333D3004F868C /* TimelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineState.swift; sourceTree = "<group>"; };
 		C9C827AC243C7B1E00F3199B /* Calendar+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+extensions.swift"; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 				C95E0E1E2417969E008418A1 /* TimelineHeader.swift */,
 				C95E0E262417B19C008418A1 /* PathListBox.swift */,
 				C95E0E242417AEB8008418A1 /* VisitListBox.swift */,
+				C9BF9538244744CC000F3299 /* DeleteVisitAlert.swift */,
 			);
 			path = Timeline;
 			sourceTree = "<group>";
@@ -368,12 +371,12 @@
 		C99F5EC0242A376100E172AE /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				C99F5EC1242A3F8500E172AE /* BridgingHeader.h */,
 				C9822A90240CF8D8006B70F4 /* Info.plist */,
 				C9BF95362446F959000F3299 /* Config.plist */,
 				C9822A82240CF8D5006B70F4 /* AppDelegate.swift */,
 				C9822A84240CF8D5006B70F4 /* SceneDelegate.swift */,
 				C9822A8D240CF8D8006B70F4 /* LaunchScreen.storyboard */,
+				C99F5EC1242A3F8500E172AE /* BridgingHeader.h */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -570,6 +573,7 @@
 				C95E0E292417B6DD008418A1 /* ArcTimelineItem.swift in Sources */,
 				C9C5C009242FB2C700BC064E /* MapState.swift in Sources */,
 				C9F32F47242A5BBE00184862 /* Health.swift in Sources */,
+				C9BF9539244744CC000F3299 /* DeleteVisitAlert.swift in Sources */,
 				C98783042435F1EB001B4E7D /* SegmentAnnotationView.swift in Sources */,
 				C94808112441BE6100091943 /* UserActivityType.swift in Sources */,
 				C99F5EB7242A2C5000E172AE /* Note.swift in Sources */,

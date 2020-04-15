@@ -15,7 +15,10 @@ struct ItemDetailsView: View {
     @EnvironmentObject var timelineState: TimelineState
     @ObservedObject var timelineItem: TimelineItem
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
     @State var tappedEditButton = false
+    @State var tappedSegmentsButton = false
+    @State var showDeleteAlert = false
 
     var arcItem: ArcTimelineItem { return timelineItem as! ArcTimelineItem }
 
@@ -28,24 +31,29 @@ struct ItemDetailsView: View {
     // MARK: -
 
     var body: some View {
-        List {
+        ScrollView {
             VStack(alignment: .leading) {
                 Spacer().frame(height: 24)
                 Text(arcItem.title)
                     .font(.system(size: 22, weight: .bold))
                     .foregroundColor(Color("brandTertiaryDark"))
+                    .padding([.leading, .trailing], 20)
                     .frame(height: 28)
                 Spacer().frame(height: 2)
                 Text(self.dateRangeString)
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(Color("brandTertiaryLight"))
+                    .padding([.leading, .trailing], 20)
                     .frame(height: 26)
+                HStack(spacing: 0) {
+                    self.segmentsButton
+                    Spacer()
+                    self.deleteButton.opacity(self.canDelete ? 1 : 0)
+                    self.editButton
+                }
             }
-            HStack {
-                Spacer()
-                self.editButton
-            }.padding(.trailing, 14)
         }
+        .background(Color("background"))
         .navigationBarHidden(true)
         .navigationBarTitle("", displayMode: .inline)
         .onAppear {
@@ -78,6 +86,56 @@ struct ItemDetailsView: View {
         return ""
     }
 
+    var segmentsButton: some View {
+        ZStack(alignment: .leading) {
+            Button(action: {
+                self.tappedSegmentsButton = true
+            }) {
+                HStack(alignment: .center) {
+                    Image(systemName: "circle.grid.2x2")
+                        .font(.system(size: 18, weight: .regular))
+                        .foregroundColor(Color("brandSecondary80"))
+                        .frame(width: 24, height: 24)
+                    Text("Segments")
+                        .font(.system(size: 15, weight: .regular))
+                        .foregroundColor(Color("brandSecondaryDark"))
+                }.padding(.leading, 20)
+            }
+            .frame(height: 64)
+            NavigationLink(destination: ItemSegmentsView(timelineItem: timelineItem), isActive: $tappedSegmentsButton) {
+                EmptyView()
+            }.hidden()
+        }
+    }
+
+    var canDelete: Bool {
+        guard timelineItem is ArcVisit else { return false }
+        return !timelineItem.isCurrentItem
+    }
+
+    var deleteButton: some View {
+        ZStack(alignment: .trailing) {
+            Button(action: {
+                self.showDeleteAlert = true
+            }) {
+                HStack(alignment: .center) {
+                    Spacer().frame(width: 20)
+                    Image(systemName: "trash")
+                        .font(.system(size: 18, weight: .regular))
+                        .foregroundColor(Color("brandSecondary80"))
+                        .frame(width: 24, height: 24)
+                        .offset(x: 0, y: -1)
+                    Spacer().frame(width: 20)
+                    Rectangle().fill(Color("grey")).frame(width: 1, height: 24)
+                }
+            }
+            .frame(height: 64)
+        }
+        .alert(isPresented: $showDeleteAlert) {
+            Alert.delete(visit: self.timelineItem as! ArcVisit)
+        }
+    }
+
     var editButton: some View {
         ZStack(alignment: .trailing) {
             Button(action: {
@@ -85,18 +143,20 @@ struct ItemDetailsView: View {
             }) {
                 HStack(alignment: .center) {
                     Image(systemName: "square.and.pencil")
-                        .font(.system(size: 16, weight: .semibold))
+                        .font(.system(size: 18, weight: .regular))
                         .foregroundColor(Color("brandSecondary80"))
-                        .offset(x: 0, y: -1)
+                        .frame(width: 24, height: 24)
+                        .offset(x: 0, y: -1.5)
                     Text("Edit")
-                        .font(.system(size: 15, weight: .bold))
+                        .font(.system(size: 15, weight: .regular))
                         .foregroundColor(Color("brandSecondaryDark"))
                 }
+                .padding([.leading, .trailing], 20)
             }
-            .frame(height: 50)
+            .frame(height: 64)
             NavigationLink(destination: editView(for: timelineItem), isActive: $tappedEditButton) {
                 EmptyView()
-            }
+            }.hidden()
         }
     }
 

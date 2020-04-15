@@ -11,7 +11,7 @@ import LocoKit
 
 struct ItemSegmentsView: View {
 
-    var timelineItem: ArcTimelineItem
+    @ObservedObject var timelineItem: TimelineItem
     @EnvironmentObject var mapState: MapState
     @EnvironmentObject var timelineState: TimelineState
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
