@@ -1,7 +1,8 @@
 # Arc Mini
 
-1. Add a new plist to the project, named `Config.plist`.
-2. Add these string properties to the plist, using the corresponding values from your Foursquare/Last.fm developer accounts: 
+1. Comment/uncomment the appropriate lines in the `Podfile` to point to public LocoKit releases instead of local.
+2. Add a new plist to the project, named `Config.plist`.
+3. Add these string properties to the plist, using the corresponding values from your Foursquare/Last.fm developer accounts: 
     - `FoursquareClientId`
     - `FoursquareClientSecret`
     - `LastFmAPIKey` (not used yet)
