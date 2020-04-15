@@ -215,16 +215,27 @@ class Settings {
 
     // MARK: - Private settings getters
 
+    static let configPlist: [String: Any]? = {
+        guard let path = Bundle.main.path(forResource: "Config", ofType: "plist") else { return nil }
+        guard let data = FileManager.default.contents(atPath: path) else { return nil }
+        do {
+            return try PropertyListSerialization.propertyList(from: data, options: .mutableContainersAndLeaves, format: nil) as? [String: Any]
+        } catch {
+            logger.error("Config.plist ERROR: \(error)")
+            return nil
+        }
+    }()
+
     static let foursquareClientId: String? = {
-        return Bundle.main.infoDictionary?["FoursquareClientId"] as? String
+        return configPlist?["FoursquareClientId"] as? String
     }()
 
     static let foursquareClientSecret: String? = {
-        return Bundle.main.infoDictionary?["FoursquareClientSecret"] as? String
+        return configPlist?["FoursquareClientSecret"] as? String
     }()
 
     static let lastFmAPIKey: String? = {
-        return Bundle.main.infoDictionary?["LastFmAPIKey"] as? String
+        return configPlist?["LastFmAPIKey"] as? String
     }()
 
     // MARK: - Subscript
