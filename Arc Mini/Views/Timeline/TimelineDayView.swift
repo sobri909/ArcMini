@@ -33,7 +33,7 @@ struct TimelineDayView: View {
                     .listRowInsets(EdgeInsets())
                 }
             }
-            Rectangle().fill(Color("arcGray3")).frame(width: 0.5).edgesIgnoringSafeArea(.all)
+            Rectangle().fill(Color("brandSecondary10")).frame(width: 0.5).edgesIgnoringSafeArea(.all)
         }
         .navigationBarTitle("")
         .navigationBarHidden(true)

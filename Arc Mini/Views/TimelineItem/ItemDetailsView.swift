@@ -51,6 +51,7 @@ struct ItemDetailsView: View {
                     self.deleteButton.opacity(self.canDelete ? 1 : 0)
                     self.editButton
                 }
+                Rectangle().fill(Color("brandSecondary10")).frame(height: 0.5)
             }
         }
         .background(Color("background"))
