@@ -34,6 +34,8 @@ enum SettingsKey: String {
 
     case allowMapRotate
     case allowMapTilt
+
+    case taskStates
 }
 
 // MARK: -

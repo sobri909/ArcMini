@@ -34,15 +34,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIDevice.current.isBatteryMonitoringEnabled = true
 
         thermalStateChanged()
-        registerBackgroundTasks()
+        TasksManager.highlander.registerBackgroundTasks()
 
         if UIDevice.current.batteryState != .unplugged {
-            scheduleBackgroundTasks()
+            TasksManager.highlander.scheduleBackgroundTasks()
         }
 
         when(UIDevice.batteryStateDidChangeNotification) { _ in
             if UIDevice.current.batteryState != .unplugged {
-                self.scheduleBackgroundTasks()
+                TasksManager.highlander.scheduleBackgroundTasks()
             }
         }
 
@@ -65,59 +65,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITableView.appearance().separatorStyle = .none
         UITableView.appearance().showsVerticalScrollIndicator = false // TODO: want this per view, not global
         UITableViewCell.appearance().selectionStyle = .none // TODO: want this per view, not global
-    }
-
-    func registerBackgroundTasks() {
-        let scheduler = BGTaskScheduler.shared
-
-        scheduler.register(forTaskWithIdentifier: "com.bigpaua.ArcMini.placeModelUpdates", using: nil) { task in
-            logger.info("UPDATE QUEUED PLACES: START")
-            PlaceCache.cache.updateQueuedPlaces(task: task as! BGProcessingTask)
-        }
-
-        scheduler.register(forTaskWithIdentifier: "com.bigpaua.ArcMini.activityTypeModelUpdates", using: nil) { task in
-            logger.info("UPDATE QUEUED MODELS: START")
-            UserActivityTypesCache.highlander.updateQueuedModels(task: task as! BGProcessingTask)
-        }
-
-        scheduler.register(
-            forTaskWithIdentifier: "com.bigpaua.ArcMini.updateTrustFactors",
-            using: Jobs.highlander.secondaryQueue.underlyingQueue)
-        { task in
-            logger.info("UPDATE TRUST FACTORS: START")
-            (LocomotionManager.highlander.coordinateAssessor as? CoordinateTrustManager)?.updateTrustFactors()
-            logger.info("UPDATE TRUST FACTORS: COMPLETED")
-            task.setTaskCompleted(success: true)
-        }
-
-        scheduler.register(
-            forTaskWithIdentifier: "com.bigpaua.ArcMini.sanitiseStore",
-            using: Jobs.highlander.secondaryQueue.underlyingQueue)
-        { task in
-            logger.info("SANITISE STORE: START")
-            TimelineProcessor.sanitise(store: RecordingManager.store)
-            task.setTaskCompleted(success: true)
-            logger.info("SANITISE STORE: COMPLETED")
-        }
-    }
-
-    func scheduleBackgroundTasks() {
-        if LocomotionManager.highlander.recordingState == .recording { return }
-        scheduleBackgroundTask("com.bigpaua.ArcMini.placeModelUpdates", requiresPower: true)
-        scheduleBackgroundTask("com.bigpaua.ArcMini.activityTypeModelUpdates", requiresPower: true)
-        scheduleBackgroundTask("com.bigpaua.ArcMini.updateTrustFactors", requiresPower: true)
-        scheduleBackgroundTask("com.bigpaua.ArcMini.sanitiseStore", requiresPower: true)
-    }
-
-    func scheduleBackgroundTask(_ identifier: String, requiresPower: Bool, requiresNetwork: Bool = false) {
-        let request = BGProcessingTaskRequest(identifier: identifier)
-        request.requiresNetworkConnectivity = requiresNetwork
-        request.requiresExternalPower = requiresPower
-        do {
-            try BGTaskScheduler.shared.submit(request)
-        } catch {
-            logger.error("FAILED TO SCHEDULE: \(identifier)")
-        }
     }
 
     func thermalStateChanged() {

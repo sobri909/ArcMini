@@ -48,7 +48,7 @@ class RecordingManager {
     }
 
     func didStartSleeping() {
-        AppDelegate.highlander.scheduleBackgroundTasks()
+        TasksManager.highlander.scheduleBackgroundTasks()
     }
 
 }

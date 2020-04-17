@@ -87,6 +87,8 @@ struct ItemDetailsView: View {
         return ""
     }
 
+    // MARK: - Buttons
+
     var segmentsButton: some View {
         ZStack(alignment: .leading) {
             Button(action: {

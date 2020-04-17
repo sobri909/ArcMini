@@ -45,6 +45,7 @@
 		C95E0E292417B6DD008418A1 /* ArcTimelineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E0E282417B6DD008418A1 /* ArcTimelineItem.swift */; };
 		C95E0E2D2417B773008418A1 /* ArcVisit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E0E2B2417B773008418A1 /* ArcVisit.swift */; };
 		C95E0E2E2417B773008418A1 /* ArcPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E0E2C2417B773008418A1 /* ArcPath.swift */; };
+		C96E00B82449B3AD00A3635F /* TasksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96E00B72449B3AD00A3635F /* TasksManager.swift */; };
 		C970732D243889D400E3B938 /* LocoKit+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C970732C243889D400E3B938 /* LocoKit+extensions.swift */; };
 		C97C193C2432164700FC45A1 /* ItemSegmentEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97C193B2432164700FC45A1 /* ItemSegmentEditView.swift */; };
 		C97DCDEB242395C3006437B7 /* ItemDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97DCDEA242395C3006437B7 /* ItemDetailsView.swift */; };
@@ -123,6 +124,7 @@
 		C95E0E282417B6DD008418A1 /* ArcTimelineItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcTimelineItem.swift; sourceTree = "<group>"; };
 		C95E0E2B2417B773008418A1 /* ArcVisit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcVisit.swift; sourceTree = "<group>"; };
 		C95E0E2C2417B773008418A1 /* ArcPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcPath.swift; sourceTree = "<group>"; };
+		C96E00B72449B3AD00A3635F /* TasksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksManager.swift; sourceTree = "<group>"; };
 		C970732C243889D400E3B938 /* LocoKit+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocoKit+extensions.swift"; sourceTree = "<group>"; };
 		C97C193B2432164700FC45A1 /* ItemSegmentEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSegmentEditView.swift; sourceTree = "<group>"; };
 		C97DCDEA242395C3006437B7 /* ItemDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsView.swift; sourceTree = "<group>"; };
@@ -327,12 +329,9 @@
 				C9D4717D242E2EF4005F2AA3 /* Timeline */,
 				C90D786D2428FFD2004ABFD0 /* Place */,
 				C9524008242F50BA00F4522D /* Maths */,
-				C9524006242F502700F4522D /* RecordingManager.swift */,
 				C99F5EB5242A2C5000E172AE /* Note.swift */,
-				C99F5EC8242A4EFA00E172AE /* Settings.swift */,
 				C99F5EB4242A2C5000E172AE /* TrackPlay.swift */,
 				C9B86B87242CAD8900D52C0D /* ArcError.swift */,
-				C9C827B6243DEB7F00F3199B /* DebugLogger.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -361,6 +360,7 @@
 				C99F5EC0242A376100E172AE /* Core */,
 				C95E0E1A241795E6008418A1 /* Design */,
 				C918CF2A2439E4230019D350 /* Extensions */,
+				C9EE17372449C63A004CFFA9 /* Managers */,
 				C95E0E2A2417B6E8008418A1 /* Models */,
 				C9C6FBF3243333D9004F868C /* View Models */,
 				C91F7ACC241645A90013A5D5 /* Views */,
@@ -408,6 +408,17 @@
 				C95E0E2B2417B773008418A1 /* ArcVisit.swift */,
 			);
 			path = Timeline;
+			sourceTree = "<group>";
+		};
+		C9EE17372449C63A004CFFA9 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				C9C827B6243DEB7F00F3199B /* DebugLogger.swift */,
+				C9524006242F502700F4522D /* RecordingManager.swift */,
+				C99F5EC8242A4EFA00E172AE /* Settings.swift */,
+				C96E00B72449B3AD00A3635F /* TasksManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		C9F32F48242A5BD200184862 /* External */ = {
@@ -589,6 +600,7 @@
 				C928C2EF2443522300586121 /* RecordingDebugView.swift in Sources */,
 				C99F5EC5242A3F8600E172AE /* FSOAuth.m in Sources */,
 				C95E0E272417B19C008418A1 /* PathListBox.swift in Sources */,
+				C96E00B82449B3AD00A3635F /* TasksManager.swift in Sources */,
 				C90D786B2428FFCE004ABFD0 /* Place.stats.swift in Sources */,
 				C93062B3243F209F00DE47CC /* DebugLogView.swift in Sources */,
 				C953392B24127CF30005E98F /* TimelineDayView.swift in Sources */,

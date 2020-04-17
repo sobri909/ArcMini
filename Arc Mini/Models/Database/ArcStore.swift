@@ -219,6 +219,16 @@ class ArcStore: TimelineStore {
         }
     }
 
+    // MARK: - Counts
+
+    var placesPendingUpdate: Int {
+        return countPlaces(where: "needsUpdate = 1")
+    }
+
+    var modelsPendingUpdate: Int {
+       return countModels(where: "isShared = 0 AND needsUpdate = 1")
+    }
+
     // MARK: - Database migrations
 
     var arcMigrator = DatabaseMigrator()

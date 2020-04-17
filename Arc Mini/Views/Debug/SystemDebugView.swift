@@ -20,16 +20,28 @@ struct SystemDebugView: View {
                     self.row(leftText: "Secondary queue jobs", rightText: String(describing: Jobs.highlander.secondaryQueue.operationCount))
                     NavigationLink(destination: PlacesPendingUpdateView()) {
                         self.row(leftText: "Places pending update",
-                                 rightText: String(describing: RecordingManager.store.countPlaces(where: "needsUpdate = 1")))
+                                 rightText: String(describing: RecordingManager.store.placesPendingUpdate))
                     }
                     NavigationLink(destination: ModelsPendingUpdateView()) {
                         self.row(leftText: "UD models pending update",
-                                 rightText: String(describing: RecordingManager.store.countModels(where: "isShared = 0 AND needsUpdate = 1")))
+                                 rightText: String(describing: RecordingManager.store.modelsPendingUpdate))
                     }
                 }
+                self.taskRows
             }
             .navigationBarTitle("Arc Mini \(Bundle.versionNumber) (\(Bundle.buildNumber))")
             .environment(\.defaultMinListRowHeight, 28)
+        }
+    }
+
+    // MARK: -
+
+    var taskRows: some View {
+        Section(header: Text("Task States")) {
+            ForEach(TasksManager.highlander.taskStates.sorted { $0.key.rawValue < $1.key.rawValue }, id: \.0) { identifier, status in
+                self.row(leftText: String(identifier.rawValue.split(separator: ".").last!),
+                         rightText: "\(status.state.rawValue) (\(String(duration: -status.lastUpdated.timeIntervalSinceNow, style: .short)) ago)")
+            }
         }
     }
 

@@ -150,7 +150,7 @@ class PlaceCache {
 
         if task.expirationHandler == nil {
             // make sure the next round of tasks are scheduled
-            onMain { AppDelegate.highlander.scheduleBackgroundTasks() }
+            onMain { TasksManager.highlander.scheduleBackgroundTasks() }
             
             backgroundTaskExpired = false
 
