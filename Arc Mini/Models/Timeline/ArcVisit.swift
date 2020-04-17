@@ -209,6 +209,24 @@ class ArcVisit: LocoKit.Visit, ArcTimelineItem {
 
     // MARK: - TimelineItem
 
+    // MARK: - Validness / Keepness
+
+    override var isValid: Bool {
+        if samples.isEmpty { return false }
+        if manualPlace { return true }
+        if let customTitle = customTitle, !customTitle.isEmpty { return true }
+        return super.isValid
+    }
+
+    override var isWorthKeeping: Bool {
+        if isInvalid { return false }
+        if manualPlace { return true }
+        if let customTitle = customTitle, !customTitle.isEmpty { return true }
+        return super.isWorthKeeping
+    }
+
+    // MARK: - Merges
+
     override func scoreForConsuming(item: TimelineItem) -> ConsumptionScore {
         guard let otherVisit = item as? ArcVisit else { return super.scoreForConsuming(item: item) }
 
@@ -262,6 +280,16 @@ class ArcVisit: LocoKit.Visit, ArcTimelineItem {
         if self.customTitle == nil, otherVisit.customTitle != nil {
             self.customTitle = otherVisit.customTitle
         }
+    }
+    
+    override func withinMergeableDistance(from otherItem: TimelineItem) -> Bool {
+
+        // visits with the same manual place should always be mergeable
+        if let visit = otherItem as? ArcVisit, self.hasSamePlaceAs(visit) && self.manualPlace && visit.manualPlace {
+            return true
+        }
+
+        return super.withinMergeableDistance(from: otherItem)
     }
 
     // MARK: - Persistable
