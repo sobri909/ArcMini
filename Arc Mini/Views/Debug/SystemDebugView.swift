@@ -40,7 +40,7 @@ struct SystemDebugView: View {
         Section(header: Text("Task States")) {
             ForEach(TasksManager.highlander.taskStates.sorted { $0.key.rawValue < $1.key.rawValue }, id: \.0) { identifier, status in
                 self.row(leftText: String(identifier.rawValue.split(separator: ".").last!),
-                         rightText: "\(status.state.rawValue) (\(String(duration: -status.lastUpdated.timeIntervalSinceNow, style: .short)) ago)")
+                         rightText: "\(status.state.rawValue) (\(String(duration: -status.lastUpdated.timeIntervalSinceNow, style: .short, maximumUnits: 1)) ago)")
             }
         }
     }
