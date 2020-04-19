@@ -19,7 +19,7 @@ class TasksManager {
     }
 
     enum TaskState: String, Codable {
-        case scheduled, running, completed
+        case scheduled, running, expired, completed
     }
 
     struct TaskStatus: Codable {
@@ -37,34 +37,33 @@ class TasksManager {
 
     private init() {
         loadStates()
-        logger.info("taskStates: \(self.taskStates)")
     }
 
     // MARK: -
 
     func registerBackgroundTasks() {
         register(.placeModelUpdates) { task in
-            logger.info("UPDATE QUEUED PLACES: START")
+            TasksManager.update(.placeModelUpdates, to: .running)
             PlaceCache.cache.updateQueuedPlaces(task: task as! BGProcessingTask)
         }
 
         register(.activityTypeModelUpdates) { task in
-            logger.info("UPDATE QUEUED MODELS: START")
+            TasksManager.update(.activityTypeModelUpdates, to: .running)
             UserActivityTypesCache.highlander.updateQueuedModels(task: task as! BGProcessingTask)
         }
 
         register(.updateTrustFactors, queue: Jobs.highlander.secondaryQueue.underlyingQueue) { task in
-            logger.info("UPDATE TRUST FACTORS: START")
+            TasksManager.update(.updateTrustFactors, to: .running)
             (LocomotionManager.highlander.coordinateAssessor as? CoordinateTrustManager)?.updateTrustFactors()
-            logger.info("UPDATE TRUST FACTORS: COMPLETED")
+            TasksManager.update(.updateTrustFactors, to: .completed)
             task.setTaskCompleted(success: true)
         }
 
-        register(TaskIdentifier.sanitiseStore, queue: Jobs.highlander.secondaryQueue.underlyingQueue) { task in
-            logger.info("SANITISE STORE: START")
+        register(.sanitiseStore, queue: Jobs.highlander.secondaryQueue.underlyingQueue) { task in
+            TasksManager.update(.sanitiseStore, to: .running)
             TimelineProcessor.sanitise(store: RecordingManager.store)
+            TasksManager.update(.sanitiseStore, to: .completed)
             task.setTaskCompleted(success: true)
-            logger.info("SANITISE STORE: COMPLETED")
         }
     }
 
@@ -84,17 +83,32 @@ class TasksManager {
     }
 
     static func schedule(_ identifier: TaskIdentifier, requiresPower: Bool, requiresNetwork: Bool = false) {
-        let request = BGProcessingTaskRequest(identifier: identifier.rawValue)
-        request.requiresNetworkConnectivity = requiresNetwork
-        request.requiresExternalPower = requiresPower
+        guard currentState(of: identifier) != .running else { logger.info("\(identifier.rawValue) is already running"); return }
 
-        do {
-            try BGTaskScheduler.shared.submit(request)
-        } catch {
-            logger.error("FAILED TO SCHEDULE: \(identifier)")
+        onMain {
+            let request = BGProcessingTaskRequest(identifier: identifier.rawValue)
+            request.requiresNetworkConnectivity = requiresNetwork
+            request.requiresExternalPower = requiresPower
+
+            do {
+                try BGTaskScheduler.shared.submit(request)
+            } catch {
+                logger.error("FAILED TO SCHEDULE: \(identifier)")
+            }
         }
 
         highlander.taskStates[identifier] = TaskStatus(state: .scheduled, lastUpdated: Date())
+        highlander.saveStates()
+    }
+
+    static func update(_ identifier: TaskIdentifier, to state: TaskState) {
+        highlander.taskStates[identifier] = TaskStatus(state: state, lastUpdated: Date())
+        highlander.saveStates()
+        logger.info("\(identifier.rawValue): \(state.rawValue.uppercased())")
+    }
+
+    static func currentState(of identifier: TaskIdentifier) -> TaskState? {
+        return highlander.taskStates[identifier]?.state
     }
 
     // MARK: -
@@ -107,14 +121,19 @@ class TasksManager {
     // MARK: -
 
     private func saveStates() {
-        guard let data = try? encoder.encode(taskStates) else { logger.error("ERROR: Failed to save task states"); return }
-        Settings.highlander[.taskStates] = data
+        do {
+            Settings.highlander[.taskStates] = try encoder.encode(taskStates)
+        } catch {
+            logger.error("ERROR: \(error)")
+        }
     }
 
     private func loadStates() {
-        guard let data = Settings.highlander[.taskStates] as? Data else { return }
-        if let taskStates = try? decoder.decode([TaskIdentifier: TaskStatus].self, from: data) {
-            self.taskStates = taskStates
+        guard let data = Settings.highlander[.taskStates] as? Data else { logger.info("No taskStates data in UserDefaults"); return }
+        do {
+            self.taskStates = try decoder.decode([TaskIdentifier: TaskStatus].self, from: data)
+        } catch {
+            logger.error("ERROR: \(error)")
         }
     }
 

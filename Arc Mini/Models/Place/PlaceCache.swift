@@ -143,17 +143,14 @@ class PlaceCache {
 
     func updateQueuedPlaces(task: BGProcessingTask) {
         if backgroundTaskExpired {
-            logger.info("UPDATE QUEUED PLACES: BG TASK EXPIRED")
+            TasksManager.update(.placeModelUpdates, to: .expired)
             task.setTaskCompleted(success: false)
+            TasksManager.highlander.scheduleBackgroundTasks()
             return
         }
 
         if task.expirationHandler == nil {
-            // make sure the next round of tasks are scheduled
-            onMain { TasksManager.highlander.scheduleBackgroundTasks() }
-            
             backgroundTaskExpired = false
-
             task.expirationHandler = {
                 self.backgroundTaskExpired = true
             }
@@ -164,7 +161,7 @@ class PlaceCache {
             return
         }
 
-        logger.info("UPDATE QUEUED PLACES: COMPLETED")
+        TasksManager.update(.placeModelUpdates, to: .completed)
         task.setTaskCompleted(success: true)
     }
 

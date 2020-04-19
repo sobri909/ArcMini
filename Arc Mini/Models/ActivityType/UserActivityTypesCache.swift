@@ -177,17 +177,14 @@ final class UserActivityTypesCache: MLModelSource {
 
     func updateQueuedModels(task: BGProcessingTask) {
         if backgroundTaskExpired {
-            logger.info("UPDATE QUEUED MODELS: BG TASK EXPIRED")
+            TasksManager.update(.activityTypeModelUpdates, to: .expired)
             task.setTaskCompleted(success: false)
+            TasksManager.highlander.scheduleBackgroundTasks()
             return
         }
 
         if task.expirationHandler == nil {
-            // make sure the next round of tasks are scheduled
-            onMain { TasksManager.highlander.scheduleBackgroundTasks() }
-
             backgroundTaskExpired = false
-
             task.expirationHandler = {
                 self.backgroundTaskExpired = true
             }
@@ -198,7 +195,7 @@ final class UserActivityTypesCache: MLModelSource {
             return
         }
 
-        logger.info("UPDATE QUEUED MODELS: COMPLETED")
+        TasksManager.update(.activityTypeModelUpdates, to: .completed)
         task.setTaskCompleted(success: true)
     }
 

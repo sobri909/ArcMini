@@ -36,10 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         thermalStateChanged()
         TasksManager.highlander.registerBackgroundTasks()
 
-        if UIDevice.current.batteryState != .unplugged {
-            TasksManager.highlander.scheduleBackgroundTasks()
-        }
-
         when(UIDevice.batteryStateDidChangeNotification) { _ in
             if UIDevice.current.batteryState != .unplugged {
                 TasksManager.highlander.scheduleBackgroundTasks()
