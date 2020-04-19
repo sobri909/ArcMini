@@ -55,7 +55,7 @@ class UserActivityType: MutableActivityType {
             self.needsUpdate = false
             self.save()
 
-            logger.info("[\(self.geoKey)] UPDATING")
+            logger.info("UPDATING: \(self.geoKey)")
 
             let dateBoundary = Date(timeIntervalSinceNow: -.oneYear * 2)
 
