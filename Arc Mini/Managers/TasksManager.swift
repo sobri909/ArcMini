@@ -83,7 +83,10 @@ class TasksManager {
     }
 
     static func schedule(_ identifier: TaskIdentifier, requiresPower: Bool, requiresNetwork: Bool = false) {
-        guard currentState(of: identifier) != .running else { logger.info("\(identifier.rawValue) is already running"); return }
+        guard currentState(of: identifier) != .running else {
+            logger.info("\(identifier.rawValue.split(separator: ".").last!) is already running")
+            return
+        }
 
         onMain {
             let request = BGProcessingTaskRequest(identifier: identifier.rawValue)
@@ -93,7 +96,7 @@ class TasksManager {
             do {
                 try BGTaskScheduler.shared.submit(request)
             } catch {
-                logger.error("FAILED TO SCHEDULE: \(identifier)")
+                logger.error("\(identifier.rawValue.split(separator: ".").last!): FAILED TO SCHEDULE")
             }
         }
 
@@ -104,7 +107,7 @@ class TasksManager {
     static func update(_ identifier: TaskIdentifier, to state: TaskState) {
         highlander.taskStates[identifier] = TaskStatus(state: state, lastUpdated: Date())
         highlander.saveStates()
-        logger.info("\(identifier.rawValue): \(state.rawValue.uppercased())")
+        logger.info("\(identifier.rawValue.split(separator: ".").last!): \(state.rawValue.uppercased())")
     }
 
     static func currentState(of identifier: TaskIdentifier) -> TaskState? {
