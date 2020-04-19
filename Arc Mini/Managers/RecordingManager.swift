@@ -33,7 +33,7 @@ class RecordingManager {
         when(loco, does: .willStartSleepMode) { _ in
             self.willStartSleeping()
         }
-        when(loco, does: .didStartSleepMode) { _ in
+        when(loco, does: .wentFromSleepModeToRecording) { _ in
             self.didStartSleeping()
         }
     }
