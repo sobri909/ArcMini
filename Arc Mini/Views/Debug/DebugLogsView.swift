@@ -33,7 +33,7 @@ struct DebugLogsView: View {
 
     func rightText(for url: URL) -> String {
         guard let duration = duration(for: url) else { return "" }
-        return String(duration: duration, style: .abbreviated, maximumUnits: 1)
+        return String(duration: duration, style: .abbreviated, maximumUnits: 2)
     }
 
     func duration(for url: URL) -> TimeInterval? {
