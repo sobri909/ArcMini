@@ -62,7 +62,7 @@ extension Place {
             self.needsUpdate = false
             self.save()
 
-            logger.info("UPDATED: \(self.name)")
+            logger.info("UPDATED:  \(self.name)")
 
             done()
         }
