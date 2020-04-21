@@ -121,8 +121,10 @@ class TasksManager {
     }
 
     private func update(_ identifier: TaskIdentifier, to state: TaskState) {
-        taskStates[identifier] = TaskStatus(state: state, lastUpdated: Date())
-        saveStates()
+        onMain {
+            self.taskStates[identifier] = TaskStatus(state: state, lastUpdated: Date())
+            self.saveStates()
+        }
         if state == .unfinished {
             logger.error("\(state.rawValue.uppercased()): \(identifier.rawValue.split(separator: ".").last!)")
         } else {
