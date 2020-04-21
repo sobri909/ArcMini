@@ -1,7 +1,7 @@
 PODS:
-  - GRDB.swift (4.12.0):
-    - GRDB.swift/standard (= 4.12.0)
-  - GRDB.swift/standard (4.12.0)
+  - GRDB.swift (4.13.0):
+    - GRDB.swift/standard (= 4.13.0)
+  - GRDB.swift/standard (4.13.0)
   - LocoKit (7.0.0):
     - LocoKit/Base (= 7.0.0)
   - LocoKit/Base (7.0.0):
@@ -12,24 +12,36 @@ PODS:
   - Upsurge (0.10.2)
 
 DEPENDENCIES:
-  - LocoKit (from `~/Projects/LocoKit`)
+  - LocoKit (from `https://github.com/sobri909/LocoKit.git`, branch `develop`)
+  - LocoKitCore (from `https://github.com/sobri909/LocoKit.git`, branch `develop`)
 
 SPEC REPOS:
   trunk:
     - GRDB.swift
-    - LocoKitCore
     - Upsurge
 
 EXTERNAL SOURCES:
   LocoKit:
-    :path: "~/Projects/LocoKit"
+    :branch: develop
+    :git: https://github.com/sobri909/LocoKit.git
+  LocoKitCore:
+    :branch: develop
+    :git: https://github.com/sobri909/LocoKit.git
+
+CHECKOUT OPTIONS:
+  LocoKit:
+    :commit: 28c73a1c53a45e0ccde71677b5daf1fb4a92ed58
+    :git: https://github.com/sobri909/LocoKit.git
+  LocoKitCore:
+    :commit: 28c73a1c53a45e0ccde71677b5daf1fb4a92ed58
+    :git: https://github.com/sobri909/LocoKit.git
 
 SPEC CHECKSUMS:
-  GRDB.swift: 0a48d51f7152fbe5eb702ce978864a55def0c586
+  GRDB.swift: c9cc798c8f12b354c2fbe04970c8e01bd188b72f
   LocoKit: 0f88ef64006adf4ea3cabcb610b614eb269d5544
   LocoKitCore: 30cff6a1e4ac5a32eefe232c19e24fd79485661d
   Upsurge: 5866beadc3da27f91c5df4ac795deb3f3238d678
 
-PODFILE CHECKSUM: 596bcce7f7dda0deed93ab70f425b0b4d5588710
+PODFILE CHECKSUM: e133b2c872f01d647b7440148f647499da9a0a25
 
 COCOAPODS: 1.9.1

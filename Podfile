@@ -3,10 +3,11 @@ use_frameworks!
 
 target 'Arc Mini' do
 
-  # uncomment this line to use LocoKit public releases
-  # pod 'LocoKit'
+  # Arc Mini development follows the LocoKit develop branch, not the stable releases
+  pod 'LocoKit', :git => 'https://github.com/sobri909/LocoKit.git', :branch => 'develop'
+  pod 'LocoKitCore', :git => 'https://github.com/sobri909/LocoKit.git', :branch => 'develop'
 
-  # uncomment these lines for local LocoKit development
-  pod 'LocoKit', :path => '~/Projects/LocoKit'
+  # uncomment this line if you're using a local copy of LocoKit 
+  # pod 'LocoKit', :path => '~/Projects/LocoKit'
 
 end
