@@ -27,6 +27,7 @@ extension Date {
     var isTomorrow: Bool { return Calendar.current.isDateInTomorrow(self) }
     var nextDay: Date { return Calendar.current.date(byAdding: .day, value: 1, to: self)! }
     var previousDay: Date { return Calendar.current.date(byAdding: .day, value: -1, to: self)! }
+    var endOfDay: Date { return nextDay.startOfDay }
     var weekday: Weekday { return Weekday(rawValue: greg.dateComponents([.weekday], from: self).weekday!)! }
 }
 

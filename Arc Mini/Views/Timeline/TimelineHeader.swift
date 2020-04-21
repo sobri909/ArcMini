@@ -19,21 +19,27 @@ struct TimelineHeader: View {
     enum DebugView { case logs, system, recording }
 
     var body: some View {
-        HStack {
-            Text(dailyTitle)
-                .font(.system(size: 17, weight: .semibold))
-                .foregroundColor(Color("brandTertiaryDark"))
-            Spacer()
-            Button(action: {
-                self.showingMenu = true
-            }) {
-                Image(systemName: "ellipsis").foregroundColor(Color("brandSecondary80"))
+        VStack(spacing: 0) {
+            HStack(spacing: 0) {
+                Text(dailyTitle)
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundColor(Color("brandTertiaryDark"))
+                Spacer()
+                self.previousButton
+                self.nextButton
+                Rectangle().fill(Color("grey")).frame(width: 1, height: 24)
+                Button(action: {
+                    self.showingMenu = true
+                }) {
+                    Image(systemName: "ellipsis").foregroundColor(Color("brandSecondary80"))
+                }
+                .frame(width: 56, height: 64)
             }
-            .frame(width: 56, height: 56)
+            .padding([.leading], 20)
+            .padding([.trailing], 4)
+            .frame(height: 64)
+            Rectangle().fill(Color("brandSecondary10")).frame(height: 0.5).padding([.leading, .trailing], 20)
         }
-        .padding([.leading], 20)
-        .padding([.trailing], 4)
-        .frame(height: 56)
         .background(Color("background"))
         .sheet(isPresented: $showingDebugView) {
             if self.debugView == .logs {
@@ -76,7 +82,25 @@ struct TimelineHeader: View {
         }
         return formatter.string(from: day)
     }
-    
+
+    var previousButton: some View {
+        Button(action: {
+            self.timelineState.gotoPrevious()
+        }) {
+            Image(systemName: "chevron.left").foregroundColor(Color("brandSecondary80"))
+        }
+        .frame(width: 56, height: 64)
+    }
+
+    var nextButton: some View {
+        Button(action: {
+            self.timelineState.gotoNext()
+        }) {
+            Image(systemName: "chevron.right").foregroundColor(Color("brandSecondary80"))
+        }
+        .frame(width: 56, height: 64)
+    }
+
 }
 
 struct TimelineHeader_Previews: PreviewProvider {

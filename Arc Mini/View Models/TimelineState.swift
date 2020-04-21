@@ -53,6 +53,34 @@ class TimelineState: ObservableObject {
 
     // MARK: -
 
+    func gotoPrevious() {
+        guard let visibleDateRange = visibleDateRange else { return }
+        goto(date: visibleDateRange.middle.previousDay)
+    }
+
+    func gotoNext() {
+        guard let visibleDateRange = visibleDateRange else { return }
+        goto(date: visibleDateRange.middle.nextDay)
+    }
+
+    func goto(date: Date) {
+        guard date.endOfDay > Settings.firstDate else { return }
+        guard date.startOfDay.timeIntervalSinceNow < 0 else { return }
+
+        guard let range = Calendar.current.dateInterval(of: .day, for: date) else { return }
+
+        if !dateRanges.contains(range) {
+            dateRanges.append(range)
+            dateRanges.sort { $0 < $1 }
+        }
+
+        guard let index = dateRanges.firstIndex(of: range) else { return }
+
+        currentCardIndex = index
+    }
+
+    // MARK: -
+
     func updateTodayButton(newCardIndex: Int? = nil) {
         let dateRange = dateRanges[newCardIndex ?? currentCardIndex]
         todayButtonHidden = dateRange.containsNow
