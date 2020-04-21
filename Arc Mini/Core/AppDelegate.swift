@@ -82,5 +82,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
+    // MARK: - Memory footprint
+
+    private static let memoryFormatter: MeasurementFormatter = {
+        let formatter = MeasurementFormatter()
+        formatter.unitStyle = .medium
+        formatter.unitOptions = .providedUnit
+        formatter.numberFormatter.maximumFractionDigits = 0
+        return formatter
+    }()
+
+    static var memoryString: String? {
+        guard let footprint = ProcessInfo.processInfo.memoryFootprint else { return nil }
+        return memoryFormatter.string(from: footprint.converted(to: .megabytes))
+    }
+
 }
 

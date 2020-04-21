@@ -14,8 +14,11 @@ struct SystemDebugView: View {
     var body: some View {
         NavigationView {
             List {
-                Section(header: Text("Task Queues")) {
+                Section(header: Text("General")) {
                     self.row(leftText: "Thermal state", rightText: AppDelegate.thermalState.stringValue)
+                    self.row(leftText: "Memory footprint", rightText: AppDelegate.memoryString ?? "?")
+                }
+                Section(header: Text("Task Queues")) {
                     self.row(leftText: "Primary queue jobs", rightText: String(describing: Jobs.highlander.primaryQueue.operationCount))
                     self.row(leftText: "Secondary queue jobs", rightText: String(describing: Jobs.highlander.secondaryQueue.operationCount))
                     NavigationLink(destination: PlacesPendingUpdateView()) {
