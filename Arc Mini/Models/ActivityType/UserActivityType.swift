@@ -92,7 +92,7 @@ class UserActivityType: MutableActivityType {
                     logger.info("DELETED: \(self.geoKey)")
 
                 } catch {
-                    logger.error("ERROR: \(error)")
+                    logger.error("\(error)")
                 }
             }
 
@@ -122,7 +122,7 @@ class UserActivityType: MutableActivityType {
             if let lastSaved = lastSavedSample, lastSaved > lastUpdated { return true }
 
         } catch {
-            logger.info("ERROR: \(error)")
+            logger.info("\(error)")
             return false
         }
 

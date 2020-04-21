@@ -103,13 +103,13 @@ class Foursquare {
 
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
-                    logger.error("ERROR: \(error)")
+                    logger.error("\(error)")
                     seal.fulfill(nil)
                     return
                 }
 
                 if let error = handle(response: response) {
-                    logger.error("ERROR: \(error)")
+                    logger.error("\(error)")
                 }
 
                 guard let data = data else {
@@ -122,7 +122,7 @@ class Foursquare {
                     seal.fulfill(result.response?.venues)
 
                 } catch {
-                    logger.error("ERROR: \(error)")
+                    logger.error("\(error)")
                     seal.fulfill(nil)
                 }
             }
@@ -137,7 +137,7 @@ class Foursquare {
         return Promise { seal in
             guard let token = Settings.highlander[.foursquareToken] as? String else {
                 let error = ArcError(code: .foursquareTokenMissing, description: "Missing Foursquare token")
-                logger.error("ERROR: \(error)")
+                logger.error("\(error)")
                 seal.reject(error)
                 return
             }
@@ -172,13 +172,13 @@ class Foursquare {
 
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
-                    logger.error("ERROR: \(error)")
+                    logger.error("\(error)")
                     seal.reject(error)
                     return
                 }
 
                 if let error = handle(response: response) {
-                    logger.error("ERROR: \(error)")
+                    logger.error("\(error)")
                     seal.reject(error)
                     return
                 }
@@ -195,7 +195,7 @@ class Foursquare {
                     seal.fulfill(result.response?.checkin)
 
                 } catch {
-                    logger.error("ERROR: \(error)")
+                    logger.error("\(error)")
                     seal.reject(error)
                 }
             }
@@ -231,13 +231,13 @@ class Foursquare {
 
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
-                    logger.error("ERROR: \(error)")
+                    logger.error("\(error)")
                     seal.fulfill(nil)
                     return
                 }
 
                 if let error = handle(response: response) {
-                    logger.error("ERROR: \(error)")
+                    logger.error("\(error)")
                 }
 
                 guard let data = data else {
@@ -250,7 +250,7 @@ class Foursquare {
                     seal.fulfill(result.response?.checkins.items)
 
                 } catch {
-                    logger.error("ERROR: \(error)")
+                    logger.error("\(error)")
                     seal.fulfill(nil)
                 }
             }

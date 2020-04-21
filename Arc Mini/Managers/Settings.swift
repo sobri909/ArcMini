@@ -223,7 +223,7 @@ class Settings {
         do {
             return try PropertyListSerialization.propertyList(from: data, options: .mutableContainersAndLeaves, format: nil) as? [String: Any]
         } catch {
-            logger.error("Config.plist ERROR: \(error)")
+            logger.error("\(error)")
             return nil
         }
     }()

@@ -71,7 +71,7 @@ class DebugLogger: LoggingFormatAndPipe.Pipe, ObservableObject {
                 .sorted { $0.path > $1.path }
 
         } catch {
-            logger.error("ERROR: \(error)")
+            logger.error("\(error)")
             return []
         }
     }
@@ -84,6 +84,9 @@ class DebugLogger: LoggingFormatAndPipe.Pipe, ObservableObject {
         }()
 
         func processLog(level: Logger.Level, message: Logger.Message, prettyMetadata: String?, file: String, function: String, line: UInt) -> String {
+            if level == .error {
+                return String(format: "[%@] [ERROR] \(message)", self.timestampFormatter.string(from: Date()))
+            }
             return String(format: "[%@] \(message)", self.timestampFormatter.string(from: Date()))
         }
     }

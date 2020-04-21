@@ -57,7 +57,7 @@ class Health {
 //        guard AppDelegate.applicationState == .active else { completion?(); return }
         store.requestAuthorization(toShare: Health.writeTypes, read: Health.readTypes) { success, error in
             if let error = error {
-                logger.error("requestPermissions ERROR: \(error)")
+                logger.error("\(error)")
             }
             completion?()
         }

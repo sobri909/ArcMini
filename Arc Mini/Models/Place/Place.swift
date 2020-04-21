@@ -61,7 +61,7 @@ class Place: TimelineObject, Hashable, Encodable {
                 self.lastSaved = self.transactionDate
             }
         } catch {
-            logger.error("ERROR: \(error)")
+            logger.error("\(error)")
         }
     }
 
@@ -72,7 +72,7 @@ class Place: TimelineObject, Hashable, Encodable {
                 try self.save(in: db)
             }
         } catch {
-            logger.error("ERROR: \(error)")
+            logger.error("\(error)")
         }
     }
 

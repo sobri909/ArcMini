@@ -19,7 +19,7 @@ class TasksManager {
     }
 
     enum TaskState: String, Codable {
-        case scheduled, running, expired, completed
+        case scheduled, running, expired, unfinished, completed
     }
 
     struct TaskStatus: Codable {
@@ -37,6 +37,7 @@ class TasksManager {
 
     private init() {
         loadStates()
+        flushRunning()
     }
 
     // MARK: -
@@ -96,7 +97,7 @@ class TasksManager {
             do {
                 try BGTaskScheduler.shared.submit(request)
             } catch {
-                logger.error("\(identifier.rawValue.split(separator: ".").last!): FAILED TO SCHEDULE")
+                logger.error("Failed to schedule \(identifier.rawValue.split(separator: ".").last!)")
             }
         }
 
@@ -105,9 +106,7 @@ class TasksManager {
     }
 
     static func update(_ identifier: TaskIdentifier, to state: TaskState) {
-        highlander.taskStates[identifier] = TaskStatus(state: state, lastUpdated: Date())
-        highlander.saveStates()
-        logger.info("\(identifier.rawValue.split(separator: ".").last!): \(state.rawValue.uppercased())")
+        highlander.update(identifier, to: state)
     }
 
     static func currentState(of identifier: TaskIdentifier) -> TaskState? {
@@ -121,13 +120,23 @@ class TasksManager {
         saveStates()
     }
 
+    private func update(_ identifier: TaskIdentifier, to state: TaskState) {
+        taskStates[identifier] = TaskStatus(state: state, lastUpdated: Date())
+        saveStates()
+        if state == .unfinished {
+            logger.error("\(state.rawValue.uppercased()): \(identifier.rawValue.split(separator: ".").last!)")
+        } else {
+            logger.info("\(state.rawValue.uppercased()): \(identifier.rawValue.split(separator: ".").last!)")
+        }
+    }
+
     // MARK: -
 
     private func saveStates() {
         do {
             Settings.highlander[.taskStates] = try encoder.encode(taskStates)
         } catch {
-            logger.error("ERROR: \(error)")
+            logger.error("\(error)")
         }
     }
 
@@ -136,7 +145,14 @@ class TasksManager {
         do {
             self.taskStates = try decoder.decode([TaskIdentifier: TaskStatus].self, from: data)
         } catch {
-            logger.error("ERROR: \(error)")
+            logger.error("\(error)")
+        }
+    }
+
+    private func flushRunning() {
+        let failed = taskStates.filter { $0.value.state == .running }
+        for identifier in failed.keys {
+            update(identifier, to: .unfinished)
         }
     }
 
