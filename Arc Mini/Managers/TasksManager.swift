@@ -101,8 +101,7 @@ class TasksManager {
             }
         }
 
-        highlander.taskStates[identifier] = TaskStatus(state: .scheduled, lastUpdated: Date())
-        highlander.saveStates()
+        highlander.update(identifier, to: .scheduled)
     }
 
     static func update(_ identifier: TaskIdentifier, to state: TaskState) {
