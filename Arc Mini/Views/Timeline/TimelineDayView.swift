@@ -17,6 +17,7 @@ struct TimelineDayView: View {
 
     init(timelineSegment: TimelineSegment) {
         self.timelineSegment = timelineSegment
+        UITableViewCell.appearance().selectionStyle = .none
         UITableView.appearance().backgroundColor = UIColor(named: "background")
     }
 

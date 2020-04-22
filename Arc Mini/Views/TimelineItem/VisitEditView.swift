@@ -19,6 +19,12 @@ struct VisitEditView: View {
     @ObservedObject var visit: ArcVisit
     @ObservedObject var placeClassifier: PlaceClassifier
 
+    init(visit: ArcVisit, placeClassifier: PlaceClassifier) {
+        self.visit = visit
+        self.placeClassifier = placeClassifier
+        UITableViewCell.appearance().selectionStyle = .default
+    }
+
     var body: some View {
         VStack {
             List {
@@ -28,6 +34,8 @@ struct VisitEditView: View {
                         self.presentationMode.wrappedValue.dismiss()
                     }) {
                         HStack {
+                            result.place.categoryImage.renderingMode(.template).foregroundColor(Color("brandSecondary80"))
+                            Spacer().frame(width: 20)
                             if self.visit.place == result.place {
                                 Text(result.place.name)
                                     .font(.system(size: 17, weight: .semibold))
@@ -40,9 +48,14 @@ struct VisitEditView: View {
                                 .font(.system(size: 15, weight: .semibold))
                                 .foregroundColor(Color(UIColor.arcGray1))
                         }
-                    }.buttonStyle(RowButtonStyle())
+                    }
+                    .padding([.leading, .trailing], 20)
+                    .frame(height: 44)
+                    .listRowInsets(EdgeInsets())
+                    .background(Color("background"))
                 }
             }
+            .environment(\.defaultMinListRowHeight, 44)
         }
         .navigationBarHidden(true)
         .navigationBarTitle("", displayMode: .inline)
