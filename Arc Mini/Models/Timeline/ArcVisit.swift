@@ -227,6 +227,13 @@ class ArcVisit: LocoKit.Visit, ArcTimelineItem {
 
     // MARK: - Merges
 
+    override func copyMetadata(from otherItem: TimelineItem) {
+        guard let otherVisit = otherItem as? ArcVisit else { return }
+
+        placeId = otherVisit.placeId
+        manualPlace = otherVisit.manualPlace
+    }
+
     override func scoreForConsuming(item: TimelineItem) -> ConsumptionScore {
         guard let otherVisit = item as? ArcVisit else { return super.scoreForConsuming(item: item) }
 
