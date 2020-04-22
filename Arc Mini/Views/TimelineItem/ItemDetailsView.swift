@@ -31,27 +31,9 @@ struct ItemDetailsView: View {
     // MARK: -
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
-                Spacer().frame(height: 24)
-                Text(arcItem.title)
-                    .font(.system(size: 22, weight: .bold))
-                    .foregroundColor(Color("brandTertiaryDark"))
-                    .padding([.leading, .trailing], 20)
-                    .frame(height: 28)
-                Spacer().frame(height: 2)
-                Text(self.dateRangeString)
-                    .font(.system(size: 18, weight: .semibold))
-                    .foregroundColor(Color("brandTertiaryLight"))
-                    .padding([.leading, .trailing], 20)
-                    .frame(height: 26)
-                HStack(spacing: 0) {
-                    self.segmentsButton
-                    Spacer()
-                    self.deleteButton.opacity(self.canDelete ? 1 : 0)
-                    self.editButton
-                }
-                Rectangle().fill(Color("brandSecondary10")).frame(height: 0.5)
+        List {
+            Section(header: self.header) {
+                EmptyView()
             }
         }
         .background(Color("background"))
@@ -70,6 +52,32 @@ struct ItemDetailsView: View {
                 self.timelineState.tappedBackButton = false
             }
         }
+    }
+
+    var header: some View {
+        VStack(alignment: .leading) {
+            Spacer().frame(height: 24)
+            Text(arcItem.title)
+                .font(.system(size: 22, weight: .bold))
+                .foregroundColor(Color("brandTertiaryDark"))
+                .padding([.leading, .trailing], 20)
+                .frame(height: 28)
+            Spacer().frame(height: 2)
+            Text(self.dateRangeString)
+                .font(.system(size: 18, weight: .semibold))
+                .foregroundColor(Color("brandTertiaryLight"))
+                .padding([.leading, .trailing], 20)
+                .frame(height: 26)
+            HStack(spacing: 0) {
+                self.segmentsButton
+                Spacer()
+                self.deleteButton.opacity(self.canDelete ? 1 : 0)
+                self.editButton
+            }
+            Rectangle().fill(Color("brandSecondary10")).frame(height: 0.5)
+        }
+        .listRowInsets(EdgeInsets())
+        .background(Color("background"))
     }
 
     var dateRangeString: String {
