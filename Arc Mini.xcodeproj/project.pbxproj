@@ -45,6 +45,7 @@
 		C95E0E292417B6DD008418A1 /* ArcTimelineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E0E282417B6DD008418A1 /* ArcTimelineItem.swift */; };
 		C95E0E2D2417B773008418A1 /* ArcVisit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E0E2B2417B773008418A1 /* ArcVisit.swift */; };
 		C95E0E2E2417B773008418A1 /* ArcPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95E0E2C2417B773008418A1 /* ArcPath.swift */; };
+		C969D1DE245199B600874305 /* ArcAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C969D1DD245199B600874305 /* ArcAnnotation.swift */; };
 		C96E00B82449B3AD00A3635F /* TasksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96E00B72449B3AD00A3635F /* TasksManager.swift */; };
 		C970732D243889D400E3B938 /* LocoKit+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C970732C243889D400E3B938 /* LocoKit+extensions.swift */; };
 		C97C193C2432164700FC45A1 /* ItemSegmentEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97C193B2432164700FC45A1 /* ItemSegmentEditView.swift */; };
@@ -124,6 +125,7 @@
 		C95E0E282417B6DD008418A1 /* ArcTimelineItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcTimelineItem.swift; sourceTree = "<group>"; };
 		C95E0E2B2417B773008418A1 /* ArcVisit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcVisit.swift; sourceTree = "<group>"; };
 		C95E0E2C2417B773008418A1 /* ArcPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcPath.swift; sourceTree = "<group>"; };
+		C969D1DD245199B600874305 /* ArcAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcAnnotation.swift; sourceTree = "<group>"; };
 		C96E00B72449B3AD00A3635F /* TasksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksManager.swift; sourceTree = "<group>"; };
 		C970732C243889D400E3B938 /* LocoKit+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocoKit+extensions.swift"; sourceTree = "<group>"; };
 		C97C193B2432164700FC45A1 /* ItemSegmentEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSegmentEditView.swift; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				C953392824126E670005E98F /* MapView.swift */,
+				C969D1DD245199B600874305 /* ArcAnnotation.swift */,
 				C92BF623241D06AD0089E4AD /* PathPolyline.swift */,
 				C92BF624241D06AD0089E4AD /* VisitAnnotation.swift */,
 				C92BF625241D06AD0089E4AD /* VisitAnnotationView.swift */,
@@ -584,6 +587,7 @@
 				C95E0E292417B6DD008418A1 /* ArcTimelineItem.swift in Sources */,
 				C9C5C009242FB2C700BC064E /* MapState.swift in Sources */,
 				C9F32F47242A5BBE00184862 /* Health.swift in Sources */,
+				C969D1DE245199B600874305 /* ArcAnnotation.swift in Sources */,
 				C9BF9539244744CC000F3299 /* DeleteVisitAlert.swift in Sources */,
 				C98783042435F1EB001B4E7D /* SegmentAnnotationView.swift in Sources */,
 				C94808112441BE6100091943 /* UserActivityType.swift in Sources */,

@@ -3,9 +3,19 @@
 
 import MapKit
 
-class VisitCircle: MKCircle {
-    
+class VisitCircle: MKCircle, ArcAnnotation {
+
     var color: UIColor?
+
+    var timelineItem: ArcTimelineItem? {
+        didSet(newValue) {
+            guard let item = newValue else { return }
+            self.title = item.title
+            if let dateRange = item.dateRange, let startString = item.startTimeString, let endString = item.endTimeString {
+                subtitle = String(format: "%@ · %@ - %@", dateRange.shortDurationString, startString, endString)
+            }
+        }
+    }
 
     var renderer: MKCircleRenderer {
         let renderer = MKCircleRenderer(circle: self)

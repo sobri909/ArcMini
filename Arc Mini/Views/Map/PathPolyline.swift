@@ -3,12 +3,14 @@
 
 import MapKit
 
-class PathPolyline: MKPolyline {
+class PathPolyline: MKPolyline, ArcAnnotation {
 
+    var timelineItem: ArcTimelineItem?
     var color: UIColor?
 
-    convenience init(coordinates: UnsafePointer<CLLocationCoordinate2D>, count: Int, color: UIColor, disabled: Bool = false) {
+    convenience init(timelineItem: ArcTimelineItem? = nil, coordinates: UnsafePointer<CLLocationCoordinate2D>, count: Int, color: UIColor, disabled: Bool = false) {
         self.init(coordinates: coordinates, count: count)
+        self.timelineItem = timelineItem
         self.color = disabled ? UIColor.lightGray.withAlphaComponent(0.5) : color
     }
 

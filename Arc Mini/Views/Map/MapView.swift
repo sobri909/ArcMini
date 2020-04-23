@@ -78,14 +78,15 @@ final class MapView: UIViewRepresentable {
         return line
     }
 
-    func add(_ visit: Visit, to map: MKMapView, disabled: Bool) -> MKOverlay? {
+    func add(_ visit: ArcVisit, to map: MKMapView, disabled: Bool) -> MKOverlay? {
         guard let center = visit.center else { return nil }
 
         if !disabled {
-            map.addAnnotation(VisitAnnotation(coordinate: center.coordinate))
+            map.addAnnotation(VisitAnnotation(coordinate: center.coordinate, visit: visit))
         }
 
         let circle = VisitCircle(center: center.coordinate, radius: visit.radius2sd)
+        circle.timelineItem = visit
         circle.color = disabled ? .lightGray : .arcSelected
         map.addOverlay(circle, level: .aboveLabels)
 
@@ -162,14 +163,16 @@ final class MapView: UIViewRepresentable {
     // MARK: - MKMapViewDelegate
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+        Coordinator(self, mapState: mapState)
     }
 
     class Coordinator: NSObject, MKMapViewDelegate {
         var parent: MapView
+        var mapState: MapState
 
-        init(_ parent: MapView) {
+        init(_ parent: MapView, mapState: MapState) {
             self.parent = parent
+            self.mapState = mapState
         }
 
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -182,6 +185,20 @@ final class MapView: UIViewRepresentable {
             if let annotation = annotation as? VisitAnnotation { return annotation.view }
             if let annotation = annotation as? SegmentAnnotation { return annotation.view }
             return nil
+        }
+
+        func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+            mapState.selectedTimelineItem = (view.annotation as? ArcAnnotation)?.timelineItem
+            print("mapView:didSelect selectedTimelineItem: \(mapState.selectedTimelineItem)")
+            guard let callout = view.subviews.first else { return }
+            print("mapView:didSelect callout: \(callout)")
+            let tapper = UITapGestureRecognizer(target: self, action: #selector(tappedCallout))
+            callout.addGestureRecognizer(tapper)
+        }
+
+        @objc func tappedCallout() {
+            print("tappedCallout")
+            mapState.tappedSelectedItem = true
         }
     }
 
