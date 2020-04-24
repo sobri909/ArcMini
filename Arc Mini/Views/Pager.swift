@@ -36,10 +36,11 @@ struct Pager<Content: View>: View {
             .offset(x: self.translation)
             .animation(.interactiveSpring())
             .gesture(
-                DragGesture().updating(self.$translation) { value, state, _ in
+                DragGesture(minimumDistance: 20).updating(self.$translation) { value, state, _ in
                     state = value.translation.width
                 }.onEnded { value in
-                    let offset = value.translation.width / geometry.size.width
+                    let dampedVelocity = (value.predictedEndTranslation.width - value.translation.width) * 0.66
+                    let offset = (value.translation.width + dampedVelocity) / geometry.size.width
                     let newIndex = (CGFloat(self.currentIndex) - offset).rounded()
                     self.currentIndex = min(max(Int(newIndex), 0), self.pageCount - 1)
                 }
