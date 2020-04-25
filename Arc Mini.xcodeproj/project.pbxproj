@@ -27,6 +27,7 @@
 		C92EE16A2445C2DB005DDDCB /* ModelsPendingUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92EE1692445C2DB005DDDCB /* ModelsPendingUpdateView.swift */; };
 		C93062B1243F1B0D00DE47CC /* DebugLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93062B0243F1B0D00DE47CC /* DebugLogsView.swift */; };
 		C93062B3243F209F00DE47CC /* DebugLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93062B2243F209F00DE47CC /* DebugLogView.swift */; };
+		C937EE2F24546A2A009D1593 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C937EE2E24546A2A009D1593 /* ShareSheet.swift */; };
 		C94808102441BE6100091943 /* UserActivityTypesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948080C2441BE6100091943 /* UserActivityTypesCache.swift */; };
 		C94808112441BE6100091943 /* UserActivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948080D2441BE6100091943 /* UserActivityType.swift */; };
 		C94808122441BE6100091943 /* UserActivityTypeClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948080E2441BE6100091943 /* UserActivityTypeClassifier.swift */; };
@@ -108,6 +109,7 @@
 		C92EE1692445C2DB005DDDCB /* ModelsPendingUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsPendingUpdateView.swift; sourceTree = "<group>"; };
 		C93062B0243F1B0D00DE47CC /* DebugLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogsView.swift; sourceTree = "<group>"; };
 		C93062B2243F209F00DE47CC /* DebugLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogView.swift; sourceTree = "<group>"; };
+		C937EE2E24546A2A009D1593 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		C948080C2441BE6100091943 /* UserActivityTypesCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityTypesCache.swift; sourceTree = "<group>"; };
 		C948080D2441BE6100091943 /* UserActivityType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityType.swift; sourceTree = "<group>"; };
 		C948080E2441BE6100091943 /* UserActivityTypeClassifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityTypeClassifier.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 				C9822A86240CF8D5006B70F4 /* RootView.swift */,
 				C90C27362439DCCC00A36251 /* NavBar.swift */,
 				C9DBE4262437462B00FCB8E5 /* Pager.swift */,
+				C937EE2E24546A2A009D1593 /* ShareSheet.swift */,
 				C99325932430EE59005299DC /* RowButtonStyle.swift */,
 				C92BF62A241D06B70089E4AD /* Map */,
 				C95C555F2413C02C0038EB3B /* Timeline */,
@@ -607,6 +610,7 @@
 				C96E00B82449B3AD00A3635F /* TasksManager.swift in Sources */,
 				C90D786B2428FFCE004ABFD0 /* Place.stats.swift in Sources */,
 				C93062B3243F209F00DE47CC /* DebugLogView.swift in Sources */,
+				C937EE2F24546A2A009D1593 /* ShareSheet.swift in Sources */,
 				C953392B24127CF30005E98F /* TimelineDayView.swift in Sources */,
 				C99F5EBF242A371C00E172AE /* Scraps.swift in Sources */,
 				C9C827AF243C830500F3199B /* DispatchQueue.swift in Sources */,

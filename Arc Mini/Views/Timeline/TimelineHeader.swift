@@ -13,10 +13,13 @@ struct TimelineHeader: View {
     @EnvironmentObject var timelineState: TimelineState
 
     @State var showingMenu = false
-    @State var showingDebugView = false
-    @State var debugView: DebugView = .logs
+    @State var showingModal = false
+    @State var modalView: ModalView = .logs
+    @State var optionsMenu: OptionsMenu = .main
+    @State var exportURL: URL?
 
-    enum DebugView { case logs, system, recording }
+    enum ModalView { case logs, system, recording, export }
+    enum OptionsMenu { case main, export }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -29,6 +32,7 @@ struct TimelineHeader: View {
                 self.nextButton
                 Rectangle().fill(Color("grey")).frame(width: 1, height: 24)
                 Button(action: {
+                    self.optionsMenu = .main
                     self.showingMenu = true
                 }) {
                     Image(systemName: "ellipsis").foregroundColor(Color("brandSecondary80"))
@@ -41,31 +45,51 @@ struct TimelineHeader: View {
             Rectangle().fill(Color("brandSecondary10")).frame(height: 0.5).padding([.leading, .trailing], 20)
         }
         .background(Color("background"))
-        .sheet(isPresented: $showingDebugView) {
-            if self.debugView == .logs {
+        .sheet(isPresented: $showingModal) {
+            if self.modalView == .logs {
                 DebugLogsView().environmentObject(DebugLogger.highlander)
-            } else if self.debugView == .system {
+            } else if self.modalView == .system {
                 SystemDebugView()
-            } else if self.debugView == .recording {
+            } else if self.modalView == .recording {
                 RecordingDebugView()
+            } else if self.modalView == .export {
+                ShareSheet(activityItems: [self.exportURL!])
             }
         }
         .actionSheet(isPresented: $showingMenu) {
-            ActionSheet(title: Text("Timeline").foregroundColor(Color.red), buttons: [
-                .default(Text("Debug Logs")) {
-                    self.debugView = .logs
-                    self.showingDebugView = true
-                },
-                .default(Text("System Debug Info")) {
-                    self.debugView = .system
-                    self.showingDebugView = true
-                },
-                .default(Text("Recording Debug Info")) {
-                    self.debugView = .recording
-                    self.showingDebugView = true
-                },
-                .destructive(Text("Close"))
-            ])
+            if self.optionsMenu == .main {
+                return ActionSheet(title: Text("Options Menu"), buttons: [
+                    .default(Text("Export")) {
+                        delay(0.1) {
+                            self.optionsMenu = .export
+                            self.showingMenu = true
+                        }
+                    },
+                    .default(Text("Debug Logs")) {
+                        self.modalView = .logs
+                        self.showingModal = true
+                    },
+                    .default(Text("System Debug Info")) {
+                        self.modalView = .system
+                        self.showingModal = true
+                    },
+                    .default(Text("Recording Debug Info")) {
+                        self.modalView = .recording
+                        self.showingModal = true
+                    },
+                    .destructive(Text("Close"))
+                ])
+            } else {
+                return ActionSheet(title: Text("Export Menu"), buttons: [
+                    .default(Text("Export timeline as GPX")) {
+                        // TODO
+                    },
+                    .default(Text("Export timeline as JSON")) {
+                        self.exportToJSON()
+                    },
+                    .destructive(Text("Close"))
+                ])
+            }
         }
     }
 
@@ -99,6 +123,13 @@ struct TimelineHeader: View {
             Image(systemName: "chevron.right").foregroundColor(Color("brandSecondary80"))
         }
         .frame(width: 56, height: 64)
+    }
+
+    func exportToJSON() {
+        guard let tempURL = timelineState.visibleTimelineSegment?.exportToJSON(filenameType: .day) else { return }
+        self.exportURL = tempURL
+        self.modalView = .export
+        self.showingModal = true
     }
 
 }

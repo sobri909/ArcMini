@@ -52,3 +52,35 @@ extension ItemSegment {
     }
 }
 
+extension TimelineSegment {
+    func filename(for rangeType: Calendar.Component) -> String? {
+        switch rangeType {
+        case .day: return dayFilename
+        case .weekOfYear: return monthFilename
+        case .month: return monthFilename
+        case .year: return yearFilename
+        default: return singleItemFilename
+        }
+    }
+
+    func exportToJSON(filenameType: Calendar.Component) -> URL? {
+        guard let filename = filename(for: filenameType) else { return nil }
+
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        encoder.dateEncodingStrategy = .iso8601
+
+        do {
+            let json = try encoder.encode(self)
+            let jsonFile = NSURL.fileURL(withPath: NSTemporaryDirectory() + filename + ".json")
+            try json.write(to: jsonFile)
+            return jsonFile
+            
+        } catch {
+            logger.error("\(error)")
+        }
+
+        return nil
+    }
+}
+
