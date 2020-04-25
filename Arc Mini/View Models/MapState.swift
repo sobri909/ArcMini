@@ -11,6 +11,7 @@ import LocoKit
 class MapState: ObservableObject {
     @Published var selectedItems: Set<TimelineItem> = []
     @Published var itemSegments: Array<ItemSegment> = []
-    @Published var tappedSelectedItem: Bool = false
+    @Published var showingFullMap = false
+    @Published var tappedSelectedItem = false
     var selectedTimelineItem: ArcTimelineItem?
 }
