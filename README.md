@@ -6,6 +6,5 @@
 4. Add these string properties to the plist, using the corresponding values from your Foursquare/Last.fm developer accounts: 
     - `FoursquareClientId`
     - `FoursquareClientSecret`
-    - `LastFmAPIKey` (not used yet)
 
-Note that the app will work without the Foursquare and Last.fm config vars, but Foursquare place lookups will fail, so you will be unable to assign Foursquare venues to visits. 
+Note that the app will work without the Foursquare config vars, but place lookups will fail, so you will be unable to assign venues to visits. 
