@@ -59,6 +59,8 @@
 		C98783042435F1EB001B4E7D /* SegmentAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98783032435F1EB001B4E7D /* SegmentAnnotationView.swift */; };
 		C98967EC2435F27200D55AFE /* SegmentAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98967EB2435F27200D55AFE /* SegmentAnnotation.swift */; };
 		C99325942430EE59005299DC /* RowButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99325932430EE59005299DC /* RowButtonStyle.swift */; };
+		C994D5F02455967F003B3152 /* GPX.swift in Sources */ = {isa = PBXBuildFile; fileRef = C994D5EF2455967F003B3152 /* GPX.swift */; };
+		C994D5F324559A5D003B3152 /* AEXML in Frameworks */ = {isa = PBXBuildFile; productRef = C994D5F224559A5D003B3152 /* AEXML */; };
 		C99F5EB3242A240D00E172AE /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = C99F5EB2242A240D00E172AE /* PromiseKit */; };
 		C99F5EB6242A2C5000E172AE /* TrackPlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99F5EB4242A2C5000E172AE /* TrackPlay.swift */; };
 		C99F5EB7242A2C5000E172AE /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99F5EB5242A2C5000E172AE /* Note.swift */; };
@@ -142,6 +144,7 @@
 		C98783032435F1EB001B4E7D /* SegmentAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentAnnotationView.swift; sourceTree = "<group>"; };
 		C98967EB2435F27200D55AFE /* SegmentAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentAnnotation.swift; sourceTree = "<group>"; };
 		C99325932430EE59005299DC /* RowButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowButtonStyle.swift; sourceTree = "<group>"; };
+		C994D5EF2455967F003B3152 /* GPX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPX.swift; sourceTree = "<group>"; };
 		C99F5EB4242A2C5000E172AE /* TrackPlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPlay.swift; sourceTree = "<group>"; };
 		C99F5EB5242A2C5000E172AE /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		C99F5EBC242A307400E172AE /* LastFm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastFm.swift; sourceTree = "<group>"; };
@@ -177,6 +180,7 @@
 				C953392724126E250005E98F /* MapKit.framework in Frameworks */,
 				C99F5EB3242A240D00E172AE /* PromiseKit in Frameworks */,
 				C9C827B2243DDA7100F3199B /* Logging in Frameworks */,
+				C994D5F324559A5D003B3152 /* AEXML in Frameworks */,
 				C9524005242F3DE000F4522D /* SwiftNotes in Frameworks */,
 				C9C96AB224278052006D2E5B /* Introspect in Frameworks */,
 				C9C827B5243DEB0000F3199B /* LoggingFormatAndPipe in Frameworks */,
@@ -409,6 +413,7 @@
 		C9D4717D242E2EF4005F2AA3 /* Timeline */ = {
 			isa = PBXGroup;
 			children = (
+				C994D5EF2455967F003B3152 /* GPX.swift */,
 				C95E0E2C2417B773008418A1 /* ArcPath.swift */,
 				C95E0E282417B6DD008418A1 /* ArcTimelineItem.swift */,
 				C95E0E2B2417B773008418A1 /* ArcVisit.swift */,
@@ -473,6 +478,7 @@
 				C9524004242F3DE000F4522D /* SwiftNotes */,
 				C9C827B1243DDA7100F3199B /* Logging */,
 				C9C827B4243DEB0000F3199B /* LoggingFormatAndPipe */,
+				C994D5F224559A5D003B3152 /* AEXML */,
 			);
 			productName = "Arc Mini";
 			productReference = C9822A7F240CF8D5006B70F4 /* Arc Mini.app */;
@@ -509,6 +515,7 @@
 				C9524003242F3DE000F4522D /* XCRemoteSwiftPackageReference "SwiftNotes" */,
 				C9C827B0243DDA7100F3199B /* XCRemoteSwiftPackageReference "swift-log" */,
 				C9C827B3243DEB0000F3199B /* XCRemoteSwiftPackageReference "swift-log-format-and-pipe" */,
+				C994D5F124559A5D003B3152 /* XCRemoteSwiftPackageReference "AEXML" */,
 			);
 			productRefGroup = C9822A80240CF8D5006B70F4 /* Products */;
 			projectDirPath = "";
@@ -594,6 +601,7 @@
 				C9BF9539244744CC000F3299 /* DeleteVisitAlert.swift in Sources */,
 				C98783042435F1EB001B4E7D /* SegmentAnnotationView.swift in Sources */,
 				C94808112441BE6100091943 /* UserActivityType.swift in Sources */,
+				C994D5F02455967F003B3152 /* GPX.swift in Sources */,
 				C99F5EB7242A2C5000E172AE /* Note.swift in Sources */,
 				C99F5EB6242A2C5000E172AE /* TrackPlay.swift in Sources */,
 				C9C827AD243C7B1E00F3199B /* Calendar+extensions.swift in Sources */,
@@ -856,6 +864,14 @@
 				kind = branch;
 			};
 		};
+		C994D5F124559A5D003B3152 /* XCRemoteSwiftPackageReference "AEXML" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tadija/AEXML";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.0;
+			};
+		};
 		C99F5EB1242A240C00E172AE /* XCRemoteSwiftPackageReference "PromiseKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mxcl/PromiseKit";
@@ -895,6 +911,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C9524003242F3DE000F4522D /* XCRemoteSwiftPackageReference "SwiftNotes" */;
 			productName = SwiftNotes;
+		};
+		C994D5F224559A5D003B3152 /* AEXML */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C994D5F124559A5D003B3152 /* XCRemoteSwiftPackageReference "AEXML" */;
+			productName = AEXML;
 		};
 		C99F5EB2242A240D00E172AE /* PromiseKit */ = {
 			isa = XCSwiftPackageProductDependency;

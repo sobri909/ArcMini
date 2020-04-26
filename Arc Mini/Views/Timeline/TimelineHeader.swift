@@ -82,7 +82,7 @@ struct TimelineHeader: View {
             } else {
                 return ActionSheet(title: Text("Export Menu"), buttons: [
                     .default(Text("Export timeline as GPX")) {
-                        // TODO
+                        self.exportToGPX()
                     },
                     .default(Text("Export timeline as JSON")) {
                         self.exportToJSON()
@@ -127,6 +127,14 @@ struct TimelineHeader: View {
 
     func exportToJSON() {
         guard let tempURL = timelineState.visibleTimelineSegment?.exportToJSON(filenameType: .day) else { return }
+        self.exportURL = tempURL
+        self.modalView = .export
+        self.showingModal = true
+    }
+
+    func exportToGPX() {
+        guard let segment = timelineState.visibleTimelineSegment else { return }
+        guard let tempURL = GPX(segment: segment).exportToFile(filenameType: .day) else { return }
         self.exportURL = tempURL
         self.modalView = .export
         self.showingModal = true
