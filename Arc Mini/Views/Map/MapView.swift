@@ -189,15 +189,12 @@ final class MapView: UIViewRepresentable {
 
         func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
             mapState.selectedTimelineItem = (view.annotation as? ArcAnnotation)?.timelineItem
-            print("mapView:didSelect selectedTimelineItem: \(mapState.selectedTimelineItem)")
             guard let callout = view.subviews.first else { return }
-            print("mapView:didSelect callout: \(callout)")
             let tapper = UITapGestureRecognizer(target: self, action: #selector(tappedCallout))
             callout.addGestureRecognizer(tapper)
         }
 
         @objc func tappedCallout() {
-            print("tappedCallout")
             mapState.tappedSelectedItem = true
         }
     }
