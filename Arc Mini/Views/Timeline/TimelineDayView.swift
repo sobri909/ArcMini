@@ -26,7 +26,19 @@ struct TimelineDayView: View {
             List {
                 ForEach(self.filteredListItems) { timelineItem in
                     ZStack {
-                        self.listBox(for: timelineItem)
+                        self.listBox(for: timelineItem).onAppear {
+                            if self.timelineSegment == self.timelineState.visibleTimelineSegment {
+                                if timelineItem == self.filteredListItems.first {
+                                    self.mapState.selectedItems = [] // zoom to all items when scrolled to top
+                                } else {
+                                    self.mapState.selectedItems.insert(timelineItem)
+                                }
+                            }
+                        }.onDisappear {
+                            if self.timelineSegment == self.timelineState.visibleTimelineSegment {
+                                self.mapState.selectedItems.remove(timelineItem)
+                            }
+                        }
                         NavigationLink(destination: ItemDetailsView(timelineItem: timelineItem)) {
                             EmptyView()
                         }.hidden()
