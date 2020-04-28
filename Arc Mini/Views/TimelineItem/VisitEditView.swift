@@ -28,6 +28,7 @@ struct VisitEditView: View {
     var body: some View {
         VStack {
             List {
+                ItemDetailsHeader(timelineItem: self.visit)
                 ForEach(placeClassifier.results, id: \.place.placeId) { result in
                     Button(action: {
                         self.visit.usePlace(result.place, manualPlace: true)
