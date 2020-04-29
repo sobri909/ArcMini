@@ -44,9 +44,15 @@ struct PathEditView: View {
                             .font(.system(size: 15, weight: .semibold))
                             .foregroundColor(Color(UIColor.arcGray1))
                     }
-                }.buttonStyle(RowButtonStyle())
+                }
+                .padding([.leading, .trailing], 20)
+                .frame(height: 44)
+                .listRowInsets(EdgeInsets())
+                .background(Color("background"))
+
             }
         }
+        .environment(\.defaultMinListRowHeight, 44)
         .navigationBarHidden(true)
         .navigationBarTitle("", displayMode: .inline)
         .onAppear {

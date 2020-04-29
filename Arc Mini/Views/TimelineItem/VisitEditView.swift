@@ -26,38 +26,36 @@ struct VisitEditView: View {
     }
 
     var body: some View {
-        VStack {
-            List {
-                ItemDetailsHeader(timelineItem: self.visit)
-                ForEach(placeClassifier.results, id: \.place.placeId) { result in
-                    Button(action: {
-                        self.visit.usePlace(result.place, manualPlace: true)
-                        self.presentationMode.wrappedValue.dismiss()
-                    }) {
-                        HStack {
-                            result.place.categoryImage.renderingMode(.template).foregroundColor(Color("brandSecondary80"))
-                            Spacer().frame(width: 20)
-                            if self.visit.place == result.place {
-                                Text(result.place.name)
-                                    .font(.system(size: 17, weight: .semibold))
-                            } else {
-                                Text(result.place.name)
-                                    .font(.system(size: 17, weight: .regular))
-                            }
-                            Spacer()
-                            Text(self.rightText(for: result.place))
-                                .font(.system(size: 15, weight: .semibold))
-                                .foregroundColor(Color(UIColor.arcGray1))
+        List {
+            ItemDetailsHeader(timelineItem: self.visit)
+            ForEach(placeClassifier.results, id: \.place.placeId) { result in
+                Button(action: {
+                    self.visit.usePlace(result.place, manualPlace: true)
+                    self.presentationMode.wrappedValue.dismiss()
+                }) {
+                    HStack {
+                        result.place.categoryImage.renderingMode(.template).foregroundColor(Color("brandSecondary80"))
+                        Spacer().frame(width: 20)
+                        if self.visit.place == result.place {
+                            Text(result.place.name)
+                                .font(.system(size: 17, weight: .semibold))
+                        } else {
+                            Text(result.place.name)
+                                .font(.system(size: 17, weight: .regular))
                         }
+                        Spacer()
+                        Text(self.rightText(for: result.place))
+                            .font(.system(size: 15, weight: .semibold))
+                            .foregroundColor(Color(UIColor.arcGray1))
                     }
-                    .padding([.leading, .trailing], 20)
-                    .frame(height: 44)
-                    .listRowInsets(EdgeInsets())
-                    .background(Color("background"))
                 }
+                .padding([.leading, .trailing], 20)
+                .frame(height: 44)
+                .listRowInsets(EdgeInsets())
+                .background(Color("background"))
             }
-            .environment(\.defaultMinListRowHeight, 44)
         }
+        .environment(\.defaultMinListRowHeight, 44)
         .navigationBarHidden(true)
         .navigationBarTitle("", displayMode: .inline)
         .onAppear {

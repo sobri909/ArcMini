@@ -40,7 +40,11 @@ struct ItemSegmentEditView: View {
                             .font(.system(size: 15, weight: .semibold))
                             .foregroundColor(Color(UIColor.arcGray1))
                     }
-                }.buttonStyle(RowButtonStyle())
+                }
+                .padding([.leading, .trailing], 20)
+                .frame(height: 44)
+                .listRowInsets(EdgeInsets())
+                .background(Color("background"))
             }
         }
         .navigationBarHidden(true)
