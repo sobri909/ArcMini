@@ -39,6 +39,7 @@ struct ItemDetailsHeader: View {
                 self.editButton
             }
             Rectangle().fill(Color("brandSecondary10")).frame(height: 0.5)
+            Spacer().frame(height: 20)
         }
         .listRowInsets(EdgeInsets())
         .background(Color("background"))

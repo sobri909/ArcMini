@@ -6,9 +6,31 @@
 //  Copyright © 2020 Matt Greenfield. All rights reserved.
 //
 
-import SwiftUI
 import LocoKit
+import SwiftUI
+import Combine
 import CoreLocation
+
+extension UIApplication {
+    func endEditing(_ force: Bool) {
+        self.windows.filter{ $0.isKeyWindow }.first?.endEditing(force)
+    }
+}
+
+struct ResignKeyboardOnDragGesture: ViewModifier {
+    var gesture = DragGesture().onChanged{_ in
+        UIApplication.shared.endEditing(true)
+    }
+    func body(content: Content) -> some View {
+        content.gesture(gesture)
+    }
+}
+
+extension View {
+    func resignKeyboardOnDragGesture() -> some View {
+        return modifier(ResignKeyboardOnDragGesture())
+    }
+}
 
 struct VisitEditView: View {
 
@@ -19,15 +41,52 @@ struct VisitEditView: View {
     @ObservedObject var visit: ArcVisit
     @ObservedObject var placeClassifier: PlaceClassifier
 
+    @State var searchTextEditing = false
+    private var queryObserver: AnyCancellable?
+
     init(visit: ArcVisit, placeClassifier: PlaceClassifier) {
         self.visit = visit
         self.placeClassifier = placeClassifier
         UITableViewCell.appearance().selectionStyle = .default
+
+        queryObserver = self.timelineState.$searchText.sink { searchText in
+            print("searchText: \(searchText)")
+        }
     }
 
     var body: some View {
         List {
-            ItemDetailsHeader(timelineItem: self.visit)
+            if timelineState.searchText.isEmpty && !searchTextEditing {
+                ItemDetailsHeader(timelineItem: self.visit)
+            } else {
+                Spacer().frame(height: 24).listRowInsets(EdgeInsets()).background(Color("background"))
+            }
+            VStack {
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                    TextField("Search nearby places", text: $timelineState.searchText, onEditingChanged: { isEditing in
+                        self.searchTextEditing = isEditing
+                    }, onCommit: {
+                        print("onCommit")
+                    }).foregroundColor(Color("brandTertiaryBase"))
+                    Spacer().frame(width: 8)
+                    Button(action: {
+                        self.timelineState.searchText = ""
+                    }) {
+                        Image(systemName: "xmark.circle.fill").opacity(self.timelineState.searchText.isEmpty ? 0 : 1)
+                    }
+                }
+                .padding([.leading, .trailing], 12)
+                .frame(height: 40)
+                .foregroundColor(Color("brandTertiaryBase"))
+                .background(Color("brandSecondary05"))
+                .cornerRadius(8)
+                Spacer().frame(height: 20)
+            }
+            .padding([.leading, .trailing], 20)
+            .listRowInsets(EdgeInsets())
+            .background(Color("background"))
+
             ForEach(placeClassifier.results, id: \.place.placeId) { result in
                 Button(action: {
                     self.visit.usePlace(result.place, manualPlace: true)
@@ -55,9 +114,10 @@ struct VisitEditView: View {
                 .background(Color("background"))
             }
         }
-        .environment(\.defaultMinListRowHeight, 44)
+        .environment(\.defaultMinListRowHeight, 0)
         .navigationBarHidden(true)
         .navigationBarTitle("", displayMode: .inline)
+        .resignKeyboardOnDragGesture()
         .onAppear {
             self.mapState.selectedItems = [self.visit]
             self.mapState.itemSegments = self.visit.segmentsByActivityType
