@@ -28,17 +28,21 @@ class TimelineState: ObservableObject {
     @Published var tappedBackButton = false
     @Published var tappedTodayButton = false
 
-    private var cardIndexSink: AnyCancellable?
+    private var cardIndexObserver: AnyCancellable?
 
     init() {
         dateRanges.append(Calendar.current.dateInterval(of: .day, for: Date().previousDay)!)
         dateRanges.append(Calendar.current.dateInterval(of: .day, for: Date())!)
         currentCardIndex = 1
 
-        cardIndexSink = $currentCardIndex.sink(receiveValue: { newCardIndex in
-            self.updateTodayButton(newCardIndex: newCardIndex)
-            delay(0.3) { self.updateEdges() }
-        })
+        cardIndexObserver = $currentCardIndex
+            .removeDuplicates()
+            .debounce(for: 0.3, scheduler: DispatchQueue.main)
+            .sink { newCardIndex in
+                self.updateTodayButton(newCardIndex: newCardIndex)
+                self.updateEdges()
+        }
+
     }
 
     var visibleDateRange: DateInterval? {
