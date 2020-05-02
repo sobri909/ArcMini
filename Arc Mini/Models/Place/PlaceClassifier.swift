@@ -6,46 +6,68 @@
 //  Copyright © 2017 Big Paua. All rights reserved.
 //
 
+import Combine
 import LocoKit
 import CloudKit
-import CoreLocation
 import PromiseKit
+import CoreLocation
 
 class PlaceClassifier: ObservableObject {
 
     var visit: ArcVisit?
     var segment: ItemSegment?
     var overlappersOnly = false
+
+    @Published var query = ""
+    @Published var debouncedQuery = ""
     @Published var results = [PlaceClassifierResultItem]()
 
-    init(visit: ArcVisit, overlappersOnly: Bool = false) {
+    private var queryObserver: AnyCancellable?
+
+    // MARK: -
+
+    private init() {
+        PlaceCache.cache.flushFoursquareResultsIndexes()
+        queryObserver = $query
+            .removeDuplicates()
+            .debounce(for: 0.3, scheduler: DispatchQueue.main)
+            .sink { newQuery in
+                self.debouncedQuery = newQuery
+                self.updateResults(includingRemote: true)
+        }
+    }
+
+    convenience init(visit: ArcVisit, overlappersOnly: Bool = false) {
+        self.init()
         self.visit = visit
         self.overlappersOnly = overlappersOnly
-        PlaceCache.cache.flushFoursquareResultsIndexes()
     }
 
-    init?(segment: ItemSegment, overlappersOnly: Bool = false) {
+    convenience init?(segment: ItemSegment, overlappersOnly: Bool = false) {
         if segment.center == nil { return nil }
+        self.init()
         self.segment = segment
         self.overlappersOnly = overlappersOnly
-        PlaceCache.cache.flushFoursquareResultsIndexes()
     }
 
-    var coordinate: CLLocationCoordinate2D? {
-        if let visit = visit { return visit.center?.coordinate }
-        if let segment = segment { return segment.center?.coordinate }
+    // MARK: -
+
+    var location: CLLocation? {
+        if let center = segment?.center { return center }
+        if let center = visit?.center { return center }
         return nil
     }
 
-    // MARK - Results searching
+    // MARK - Results updating
 
-    @discardableResult
-    func results(query: String = "") -> PlaceClassifierResults {
+    func updateResults(includingRemote: Bool = false) {
         if overlappersOnly && !query.isEmpty {
             logger.error("Cant use a query string on an overlappers only classifier.")
         }
 
-        let places = placesFor(query: query)
+//        print("updateResults(includingRemote: \(includingRemote))")
+
+        let places = fetchMatchingPlaces()
 
         var totalVisits = 0
         for place in places { totalVisits += place.visitsCount + 1 }
@@ -69,25 +91,14 @@ class PlaceClassifier: ObservableObject {
 
         self.results = scores.sorted { $0.score > $1.score }
 
-        return PlaceClassifierResults(results: scores)
+        if includingRemote {
+            fetchRemotePlaces().done {
+                self.updateResults(includingRemote: false)
+            }.cauterize()
+        }
     }
 
-    func fetchRemotePlaces(query: String = "") -> Promise<Void> {
-        guard let location = location else { return Promise { $0.fulfill(()) } }
-        return PlaceCache.cache.fetchPlaces(for: location, query: query)
-    }
-
-}
-
-extension PlaceClassifier {
-
-    var location: CLLocation? {
-        if let center = segment?.center { return center }
-        if let center = visit?.center { return center }
-        return nil
-    }
-
-    private func placesFor(query: String = "") -> [Place] {
+    private func fetchMatchingPlaces() -> [Place] {
         guard let location = location else { return [] }
 
         if overlappersOnly {
@@ -102,7 +113,7 @@ extension PlaceClassifier {
             ? PlaceCache.maxRangeWithQuery
             : PlaceCache.maxRangeNoQuery
 
-        let results = PlaceCache.cache.placesMatching(nameLike: query, near: coordinate).filter {
+        let results = PlaceCache.cache.placesMatching(nameLike: query, near: location.coordinate).filter {
             $0.center.distance(from: location) < maxRange
         }
         
@@ -112,6 +123,12 @@ extension PlaceClassifier {
         }
         return deduped
     }
+
+    private func fetchRemotePlaces() -> Promise<Void> {
+        guard let location = location else { return Promise { $0.fulfill(()) } }
+        return PlaceCache.cache.fetchPlaces(for: location, query: query)
+    }
+
 }
 
 struct PlaceClassifierResults: Sequence, IteratorProtocol {

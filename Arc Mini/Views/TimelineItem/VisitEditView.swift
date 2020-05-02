@@ -42,21 +42,16 @@ struct VisitEditView: View {
     @ObservedObject var placeClassifier: PlaceClassifier
 
     @State var searchTextEditing = false
-    private var queryObserver: AnyCancellable?
 
     init(visit: ArcVisit, placeClassifier: PlaceClassifier) {
         self.visit = visit
         self.placeClassifier = placeClassifier
         UITableViewCell.appearance().selectionStyle = .default
-
-        queryObserver = self.timelineState.$searchText.sink { searchText in
-            print("searchText: \(searchText)")
-        }
     }
 
     var body: some View {
         List {
-            if timelineState.searchText.isEmpty && !searchTextEditing {
+            if placeClassifier.query.isEmpty && !searchTextEditing {
                 ItemDetailsHeader(timelineItem: self.visit)
             } else {
                 Spacer().frame(height: 24).listRowInsets(EdgeInsets()).background(Color("background"))
@@ -64,16 +59,16 @@ struct VisitEditView: View {
             VStack {
                 HStack {
                     Image(systemName: "magnifyingglass")
-                    TextField("Search nearby places", text: $timelineState.searchText, onEditingChanged: { isEditing in
+                    TextField("Search nearby places", text: $placeClassifier.query, onEditingChanged: { isEditing in
                         self.searchTextEditing = isEditing
                     }, onCommit: {
                         print("onCommit")
                     }).foregroundColor(Color("brandTertiaryBase"))
                     Spacer().frame(width: 8)
                     Button(action: {
-                        self.timelineState.searchText = ""
+                        self.placeClassifier.query = ""
                     }) {
-                        Image(systemName: "xmark.circle.fill").opacity(self.timelineState.searchText.isEmpty ? 0 : 1)
+                        Image(systemName: "xmark.circle.fill").opacity(self.placeClassifier.query.isEmpty ? 0 : 1)
                     }
                 }
                 .padding([.leading, .trailing], 12)
@@ -123,8 +118,7 @@ struct VisitEditView: View {
             self.mapState.itemSegments = self.visit.segmentsByActivityType
             self.timelineState.backButtonHidden = false
             self.timelineState.todayButtonHidden = true
-            self.placeClassifier.results()
-            self.fetchPlaces()
+            self.placeClassifier.updateResults()
         }
         .onReceive(self.timelineState.$tappedBackButton) { tappedBackButton in
             if tappedBackButton {
@@ -137,14 +131,6 @@ struct VisitEditView: View {
     func rightText(for place: Place) -> String {
         guard let distanceAway = place.edgeToEdgeDistanceFrom(visit) else { return "" }
         return distanceAway < 2 ? "" : String(metres: distanceAway, style: .medium)
-    }
-
-    // MARK: - Search
-
-    func fetchPlaces() {
-        placeClassifier.fetchRemotePlaces().done {
-            self.placeClassifier.results()
-        }.cauterize()
     }
 
 }

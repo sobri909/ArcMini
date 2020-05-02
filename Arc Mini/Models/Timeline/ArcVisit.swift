@@ -87,10 +87,11 @@ class ArcVisit: LocoKit.Visit, ArcTimelineItem {
 
             self.lastPlaceFind = Date()
 
-            let results = PlaceClassifier(visit: self, overlappersOnly: true).results()
+            let classifier = PlaceClassifier(visit: self, overlappersOnly: true)
+            classifier.updateResults()
 
             // got a result, and it's a previously used place? yay
-            if let result = results.first, result.place.visitsCount > 0 {
+            if let result = classifier.results.first, result.place.visitsCount > 0 {
                 self.usePlace(result.place)
             }
         }
