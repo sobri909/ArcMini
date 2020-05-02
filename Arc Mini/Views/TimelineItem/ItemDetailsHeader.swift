@@ -35,7 +35,9 @@ struct ItemDetailsHeader: View {
             HStack(spacing: 0) {
                 self.segmentsButton
                 Spacer()
-                self.deleteButton.opacity(self.canDelete ? 1 : 0)
+                if self.canDelete {
+                    self.deleteButton
+                }
                 self.editButton
             }
             Rectangle().fill(Color("brandSecondary10")).frame(height: 0.5)
