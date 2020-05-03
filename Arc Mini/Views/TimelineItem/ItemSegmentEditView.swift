@@ -29,6 +29,7 @@ struct ItemSegmentEditView: View {
                         path._uncertainActivityType = false
                         path._unknownActivityType = false
                         path.save()
+                        TimelineProcessor.process(from: path)
                     }
                     self.presentationMode.wrappedValue.dismiss()
                 }) {
