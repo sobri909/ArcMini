@@ -14,6 +14,8 @@ struct ItemDetailsHeader: View {
     @ObservedObject var timelineItem: TimelineItem
     var arcItem: ArcTimelineItem { return timelineItem as! ArcTimelineItem }
 
+    var includeEditButton = true
+
     @State var tappedSegmentsButton = false
     @State var tappedEditButton = false
     @State var showDeleteAlert = false
@@ -38,7 +40,9 @@ struct ItemDetailsHeader: View {
                 if self.canDelete {
                     self.deleteButton
                 }
-                self.editButton
+                if self.includeEditButton {
+                    self.editButton
+                }
             }
             Rectangle().fill(Color("brandSecondary10")).frame(height: 0.5)
             Spacer().frame(height: 20)
@@ -115,9 +119,16 @@ struct ItemDetailsHeader: View {
                         .foregroundColor(Color("brandSecondary80"))
                         .frame(width: 24, height: 24)
                         .offset(x: 0, y: -1)
-                    Spacer().frame(width: 20)
-                    Rectangle().fill(Color("grey")).frame(width: 1, height: 24)
+                    if self.includeEditButton {
+                        Spacer().frame(width: 20)
+                        Rectangle().fill(Color("grey")).frame(width: 1, height: 24)
+                    } else {
+                        Text("Delete")
+                            .font(.system(size: 15, weight: .regular))
+                            .foregroundColor(Color("brandSecondaryDark"))
+                    }
                 }
+                .padding([.leading, .trailing], self.includeEditButton ? 0 : 20)
             }
             .frame(height: 64)
         }

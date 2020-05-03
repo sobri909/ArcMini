@@ -25,7 +25,7 @@ struct PathEditView: View {
 
     var body: some View {
         List {
-            ItemDetailsHeader(timelineItem: self.path)
+            ItemDetailsHeader(timelineItem: self.path, includeEditButton: false)
             ForEach(Array(classifierResults), id: \.name) { result in
                 Button(action: {
                     self.path.trainActivityType(to: result.name)

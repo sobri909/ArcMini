@@ -52,7 +52,7 @@ struct VisitEditView: View {
     var body: some View {
         List {
             if placeClassifier.query.isEmpty && !searchTextEditing {
-                ItemDetailsHeader(timelineItem: self.visit)
+                ItemDetailsHeader(timelineItem: self.visit, includeEditButton: false)
             } else {
                 Spacer().frame(height: 24).listRowInsets(EdgeInsets()).background(Color("background"))
             }
