@@ -106,12 +106,13 @@ class ArcVisit: LocoKit.Visit, ArcTimelineItem {
             self.customTitle = nil
             self.save()
 
-            onMain { trigger(.updatedTimelineItem, on: self) }
+            // queue place updates
+            chosenPlace.setNeedsUpdate()
+            if previousPlace != chosenPlace { previousPlace?.setNeedsUpdate() }
 
-            // update place stats
-            delay(2) {
-                chosenPlace.setNeedsUpdate()
-                if previousPlace != chosenPlace { previousPlace?.setNeedsUpdate() }
+            onMain {
+                trigger(.updatedTimelineItem, on: self)
+                self.objectWillChange.send()
             }
         }
 
