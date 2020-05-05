@@ -37,6 +37,10 @@ struct ItemDetailsView: View {
         .navigationBarHidden(true)
         .navigationBarTitle("", displayMode: .inline)
         .onAppear {
+            if self.timelineItem.deleted {
+                self.presentationMode.wrappedValue.dismiss()
+                return
+            }
             self.mapState.selectedItems = [self.timelineItem]
             self.mapState.itemSegments = self.timelineItem.segmentsByActivityType
             self.timelineState.mapHeightPercent = TimelineState.subMapHeightPercent

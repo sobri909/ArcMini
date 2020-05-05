@@ -56,6 +56,10 @@ struct PathEditView: View {
         .navigationBarHidden(true)
         .navigationBarTitle("", displayMode: .inline)
         .onAppear {
+            if self.path.deleted {
+                self.presentationMode.wrappedValue.dismiss()
+                return
+            }
             self.mapState.selectedItems = [self.path]
             self.mapState.itemSegments = self.path.segmentsByActivityType
             self.timelineState.backButtonHidden = false

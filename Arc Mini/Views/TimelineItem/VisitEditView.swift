@@ -114,6 +114,10 @@ struct VisitEditView: View {
         .navigationBarTitle("", displayMode: .inline)
         .resignKeyboardOnDragGesture()
         .onAppear {
+            if self.visit.deleted {
+                self.presentationMode.wrappedValue.dismiss()
+                return
+            }
             self.mapState.selectedItems = [self.visit]
             self.mapState.itemSegments = self.visit.segmentsByActivityType
             self.timelineState.backButtonHidden = false
