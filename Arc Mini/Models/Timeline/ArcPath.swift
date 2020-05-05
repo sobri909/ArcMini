@@ -198,7 +198,7 @@ class ArcPath: Path, ArcTimelineItem {
 
         // if we're forcing it to stationary, brexit all the stationary segments
         if confirmedType == .stationary {
-            for segment in segments where segment.activityType == .stationary && segment.recordingState != .off {
+            for segment in segments where segment.activityType == .stationary {
                 self.brexit(segment, place: nil)
             }
             return
