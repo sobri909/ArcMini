@@ -35,7 +35,7 @@ struct NavBar: View {
 
     var todayButton: some View {
         Button(action: {
-            self.tappedTodayButton()
+            self.timelineState.goto(date: Date())
         }) {
             Image(systemName: "chevron.right.2")
                 .foregroundColor(.white)
@@ -44,10 +44,6 @@ struct NavBar: View {
                 .cornerRadius(20)
         }
         .frame(width: 56, height: 56)
-    }
-
-    func tappedTodayButton() {
-        timelineState.currentCardIndex = timelineState.dateRanges.count - 1
     }
 
 }
