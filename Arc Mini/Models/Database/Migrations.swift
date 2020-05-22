@@ -100,8 +100,8 @@ class Migrations {
             }
         }
 
-        migrator.registerMigration("LastFm") { db in
-            try db.create(table: "TrackPlay") { table in
+        migrator.registerMigration("TrackPlay") { db in
+            try? db.create(table: "TrackPlay") { table in
                 table.column("date", .datetime).primaryKey()
                 table.column("name", .text).notNull().indexed()
                 table.column("artist", .text).indexed()

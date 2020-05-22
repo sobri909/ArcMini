@@ -113,6 +113,7 @@
 		C93062B0243F1B0D00DE47CC /* DebugLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogsView.swift; sourceTree = "<group>"; };
 		C93062B2243F209F00DE47CC /* DebugLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogView.swift; sourceTree = "<group>"; };
 		C937EE2E24546A2A009D1593 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		C941494824704B3900C89424 /* Arc Mini.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Arc Mini.entitlements"; sourceTree = "<group>"; };
 		C948080C2441BE6100091943 /* UserActivityTypesCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityTypesCache.swift; sourceTree = "<group>"; };
 		C948080D2441BE6100091943 /* UserActivityType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityType.swift; sourceTree = "<group>"; };
 		C948080E2441BE6100091943 /* UserActivityTypeClassifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityTypeClassifier.swift; sourceTree = "<group>"; };
@@ -383,12 +384,13 @@
 		C99F5EC0242A376100E172AE /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				C9822A90240CF8D8006B70F4 /* Info.plist */,
+				C941494824704B3900C89424 /* Arc Mini.entitlements */,
+				C99F5EC1242A3F8500E172AE /* BridgingHeader.h */,
 				C9BF95362446F959000F3299 /* Config.plist */,
+				C9822A90240CF8D8006B70F4 /* Info.plist */,
 				C9822A82240CF8D5006B70F4 /* AppDelegate.swift */,
 				C9822A84240CF8D5006B70F4 /* SceneDelegate.swift */,
 				C9822A8D240CF8D8006B70F4 /* LaunchScreen.storyboard */,
-				C99F5EC1242A3F8500E172AE /* BridgingHeader.h */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -795,8 +797,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Arc Mini/Core/Arc Mini.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = U5N7VG8DUG;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Arc Mini/Core/Info.plist";
@@ -820,8 +823,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Arc Mini/Core/Arc Mini.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = U5N7VG8DUG;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Arc Mini/Core/Info.plist";
