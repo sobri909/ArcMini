@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ActivityTypesCache.highlander.store = RecordingManager.store
         LocomotionManager.highlander.requestLocationPermission(background: true)
         LocomotionManager.highlander.coordinateAssessor = CoordinateTrustManager(store: RecordingManager.store)
-        RecordingManager.recorder.startRecording()
+        LocomotionManager.highlander.appGroup = Settings.highlander.appGroup
 
         UIDevice.current.isBatteryMonitoringEnabled = true
 
@@ -47,6 +47,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         applyUIAppearanceOverrides()
+
+        delay(1) { RecordingManager.highlander.startRecording() }
         
         return true
     }

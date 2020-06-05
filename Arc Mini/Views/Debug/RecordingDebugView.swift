@@ -17,13 +17,20 @@ struct RecordingDebugView: View {
     var body: some View {
         NavigationView {
             List {
-                self.row(leftText: "Recording state", rightText: LocomotionManager.highlander.recordingState.rawValue)
-                self.row(leftText: "Thermal state", rightText: AppDelegate.thermalState.stringValue)
-                self.row(leftText: "Requesting", rightText: self.desiredAccuracyString)
-                self.trustFactorRow
-                self.horizontalAccuracyRow
-                self.verticalAccuracyRow
-                self.leavingProbabilityRow
+                Section(header: Text("Recording engines")) {
+                    ForEach(Settings.highlander.appGroup.sortedApps, id: \.updated) { appState in
+                        self.row(leftText: appState.appName.rawValue,
+                                 rightText: "\(appState.recordingState.rawValue) (\(String(duration: appState.updated.age)) ago)")
+                    }
+                }
+                Section(header: Text("General")) {
+                    self.row(leftText: "Thermal state", rightText: AppDelegate.thermalState.stringValue)
+                    self.row(leftText: "Requesting", rightText: self.desiredAccuracyString)
+                    self.trustFactorRow
+                    self.horizontalAccuracyRow
+                    self.verticalAccuracyRow
+                    self.leavingProbabilityRow
+                }
             }
             .navigationBarTitle("Arc Mini \(Bundle.versionNumber) (\(Bundle.buildNumber))")
             .environment(\.defaultMinListRowHeight, 28)

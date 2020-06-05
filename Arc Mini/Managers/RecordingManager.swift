@@ -16,11 +16,11 @@ class RecordingManager {
     // MARK: -
 
     static let store = ArcStore()
-    static let recorder = TimelineRecorder(store: store, classifier: UserTimelineClassifier.highlander)
+    static var recorder: TimelineRecorder { return highlander.recorder }
 
     // MARK: -
 
-    var recorder: TimelineRecorder { return RecordingManager.recorder }
+    private(set) var recorder = TimelineRecorder(store: store, classifier: UserTimelineClassifier.highlander)
     var loco: LocomotionManager { return LocomotionManager.highlander }
     var currentVisit: ArcVisit? { return recorder.currentVisit as? ArcVisit }
 
@@ -36,6 +36,27 @@ class RecordingManager {
         when(loco, does: .wentFromSleepModeToRecording) { _ in
             self.didStartSleeping()
         }
+
+        when(loco, does: .recordingStateChanged) { _ in
+            Settings.highlander.appGroup.save()
+        }
+    }
+
+    func startRecording() {
+        defer { Settings.highlander.appGroup.save() }
+
+        guard Settings.recordingOn else { return }
+        guard Settings.shouldAttemptToUseCoreMotion else { return }
+
+        if Settings.highlander.appGroup.needARecorder {
+            recorder.startRecording()
+        } else {
+            LocomotionManager.highlander.startStandby()
+        }
+
+        // start the safety nets
+        loco.locationManager.startMonitoringVisits()
+        loco.locationManager.startMonitoringSignificantLocationChanges()
     }
 
     // MARK: - Recording state changes

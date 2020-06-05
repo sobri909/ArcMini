@@ -44,6 +44,8 @@ class Settings {
 
     static let highlander = Settings()
 
+    var appGroup = AppGroup(appName: .arcMini, suiteName: "group.ArcApp")
+
     // MARK: -
 
     static let earliestAllowedDate = Date(timeIntervalSince1970: 946684800) // 01-1-2000 (earlier than Arc App, to allow Moves imports)
