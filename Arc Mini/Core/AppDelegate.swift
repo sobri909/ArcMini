@@ -27,7 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         LocoKitService.apiKey = "bee1aa1af978486b9186780a07cc240e"
         ActivityTypesCache.highlander.store = RecordingManager.store
-        LocomotionManager.highlander.requestLocationPermission(background: true)
         LocomotionManager.highlander.coordinateAssessor = CoordinateTrustManager(store: RecordingManager.store)
         LocomotionManager.highlander.appGroup = Settings.highlander.appGroup
 
@@ -48,7 +47,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         applyUIAppearanceOverrides()
 
-        delay(1) { RecordingManager.highlander.startRecording() }
+        // onboarding (barely. heh)
+        LocomotionManager.highlander.requestLocationPermission(background: true)
+        LocomotionManager.highlander.startCoreMotion()
+
+        delay(6) { RecordingManager.highlander.startRecording() }
         
         return true
     }
