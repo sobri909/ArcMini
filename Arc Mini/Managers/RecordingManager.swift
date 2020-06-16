@@ -48,7 +48,7 @@ class RecordingManager {
         guard Settings.recordingOn else { return }
         guard Settings.shouldAttemptToUseCoreMotion else { return }
 
-        if Settings.highlander.appGroup.needARecorder {
+        if Settings.highlander.appGroup.shouldBeTheRecorder {
             recorder.startRecording()
         } else {
             LocomotionManager.highlander.startStandby()
