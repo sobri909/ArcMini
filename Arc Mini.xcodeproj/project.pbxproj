@@ -56,6 +56,7 @@
 		C9822A87240CF8D5006B70F4 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9822A86240CF8D5006B70F4 /* RootView.swift */; };
 		C9822A89240CF8D8006B70F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9822A88240CF8D8006B70F4 /* Assets.xcassets */; };
 		C9822A8F240CF8D8006B70F4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9822A8D240CF8D8006B70F4 /* LaunchScreen.storyboard */; };
+		C983603024969AFE007940F6 /* HeadlessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C983602F24969AFE007940F6 /* HeadlessView.swift */; };
 		C98783042435F1EB001B4E7D /* SegmentAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98783032435F1EB001B4E7D /* SegmentAnnotationView.swift */; };
 		C98967EC2435F27200D55AFE /* SegmentAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98967EB2435F27200D55AFE /* SegmentAnnotation.swift */; };
 		C99325942430EE59005299DC /* RowButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99325932430EE59005299DC /* RowButtonStyle.swift */; };
@@ -143,6 +144,7 @@
 		C9822A88240CF8D8006B70F4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9822A8E240CF8D8006B70F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9822A90240CF8D8006B70F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C983602F24969AFE007940F6 /* HeadlessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlessView.swift; sourceTree = "<group>"; };
 		C98783032435F1EB001B4E7D /* SegmentAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentAnnotationView.swift; sourceTree = "<group>"; };
 		C98967EB2435F27200D55AFE /* SegmentAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentAnnotation.swift; sourceTree = "<group>"; };
 		C99325932430EE59005299DC /* RowButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowButtonStyle.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				C9822A86240CF8D5006B70F4 /* RootView.swift */,
+				C983602F24969AFE007940F6 /* HeadlessView.swift */,
 				C90C27362439DCCC00A36251 /* NavBar.swift */,
 				C9DBE4262437462B00FCB8E5 /* Pager.swift */,
 				C937EE2E24546A2A009D1593 /* ShareSheet.swift */,
@@ -624,6 +627,7 @@
 				C90D786B2428FFCE004ABFD0 /* Place.stats.swift in Sources */,
 				C93062B3243F209F00DE47CC /* DebugLogView.swift in Sources */,
 				C937EE2F24546A2A009D1593 /* ShareSheet.swift in Sources */,
+				C983603024969AFE007940F6 /* HeadlessView.swift in Sources */,
 				C953392B24127CF30005E98F /* TimelineDayView.swift in Sources */,
 				C99F5EBF242A371C00E172AE /* Scraps.swift in Sources */,
 				C9C827AF243C830500F3199B /* DispatchQueue.swift in Sources */,

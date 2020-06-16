@@ -14,4 +14,10 @@ class MapState: ObservableObject {
     @Published var showingFullMap = false
     @Published var tappedSelectedItem = false
     var selectedTimelineItem: ArcTimelineItem?
+
+    func flush() {
+        selectedItems = []
+        itemSegments = []
+        selectedTimelineItem = nil
+    }
 }
