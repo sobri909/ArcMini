@@ -22,7 +22,8 @@ struct TimelineDayView: View {
     }
 
     var body: some View {
-        ZStack(alignment: .trailing) {
+        timelineState.previousListBox = nil
+        return ZStack(alignment: .trailing) {
             List {
                 ForEach(self.filteredListItems) { timelineItem in
                     ZStack {
@@ -67,19 +68,38 @@ struct TimelineDayView: View {
         .background(Color("background"))
     }
 
-    // TODO: need "thinking..." boxes represented in the list array somehow
     var filteredListItems: [TimelineItem] {
         return self.timelineSegment.timelineItems.reversed().filter { $0.dateRange != nil }
     }
 
-    func listBox(for timelineItem: TimelineItem) -> some View {
-        if let visit = timelineItem as? ArcVisit {
-            return AnyView(VisitListBox(visit: visit)
-                .listRowInsets(EdgeInsets()))
+    // the items inside the recorder's processing boundary
+    var activeItems: [TimelineItem] {
+        let isToday = timelineSegment.dateRange?.contains(Date()) == true
+        if isToday, !LocomotionManager.highlander.recordingState.isSleeping, let currentItem = RecordingManager.recorder.currentItem {
+            return TimelineProcessor.itemsToProcess(from: currentItem)
         }
-        if let path = timelineItem as? ArcPath {
-            return AnyView(PathListBox(path: path)
-                .listRowInsets(EdgeInsets()))
+        return []
+    }
+
+    func listBox(for item: TimelineItem) -> some View {
+        // show a "thinking" item for shitty stuff that's still processing or can't be processed yet
+        if item.isInvalid || (!item.isWorthKeeping && (RecordingManager.store.processing || activeItems.contains(item) || item.isMergeLocked)) {
+            if timelineState.previousListBox is ThinkingListBox {
+                return AnyView(EmptyView())
+            }
+            let box = ThinkingListBox()
+            timelineState.previousListBox = box
+            return AnyView(box.listRowInsets(EdgeInsets()))
+        }
+        if let visit = item as? ArcVisit {
+            let box = VisitListBox(visit: visit)
+            timelineState.previousListBox = box
+            return AnyView(box.listRowInsets(EdgeInsets()))
+        }
+        if let path = item as? ArcPath {
+            let box = PathListBox(path: path)
+            timelineState.previousListBox = box
+            return AnyView(box.listRowInsets(EdgeInsets()))
         }
         fatalError("nah")
     }
@@ -88,6 +108,8 @@ struct TimelineDayView: View {
 
 //struct TimelineView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        TimelineView(segment: AppDelegate.todaySegment)
+//        TimelineDayView(timelineSegment: AppDelegate.todaySegment)
+//            .environmentObject(TimelineState())
+//            .environmentObject(MapState())
 //    }
 //}

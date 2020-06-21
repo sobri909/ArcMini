@@ -83,6 +83,7 @@
 		C9C874F32458484000BAB9A3 /* ItemDetailsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C874F22458484000BAB9A3 /* ItemDetailsHeader.swift */; };
 		C9C96AAF242760A2006D2E5B /* VisitEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C96AAE242760A2006D2E5B /* VisitEditView.swift */; };
 		C9C96AB224278052006D2E5B /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = C9C96AB124278052006D2E5B /* Introspect */; };
+		C9DAA083249F97BE004BA946 /* ThinkingListBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DAA082249F97BE004BA946 /* ThinkingListBox.swift */; };
 		C9DBE4272437462B00FCB8E5 /* Pager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DBE4262437462B00FCB8E5 /* Pager.swift */; };
 		C9DBE429243746FF00FCB8E5 /* TimelineScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DBE428243746FF00FCB8E5 /* TimelineScrollView.swift */; };
 		C9EB6644241A60FA00F545AF /* ArcStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB6643241A60FA00F545AF /* ArcStore.swift */; };
@@ -168,6 +169,7 @@
 		C9C827B6243DEB7F00F3199B /* DebugLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogger.swift; sourceTree = "<group>"; };
 		C9C874F22458484000BAB9A3 /* ItemDetailsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsHeader.swift; sourceTree = "<group>"; };
 		C9C96AAE242760A2006D2E5B /* VisitEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitEditView.swift; sourceTree = "<group>"; };
+		C9DAA082249F97BE004BA946 /* ThinkingListBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThinkingListBox.swift; sourceTree = "<group>"; };
 		C9DBE4262437462B00FCB8E5 /* Pager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pager.swift; sourceTree = "<group>"; };
 		C9DBE428243746FF00FCB8E5 /* TimelineScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineScrollView.swift; sourceTree = "<group>"; };
 		C9EB6643241A60FA00F545AF /* ArcStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcStore.swift; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 				C95E0E262417B19C008418A1 /* PathListBox.swift */,
 				C95E0E242417AEB8008418A1 /* VisitListBox.swift */,
 				C9BF9538244744CC000F3299 /* DeleteVisitAlert.swift */,
+				C9DAA082249F97BE004BA946 /* ThinkingListBox.swift */,
 			);
 			path = Timeline;
 			sourceTree = "<group>";
@@ -621,6 +624,7 @@
 				C90C27372439DCCC00A36251 /* NavBar.swift in Sources */,
 				C9C6FBF2243333D3004F868C /* TimelineState.swift in Sources */,
 				C928C2EF2443522300586121 /* RecordingDebugView.swift in Sources */,
+				C9DAA083249F97BE004BA946 /* ThinkingListBox.swift in Sources */,
 				C99F5EC5242A3F8600E172AE /* FSOAuth.m in Sources */,
 				C95E0E272417B19C008418A1 /* PathListBox.swift in Sources */,
 				C96E00B82449B3AD00A3635F /* TasksManager.swift in Sources */,

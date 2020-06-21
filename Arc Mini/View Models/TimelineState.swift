@@ -28,6 +28,8 @@ class TimelineState: ObservableObject {
     @Published var tappedBackButton = false
     @Published var tappedTodayButton = false
 
+    var previousListBox: Any?
+
     private var cardIndexObserver: AnyCancellable?
 
     init() {
