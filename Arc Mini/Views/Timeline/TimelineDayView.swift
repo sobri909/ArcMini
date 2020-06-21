@@ -26,25 +26,7 @@ struct TimelineDayView: View {
         return ZStack(alignment: .trailing) {
             List {
                 ForEach(self.filteredListItems) { timelineItem in
-                    ZStack {
-                        self.listBox(for: timelineItem).onAppear {
-                            if self.timelineSegment == self.timelineState.visibleTimelineSegment {
-                                if timelineItem == self.filteredListItems.first {
-                                    self.mapState.selectedItems = [] // zoom to all items when scrolled to top
-                                } else {
-                                    self.mapState.selectedItems.insert(timelineItem)
-                                }
-                            }
-                        }.onDisappear {
-                            if self.timelineSegment == self.timelineState.visibleTimelineSegment {
-                                self.mapState.selectedItems.remove(timelineItem)
-                            }
-                        }
-                        NavigationLink(destination: ItemDetailsView(timelineItem: timelineItem)) {
-                            EmptyView()
-                        }.hidden()
-                    }
-                    .listRowInsets(EdgeInsets())
+                    self.listBox(for: timelineItem)
                 }
             }
             Rectangle().fill(Color("brandSecondary10")).frame(width: 0.5).edgesIgnoringSafeArea(.all)
@@ -72,9 +54,12 @@ struct TimelineDayView: View {
         return self.timelineSegment.timelineItems.reversed().filter { $0.dateRange != nil }
     }
 
+    var isToday: Bool {
+        return timelineSegment.dateRange?.contains(Date()) == true
+    }
+
     // the items inside the recorder's processing boundary
     var activeItems: [TimelineItem] {
-        let isToday = timelineSegment.dateRange?.contains(Date()) == true
         if isToday, !LocomotionManager.highlander.recordingState.isSleeping, let currentItem = RecordingManager.recorder.currentItem {
             return TimelineProcessor.itemsToProcess(from: currentItem)
         }
@@ -85,12 +70,37 @@ struct TimelineDayView: View {
         // show a "thinking" item for shitty stuff that's still processing or can't be processed yet
         if item.isInvalid || (!item.isWorthKeeping && (RecordingManager.store.processing || activeItems.contains(item) || item.isMergeLocked)) {
             if timelineState.previousListBox is ThinkingListBox {
-                return AnyView(EmptyView())
+                return AnyView(EmptyView().listRowInsets(EdgeInsets()))
             }
             let box = ThinkingListBox()
             timelineState.previousListBox = box
             return AnyView(box.listRowInsets(EdgeInsets()))
         }
+
+        let boxStack = ZStack {
+            self.timelineItemBox(for: item).onAppear {
+                if self.timelineSegment == self.timelineState.visibleTimelineSegment {
+                    if item == self.filteredListItems.first {
+                        self.mapState.selectedItems = [] // zoom to all items when scrolled to top
+                    } else {
+                        self.mapState.selectedItems.insert(item)
+                    }
+                }
+            }.onDisappear {
+                if self.timelineSegment == self.timelineState.visibleTimelineSegment {
+                    self.mapState.selectedItems.remove(item)
+                }
+            }
+            NavigationLink(destination: ItemDetailsView(timelineItem: item)) {
+                EmptyView()
+            }.hidden()
+        }
+        .listRowInsets(EdgeInsets())
+
+        return AnyView(boxStack)
+    }
+
+    func timelineItemBox(for item: TimelineItem) -> some View {
         if let visit = item as? ArcVisit {
             let box = VisitListBox(visit: visit)
             timelineState.previousListBox = box
