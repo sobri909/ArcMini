@@ -16,6 +16,10 @@ class Note: TimelineObject, Encodable {
     var body: String { didSet { hasChanges = true } }
     var deleted: Bool { didSet { hasChanges = true } }
 
+    private var _invalidated = false
+    public var invalidated: Bool { return _invalidated }
+    public func invalidate() { _invalidated = true }
+
     // MARK: - Init
 
     init(date: Date = Date(), body: String = "") {

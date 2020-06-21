@@ -90,7 +90,7 @@ final class ArcStore: TimelineStore {
     // MARK: - Places
 
     func place(for placeId: UUID) -> Place? {
-        if let cached = mutex.sync(execute: { placeMap.object(forKey: placeId as NSUUID) }) { return cached }
+        if let cached = mutex.sync(execute: { placeMap.object(forKey: placeId as NSUUID) }), !cached.invalidated { return cached }
         return place(where: "placeId = ?", arguments: [placeId.uuidString])
     }
 
@@ -126,7 +126,7 @@ final class ArcStore: TimelineStore {
 
     func place(for row: Row) -> Place {
         guard let placeId = row["placeId"] as String? else { fatalError("MISSING PLACEID") }
-        if let cached = mutex.sync(execute: { placeMap.object(forKey: UUID(uuidString: placeId)! as NSUUID) }) {
+        if let cached = mutex.sync(execute: { placeMap.object(forKey: UUID(uuidString: placeId)! as NSUUID) }), !cached.invalidated {
             return cached
         }
         return Place(from: row.asDict(in: self))
@@ -139,7 +139,7 @@ final class ArcStore: TimelineStore {
     // MARK: - Notes
 
     func note(for noteId: UUID) -> Note? {
-        if let cached = mutex.sync(execute: { noteMap.object(forKey: noteId as NSUUID) }) { return cached }
+        if let cached = mutex.sync(execute: { noteMap.object(forKey: noteId as NSUUID) }), !cached.invalidated { return cached }
         return note(where: "noteId = ?", arguments: [noteId.uuidString])
     }
 
@@ -175,7 +175,7 @@ final class ArcStore: TimelineStore {
 
     func note(for row: Row) -> Note {
         guard let noteId = row["noteId"] as String? else { fatalError("MISSING NOTEID") }
-        if let cached = mutex.sync(execute: { noteMap.object(forKey: UUID(uuidString: noteId)! as NSUUID) }) {
+        if let cached = mutex.sync(execute: { noteMap.object(forKey: UUID(uuidString: noteId)! as NSUUID) }), !cached.invalidated {
             return cached
         }
         return Note(from: row.asDict(in: self))

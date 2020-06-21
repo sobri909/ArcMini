@@ -22,6 +22,10 @@ class Place: TimelineObject, Hashable, Encodable {
     var needsUpdate: Bool = false { didSet { hasChanges = true } }
     var lastUpdated: Date?
 
+    private var _invalidated = false
+    public var invalidated: Bool { return _invalidated }
+    public func invalidate() { _invalidated = true }
+
     var center: CLLocation { didSet { hasChanges = true } }
     var radius: Radius = Radius.zero { didSet { hasChanges = true } }
 

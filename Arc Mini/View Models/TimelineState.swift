@@ -102,17 +102,4 @@ class TimelineState: ObservableObject {
         }
     }
 
-    // TODO: move these to ArcStore
-    func sceneDidBecomeActive() {
-//        for segment in timelineSegments {
-//            segment.startUpdating()
-//        }
-    }
-
-    func sceneDidEnterBackground() {
-//        for segment in timelineSegments {
-//            segment.stopUpdating()
-//        }
-    }
-
 }
