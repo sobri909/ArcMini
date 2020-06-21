@@ -19,8 +19,11 @@ struct RecordingDebugView: View {
             List {
                 Section(header: Text("Recording engines")) {
                     ForEach(Settings.highlander.appGroup.sortedApps, id: \.updated) { appState in
-                        self.row(leftText: appState.appName.rawValue,
-                                 rightText: "\(appState.recordingState.rawValue) (\(String(duration: appState.updated.age)) ago)")
+                        self.row(
+                            leftText: appState.appName.rawValue,
+                            rightText: "\(appState.recordingState.rawValue) (\(String(duration: appState.updated.age)) ago)",
+                            highlight: appState.isAliveAndRecording, fade: !appState.isAlive
+                        )
                     }
                 }
                 Section(header: Text("General")) {
@@ -80,11 +83,12 @@ struct RecordingDebugView: View {
 
     // MARK: -
 
-    func row(leftText: String, rightText: String) -> some View {
+    func row(leftText: String, rightText: String, highlight: Bool = false, fade: Bool = false) -> some View {
+        let font = highlight ? Font.system(.footnote).bold() : Font.system(.footnote)
         return HStack {
-            Text(leftText).font(.system(.footnote))
+            Text(leftText).font(font).opacity(fade ? 0.6 : 1)
             Spacer()
-            Text(rightText).font(.system(.footnote)).opacity(0.6)
+            Text(rightText).font(font).opacity(0.6).opacity(fade ? 0.6 : 1)
         }
     }
 
