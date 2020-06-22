@@ -69,7 +69,9 @@ class TasksManager {
     }
 
     func scheduleBackgroundTasks() {
-        if LocomotionManager.highlander.recordingState == .recording { return }
+        let loco = LocomotionManager.highlander
+        if loco.recordingState == .recording { return }
+        if loco.appGroup?.haveAppsInStandby == true, loco.recordingState.isCurrentRecorder { return }
 
         if RecordingManager.store.placesPendingUpdate > 0 {
             TasksManager.schedule(.placeModelUpdates, requiresPower: true)
