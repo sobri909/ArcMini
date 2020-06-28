@@ -83,7 +83,7 @@ class DebugLogger: LoggingFormatAndPipe.Pipe, ObservableObject {
             return formatter
         }()
 
-        func processLog(level: Logger.Level, message: Logger.Message, prettyMetadata: String?, file: String, function: String, line: UInt) -> String {
+        func processLog(level: Logging.Logger.Level, message: Logging.Logger.Message, prettyMetadata: String?, file: String, function: String, line: UInt) -> String {
             if level == .error {
                 return String(format: "[%@] [ERROR] \(message)", self.timestampFormatter.string(from: Date()))
             }
