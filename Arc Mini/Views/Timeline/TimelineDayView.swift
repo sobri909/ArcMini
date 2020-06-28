@@ -25,8 +25,8 @@ struct TimelineDayView: View {
         timelineState.previousListBox = nil
         return ZStack(alignment: .trailing) {
             List {
-                ForEach(self.filteredListItems) { timelineItem in
-                    self.listBox(for: timelineItem)
+                ForEach(filteredListItems) { timelineItem in
+                    listBox(for: timelineItem)
                 }
             }
             Rectangle().fill(Color("brandSecondary10")).frame(width: 0.5).edgesIgnoringSafeArea(.all)
@@ -34,14 +34,14 @@ struct TimelineDayView: View {
         .navigationBarTitle("")
         .navigationBarHidden(true)
         .onAppear {
-            self.mapState.selectedItems.removeAll()
-            self.mapState.itemSegments.removeAll()
-            self.timelineState.backButtonHidden = true
-            self.timelineState.updateTodayButton()
-            self.timelineState.mapHeightPercent = TimelineState.rootMapHeightPercent
+            mapState.selectedItems.removeAll()
+            mapState.itemSegments.removeAll()
+            timelineState.backButtonHidden = true
+            timelineState.updateTodayButton()
+            timelineState.mapHeightPercent = TimelineState.rootMapHeightPercent
 
             // do place finds
-            for case let visit as ArcVisit in self.timelineSegment.timelineItems {
+            for case let visit as ArcVisit in timelineSegment.timelineItems {
                 if visit.isWorthKeeping {
                     visit.findAPlace()
                 }
@@ -51,7 +51,7 @@ struct TimelineDayView: View {
     }
 
     var filteredListItems: [TimelineItem] {
-        return self.timelineSegment.timelineItems.reversed().filter { $0.dateRange != nil }
+        return timelineSegment.timelineItems.reversed().filter { $0.dateRange != nil }
     }
 
     var isToday: Bool {
