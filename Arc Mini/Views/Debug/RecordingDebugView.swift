@@ -17,13 +17,15 @@ struct RecordingDebugView: View {
     var body: some View {
         NavigationView {
             List {
-                Section(header: Text("Recording engines")) {
-                    ForEach(Settings.highlander.appGroup.sortedApps, id: \.updated) { appState in
-                        self.row(
-                            leftText: appState.appName.rawValue,
-                            rightText: "\(appState.recordingState.rawValue) (\(String(duration: appState.updated.age)) ago)",
-                            highlight: appState.isAliveAndRecording, fade: !appState.isAlive
-                        )
+                if let appGroup = LocomotionManager.highlander.appGroup {
+                    Section(header: Text("Recording engines")) {
+                        ForEach(appGroup.sortedApps, id: \.updated) { appState in
+                            self.row(
+                                leftText: appState.appName.rawValue,
+                                rightText: "\(appState.recordingState.rawValue) (\(String(duration: appState.updated.age)) ago)",
+                                highlight: appState.isAliveAndRecording, fade: !appState.isAlive
+                            )
+                        }
                     }
                 }
                 Section(header: Text("General")) {
