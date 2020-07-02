@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/mxcl/PromiseKit",
         "state": {
           "branch": null,
-          "revision": "f14f16cc2602afec1030e4f492100d6d43dca544",
-          "version": "6.13.1"
+          "revision": "f6b15b7626a4399864ffa1d5ec2ed9cf0cea5556",
+          "version": "6.13.2"
         }
       },
       {
@@ -51,7 +51,7 @@
         "repositoryURL": "https://github.com/timbersoftware/SwiftUI-Introspect.git",
         "state": {
           "branch": "master",
-          "revision": "18c8c7fb0f22a3b86b34d68cb3a5f4e7351774e1",
+          "revision": "07ec9bb46181e58cc0ea04b3191329ff8249df3c",
           "version": null
         }
       }

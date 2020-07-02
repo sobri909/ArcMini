@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		09C227A470BFD8839C9491BB /* Pods_Arc_Mini.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49BFAF13CA1E780FC2651251 /* Pods_Arc_Mini.framework */; };
+		AD1E3112F2FD3C6C4B8E8F75 /* Pods_RecordersWidgetExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9162A14B29BDED2585FC47B5 /* Pods_RecordersWidgetExtension.framework */; };
 		C90C27372439DCCC00A36251 /* NavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90C27362439DCCC00A36251 /* NavBar.swift */; };
 		C90D78542428FBA2004ABFD0 /* PathEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90D78532428FBA2004ABFD0 /* PathEditView.swift */; };
 		C90D78682428FFCE004ABFD0 /* PlaceCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90D78632428FFCE004ABFD0 /* PlaceCache.swift */; };
@@ -73,6 +74,12 @@
 		C9B86B88242CAD8900D52C0D /* ArcError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B86B87242CAD8900D52C0D /* ArcError.swift */; };
 		C9BF95372446F959000F3299 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9BF95362446F959000F3299 /* Config.plist */; };
 		C9BF9539244744CC000F3299 /* DeleteVisitAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF9538244744CC000F3299 /* DeleteVisitAlert.swift */; };
+		C9C045C824A891B300C1A99C /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C045C724A891B300C1A99C /* WidgetKit.framework */; };
+		C9C045CA24A891B300C1A99C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C045C924A891B300C1A99C /* SwiftUI.framework */; };
+		C9C045CD24A891B300C1A99C /* RecordersWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C045CC24A891B300C1A99C /* RecordersWidget.swift */; };
+		C9C045CF24A891B500C1A99C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9C045CE24A891B500C1A99C /* Assets.xcassets */; };
+		C9C045D324A891B500C1A99C /* RecordersWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C9C045C624A891B300C1A99C /* RecordersWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C9C045DA24A89CAA00C1A99C /* WidgetState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C045D924A89CAA00C1A99C /* WidgetState.swift */; };
 		C9C5C009242FB2C700BC064E /* MapState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C5C008242FB2C700BC064E /* MapState.swift */; };
 		C9C6FBF2243333D3004F868C /* TimelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C6FBF1243333D3004F868C /* TimelineState.swift */; };
 		C9C827AD243C7B1E00F3199B /* Calendar+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C827AC243C7B1E00F3199B /* Calendar+extensions.swift */; };
@@ -92,9 +99,36 @@
 		C9F98B77242FAB38003D2A23 /* ItemSegmentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F98B76242FAB38003D2A23 /* ItemSegmentsView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C9C045D124A891B500C1A99C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9822A77240CF8D5006B70F4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C9C045C524A891B300C1A99C;
+			remoteInfo = RecordersWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C9C045D424A891B500C1A99C /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				C9C045D324A891B500C1A99C /* RecordersWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		20E416AF0980D8060B59267C /* Pods-RecordersWidgetExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecordersWidgetExtension.debug.xcconfig"; path = "Target Support Files/Pods-RecordersWidgetExtension/Pods-RecordersWidgetExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		49BFAF13CA1E780FC2651251 /* Pods_Arc_Mini.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Arc_Mini.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		85A052185CDD9B73636FE978 /* Pods-Arc Mini.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Arc Mini.debug.xcconfig"; path = "Target Support Files/Pods-Arc Mini/Pods-Arc Mini.debug.xcconfig"; sourceTree = "<group>"; };
+		90D296A8D1D889A0FBBEF51E /* Pods-RecordersWidgetExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecordersWidgetExtension.release.xcconfig"; path = "Target Support Files/Pods-RecordersWidgetExtension/Pods-RecordersWidgetExtension.release.xcconfig"; sourceTree = "<group>"; };
+		9162A14B29BDED2585FC47B5 /* Pods_RecordersWidgetExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RecordersWidgetExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C90C27362439DCCC00A36251 /* NavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBar.swift; sourceTree = "<group>"; };
 		C90D78532428FBA2004ABFD0 /* PathEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathEditView.swift; sourceTree = "<group>"; };
 		C90D78632428FFCE004ABFD0 /* PlaceCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceCache.swift; sourceTree = "<group>"; };
@@ -136,6 +170,7 @@
 		C969D1DD245199B600874305 /* ArcAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcAnnotation.swift; sourceTree = "<group>"; };
 		C96E00B72449B3AD00A3635F /* TasksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksManager.swift; sourceTree = "<group>"; };
 		C970732C243889D400E3B938 /* LocoKit+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocoKit+extensions.swift"; sourceTree = "<group>"; };
+		C977E57324AB600700B2F0BA /* RecordersWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RecordersWidgetExtension.entitlements; sourceTree = "<group>"; };
 		C97C193B2432164700FC45A1 /* ItemSegmentEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSegmentEditView.swift; sourceTree = "<group>"; };
 		C97DCDEA242395C3006437B7 /* ItemDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsView.swift; sourceTree = "<group>"; };
 		C9822A7F240CF8D5006B70F4 /* Arc Mini.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Arc Mini.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,6 +197,13 @@
 		C9B86B87242CAD8900D52C0D /* ArcError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcError.swift; sourceTree = "<group>"; };
 		C9BF95362446F959000F3299 /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		C9BF9538244744CC000F3299 /* DeleteVisitAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteVisitAlert.swift; sourceTree = "<group>"; };
+		C9C045C624A891B300C1A99C /* RecordersWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RecordersWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9C045C724A891B300C1A99C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		C9C045C924A891B300C1A99C /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		C9C045CC24A891B300C1A99C /* RecordersWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordersWidget.swift; sourceTree = "<group>"; };
+		C9C045CE24A891B500C1A99C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C9C045D024A891B500C1A99C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9C045D924A89CAA00C1A99C /* WidgetState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetState.swift; sourceTree = "<group>"; };
 		C9C5C008242FB2C700BC064E /* MapState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapState.swift; sourceTree = "<group>"; };
 		C9C6FBF1243333D3004F868C /* TimelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineState.swift; sourceTree = "<group>"; };
 		C9C827AC243C7B1E00F3199B /* Calendar+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+extensions.swift"; sourceTree = "<group>"; };
@@ -196,6 +238,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C9C045C324A891B300C1A99C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9C045CA24A891B300C1A99C /* SwiftUI.framework in Frameworks */,
+				C9C045C824A891B300C1A99C /* WidgetKit.framework in Frameworks */,
+				AD1E3112F2FD3C6C4B8E8F75 /* Pods_RecordersWidgetExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -205,6 +257,9 @@
 				C9F32F49242A60A100184862 /* HealthKit.framework */,
 				C953392624126E250005E98F /* MapKit.framework */,
 				49BFAF13CA1E780FC2651251 /* Pods_Arc_Mini.framework */,
+				C9C045C724A891B300C1A99C /* WidgetKit.framework */,
+				C9C045C924A891B300C1A99C /* SwiftUI.framework */,
+				9162A14B29BDED2585FC47B5 /* Pods_RecordersWidgetExtension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -214,6 +269,8 @@
 			children = (
 				85A052185CDD9B73636FE978 /* Pods-Arc Mini.debug.xcconfig */,
 				E9A51D53A86269BDF7C3EB1A /* Pods-Arc Mini.release.xcconfig */,
+				20E416AF0980D8060B59267C /* Pods-RecordersWidgetExtension.debug.xcconfig */,
+				90D296A8D1D889A0FBBEF51E /* Pods-RecordersWidgetExtension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -358,7 +415,9 @@
 		C9822A76240CF8D5006B70F4 = {
 			isa = PBXGroup;
 			children = (
+				C977E57324AB600700B2F0BA /* RecordersWidgetExtension.entitlements */,
 				C9822A81240CF8D5006B70F4 /* Arc Mini */,
+				C9C045CB24A891B300C1A99C /* RecordersWidget */,
 				C9822A80240CF8D5006B70F4 /* Products */,
 				B22ED509648B34F49EC36016 /* Pods */,
 				0309A64F2B5F60D9E14F1F4E /* Frameworks */,
@@ -369,6 +428,7 @@
 			isa = PBXGroup;
 			children = (
 				C9822A7F240CF8D5006B70F4 /* Arc Mini.app */,
+				C9C045C624A891B300C1A99C /* RecordersWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -409,6 +469,17 @@
 				C99F5EC3242A3F8600E172AE /* FSOAuth.m */,
 			);
 			path = Foursquare;
+			sourceTree = "<group>";
+		};
+		C9C045CB24A891B300C1A99C /* RecordersWidget */ = {
+			isa = PBXGroup;
+			children = (
+				C9C045CC24A891B300C1A99C /* RecordersWidget.swift */,
+				C9C045D924A89CAA00C1A99C /* WidgetState.swift */,
+				C9C045CE24A891B500C1A99C /* Assets.xcassets */,
+				C9C045D024A891B500C1A99C /* Info.plist */,
+			);
+			path = RecordersWidget;
 			sourceTree = "<group>";
 		};
 		C9C6FBF3243333D9004F868C /* View Models */ = {
@@ -477,10 +548,12 @@
 				C9822A7C240CF8D5006B70F4 /* Frameworks */,
 				C9822A7D240CF8D5006B70F4 /* Resources */,
 				8D8C8963E71905193BAF6937 /* [CP] Embed Pods Frameworks */,
+				C9C045D424A891B500C1A99C /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C9C045D224A891B500C1A99C /* PBXTargetDependency */,
 			);
 			name = "Arc Mini";
 			packageProductDependencies = (
@@ -495,6 +568,24 @@
 			productReference = C9822A7F240CF8D5006B70F4 /* Arc Mini.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C9C045C524A891B300C1A99C /* RecordersWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9C045D724A891B500C1A99C /* Build configuration list for PBXNativeTarget "RecordersWidgetExtension" */;
+			buildPhases = (
+				D2677A903AFD0C2CCD2A8613 /* [CP] Check Pods Manifest.lock */,
+				C9C045C224A891B300C1A99C /* Sources */,
+				C9C045C324A891B300C1A99C /* Frameworks */,
+				C9C045C424A891B300C1A99C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RecordersWidgetExtension;
+			productName = RecordersWidgetExtension;
+			productReference = C9C045C624A891B300C1A99C /* RecordersWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -505,12 +596,12 @@
 				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Matt Greenfield";
 				TargetAttributes = {
-					C9661A1524A7753E0045CF53 = {
-						CreatedOnToolsVersion = 12.0;
-					};
 					C9822A7E240CF8D5006B70F4 = {
 						CreatedOnToolsVersion = 11.3.1;
 						LastSwiftMigration = 1140;
+					};
+					C9C045C524A891B300C1A99C = {
+						CreatedOnToolsVersion = 12.0;
 					};
 				};
 			};
@@ -536,6 +627,7 @@
 			projectRoot = "";
 			targets = (
 				C9822A7E240CF8D5006B70F4 /* Arc Mini */,
+				C9C045C524A891B300C1A99C /* RecordersWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -548,6 +640,14 @@
 				C9BF95372446F959000F3299 /* Config.plist in Resources */,
 				C9822A8F240CF8D8006B70F4 /* LaunchScreen.storyboard in Resources */,
 				C9822A89240CF8D8006B70F4 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9C045C424A891B300C1A99C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9C045CF24A891B500C1A99C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,6 +693,28 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Arc Mini/Pods-Arc Mini-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D2677A903AFD0C2CCD2A8613 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RecordersWidgetExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -625,6 +747,7 @@
 				C95E0E2D2417B773008418A1 /* ArcVisit.swift in Sources */,
 				C92BF627241D06AD0089E4AD /* PathPolyline.swift in Sources */,
 				C90C27372439DCCC00A36251 /* NavBar.swift in Sources */,
+				C9C045DA24A89CAA00C1A99C /* WidgetState.swift in Sources */,
 				C9C6FBF2243333D3004F868C /* TimelineState.swift in Sources */,
 				C928C2EF2443522300586121 /* RecordingDebugView.swift in Sources */,
 				C9DAA083249F97BE004BA946 /* ThinkingListBox.swift in Sources */,
@@ -674,7 +797,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C9C045C224A891B300C1A99C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9C045CD24A891B300C1A99C /* RecordersWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C9C045D224A891B500C1A99C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C9C045C524A891B300C1A99C /* RecordersWidgetExtension */;
+			targetProxy = C9C045D124A891B500C1A99C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C9822A8D240CF8D8006B70F4 /* LaunchScreen.storyboard */ = {
@@ -816,7 +955,7 @@
 				DEVELOPMENT_TEAM = U5N7VG8DUG;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Arc Mini/Core/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -842,16 +981,65 @@
 				DEVELOPMENT_TEAM = U5N7VG8DUG;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Arc Mini/Core/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigpaua.ArcMini;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Arc Mini/Core/BridgingHeader.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		C9C045D524A891B500C1A99C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 20E416AF0980D8060B59267C /* Pods-RecordersWidgetExtension.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = RecordersWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 5;
+				DEVELOPMENT_TEAM = U5N7VG8DUG;
+				INFOPLIST_FILE = RecordersWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.bigpaua.ArcMini.RecordersWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C9C045D624A891B500C1A99C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 90D296A8D1D889A0FBBEF51E /* Pods-RecordersWidgetExtension.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = RecordersWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 5;
+				DEVELOPMENT_TEAM = U5N7VG8DUG;
+				INFOPLIST_FILE = RecordersWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.bigpaua.ArcMini.RecordersWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -872,6 +1060,15 @@
 			buildConfigurations = (
 				C9822A94240CF8D8006B70F4 /* Debug */,
 				C9822A95240CF8D8006B70F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C9C045D724A891B500C1A99C /* Build configuration list for PBXNativeTarget "RecordersWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9C045D524A891B500C1A99C /* Debug */,
+				C9C045D624A891B500C1A99C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
