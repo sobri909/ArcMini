@@ -9,7 +9,6 @@
 import UIKit
 import LocoKit
 import SwiftNotes
-import BackgroundTasks
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         LocoKitService.apiKey = "bee1aa1af978486b9186780a07cc240e"
         ActivityTypesCache.highlander.store = RecordingManager.store
         LocomotionManager.highlander.coordinateAssessor = CoordinateTrustManager(store: RecordingManager.store)
-        LocomotionManager.highlander.appGroup = Settings.highlander.appGroup
+        LocomotionManager.highlander.appGroup = AppGroup(appName: .arcMini, suiteName: "group.ArcApp")
 
         UIDevice.current.isBatteryMonitoringEnabled = true
 
@@ -43,6 +42,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         when(ProcessInfo.thermalStateDidChangeNotification) { _ in
             self.thermalStateChanged()
+        }
+
+        when(.tookOverRecording) { _ in
+            logger.info("tookOverRecording")
+        }
+
+        when(.concededRecording) { _ in
+            logger.info("concededRecording")
         }
 
         applyUIAppearanceOverrides()
@@ -70,20 +77,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func thermalStateChanged() {
         AppDelegate.thermalState = ProcessInfo.processInfo.thermalState
         logger.info("thermalState: \(AppDelegate.thermalState.stringValue)")
-    }
-
-    // MARK: UISceneSession Lifecycle
-
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
-    }
-
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
     // MARK: - Memory footprint

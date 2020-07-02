@@ -36,22 +36,20 @@ class RecordingManager {
         when(loco, does: .wentFromSleepModeToRecording) { _ in
             self.didStartSleeping()
         }
-
-        when(loco, does: .recordingStateChanged) { _ in
-            Settings.highlander.appGroup.save()
-        }
     }
 
     func startRecording() {
-        defer { Settings.highlander.appGroup.save() }
-
         guard Settings.recordingOn else { return }
         guard Settings.shouldAttemptToUseCoreMotion else { return }
 
-        if Settings.highlander.appGroup.shouldBeTheRecorder {
-            recorder.startRecording()
+        if let appGroup = loco.appGroup, appGroup.haveMultipleRecorders {
+            if appGroup.shouldBeTheRecorder {
+                recorder.startRecording()
+            } else {
+                LocomotionManager.highlander.startStandby()
+            }
         } else {
-            LocomotionManager.highlander.startStandby()
+            recorder.startRecording()
         }
 
         // start the safety nets

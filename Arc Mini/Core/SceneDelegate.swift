@@ -22,25 +22,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.scene = scene
     }
 
-    func sceneDidDisconnect(_ scene: UIScene) {
-        logger.info("sceneDidDisconnect")
-    }
-
     func sceneDidBecomeActive(_ scene: UIScene) {
         if self.window == nil {
             RecordingManager.store.recorder?.updateCurrentItem()
         }
         growAFullHead()
+        Jobs.highlander.didBecomeActive()
+
+        // take over recording in foreground
+        let loco = LocomotionManager.highlander
+        if let appGroup = loco.appGroup, appGroup.haveMultipleRecorders, !appGroup.isTheCurrentRecorder {
+            loco.becomeTheActiveRecorder()
+        }
     }
-
-    func sceneWillResignActive(_ scene: UIScene) {}
-
-    func sceneWillEnterForeground(_ scene: UIScene) {}
 
     func sceneDidEnterBackground(_ scene: UIScene) {
         if LocomotionManager.highlander.recordingState == .standby {
             goFullyHeadless()
         }
+        Jobs.highlander.didEnterBackground()
     }
 
     // MARK: -
