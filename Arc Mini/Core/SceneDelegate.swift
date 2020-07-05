@@ -31,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // take over recording in foreground
         let loco = LocomotionManager.highlander
-        if let appGroup = loco.appGroup, appGroup.haveMultipleRecorders, !appGroup.isTheCurrentRecorder {
+        if let appGroup = loco.appGroup, !appGroup.isAnActiveRecorder {
             loco.becomeTheActiveRecorder()
         }
     }
