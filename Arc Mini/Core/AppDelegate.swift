@@ -49,7 +49,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         when(.concededRecording) { _ in
-            logger.info("concededRecording")
+            if let currentRecorder = LocomotionManager.highlander.appGroup?.currentRecorder {
+                logger.info("concededRecording to \(currentRecorder.appName)")
+            } else {
+                logger.info("concededRecording to UNKNOWN!")
+            }
         }
 
         applyUIAppearanceOverrides()
