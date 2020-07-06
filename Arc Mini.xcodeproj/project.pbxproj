@@ -415,7 +415,6 @@
 		C9822A76240CF8D5006B70F4 = {
 			isa = PBXGroup;
 			children = (
-				C977E57324AB600700B2F0BA /* RecordersWidgetExtension.entitlements */,
 				C9822A81240CF8D5006B70F4 /* Arc Mini */,
 				C9C045CB24A891B300C1A99C /* RecordersWidget */,
 				C9822A80240CF8D5006B70F4 /* Products */,
@@ -451,6 +450,7 @@
 			isa = PBXGroup;
 			children = (
 				C941494824704B3900C89424 /* Arc Mini.entitlements */,
+				C977E57324AB600700B2F0BA /* RecordersWidgetExtension.entitlements */,
 				C99F5EC1242A3F8500E172AE /* BridgingHeader.h */,
 				C9BF95362446F959000F3299 /* Config.plist */,
 				C9822A90240CF8D8006B70F4 /* Info.plist */,
@@ -1001,7 +1001,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = RecordersWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Arc Mini/Core/RecordersWidgetExtension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = U5N7VG8DUG;
@@ -1025,7 +1025,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = RecordersWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Arc Mini/Core/RecordersWidgetExtension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = U5N7VG8DUG;
