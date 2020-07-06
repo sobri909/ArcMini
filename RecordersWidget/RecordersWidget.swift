@@ -46,23 +46,35 @@ struct RecordersWidgetEntryView: View {
 
     var body: some View {
         VStack {
-            Text(entry.date, style: .time)
+            HStack {
+                Text("ARC RECORDERS").font(.system(.headline))
+                Spacer()
+                (Text(entry.date, style: .relative) + Text(" ago")).font(.system(.headline))
+            }.frame(height: 40)
             ForEach(appGroup.sortedApps, id: \.updated) { appState in
-                self.row(
-                    leftText: appState.appName.rawValue,
-                    rightText: "\(appState.recordingState.rawValue) (\(String(duration: appState.updated.age)) ago)",
-                    highlight: appState.isAliveAndRecording, fade: !appState.isAlive
-                ).frame(height: 20)
+                if appState.isAlive {
+                    self.row(
+                        leftText: appState.appName.rawValue,
+                        rightText: Text(appState.recordingState.rawValue),
+                        isActiveRecorder: appState.isAliveAndRecording, isAlive: true
+                    ).frame(height: 28)
+                } else {
+                    self.row(
+                        leftText: appState.appName.rawValue,
+                        rightText: Text(appState.recordingState.rawValue) + Text(" (") + Text(appState.updated, style: .relative) + Text(" ago)"),
+                        isActiveRecorder: appState.isAliveAndRecording, isAlive: false
+                    ).frame(height: 28)
+                }
             }
         }.padding([.leading, .trailing], 20)
     }
 
-    func row(leftText: String, rightText: String, highlight: Bool = false, fade: Bool = false) -> some View {
-        let font = highlight ? Font.system(.footnote).bold() : Font.system(.footnote)
+    func row(leftText: String, rightText: Text, isActiveRecorder: Bool = false, isAlive: Bool = false) -> some View {
+        let font = isActiveRecorder ? Font.system(.footnote).bold() : Font.system(.footnote)
         return HStack {
-            Text(leftText).font(font).opacity(fade ? 0.6 : 1)
+            Text(leftText).strikethrough(!isAlive).font(font).opacity(isAlive ? 1 : 0.6)
             Spacer()
-            Text(rightText).font(font).opacity(0.6).opacity(fade ? 0.6 : 1)
+            rightText.strikethrough(!isAlive).font(font).opacity(0.6)
         }
     }
 
