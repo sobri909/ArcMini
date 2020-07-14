@@ -14,6 +14,8 @@ import CoreLocation
 
 class PlaceClassifier: ObservableObject {
 
+    private static let updatesQueue = DispatchQueue(label: "placeClassifierUpdates", qos: .utility)
+
     var visit: ArcVisit?
     var segment: ItemSegment?
     var overlappersOnly = false
@@ -30,7 +32,7 @@ class PlaceClassifier: ObservableObject {
         PlaceCache.cache.flushFoursquareResultsIndexes()
         queryObserver = $query
             .removeDuplicates()
-            .debounce(for: 0.3, scheduler: DispatchQueue.main)
+            .debounce(for: 0.3, scheduler: PlaceClassifier.updatesQueue)
             .sink { newQuery in
                 self.debouncedQuery = newQuery
                 self.updateResults(includingRemote: true)
@@ -64,8 +66,6 @@ class PlaceClassifier: ObservableObject {
         if overlappersOnly && !query.isEmpty {
             logger.error("Cant use a query string on an overlappers only classifier.")
         }
-
-//        print("updateResults(includingRemote: \(includingRemote))")
 
         let places = fetchMatchingPlaces()
 
