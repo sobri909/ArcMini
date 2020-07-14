@@ -13,16 +13,13 @@ import LocoKit
 struct Provider: TimelineProvider {
     public typealias Entry = SimpleEntry
 
-    let appGroup = AppGroup(appName: .arcMini, suiteName: "group.ArcApp", readOnly: true)
-
     public func snapshot(with context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), sortedApps: appGroup.sortedApps)
+        let entry = SimpleEntry(date: Date())
         completion(entry)
     }
 
     public func timeline(with context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        let appGroup = AppGroup(appName: .arcMini, suiteName: "group.ArcApp", readOnly: true)
-        let entries: [SimpleEntry] = [SimpleEntry(date: Date(), sortedApps: appGroup.sortedApps)]
+        let entries: [SimpleEntry] = [SimpleEntry(date: Date())]
         let timeline = Timeline(entries: entries, policy: .atEnd)
         completion(timeline)
     }
@@ -30,7 +27,6 @@ struct Provider: TimelineProvider {
 
 struct SimpleEntry: TimelineEntry {
     public let date: Date
-    public let sortedApps: [LocoKit.AppGroup.AppState]
 }
 
 struct PlaceholderView: View {
@@ -40,23 +36,32 @@ struct PlaceholderView: View {
 }
 
 struct RecordersWidgetEntryView: View {
+
+    @Environment(\.widgetFamily) var family
     var entry: Provider.Entry
 
     let appGroup = AppGroup(appName: .arcMini, suiteName: "group.ArcApp", readOnly: true)
 
     var body: some View {
-        VStack {
-            HStack {
-                Text("ARC RECORDERS").font(.system(.headline))
-                Spacer()
-                (Text(entry.date, style: .relative) + Text(" ago")).font(.system(.headline))
-            }.frame(height: 40)
+        VStack(alignment: .leading) {
+            if family == .systemSmall {
+                HStack {
+                    (Text(entry.date, style: .relative) + Text(" ago")).font(.system(.headline))
+                    Spacer()
+                }.frame(height: 40)
+            } else {
+                HStack {
+                    Text("ARC RECORDERS").font(.system(.headline))
+                    Spacer()
+                    (Text(entry.date, style: .relative) + Text(" ago")).font(.system(.headline))
+                }.frame(height: 40)
+            }
             ForEach(appGroup.sortedApps, id: \.updated) { appState in
-                if appState.isAlive {
+                if appState.isAlive || family == .systemSmall {
                     self.row(
                         leftText: appState.appName.rawValue,
                         rightText: Text(appState.recordingState.rawValue),
-                        isActiveRecorder: appState.isAliveAndRecording, isAlive: true
+                        isActiveRecorder: appState.isAliveAndRecording, isAlive: appState.isAlive
                     ).frame(height: 28)
                 } else {
                     self.row(
@@ -66,7 +71,7 @@ struct RecordersWidgetEntryView: View {
                     ).frame(height: 28)
                 }
             }
-        }.padding([.leading, .trailing], 20)
+        }.padding([.leading, .trailing], family == .systemSmall ? 12 : 20)
     }
 
     func row(leftText: String, rightText: Text, isActiveRecorder: Bool = false, isAlive: Bool = false) -> some View {
