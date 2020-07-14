@@ -23,9 +23,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-        if self.window == nil {
-            RecordingManager.store.recorder?.updateCurrentItem()
-        }
         growAFullHead()
         Jobs.highlander.didBecomeActive()
 
