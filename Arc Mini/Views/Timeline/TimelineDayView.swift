@@ -26,7 +26,11 @@ struct TimelineDayView: View {
         return ZStack(alignment: .trailing) {
             List {
                 ForEach(filteredListItems) { timelineItem in
-                    listBox(for: timelineItem)
+                    listBox(for: timelineItem).onAppear {
+                        if let visit = timelineItem as? ArcVisit, visit.isWorthKeeping {
+                            visit.findAPlace()
+                        }
+                    }
                 }
             }
             Rectangle().fill(Color("brandSecondary10")).frame(width: 0.5).edgesIgnoringSafeArea(.all)
@@ -39,13 +43,6 @@ struct TimelineDayView: View {
             timelineState.backButtonHidden = true
             timelineState.updateTodayButton()
             timelineState.mapHeightPercent = TimelineState.rootMapHeightPercent
-
-            // do place finds
-            for case let visit as ArcVisit in timelineSegment.timelineItems {
-                if visit.isWorthKeeping {
-                    visit.findAPlace()
-                }
-            }
         }
         .background(Color("background"))
     }
