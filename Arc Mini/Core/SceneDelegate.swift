@@ -9,6 +9,8 @@
 import UIKit
 import SwiftUI
 import LocoKit
+import WidgetKit
+import SwiftNotes
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -17,6 +19,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var mapState = MapState()
     var timelineState = TimelineState()
+
+    override init() {
+        super.init()
+
+        when(.tookOverRecording) { _ in
+            logger.info("tookOverRecording")
+            WidgetCenter.shared.reloadAllTimelines()
+        }
+
+        when(.concededRecording) { _ in
+            if let currentRecorder = LocomotionManager.highlander.appGroup?.currentRecorder {
+                logger.info("concededRecording to \(currentRecorder.appName)")
+            } else {
+                logger.info("concededRecording to UNKNOWN!")
+            }
+            WidgetCenter.shared.reloadAllTimelines()
+            self.goFullyHeadless()
+            RecordingManager.store.disconnectFromDatabase()
+        }
+    }
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         self.scene = scene

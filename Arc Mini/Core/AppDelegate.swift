@@ -9,7 +9,6 @@
 import UIKit
 import LocoKit
 import SwiftNotes
-import WidgetKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -43,20 +42,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         when(ProcessInfo.thermalStateDidChangeNotification) { _ in
             self.thermalStateChanged()
-        }
-
-        when(.tookOverRecording) { _ in
-            logger.info("tookOverRecording")
-            WidgetCenter.shared.reloadAllTimelines()
-        }
-
-        when(.concededRecording) { _ in
-            if let currentRecorder = LocomotionManager.highlander.appGroup?.currentRecorder {
-                logger.info("concededRecording to \(currentRecorder.appName)")
-            } else {
-                logger.info("concededRecording to UNKNOWN!")
-            }
-            WidgetCenter.shared.reloadAllTimelines()
         }
 
         applyUIAppearanceOverrides()
