@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Sentry
 import LocoKit
 import SwiftNotes
 
@@ -22,6 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - App lifecycle
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        SentrySDK.start { options in
+            options.dsn = "https://ff48c9da997d4f0ebc64769c2f2a595a@o419677.ingest.sentry.io/5345356"
+            options.debug = true // Enabled debug when first installing is always helpful
+        }
+
         logger.info("didFinishLaunchingWithOptions")
 
         LocoKitService.apiKey = "bee1aa1af978486b9186780a07cc240e"

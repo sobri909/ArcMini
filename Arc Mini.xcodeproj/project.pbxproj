@@ -58,6 +58,7 @@
 		C9822A89240CF8D8006B70F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9822A88240CF8D8006B70F4 /* Assets.xcassets */; };
 		C9822A8F240CF8D8006B70F4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9822A8D240CF8D8006B70F4 /* LaunchScreen.storyboard */; };
 		C983603024969AFE007940F6 /* HeadlessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C983602F24969AFE007940F6 /* HeadlessView.swift */; };
+		C985BBEC24C34EAE001ACFB0 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = C985BBEB24C34EAE001ACFB0 /* Sentry */; };
 		C98783042435F1EB001B4E7D /* SegmentAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98783032435F1EB001B4E7D /* SegmentAnnotationView.swift */; };
 		C98967EC2435F27200D55AFE /* SegmentAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98967EB2435F27200D55AFE /* SegmentAnnotation.swift */; };
 		C99325942430EE59005299DC /* RowButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99325932430EE59005299DC /* RowButtonStyle.swift */; };
@@ -231,6 +232,7 @@
 				C9C827B2243DDA7100F3199B /* Logging in Frameworks */,
 				C994D5F324559A5D003B3152 /* AEXML in Frameworks */,
 				C9524005242F3DE000F4522D /* SwiftNotes in Frameworks */,
+				C985BBEC24C34EAE001ACFB0 /* Sentry in Frameworks */,
 				C9C96AB224278052006D2E5B /* Introspect in Frameworks */,
 				C9C827B5243DEB0000F3199B /* LoggingFormatAndPipe in Frameworks */,
 				09C227A470BFD8839C9491BB /* Pods_Arc_Mini.framework in Frameworks */,
@@ -549,6 +551,7 @@
 				C9822A7D240CF8D5006B70F4 /* Resources */,
 				8D8C8963E71905193BAF6937 /* [CP] Embed Pods Frameworks */,
 				C9C045D424A891B500C1A99C /* Embed App Extensions */,
+				C985BBED24C34FC6001ACFB0 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -563,6 +566,7 @@
 				C9C827B1243DDA7100F3199B /* Logging */,
 				C9C827B4243DEB0000F3199B /* LoggingFormatAndPipe */,
 				C994D5F224559A5D003B3152 /* AEXML */,
+				C985BBEB24C34EAE001ACFB0 /* Sentry */,
 			);
 			productName = "Arc Mini";
 			productReference = C9822A7F240CF8D5006B70F4 /* Arc Mini.app */;
@@ -621,6 +625,7 @@
 				C9C827B0243DDA7100F3199B /* XCRemoteSwiftPackageReference "swift-log" */,
 				C9C827B3243DEB0000F3199B /* XCRemoteSwiftPackageReference "swift-log-format-and-pipe" */,
 				C994D5F124559A5D003B3152 /* XCRemoteSwiftPackageReference "AEXML" */,
+				C985BBEA24C34EAE001ACFB0 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 			);
 			productRefGroup = C9822A80240CF8D5006B70F4 /* Products */;
 			projectDirPath = "";
@@ -692,6 +697,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Arc Mini/Pods-Arc Mini-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		C985BBED24C34FC6001ACFB0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "if which sentry-cli >/dev/null; then\nexport SENTRY_ORG=big-paua\nexport SENTRY_PROJECT=big-paua\nexport SENTRY_AUTH_TOKEN=90e9d2c99a6b42f892b17ce782df5b93b295bd835b9d446c9b994c5dcf20bad4\nERROR=$(sentry-cli upload-dif \"$DWARF_DSYM_FOLDER_PATH\" 2>&1 >/dev/null)\nif [ ! $? -eq 0 ]; then\necho \"warning: sentry-cli - $ERROR\"\nfi\nelse\necho \"warning: sentry-cli not installed, download from https://github.com/getsentry/sentry-cli/releases\"\nfi\n";
 		};
 		D2677A903AFD0C2CCD2A8613 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1084,6 +1106,14 @@
 				kind = branch;
 			};
 		};
+		C985BBEA24C34EAE001ACFB0 /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/getsentry/sentry-cocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.9;
+			};
+		};
 		C994D5F124559A5D003B3152 /* XCRemoteSwiftPackageReference "AEXML" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tadija/AEXML";
@@ -1131,6 +1161,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C9524003242F3DE000F4522D /* XCRemoteSwiftPackageReference "SwiftNotes" */;
 			productName = SwiftNotes;
+		};
+		C985BBEB24C34EAE001ACFB0 /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C985BBEA24C34EAE001ACFB0 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
 		};
 		C994D5F224559A5D003B3152 /* AEXML */ = {
 			isa = XCSwiftPackageProductDependency;
