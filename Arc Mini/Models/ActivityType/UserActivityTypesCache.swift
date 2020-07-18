@@ -176,13 +176,19 @@ final class UserActivityTypesCache: MLModelSource {
     var backgroundTaskExpired = false
 
     func updateQueuedModels(task: BGProcessingTask) {
+
+        // handle background expiration
         if backgroundTaskExpired {
             TasksManager.update(.activityTypeModelUpdates, to: .expired)
+            if !LocomotionManager.highlander.recordingState.isCurrentRecorder {
+                store.disconnectFromDatabase()
+            }
             task.setTaskCompleted(success: false)
             TasksManager.highlander.scheduleBackgroundTasks()
             return
         }
 
+        // catch background expiration
         if task.expirationHandler == nil {
             backgroundTaskExpired = false
             task.expirationHandler = {
@@ -190,12 +196,18 @@ final class UserActivityTypesCache: MLModelSource {
             }
         }
 
+        // do the job
+        store.connectToDatabase()
         if let model = store.userModel(where: "isShared = 0 AND needsUpdate = 1") {
             model.update(task: task) // this will recurse back to here on completion
             return
         }
 
+        // job's finished
         TasksManager.update(.activityTypeModelUpdates, to: .completed)
+        if !LocomotionManager.highlander.recordingState.isCurrentRecorder {
+            store.disconnectFromDatabase()
+        }
         task.setTaskCompleted(success: true)
     }
 

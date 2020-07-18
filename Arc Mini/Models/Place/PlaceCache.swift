@@ -142,13 +142,19 @@ class PlaceCache {
     var backgroundTaskExpired = false
 
     func updateQueuedPlaces(task: BGProcessingTask) {
+
+        // handle background expiration
         if backgroundTaskExpired {
             TasksManager.update(.placeModelUpdates, to: .expired)
+            if !LocomotionManager.highlander.recordingState.isCurrentRecorder {
+                store.disconnectFromDatabase()
+            }
             task.setTaskCompleted(success: false)
             TasksManager.highlander.scheduleBackgroundTasks()
             return
         }
 
+        // catch background expiration
         if task.expirationHandler == nil {
             backgroundTaskExpired = false
             task.expirationHandler = {
@@ -156,12 +162,18 @@ class PlaceCache {
             }
         }
 
+        // do the job
+        store.connectToDatabase()
         if let place = store.place(where: "needsUpdate = 1") {
             place.updateStatistics(task: task) // this will recurse back to here on completion
             return
         }
 
+        // job's finished
         TasksManager.update(.placeModelUpdates, to: .completed)
+        if !LocomotionManager.highlander.recordingState.isCurrentRecorder {
+            store.disconnectFromDatabase()
+        }
         task.setTaskCompleted(success: true)
     }
 

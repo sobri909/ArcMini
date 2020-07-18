@@ -241,6 +241,8 @@ final class ArcStore: TimelineStore {
     override func migrateDatabases() {
         super.migrateDatabases()
 
+        guard let pool = pool else { fatalError("Attempting to access the database when disconnected") }
+
         Migrations.addLocoKitMigrations(to: &migrator)
         Migrations.addLocoKitAuxiliaryMigrations(to: &auxiliaryDbMigrator)
         Migrations.addArcMigrations(to: &arcMigrator)

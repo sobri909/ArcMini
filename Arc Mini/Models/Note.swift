@@ -50,8 +50,9 @@ class Note: TimelineObject, Encodable {
     var lastSaved: Date?
 
     func save(immediate: Bool = true) {
+        guard let pool = store?.pool else { fatalError("Attempting to access the database when disconnected") }
         do {
-            try store?.pool.write { db in
+            try pool.write { db in
                 self.transactionDate = Date()
                 try self.save(in: db)
                 self.lastSaved = self.transactionDate
@@ -62,9 +63,10 @@ class Note: TimelineObject, Encodable {
     }
 
     func saveNoDate() {
+        guard let pool = store?.pool else { fatalError("Attempting to access the database when disconnected") }
         hasChanges = true
         do {
-            try store?.pool.write { db in
+            try pool.write { db in
                 try self.save(in: db)
             }
         } catch {

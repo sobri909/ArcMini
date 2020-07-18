@@ -100,7 +100,7 @@ class UserActivityType: MutableActivityType {
         }
     }
 
-    var shouldUpdate: Bool {
+    private var shouldUpdate: Bool {
         if isShared { return false }
 
         // never updated?
@@ -112,10 +112,12 @@ class UserActivityType: MutableActivityType {
         // is empty?
         if totalSamples == 0 { return true }
 
+        guard let pool = RecordingManager.store.pool else { fatalError("Attempting to access the database when disconnected") }
+
         do {
             let query = "SELECT MAX(lastSaved) FROM LocomotionSample "
                 + "WHERE confirmedType = ? AND latitude > ? AND latitude < ? AND longitude > ? AND longitude < ?"
-            let lastSavedSample = try RecordingManager.store.pool.read { db in
+            let lastSavedSample = try pool.read { db in
                 return try Date.fetchOne(db, sql: query, arguments: [name.rawValue, latitudeRange.min, latitudeRange.max,
                                                                      longitudeRange.min, longitudeRange.max])
             }

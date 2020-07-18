@@ -55,14 +55,22 @@ class TasksManager {
 
         register(.updateTrustFactors, queue: Jobs.highlander.secondaryQueue.underlyingQueue) { task in
             TasksManager.update(.updateTrustFactors, to: .running)
+            RecordingManager.store.connectToDatabase()
             (LocomotionManager.highlander.coordinateAssessor as? CoordinateTrustManager)?.updateTrustFactors()
+            if !LocomotionManager.highlander.recordingState.isCurrentRecorder {
+                RecordingManager.store.disconnectFromDatabase()
+            }
             TasksManager.update(.updateTrustFactors, to: .completed)
             task.setTaskCompleted(success: true)
         }
 
         register(.sanitiseStore, queue: Jobs.highlander.secondaryQueue.underlyingQueue) { task in
             TasksManager.update(.sanitiseStore, to: .running)
+            RecordingManager.store.connectToDatabase()
             TimelineProcessor.sanitise(store: RecordingManager.store)
+            if !LocomotionManager.highlander.recordingState.isCurrentRecorder {
+                RecordingManager.store.disconnectFromDatabase()
+            }
             TasksManager.update(.sanitiseStore, to: .completed)
             task.setTaskCompleted(success: true)
         }
