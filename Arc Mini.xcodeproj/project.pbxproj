@@ -551,7 +551,6 @@
 				C9822A7D240CF8D5006B70F4 /* Resources */,
 				8D8C8963E71905193BAF6937 /* [CP] Embed Pods Frameworks */,
 				C9C045D424A891B500C1A99C /* Embed App Extensions */,
-				C985BBED24C34FC6001ACFB0 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -697,24 +696,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Arc Mini/Pods-Arc Mini-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		C985BBED24C34FC6001ACFB0 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-			shellPath = /bin/sh;
-			shellScript = "if which sentry-cli >/dev/null; then\nexport SENTRY_ORG=big-paua\nexport SENTRY_PROJECT=big-paua\nexport SENTRY_AUTH_TOKEN=90e9d2c99a6b42f892b17ce782df5b93b295bd835b9d446c9b994c5dcf20bad4\nERROR=$(sentry-cli upload-dif \"$DWARF_DSYM_FOLDER_PATH\" 2>&1 >/dev/null)\nif [ ! $? -eq 0 ]; then\necho \"warning: sentry-cli - $ERROR\"\nfi\nelse\necho \"warning: sentry-cli not installed, download from https://github.com/getsentry/sentry-cli/releases\"\nfi\n";
 		};
 		D2677A903AFD0C2CCD2A8613 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
