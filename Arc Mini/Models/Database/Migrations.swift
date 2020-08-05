@@ -38,6 +38,17 @@ class Migrations {
                 table.add(column: "swarmCheckinId", .text)
             }
         }
+
+        migrator.registerMigration("Note") { db in
+            try db.create(table: "Note") { table in
+                table.column("noteId", .text).primaryKey()
+                table.column("date", .datetime).notNull().indexed()
+                table.column("lastSaved", .datetime).notNull().indexed()
+                table.column("source", .text).notNull().indexed()
+                table.column("body", .text).notNull().indexed()
+                table.column("deleted", .boolean).notNull().indexed()
+            }
+        }
     }
 
     static func addLocoKitAuxiliaryMigrations(to migrator: inout DatabaseMigrator) {
@@ -87,17 +98,6 @@ class Migrations {
             }
 
             try db.create(index: "Place_on_longitude_latitude", on: "Place", columns: ["longitude", "latitude"])
-        }
-
-        migrator.registerMigration("Note") { db in
-            try db.create(table: "Note") { table in
-                table.column("noteId", .text).primaryKey()
-                table.column("date", .datetime).notNull().indexed()
-                table.column("lastSaved", .datetime).notNull().indexed()
-                table.column("source", .text).notNull().indexed()
-                table.column("body", .text).notNull().indexed()
-                table.column("deleted", .boolean).notNull().indexed()
-            }
         }
 
         migrator.registerMigration("TrackPlay") { db in
