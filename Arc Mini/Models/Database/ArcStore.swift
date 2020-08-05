@@ -148,7 +148,8 @@ final class ArcStore: TimelineStore {
     }
 
     func note(for query: String, arguments: StatementArguments = StatementArguments()) -> Note? {
-        return try! arcPool.read { db in
+        guard let pool = pool else { fatalError("Attempting to access the database when disconnected") }
+        return try! pool.read { db in
             guard let row = try Row.fetchOne(db, sql: query, arguments: arguments) else { return nil }
             return note(for: row)
         }
@@ -159,7 +160,8 @@ final class ArcStore: TimelineStore {
     }
 
     public func notes(for query: String, arguments: StatementArguments = StatementArguments()) -> [Note] {
-        return try! arcPool.read { db in
+        guard let pool = pool else { fatalError("Attempting to access the database when disconnected") }
+        return try! pool.read { db in
             var notes: [Note] = []
             let rows = try Row.fetchCursor(db, sql: query, arguments: arguments)
             while let row = try rows.next() { notes.append(note(for: row)) }
@@ -168,7 +170,8 @@ final class ArcStore: TimelineStore {
     }
 
     func countNotes(where query: String = "1", arguments: StatementArguments = StatementArguments()) -> Int {
-        return try! arcPool.read { db in
+        guard let pool = pool else { fatalError("Attempting to access the database when disconnected") }
+        return try! pool.read { db in
             return try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM Note WHERE " + query, arguments: arguments)!
         }
     }
