@@ -23,9 +23,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - App lifecycle
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        SentrySDK.start { options in
-            options.dsn = "https://ff48c9da997d4f0ebc64769c2f2a595a@o419677.ingest.sentry.io/5345356"
-            options.debug = true // Enabled debug when first installing is always helpful
+        if let sentryDSN = Settings.sentryDSN {
+            SentrySDK.start { options in
+                options.dsn = sentryDSN
+                options.enableAutoSessionTracking = true
+                options.sessionTrackingIntervalMillis = UInt(TimeInterval.oneHour * 6 * 1000)
+                options.debug = true // Enabled debug when first installing is always helpful
+            }
+            if let userId = UIDevice.current.identifierForVendor {
+                SentrySDK.setUser(Sentry.User(userId: userId.uuidString))
+            }
         }
 
         logger.info("didFinishLaunchingWithOptions")
