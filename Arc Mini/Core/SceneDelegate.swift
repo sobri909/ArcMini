@@ -50,6 +50,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // take over recording in foreground
         let loco = LocomotionManager.highlander
         if let appGroup = loco.appGroup, !appGroup.isAnActiveRecorder {
+            RecordingManager.store.connectToDatabase()
             loco.becomeTheActiveRecorder()
         }
 
@@ -67,6 +68,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             guard self.window == nil else { return }
             guard let scene = self.scene as? UIWindowScene else { return }
 
+            RecordingManager.store.connectToDatabase()
+            
             let window = UIWindow(windowScene: scene)
             let rootView = RootView()
                 .environmentObject(self.timelineState)
