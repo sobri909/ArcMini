@@ -240,6 +240,10 @@ class Settings {
         return configPlist?["LastFmAPIKey"] as? String
     }()
 
+    static let sentryDSN: String? = {
+        return configPlist?["SentryDSN"] as? String
+    }()
+
     // MARK: - Subscript
 
     subscript(key: SettingsKey) -> Any? {
