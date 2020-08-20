@@ -70,6 +70,8 @@ class ArcPath: Path, ArcTimelineItem {
 
     var activityTypeConfidenceScore: Double = 0 { didSet { if oldValue != activityTypeConfidenceScore { hasChanges = true } } }
 
+    var workoutRouteId: UUID? { didSet { hasChanges = true } }
+
     func updateManualActivityTypeValue() {
         let previousValue = _manualActivityType
 
