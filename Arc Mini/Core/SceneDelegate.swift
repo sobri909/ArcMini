@@ -36,7 +36,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
             WidgetCenter.shared.reloadAllTimelines()
             self.goFullyHeadless()
-            RecordingManager.store.disconnectFromDatabase()
         }
     }
 
@@ -45,7 +44,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-        Jobs.highlander.didBecomeActive()
 
         // take over recording in foreground
         let loco = LocomotionManager.highlander
@@ -55,10 +53,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         growAFullHead()
-    }
-
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        Jobs.highlander.didEnterBackground()
     }
 
     // MARK: -
@@ -93,6 +87,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.mapState.flush()
 
             logger.info("WENT FULLY HEADLESS")
+
+            RecordingManager.store.disconnectFromDatabase()
         }
     }
 
