@@ -16,7 +16,6 @@ struct ItemDetailsView: View {
     @ObservedObject var timelineItem: TimelineItem
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
-
     var arcItem: ArcTimelineItem { return timelineItem as! ArcTimelineItem }
 
     // MARK: -

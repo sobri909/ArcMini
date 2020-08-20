@@ -64,6 +64,10 @@ struct TimelineDayView: View {
     }
 
     func listBox(for item: TimelineItem) -> some View {
+        
+        // invalidated items can't appear in UI
+        if item.invalidated { return AnyView(EmptyView().listRowInsets(EdgeInsets())) }
+
         // show a "thinking" item for shitty stuff that's still processing or can't be processed yet
         if item.isInvalid || (!item.isWorthKeeping && (RecordingManager.store.processing || activeItems.contains(item) || item.isMergeLocked)) {
             if timelineState.previousListBox is ThinkingListBox {
