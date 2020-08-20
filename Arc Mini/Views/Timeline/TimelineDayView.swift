@@ -78,7 +78,7 @@ struct TimelineDayView: View {
             return AnyView(box.listRowInsets(EdgeInsets()))
         }
 
-        let boxStack = ZStack {
+        let boxStack = NavigationLink(destination: ItemDetailsView(timelineItem: item)) {
             self.timelineItemBox(for: item).onAppear {
                 if self.timelineSegment == self.timelineState.visibleTimelineSegment {
                     if item == self.filteredListItems.first {
@@ -92,10 +92,8 @@ struct TimelineDayView: View {
                     self.mapState.selectedItems.remove(item)
                 }
             }
-            NavigationLink(destination: ItemDetailsView(timelineItem: item)) {
-                EmptyView()
-            }.hidden()
         }
+        .buttonStyle(PlainButtonStyle())
         .listRowInsets(EdgeInsets())
 
         return AnyView(boxStack)
@@ -105,12 +103,12 @@ struct TimelineDayView: View {
         if let visit = item as? ArcVisit {
             let box = VisitListBox(visit: visit)
             timelineState.previousListBox = box
-            return AnyView(box.listRowInsets(EdgeInsets()))
+            return AnyView(box)
         }
         if let path = item as? ArcPath {
             let box = PathListBox(path: path)
             timelineState.previousListBox = box
-            return AnyView(box.listRowInsets(EdgeInsets()))
+            return AnyView(box)
         }
         fatalError("nah")
     }
