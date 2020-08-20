@@ -29,6 +29,8 @@ final class MapView: UIViewRepresentable {
     }
 
     func updateUIView(_ map: MKMapView, context: Context) {
+        guard LocomotionManager.highlander.applicationState == .active else { return }
+        
         map.removeOverlays(map.overlays)
         map.removeAnnotations(map.annotations)
 
