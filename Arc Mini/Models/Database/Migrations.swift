@@ -49,6 +49,12 @@ class Migrations {
                 table.column("deleted", .boolean).notNull().indexed()
             }
         }
+
+        migrator.registerMigration("TimelineItem.workoutRouteId") { db in
+            try? db.alter(table: "TimelineItem") { table in
+                table.add(column: "workoutRouteId", .text).indexed()
+            }
+        }
     }
 
     static func addLocoKitAuxiliaryMigrations(to migrator: inout DatabaseMigrator) {
