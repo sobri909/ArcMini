@@ -13,12 +13,16 @@ import LocoKit
 struct Provider: TimelineProvider {
     public typealias Entry = SimpleEntry
 
-    public func snapshot(with context: Context, completion: @escaping (SimpleEntry) -> ()) {
+    func placeholder(in context: Context) -> SimpleEntry {
+        return SimpleEntry(date: Date())
+    }
+
+    public func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
         let entry = SimpleEntry(date: Date())
         completion(entry)
     }
 
-    public func timeline(with context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
+    public func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         let entries: [SimpleEntry] = [SimpleEntry(date: Date())]
         let timeline = Timeline(entries: entries, policy: .atEnd)
         completion(timeline)
@@ -90,10 +94,10 @@ struct RecordersWidget: Widget {
     private let kind: String = "RecordersWidget"
 
     public var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider(), placeholder: PlaceholderView()) { entry in
+        StaticConfiguration<RecordersWidgetEntryView>(kind: kind, provider: Provider()) { entry in
             RecordersWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("Arc Recorders")
-        .description("The currently alive Arc recorders.")
+        .description("Status of Arc recorders.")
     }
 }
