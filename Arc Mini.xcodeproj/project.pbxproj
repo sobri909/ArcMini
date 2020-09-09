@@ -139,6 +139,8 @@
 		C90D78672428FFCE004ABFD0 /* Place.scores.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.scores.swift; sourceTree = "<group>"; };
 		C90D786E2429006F004ABFD0 /* Migrations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Migrations.swift; sourceTree = "<group>"; };
 		C918CF2D243B1EE90019D350 /* TimelineRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineRootView.swift; sourceTree = "<group>"; };
+		C91CB40624CDB30E00AF0CF1 /* WorkoutImporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutImporter.swift; sourceTree = "<group>"; };
+		C91CB40824CDB86000AF0CF1 /* HealthKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKit.swift; sourceTree = "<group>"; };
 		C928C2EE2443522300586121 /* RecordingDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingDebugView.swift; sourceTree = "<group>"; };
 		C92BF622241D06AD0089E4AD /* VisitCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitCircle.swift; sourceTree = "<group>"; };
 		C92BF623241D06AD0089E4AD /* PathPolyline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathPolyline.swift; sourceTree = "<group>"; };
@@ -293,8 +295,9 @@
 			isa = PBXGroup;
 			children = (
 				C9C827AC243C7B1E00F3199B /* Calendar+extensions.swift */,
-				C970732C243889D400E3B938 /* LocoKit+extensions.swift */,
 				C9C827AE243C830500F3199B /* DispatchQueue.swift */,
+				C91CB40824CDB86000AF0CF1 /* HealthKit.swift */,
+				C970732C243889D400E3B938 /* LocoKit+extensions.swift */,
 				C99F5EBE242A371C00E172AE /* Scraps.swift */,
 			);
 			path = Extensions;
@@ -409,6 +412,7 @@
 				C9524008242F50BA00F4522D /* Maths */,
 				C99F5EB5242A2C5000E172AE /* Note.swift */,
 				C99F5EB4242A2C5000E172AE /* TrackPlay.swift */,
+				C91CB40624CDB30E00AF0CF1 /* WorkoutImporter.swift */,
 				C9B86B87242CAD8900D52C0D /* ArcError.swift */,
 			);
 			path = Models;
