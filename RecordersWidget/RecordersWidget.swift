@@ -33,12 +33,6 @@ struct SimpleEntry: TimelineEntry {
     public let date: Date
 }
 
-struct PlaceholderView: View {
-    var body: some View {
-        Text("Placeholder View")
-    }
-}
-
 struct RecordersWidgetEntryView: View {
 
     @Environment(\.widgetFamily) var family

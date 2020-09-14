@@ -17,6 +17,11 @@
 		C90D786B2428FFCE004ABFD0 /* Place.stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90D78662428FFCE004ABFD0 /* Place.stats.swift */; };
 		C90D786C2428FFCE004ABFD0 /* Place.scores.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90D78672428FFCE004ABFD0 /* Place.scores.swift */; };
 		C90D786F2429006F004ABFD0 /* Migrations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90D786E2429006F004ABFD0 /* Migrations.swift */; };
+		C9120BD2250BBDD80063A2B7 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C045C724A891B300C1A99C /* WidgetKit.framework */; };
+		C9120BD3250BBDD80063A2B7 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C045C924A891B300C1A99C /* SwiftUI.framework */; };
+		C9120BD6250BBDD80063A2B7 /* CurrentItemWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9120BD5250BBDD80063A2B7 /* CurrentItemWidget.swift */; };
+		C9120BD9250BBDDA0063A2B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9120BD8250BBDDA0063A2B7 /* Assets.xcassets */; };
+		C9120BDF250BBDDA0063A2B7 /* CurrentItemWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C9120BD1250BBDD80063A2B7 /* CurrentItemWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C918CF2E243B1EE90019D350 /* TimelineRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C918CF2D243B1EE90019D350 /* TimelineRootView.swift */; };
 		C928C2EF2443522300586121 /* RecordingDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C928C2EE2443522300586121 /* RecordingDebugView.swift */; };
 		C92BF626241D06AD0089E4AD /* VisitCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92BF622241D06AD0089E4AD /* VisitCircle.swift */; };
@@ -80,7 +85,6 @@
 		C9C045CD24A891B300C1A99C /* RecordersWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C045CC24A891B300C1A99C /* RecordersWidget.swift */; };
 		C9C045CF24A891B500C1A99C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9C045CE24A891B500C1A99C /* Assets.xcassets */; };
 		C9C045D324A891B500C1A99C /* RecordersWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C9C045C624A891B300C1A99C /* RecordersWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		C9C045DA24A89CAA00C1A99C /* WidgetState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C045D924A89CAA00C1A99C /* WidgetState.swift */; };
 		C9C5C009242FB2C700BC064E /* MapState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C5C008242FB2C700BC064E /* MapState.swift */; };
 		C9C6FBF2243333D3004F868C /* TimelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C6FBF1243333D3004F868C /* TimelineState.swift */; };
 		C9C827AD243C7B1E00F3199B /* Calendar+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C827AC243C7B1E00F3199B /* Calendar+extensions.swift */; };
@@ -98,9 +102,17 @@
 		C9F32F47242A5BBE00184862 /* Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F32F46242A5BBE00184862 /* Health.swift */; };
 		C9F32F4A242A60A100184862 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F32F49242A60A100184862 /* HealthKit.framework */; };
 		C9F98B77242FAB38003D2A23 /* ItemSegmentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F98B76242FAB38003D2A23 /* ItemSegmentsView.swift */; };
+		EE5963D7C8CEBB44904010A3 /* Pods_CurrentItemWidgetExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06D9BC67FEF7AF8117E87B35 /* Pods_CurrentItemWidgetExtension.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C9120BDD250BBDDA0063A2B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C9822A77240CF8D5006B70F4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C9120BD0250BBDD80063A2B7;
+			remoteInfo = CurrentItemWidgetExtension;
+		};
 		C9C045D124A891B500C1A99C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C9822A77240CF8D5006B70F4 /* Project object */;
@@ -117,6 +129,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				C9120BDF250BBDDA0063A2B7 /* CurrentItemWidgetExtension.appex in Embed App Extensions */,
 				C9C045D324A891B500C1A99C /* RecordersWidgetExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -125,11 +138,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		06D9BC67FEF7AF8117E87B35 /* Pods_CurrentItemWidgetExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CurrentItemWidgetExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		20E416AF0980D8060B59267C /* Pods-RecordersWidgetExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecordersWidgetExtension.debug.xcconfig"; path = "Target Support Files/Pods-RecordersWidgetExtension/Pods-RecordersWidgetExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		3B89B865CB5159C469F979E3 /* Pods-CurrentItemWidgetExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrentItemWidgetExtension.debug.xcconfig"; path = "Target Support Files/Pods-CurrentItemWidgetExtension/Pods-CurrentItemWidgetExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		49BFAF13CA1E780FC2651251 /* Pods_Arc_Mini.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Arc_Mini.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		85A052185CDD9B73636FE978 /* Pods-Arc Mini.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Arc Mini.debug.xcconfig"; path = "Target Support Files/Pods-Arc Mini/Pods-Arc Mini.debug.xcconfig"; sourceTree = "<group>"; };
 		90D296A8D1D889A0FBBEF51E /* Pods-RecordersWidgetExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecordersWidgetExtension.release.xcconfig"; path = "Target Support Files/Pods-RecordersWidgetExtension/Pods-RecordersWidgetExtension.release.xcconfig"; sourceTree = "<group>"; };
 		9162A14B29BDED2585FC47B5 /* Pods_RecordersWidgetExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RecordersWidgetExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0FC1BE0C4FBEB454BFEB77D /* Pods-CurrentItemWidgetExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrentItemWidgetExtension.release.xcconfig"; path = "Target Support Files/Pods-CurrentItemWidgetExtension/Pods-CurrentItemWidgetExtension.release.xcconfig"; sourceTree = "<group>"; };
 		C90C27362439DCCC00A36251 /* NavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBar.swift; sourceTree = "<group>"; };
 		C90D78532428FBA2004ABFD0 /* PathEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathEditView.swift; sourceTree = "<group>"; };
 		C90D78632428FFCE004ABFD0 /* PlaceCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceCache.swift; sourceTree = "<group>"; };
@@ -138,6 +154,10 @@
 		C90D78662428FFCE004ABFD0 /* Place.stats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.stats.swift; sourceTree = "<group>"; };
 		C90D78672428FFCE004ABFD0 /* Place.scores.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.scores.swift; sourceTree = "<group>"; };
 		C90D786E2429006F004ABFD0 /* Migrations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Migrations.swift; sourceTree = "<group>"; };
+		C9120BD1250BBDD80063A2B7 /* CurrentItemWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CurrentItemWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9120BD5250BBDD80063A2B7 /* CurrentItemWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentItemWidget.swift; sourceTree = "<group>"; };
+		C9120BD8250BBDDA0063A2B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C9120BDA250BBDDA0063A2B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C918CF2D243B1EE90019D350 /* TimelineRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineRootView.swift; sourceTree = "<group>"; };
 		C91CB40624CDB30E00AF0CF1 /* WorkoutImporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutImporter.swift; sourceTree = "<group>"; };
 		C91CB40824CDB86000AF0CF1 /* HealthKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKit.swift; sourceTree = "<group>"; };
@@ -206,7 +226,6 @@
 		C9C045CC24A891B300C1A99C /* RecordersWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordersWidget.swift; sourceTree = "<group>"; };
 		C9C045CE24A891B500C1A99C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9C045D024A891B500C1A99C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C9C045D924A89CAA00C1A99C /* WidgetState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetState.swift; sourceTree = "<group>"; };
 		C9C5C008242FB2C700BC064E /* MapState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapState.swift; sourceTree = "<group>"; };
 		C9C6FBF1243333D3004F868C /* TimelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineState.swift; sourceTree = "<group>"; };
 		C9C827AC243C7B1E00F3199B /* Calendar+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+extensions.swift"; sourceTree = "<group>"; };
@@ -225,6 +244,16 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C9120BCE250BBDD80063A2B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9120BD3250BBDD80063A2B7 /* SwiftUI.framework in Frameworks */,
+				C9120BD2250BBDD80063A2B7 /* WidgetKit.framework in Frameworks */,
+				EE5963D7C8CEBB44904010A3 /* Pods_CurrentItemWidgetExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9822A7C240CF8D5006B70F4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -264,6 +293,7 @@
 				C9C045C724A891B300C1A99C /* WidgetKit.framework */,
 				C9C045C924A891B300C1A99C /* SwiftUI.framework */,
 				9162A14B29BDED2585FC47B5 /* Pods_RecordersWidgetExtension.framework */,
+				06D9BC67FEF7AF8117E87B35 /* Pods_CurrentItemWidgetExtension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -275,6 +305,8 @@
 				E9A51D53A86269BDF7C3EB1A /* Pods-Arc Mini.release.xcconfig */,
 				20E416AF0980D8060B59267C /* Pods-RecordersWidgetExtension.debug.xcconfig */,
 				90D296A8D1D889A0FBBEF51E /* Pods-RecordersWidgetExtension.release.xcconfig */,
+				3B89B865CB5159C469F979E3 /* Pods-CurrentItemWidgetExtension.debug.xcconfig */,
+				A0FC1BE0C4FBEB454BFEB77D /* Pods-CurrentItemWidgetExtension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -289,6 +321,16 @@
 				C90D78642428FFCE004ABFD0 /* PlaceClassifier.swift */,
 			);
 			path = Place;
+			sourceTree = "<group>";
+		};
+		C9120BD4250BBDD80063A2B7 /* CurrentItemWidget */ = {
+			isa = PBXGroup;
+			children = (
+				C9120BD5250BBDD80063A2B7 /* CurrentItemWidget.swift */,
+				C9120BD8250BBDDA0063A2B7 /* Assets.xcassets */,
+				C9120BDA250BBDDA0063A2B7 /* Info.plist */,
+			);
+			path = CurrentItemWidget;
 			sourceTree = "<group>";
 		};
 		C918CF2A2439E4230019D350 /* Extensions */ = {
@@ -423,6 +465,7 @@
 			children = (
 				C9822A81240CF8D5006B70F4 /* Arc Mini */,
 				C9C045CB24A891B300C1A99C /* RecordersWidget */,
+				C9120BD4250BBDD80063A2B7 /* CurrentItemWidget */,
 				C9822A80240CF8D5006B70F4 /* Products */,
 				B22ED509648B34F49EC36016 /* Pods */,
 				0309A64F2B5F60D9E14F1F4E /* Frameworks */,
@@ -434,6 +477,7 @@
 			children = (
 				C9822A7F240CF8D5006B70F4 /* Arc Mini.app */,
 				C9C045C624A891B300C1A99C /* RecordersWidgetExtension.appex */,
+				C9120BD1250BBDD80063A2B7 /* CurrentItemWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -481,7 +525,6 @@
 			isa = PBXGroup;
 			children = (
 				C9C045CC24A891B300C1A99C /* RecordersWidget.swift */,
-				C9C045D924A89CAA00C1A99C /* WidgetState.swift */,
 				C9C045CE24A891B500C1A99C /* Assets.xcassets */,
 				C9C045D024A891B500C1A99C /* Info.plist */,
 			);
@@ -545,6 +588,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		C9120BD0250BBDD80063A2B7 /* CurrentItemWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9120BE2250BBDDA0063A2B7 /* Build configuration list for PBXNativeTarget "CurrentItemWidgetExtension" */;
+			buildPhases = (
+				3F322C351F137013D736A139 /* [CP] Check Pods Manifest.lock */,
+				C9120BCD250BBDD80063A2B7 /* Sources */,
+				C9120BCE250BBDD80063A2B7 /* Frameworks */,
+				C9120BCF250BBDD80063A2B7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CurrentItemWidgetExtension;
+			productName = CurrentItemWidgetExtension;
+			productReference = C9120BD1250BBDD80063A2B7 /* CurrentItemWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		C9822A7E240CF8D5006B70F4 /* Arc Mini */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C9822A93240CF8D8006B70F4 /* Build configuration list for PBXNativeTarget "Arc Mini" */;
@@ -560,6 +621,7 @@
 			);
 			dependencies = (
 				C9C045D224A891B500C1A99C /* PBXTargetDependency */,
+				C9120BDE250BBDDA0063A2B7 /* PBXTargetDependency */,
 			);
 			name = "Arc Mini";
 			packageProductDependencies = (
@@ -603,6 +665,9 @@
 				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Matt Greenfield";
 				TargetAttributes = {
+					C9120BD0250BBDD80063A2B7 = {
+						CreatedOnToolsVersion = 12.0;
+					};
 					C9822A7E240CF8D5006B70F4 = {
 						CreatedOnToolsVersion = 11.3.1;
 						LastSwiftMigration = 1140;
@@ -636,11 +701,20 @@
 			targets = (
 				C9822A7E240CF8D5006B70F4 /* Arc Mini */,
 				C9C045C524A891B300C1A99C /* RecordersWidgetExtension */,
+				C9120BD0250BBDD80063A2B7 /* CurrentItemWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C9120BCF250BBDD80063A2B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9120BD9250BBDDA0063A2B7 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9822A7D240CF8D5006B70F4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -678,6 +752,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Arc Mini-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3F322C351F137013D736A139 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CurrentItemWidgetExtension-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -726,6 +822,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C9120BCD250BBDD80063A2B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9120BD6250BBDD80063A2B7 /* CurrentItemWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9822A7B240CF8D5006B70F4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -755,7 +859,6 @@
 				C95E0E2D2417B773008418A1 /* ArcVisit.swift in Sources */,
 				C92BF627241D06AD0089E4AD /* PathPolyline.swift in Sources */,
 				C90C27372439DCCC00A36251 /* NavBar.swift in Sources */,
-				C9C045DA24A89CAA00C1A99C /* WidgetState.swift in Sources */,
 				C9C6FBF2243333D3004F868C /* TimelineState.swift in Sources */,
 				C928C2EF2443522300586121 /* RecordingDebugView.swift in Sources */,
 				C9DAA083249F97BE004BA946 /* ThinkingListBox.swift in Sources */,
@@ -816,6 +919,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		C9120BDE250BBDDA0063A2B7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C9120BD0250BBDD80063A2B7 /* CurrentItemWidgetExtension */;
+			targetProxy = C9120BDD250BBDDA0063A2B7 /* PBXContainerItemProxy */;
+		};
 		C9C045D224A891B500C1A99C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C9C045C524A891B300C1A99C /* RecordersWidgetExtension */;
@@ -835,6 +943,52 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		C9120BE0250BBDDA0063A2B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B89B865CB5159C469F979E3 /* Pods-CurrentItemWidgetExtension.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 8;
+				DEVELOPMENT_TEAM = U5N7VG8DUG;
+				INFOPLIST_FILE = CurrentItemWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.bigpaua.ArcMini.CurrentItemWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C9120BE1250BBDDA0063A2B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A0FC1BE0C4FBEB454BFEB77D /* Pods-CurrentItemWidgetExtension.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 8;
+				DEVELOPMENT_TEAM = U5N7VG8DUG;
+				INFOPLIST_FILE = CurrentItemWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.bigpaua.ArcMini.CurrentItemWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		C9822A91240CF8D8006B70F4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1054,6 +1208,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C9120BE2250BBDDA0063A2B7 /* Build configuration list for PBXNativeTarget "CurrentItemWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9120BE0250BBDDA0063A2B7 /* Debug */,
+				C9120BE1250BBDDA0063A2B7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C9822A7A240CF8D5006B70F4 /* Build configuration list for PBXProject "Arc Mini" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
