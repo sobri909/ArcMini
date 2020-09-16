@@ -41,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ActivityTypesCache.highlander.store = RecordingManager.store
         LocomotionManager.highlander.coordinateAssessor = CoordinateTrustManager(store: RecordingManager.store)
         LocomotionManager.highlander.appGroup = AppGroup(appName: .arcMini, suiteName: "group.ArcApp")
+        LocomotionManager.highlander.appGroup?.timelineRecorder = RecordingManager.highlander.recorder
 
         UIDevice.current.isBatteryMonitoringEnabled = true
 

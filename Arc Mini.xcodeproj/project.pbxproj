@@ -98,6 +98,7 @@
 		C9DAA083249F97BE004BA946 /* ThinkingListBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DAA082249F97BE004BA946 /* ThinkingListBox.swift */; };
 		C9DBE4272437462B00FCB8E5 /* Pager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DBE4262437462B00FCB8E5 /* Pager.swift */; };
 		C9DBE429243746FF00FCB8E5 /* TimelineScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DBE428243746FF00FCB8E5 /* TimelineScrollView.swift */; };
+		C9E072E72510F181006C6BFC /* MiniStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E072E62510F181006C6BFC /* MiniStore.swift */; };
 		C9EB6644241A60FA00F545AF /* ArcStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB6643241A60FA00F545AF /* ArcStore.swift */; };
 		C9F32F47242A5BBE00184862 /* Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F32F46242A5BBE00184862 /* Health.swift */; };
 		C9F32F4A242A60A100184862 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F32F49242A60A100184862 /* HealthKit.framework */; };
@@ -236,6 +237,8 @@
 		C9DAA082249F97BE004BA946 /* ThinkingListBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThinkingListBox.swift; sourceTree = "<group>"; };
 		C9DBE4262437462B00FCB8E5 /* Pager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pager.swift; sourceTree = "<group>"; };
 		C9DBE428243746FF00FCB8E5 /* TimelineScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineScrollView.swift; sourceTree = "<group>"; };
+		C9E072E62510F181006C6BFC /* MiniStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniStore.swift; sourceTree = "<group>"; };
+		C9E072E8251115B2006C6BFC /* CurrentItemWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CurrentItemWidgetExtension.entitlements; sourceTree = "<group>"; };
 		C9EB6643241A60FA00F545AF /* ArcStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcStore.swift; sourceTree = "<group>"; };
 		C9F32F46242A5BBE00184862 /* Health.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Health.swift; sourceTree = "<group>"; };
 		C9F32F49242A60A100184862 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
@@ -327,8 +330,9 @@
 			isa = PBXGroup;
 			children = (
 				C9120BD5250BBDD80063A2B7 /* CurrentItemWidget.swift */,
-				C9120BD8250BBDDA0063A2B7 /* Assets.xcassets */,
+				C9E072E62510F181006C6BFC /* MiniStore.swift */,
 				C9120BDA250BBDDA0063A2B7 /* Info.plist */,
+				C9120BD8250BBDDA0063A2B7 /* Assets.xcassets */,
 			);
 			path = CurrentItemWidget;
 			sourceTree = "<group>";
@@ -463,6 +467,7 @@
 		C9822A76240CF8D5006B70F4 = {
 			isa = PBXGroup;
 			children = (
+				C9E072E8251115B2006C6BFC /* CurrentItemWidgetExtension.entitlements */,
 				C9822A81240CF8D5006B70F4 /* Arc Mini */,
 				C9C045CB24A891B300C1A99C /* RecordersWidget */,
 				C9120BD4250BBDD80063A2B7 /* CurrentItemWidget */,
@@ -826,6 +831,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9E072E72510F181006C6BFC /* MiniStore.swift in Sources */,
 				C9120BD6250BBDD80063A2B7 /* CurrentItemWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -949,6 +955,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = CurrentItemWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = U5N7VG8DUG;
@@ -972,6 +979,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = CurrentItemWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = U5N7VG8DUG;

@@ -36,6 +36,14 @@ struct SimpleEntry: TimelineEntry {
 struct CurrentItemWidgetEntryView : View {
     var entry: Provider.Entry
 
+    let store = MiniStore()
+    let appGroup = AppGroup(appName: .arcMini, suiteName: "group.ArcApp", readOnly: true)
+
+    var currentItem: TimelineItem? {
+        guard let itemId = appGroup.currentRecorder?.currentItemId else { return nil }
+        return store.item(for: itemId)
+    }
+
     var body: some View {
         Text(entry.date, style: .time)
     }
