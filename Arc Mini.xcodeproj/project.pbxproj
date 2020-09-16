@@ -329,10 +329,9 @@
 		C9120BD4250BBDD80063A2B7 /* CurrentItemWidget */ = {
 			isa = PBXGroup;
 			children = (
+				C9B38CF92512620000C997F8 /* Bits */,
 				C9120BD5250BBDD80063A2B7 /* CurrentItemWidget.swift */,
 				C9E072E62510F181006C6BFC /* MiniStore.swift */,
-				C9120BDA250BBDDA0063A2B7 /* Info.plist */,
-				C9120BD8250BBDDA0063A2B7 /* Assets.xcassets */,
 			);
 			path = CurrentItemWidget;
 			sourceTree = "<group>";
@@ -467,7 +466,6 @@
 		C9822A76240CF8D5006B70F4 = {
 			isa = PBXGroup;
 			children = (
-				C9E072E8251115B2006C6BFC /* CurrentItemWidgetExtension.entitlements */,
 				C9822A81240CF8D5006B70F4 /* Arc Mini */,
 				C9C045CB24A891B300C1A99C /* RecordersWidget */,
 				C9120BD4250BBDD80063A2B7 /* CurrentItemWidget */,
@@ -505,7 +503,6 @@
 			isa = PBXGroup;
 			children = (
 				C941494824704B3900C89424 /* Arc Mini.entitlements */,
-				C977E57324AB600700B2F0BA /* RecordersWidgetExtension.entitlements */,
 				C99F5EC1242A3F8500E172AE /* BridgingHeader.h */,
 				C9BF95362446F959000F3299 /* Config.plist */,
 				C9822A90240CF8D8006B70F4 /* Info.plist */,
@@ -526,12 +523,31 @@
 			path = Foursquare;
 			sourceTree = "<group>";
 		};
+		C9B38CF92512620000C997F8 /* Bits */ = {
+			isa = PBXGroup;
+			children = (
+				C9E072E8251115B2006C6BFC /* CurrentItemWidgetExtension.entitlements */,
+				C9120BDA250BBDDA0063A2B7 /* Info.plist */,
+				C9120BD8250BBDDA0063A2B7 /* Assets.xcassets */,
+			);
+			path = Bits;
+			sourceTree = "<group>";
+		};
+		C9B38CFD2512621400C997F8 /* Bits */ = {
+			isa = PBXGroup;
+			children = (
+				C977E57324AB600700B2F0BA /* RecordersWidgetExtension.entitlements */,
+				C9C045D024A891B500C1A99C /* Info.plist */,
+				C9C045CE24A891B500C1A99C /* Assets.xcassets */,
+			);
+			path = Bits;
+			sourceTree = "<group>";
+		};
 		C9C045CB24A891B300C1A99C /* RecordersWidget */ = {
 			isa = PBXGroup;
 			children = (
+				C9B38CFD2512621400C997F8 /* Bits */,
 				C9C045CC24A891B300C1A99C /* RecordersWidget.swift */,
-				C9C045CE24A891B500C1A99C /* Assets.xcassets */,
-				C9C045D024A891B500C1A99C /* Info.plist */,
 			);
 			path = RecordersWidget;
 			sourceTree = "<group>";
@@ -955,11 +971,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = CurrentItemWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = CurrentItemWidget/Bits/CurrentItemWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = U5N7VG8DUG;
-				INFOPLIST_FILE = CurrentItemWidget/Info.plist;
+				INFOPLIST_FILE = CurrentItemWidget/Bits/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -979,11 +995,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = CurrentItemWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = CurrentItemWidget/Bits/CurrentItemWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = U5N7VG8DUG;
-				INFOPLIST_FILE = CurrentItemWidget/Info.plist;
+				INFOPLIST_FILE = CurrentItemWidget/Bits/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1171,11 +1187,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = "Arc Mini/Core/RecordersWidgetExtension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = RecordersWidget/Bits/RecordersWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = U5N7VG8DUG;
-				INFOPLIST_FILE = RecordersWidget/Info.plist;
+				INFOPLIST_FILE = RecordersWidget/Bits/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1195,11 +1211,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = "Arc Mini/Core/RecordersWidgetExtension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = RecordersWidget/Bits/RecordersWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = U5N7VG8DUG;
-				INFOPLIST_FILE = RecordersWidget/Info.plist;
+				INFOPLIST_FILE = RecordersWidget/Bits/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
