@@ -11,7 +11,6 @@ import SwiftUI
 
 protocol ArcTimelineItem where Self: TimelineItem {
 
-    var title: String { get }
     var notes: [Note] { get }
 
     // MARK: - Health

@@ -233,13 +233,6 @@ class ArcPath: Path, ArcTimelineItem {
 
     var _trackPlays: [TrackPlay]?
 
-    // MARK: - ArcTimelineItem
-
-    var title: String {
-        if isDataGap { return "Data Gap" }
-        return activityType?.displayName.capitalized ?? "Unknown"
-    }
-
     // MARK: - TimelineItem
 
     override func sampleTypesChanged() {

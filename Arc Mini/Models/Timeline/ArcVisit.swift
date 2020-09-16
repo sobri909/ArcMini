@@ -193,7 +193,7 @@ class ArcVisit: LocoKit.Visit, ArcTimelineItem {
 
     // MARK: - ArcTimelineItem
 
-    var title: String {
+    override var title: String {
 
         // have place with name
         if let place = place, place.name.count > 0 { return place.name }
