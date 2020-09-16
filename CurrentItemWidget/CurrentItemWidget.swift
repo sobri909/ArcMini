@@ -34,10 +34,23 @@ struct SimpleEntry: TimelineEntry {
 }
 
 struct CurrentItemWidgetEntryView : View {
+
+    @Environment(\.widgetFamily) var family
     var entry: Provider.Entry
 
     let store = MiniStore()
     let appGroup = AppGroup(appName: .arcMini, suiteName: "group.ArcApp", readOnly: true)
+    
+    static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
+        return formatter
+    }()
+
+    var currentItemTitle: String? {
+        return appGroup.currentRecorder?.currentItemTitle
+    }
 
     var currentItem: TimelineItem? {
         guard let itemId = appGroup.currentRecorder?.currentItemId else { return nil }
@@ -45,8 +58,27 @@ struct CurrentItemWidgetEntryView : View {
     }
 
     var body: some View {
-        Text(entry.date, style: .time)
+        VStack(alignment: .leading) {
+//            if let currentRecorder = appGroup.currentRecorder {
+//                Text(currentRecorder.updated, style: .relative) + Text(" ago")
+//            }
+            if let currentItem = currentItem, let dateRange = currentItem.dateRange {
+                VStack(alignment: .leading) {
+                    if let currentItemTitle = currentItemTitle {
+                        Text(currentItemTitle)
+                    }
+                    Text(CurrentItemWidgetEntryView.dateFormatter.string(from: dateRange.start))
+                        .font(.system(size: 16, weight: .medium))
+                    Text(dateRange.start, style: .relative)
+                        .font(.system(size: 13, weight: .regular))
+                }
+
+            } else {
+                Text("No currentItem!")
+            }
+        }.padding([.leading, .trailing], family == .systemSmall ? 12 : 20)
     }
+    
 }
 
 @main
