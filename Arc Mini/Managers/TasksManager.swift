@@ -57,9 +57,7 @@ class TasksManager {
             TasksManager.update(.updateTrustFactors, to: .running)
             RecordingManager.store.connectToDatabase()
             (LocomotionManager.highlander.coordinateAssessor as? CoordinateTrustManager)?.updateTrustFactors()
-            if !LocomotionManager.highlander.recordingState.isCurrentRecorder {
-                RecordingManager.store.disconnectFromDatabase()
-            }
+            RecordingManager.safelyDisconnectFromDatabase()
             TasksManager.update(.updateTrustFactors, to: .completed)
             task.setTaskCompleted(success: true)
         }
@@ -68,9 +66,7 @@ class TasksManager {
             TasksManager.update(.sanitiseStore, to: .running)
             RecordingManager.store.connectToDatabase()
             TimelineProcessor.sanitise(store: RecordingManager.store)
-            if !LocomotionManager.highlander.recordingState.isCurrentRecorder {
-                RecordingManager.store.disconnectFromDatabase()
-            }
+            RecordingManager.safelyDisconnectFromDatabase()
             TasksManager.update(.sanitiseStore, to: .completed)
             task.setTaskCompleted(success: true)
         }
@@ -120,6 +116,15 @@ class TasksManager {
 
     static func currentState(of identifier: TaskIdentifier) -> TaskState? {
         return highlander.taskStates[identifier]?.state
+    }
+
+    // MARK: -
+
+    static var haveTasksRunning: Bool {
+        for task in highlander.taskStates.values {
+            if task.state == .running { return true }
+        }
+        return false
     }
 
     // MARK: -

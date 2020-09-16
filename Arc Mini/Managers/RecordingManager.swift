@@ -70,4 +70,13 @@ class RecordingManager {
         TasksManager.highlander.scheduleBackgroundTasks()
     }
 
+    // MARK: -
+
+    static func safelyDisconnectFromDatabase() {
+        let loco = LocomotionManager.highlander
+        if loco.applicationState != .active, !loco.recordingState.isCurrentRecorder, !TasksManager.haveTasksRunning {
+            store.disconnectFromDatabase()
+        }
+    }
+
 }

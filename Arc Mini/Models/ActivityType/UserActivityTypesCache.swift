@@ -180,9 +180,7 @@ final class UserActivityTypesCache: MLModelSource {
         // handle background expiration
         if backgroundTaskExpired {
             TasksManager.update(.activityTypeModelUpdates, to: .expired)
-            if !LocomotionManager.highlander.recordingState.isCurrentRecorder {
-                store.disconnectFromDatabase()
-            }
+            RecordingManager.safelyDisconnectFromDatabase()
             task.setTaskCompleted(success: false)
             TasksManager.highlander.scheduleBackgroundTasks()
             return
@@ -205,9 +203,7 @@ final class UserActivityTypesCache: MLModelSource {
 
         // job's finished
         TasksManager.update(.activityTypeModelUpdates, to: .completed)
-        if !LocomotionManager.highlander.recordingState.isCurrentRecorder {
-            store.disconnectFromDatabase()
-        }
+        RecordingManager.safelyDisconnectFromDatabase()
         task.setTaskCompleted(success: true)
     }
 

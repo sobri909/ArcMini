@@ -146,9 +146,7 @@ class PlaceCache {
         // handle background expiration
         if backgroundTaskExpired {
             TasksManager.update(.placeModelUpdates, to: .expired)
-            if !LocomotionManager.highlander.recordingState.isCurrentRecorder {
-                store.disconnectFromDatabase()
-            }
+            RecordingManager.safelyDisconnectFromDatabase()
             task.setTaskCompleted(success: false)
             TasksManager.highlander.scheduleBackgroundTasks()
             return
@@ -171,9 +169,7 @@ class PlaceCache {
 
         // job's finished
         TasksManager.update(.placeModelUpdates, to: .completed)
-        if !LocomotionManager.highlander.recordingState.isCurrentRecorder {
-            store.disconnectFromDatabase()
-        }
+        RecordingManager.safelyDisconnectFromDatabase()
         task.setTaskCompleted(success: true)
     }
 
