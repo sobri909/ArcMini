@@ -24,6 +24,8 @@ class DebugLogger: LoggingFormatAndPipe.Pipe, ObservableObject {
 
     public let objectWillChange = ObservableObjectPublisher()
 
+    private var hourMarkerTimer: Timer?
+
     private init() {
         do {
             try FileManager.default.createDirectory(at: logsDir, withIntermediateDirectories: true, attributes: nil)
@@ -39,7 +41,13 @@ class DebugLogger: LoggingFormatAndPipe.Pipe, ObservableObject {
             } catch {
                 os_log("COULDN'T WRITE TO FILE", type: .error)
             }
+
             print(formattedLogLine)
+
+            self.hourMarkerTimer?.invalidate()
+            self.hourMarkerTimer = Timer.scheduledTimer(withTimeInterval: .oneHour, repeats: false) { _ in
+                logger.info("---")
+            }
         }
     }
 
