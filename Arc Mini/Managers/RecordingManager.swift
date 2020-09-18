@@ -11,9 +11,13 @@ import SwiftNotes
 
 class RecordingManager {
 
-    static let highlander = RecordingManager()
+    static let maximumSleepCycleDuration: TimeInterval = 60
+    static let minimumSleepCycleDuration: TimeInterval = 12
+    static let fallbackSleepCycleDuration: TimeInterval = 30
 
     // MARK: -
+
+    static let highlander = RecordingManager()
 
     static let store = ArcStore()
     static var recorder: TimelineRecorder { return highlander.recorder }
@@ -64,10 +68,38 @@ class RecordingManager {
         if let currentVisit = currentVisit, !currentVisit.hasPlace {
             currentVisit.findAPlace()
         }
+
+        // make sure the sleep cycle is the right size
+        loco.sleepCycleDuration = RecordingManager.sleepCycleDuration
+
+        // prepare for the next wakeup
+        loco.ignoreNoLocationDataDuringWakeups = shouldIgnoreNolos
     }
 
     func didStartSleeping() {
         TasksManager.highlander.scheduleBackgroundTasks()
+    }
+
+    // MARK: - Sleep cycle management
+
+    var shouldIgnoreNolos: Bool {
+
+        // no leaving probability? must be not enough data, so don't risk it
+        guard let leavingProbabilityNow = currentVisit?.leavingProbabilityNow else { return false }
+
+        // more likely to be leaving soon than not? then shouldn't ignore nolos
+        return leavingProbabilityNow > 0.5
+    }
+
+    static var sleepCycleDuration: TimeInterval {
+        guard let nowProb = highlander.currentVisit?.leavingProbabilityNow else {
+            return RecordingManager.fallbackSleepCycleDuration
+        }
+
+        let logProb = log10(1.0 / nowProb)
+        let duration = RecordingManager.maximumSleepCycleDuration * logProb
+
+        return duration.clamped(min: RecordingManager.minimumSleepCycleDuration, max: RecordingManager.maximumSleepCycleDuration)
     }
 
     // MARK: -
