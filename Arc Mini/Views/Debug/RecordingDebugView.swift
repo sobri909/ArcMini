@@ -14,11 +14,13 @@ struct RecordingDebugView: View {
     
     var sample: LocomotionSample = LocomotionManager.highlander.locomotionSample()
 
+    var loco: LocomotionManager { return LocomotionManager.highlander }
+
     var body: some View {
         NavigationView {
             List {
                 if let appGroup = LocomotionManager.highlander.appGroup {
-                    Section(header: Text("Recording engines")) {
+                    Section(header: Text("App Group")) {
                         ForEach(appGroup.sortedApps, id: \.updated) { appState in
                             self.row(
                                 leftText: appState.appName.rawValue,
@@ -28,16 +30,22 @@ struct RecordingDebugView: View {
                         }
                     }
                 }
-                Section(header: Text("General")) {
+
+                Section(header: Text(loco.recordingState.rawValue)) {
                     self.row(leftText: "Thermal state", rightText: AppDelegate.thermalState.stringValue)
+                    if loco.recordingState == .sleeping {
+                        self.row(leftText: "Sleep cycle duration", rightText: String(duration: loco.sleepCycleDuration))
+                        self.leavingProbabilityRow
+                    }
+                }
+                Section(header: Text("Location")) {
                     self.row(leftText: "Requesting", rightText: self.desiredAccuracyString)
-                    self.trustFactorRow
                     self.horizontalAccuracyRow
                     self.verticalAccuracyRow
-                    self.leavingProbabilityRow
+                    self.trustFactorRow
                 }
             }
-            .navigationBarTitle("Arc Mini \(Bundle.versionNumber) (\(Bundle.buildNumber))")
+            .navigationBarTitle("Arc Mini \(Bundle.versionNumber) (\(String(format: "%d", Bundle.buildNumber)))")
             .environment(\.defaultMinListRowHeight, 28)
         }
     }
