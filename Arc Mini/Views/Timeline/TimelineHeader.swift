@@ -31,13 +31,14 @@ struct TimelineHeader: View {
                 self.previousButton
                 self.nextButton
                 Rectangle().fill(Color("grey")).frame(width: 1, height: 24)
-                Button(action: {
+                Button {
                     self.optionsMenu = .main
                     self.showingMenu = true
-                }) {
-                    Image(systemName: "ellipsis").foregroundColor(Color("brandSecondary80"))
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .foregroundColor(Color("brandSecondary80"))
+                        .frame(width: 56, height: 64)
                 }
-                .frame(width: 56, height: 64)
             }
             .padding([.leading], 20)
             .padding([.trailing], 4)
