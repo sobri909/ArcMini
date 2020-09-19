@@ -53,30 +53,39 @@ struct CurrentItemWidgetEntryView : View {
     }
 
     var currentItem: TimelineItem? {
-        guard let itemId = appGroup.currentRecorder?.currentItemId else { return nil }
+        guard let app = appGroup.currentRecorder ?? appGroup.sortedApps.first else { return nil }
+        guard let itemId = app.currentItemId else { return nil }
         return store.item(for: itemId)
     }
 
     var body: some View {
-        VStack(alignment: .leading) {
-//            if let currentRecorder = appGroup.currentRecorder {
-//                Text(currentRecorder.updated, style: .relative) + Text(" ago")
-//            }
+        ZStack(alignment: .top) {
             if let currentItem = currentItem, let dateRange = currentItem.dateRange {
                 VStack(alignment: .leading) {
                     if let currentItemTitle = currentItemTitle {
                         Text(currentItemTitle)
+                            .font(.system(size: 14, weight: .semibold))
                     }
                     Text(CurrentItemWidgetEntryView.dateFormatter.string(from: dateRange.start))
-                        .font(.system(size: 16, weight: .medium))
+                        .font(.system(size: 26, weight: .regular))
                     Text(dateRange.start, style: .relative)
-                        .font(.system(size: 13, weight: .regular))
+                        .font(.system(size: 10, weight: .regular))
+                        .opacity(0.6)
+                    Spacer()
                 }
 
             } else {
-                Text("No currentItem!")
+                Text("No Current Item!")
             }
-        }.padding([.leading, .trailing], family == .systemSmall ? 12 : 20)
+
+            if appGroup.currentRecorder == nil {
+                HStack {
+                    Spacer()
+                    Image("warningIcon20").renderingMode(.template).foregroundColor(Color.red)
+                }
+            }
+        }
+        .padding(family == .systemSmall ? 16 : 20)
     }
     
 }
