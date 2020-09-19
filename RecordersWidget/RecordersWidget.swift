@@ -41,43 +41,39 @@ struct RecordersWidgetEntryView: View {
     let appGroup = AppGroup(appName: .arcMini, suiteName: "group.ArcApp", readOnly: true)
 
     var body: some View {
-        VStack(alignment: .leading) {
-            if family == .systemSmall {
+        ZStack(alignment: .top) {
+            VStack(alignment: .leading) {
                 HStack {
-                    (Text(entry.date, style: .relative) + Text(" ago")).font(.system(.headline))
-                    Spacer()
-                }.frame(height: 40)
-            } else {
-                HStack {
-                    Text("ARC RECORDERS").font(.system(.headline))
-                    Spacer()
-                    (Text(entry.date, style: .relative) + Text(" ago")).font(.system(.headline))
-                }.frame(height: 40)
-            }
-            ForEach(appGroup.sortedApps, id: \.updated) { appState in
-                if appState.isAlive || family == .systemSmall {
-                    self.row(
-                        leftText: appState.appName.rawValue,
-                        rightText: Text(appState.recordingState.rawValue),
-                        isActiveRecorder: appState.isAliveAndRecording, isAlive: appState.isAlive
-                    ).frame(height: 28)
-                } else {
-                    self.row(
-                        leftText: appState.appName.rawValue,
-                        rightText: Text(appState.recordingState.rawValue) + Text(" (") + Text(appState.updated, style: .relative) + Text(" ago)"),
-                        isActiveRecorder: appState.isAliveAndRecording, isAlive: false
-                    ).frame(height: 28)
+                    Text("Arc Recorders").font(.system(size: 14, weight: .semibold))
+                        .frame(height: 28)
                 }
+                ForEach(appGroup.sortedApps, id: \.updated) { appState in
+                    if appState.isAlive || family == .systemSmall {
+                        self.row(
+                            leftText: appState.isAlive ? Text(appState.recordingState.rawValue) : Text("dead"),
+                            rightText: Text(appState.appName.rawValue),
+                            isActiveRecorder: appState.isAliveAndRecording, isAlive: appState.isAlive
+                        ).frame(height: 28)
+                    } else {
+                        self.row(
+                            leftText: Text("dead (") + Text(appState.updated, style: .relative) + Text(" ago)"),
+                            rightText: Text(appState.appName.rawValue),
+                            isActiveRecorder: appState.isAliveAndRecording, isAlive: false
+                        ).frame(height: 28)
+                    }
+                }
+                Spacer()
             }
-        }.padding([.leading, .trailing], family == .systemSmall ? 12 : 20)
+        }
+        .padding(family == .systemSmall ? 16 : 20)
     }
 
-    func row(leftText: String, rightText: Text, isActiveRecorder: Bool = false, isAlive: Bool = false) -> some View {
+    func row(leftText: Text, rightText: Text, isActiveRecorder: Bool = false, isAlive: Bool = false) -> some View {
         let font = isActiveRecorder ? Font.system(.footnote).bold() : Font.system(.footnote)
         return HStack {
-            Text(leftText).strikethrough(!isAlive).font(font).opacity(isAlive ? 1 : 0.6)
+            leftText.font(font).opacity(isAlive ? 0.6 : 0.4)
             Spacer()
-            rightText.strikethrough(!isAlive).font(font).opacity(0.6)
+            rightText.font(font).opacity(isAlive ? 1 : 0.4)
         }
     }
 
@@ -93,5 +89,6 @@ struct RecordersWidget: Widget {
         }
         .configurationDisplayName("Arc Recorders")
         .description("Status of Arc recorders.")
+        .supportedFamilies([.systemSmall, .systemMedium])
     }
 }

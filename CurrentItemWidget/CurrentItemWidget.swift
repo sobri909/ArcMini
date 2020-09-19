@@ -100,5 +100,6 @@ struct CurrentItemWidget: Widget {
         }
         .configurationDisplayName("Arc Current Item")
         .description("The current Arc timeline item.")
+        .supportedFamilies([.systemSmall])
     }
 }
