@@ -69,11 +69,11 @@ struct RecordersWidgetEntryView: View {
     }
 
     func row(leftText: Text, rightText: Text, isActiveRecorder: Bool = false, isAlive: Bool = false) -> some View {
-        let font = isActiveRecorder ? Font.system(.footnote).bold() : Font.system(.footnote)
         return HStack {
-            leftText.font(font).opacity(isAlive ? 0.6 : 0.4)
+            leftText.font(isActiveRecorder ? Font.system(.footnote).bold() : Font.system(.footnote)).opacity(isAlive ? 0.6 : 0.4)
             Spacer()
-            rightText.font(font).opacity(isAlive ? 1 : 0.4)
+            rightText.font(Font.system(.footnote).bold())
+//                .opacity(isAlive ? 1 : 0.4)
         }
     }
 
