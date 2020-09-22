@@ -76,6 +76,7 @@ struct CurrentItemWidgetEntryView : View {
 
             } else {
                 Text("No Current Item!")
+                    .font(.system(size: 14, weight: .semibold))
             }
 
             if appGroup.currentRecorder == nil {
