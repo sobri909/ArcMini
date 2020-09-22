@@ -64,6 +64,13 @@ struct RecordersWidgetEntryView: View {
                 }
                 Spacer()
             }
+            
+            if appGroup.currentRecorder == nil {
+                HStack {
+                    Spacer()
+                    Image("warningIcon20").renderingMode(.template).foregroundColor(Color.red)
+                }
+            }
         }
         .padding(family == .systemSmall ? 16 : 20)
     }
