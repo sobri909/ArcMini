@@ -18,13 +18,18 @@ let logger = Logger(label: "com.bigpaua.ArcMini.main") { _ in
     )
 }
 
+func fib (_ n: Int) -> Int {
+    guard n > 1 else {return n}
+    return fib(n - 1) + fib(n - 2)
+}
+
 class DebugLogger: LoggingFormatAndPipe.Pipe, ObservableObject {
 
     static let highlander = DebugLogger()
 
     public let objectWillChange = ObservableObjectPublisher()
-
     private var hourMarkerTimer: Timer?
+    private var fibn = 1
 
     private init() {
         do {
@@ -45,8 +50,8 @@ class DebugLogger: LoggingFormatAndPipe.Pipe, ObservableObject {
             print(formattedLogLine)
 
             self.hourMarkerTimer?.invalidate()
-            self.hourMarkerTimer = Timer.scheduledTimer(withTimeInterval: .oneHour, repeats: false) { _ in
-                logger.info("---")
+            self.hourMarkerTimer = Timer.scheduledTimer(withTimeInterval: .oneMinute * Double(fib(self.fibn)), repeats: false) { _ in
+                logger.info("--\(self.fibn)--")
             }
         }
     }
@@ -92,6 +97,11 @@ class DebugLogger: LoggingFormatAndPipe.Pipe, ObservableObject {
         }()
 
         func processLog(level: Logging.Logger.Level, message: Logging.Logger.Message, prettyMetadata: String?, file: String, function: String, line: UInt) -> String {
+            if message.description.hasPrefix("--") {
+                DebugLogger.highlander.fibn += 1
+            } else {
+                DebugLogger.highlander.fibn = 1
+            }
             if level == .error {
                 return String(format: "[%@] [ERROR] \(message)", self.timestampFormatter.string(from: Date()))
             }
