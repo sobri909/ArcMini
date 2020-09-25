@@ -28,3 +28,16 @@ target 'CurrentItemWidgetExtension' do
   # uncomment this line if you're using a local copy of LocoKit 
   # pod 'LocoKit', :path => '~/Projects/LocoKit'
 end
+
+# Set Upsurge SWIFT_VERSION to 4.2
+post_install do |installer|
+  installer.generated_projects.each do |project|
+    project.targets.each do |target|
+      if target.name == "Upsurge"
+        target.build_configurations.each do |config|
+          config.build_settings['SWIFT_VERSION'] = '4.2'
+        end
+      end
+    end
+  end
+end
