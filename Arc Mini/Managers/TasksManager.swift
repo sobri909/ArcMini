@@ -16,15 +16,18 @@ class TasksManager {
         case activityTypeModelUpdates = "com.bigpaua.ArcMini.activityTypeModelUpdates"
         case updateTrustFactors = "com.bigpaua.ArcMini.updateTrustFactors"
         case sanitiseStore = "com.bigpaua.ArcMini.sanitiseStore"
+        case iCloudDriveBackups = "com.bigpaua.ArcMini.iCloudDriveBackups"
     }
 
     enum TaskState: String, Codable {
-        case scheduled, running, expired, unfinished, completed
+        case registered, scheduled, running, expired, unfinished, completed
     }
 
     struct TaskStatus: Codable {
         var state: TaskState
         var lastUpdated: Date
+        var minimumDelay: TimeInterval
+        var lastCompleted: Date?
     }
 
     // MARK: -
@@ -32,6 +35,7 @@ class TasksManager {
     static let highlander = TasksManager()
 
     private(set) var taskStates: [TaskIdentifier: TaskStatus] = [:]
+    private(set) var activeTasks: [TaskIdentifier: BGTask] = [:]
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
 
@@ -53,7 +57,7 @@ class TasksManager {
             UserActivityTypesCache.highlander.updateQueuedModels(task: task as! BGProcessingTask)
         }
 
-        register(.updateTrustFactors, queue: Jobs.highlander.secondaryQueue.underlyingQueue) { task in
+        register(.updateTrustFactors, minimumDelay: .oneDay, queue: Jobs.highlander.secondaryQueue.underlyingQueue) { task in
             TasksManager.update(.updateTrustFactors, to: .running)
             RecordingManager.store.connectToDatabase()
             (LocomotionManager.highlander.coordinateAssessor as? CoordinateTrustManager)?.updateTrustFactors()
@@ -70,11 +74,23 @@ class TasksManager {
             TasksManager.update(.sanitiseStore, to: .completed)
             task.setTaskCompleted(success: true)
         }
+
+        register(.iCloudDriveBackups, minimumDelay: Backups.maximumBackupFrequency) { task in
+            TasksManager.start(.iCloudDriveBackups, with: task)
+            Backups.runBackups()
+        }
     }
 
     func scheduleBackgroundTasks() {
         let loco = LocomotionManager.highlander
         if loco.recordingState == .recording { return }
+
+        if Settings.backupsOn {
+            TasksManager.schedule(.iCloudDriveBackups, requiresPower: true, requiresNetwork: true)
+        }
+
+        /* generic tasks */
+
         if loco.appGroup?.haveAppsInStandby == true, loco.recordingState.isCurrentRecorder { return }
 
         if RecordingManager.store.placesPendingUpdate > 0 {
@@ -89,14 +105,36 @@ class TasksManager {
         TasksManager.schedule(.sanitiseStore, requiresPower: true)
     }
 
+    static func scheduleRefresh(_ identifier: TaskIdentifier, after delay: TimeInterval? = nil) {
+        onMain {
+            let request = BGAppRefreshTaskRequest(identifier: identifier.rawValue)
+            if let delay = delay { request.earliestBeginDate = Date(timeIntervalSinceNow: delay) }
+
+            do {
+                try BGTaskScheduler.shared.submit(request)
+            } catch {
+                logger.error("Failed to schedule \(identifier.rawValue.split(separator: ".").last!)")
+            }
+        }
+
+        highlander.update(identifier, to: .scheduled)
+    }
+
     static func schedule(_ identifier: TaskIdentifier, requiresPower: Bool, requiresNetwork: Bool = false) {
         guard currentState(of: identifier) != .running else {
-            logger.info("\(identifier.rawValue.split(separator: ".").last!) is already running")
+            logger.info("\(identifier.rawValue.split(separator: ".").last!) is already running", subsystem: .tasks)
             return
         }
 
+        guard currentState(of: identifier) != .scheduled else { return }
+
         onMain {
+            guard let currentStatus = highlander.taskStates[identifier] else { fatalError("Task not registered") }
+
             let request = BGProcessingTaskRequest(identifier: identifier.rawValue)
+            if currentStatus.minimumDelay > 0, let lastCompleted = currentStatus.lastCompleted {
+                request.earliestBeginDate = lastCompleted + currentStatus.minimumDelay
+            }
             request.requiresNetworkConnectivity = requiresNetwork
             request.requiresExternalPower = requiresPower
 
@@ -108,6 +146,11 @@ class TasksManager {
         }
 
         highlander.update(identifier, to: .scheduled)
+    }
+    
+    static func start(_ identifier: TaskIdentifier, with bgTask: BGTask) {
+        highlander.update(identifier, to: .running)
+        highlander.activeTasks[identifier] = bgTask
     }
 
     static func update(_ identifier: TaskIdentifier, to state: TaskState) {
@@ -129,20 +172,31 @@ class TasksManager {
 
     // MARK: -
 
-    private func register(_ identifier: TaskIdentifier, queue: DispatchQueue? = nil, launchHandler: @escaping (BGTask) -> Void) {
+    private func register(_ identifier: TaskIdentifier, minimumDelay: TimeInterval = 0, queue: DispatchQueue? = nil, launchHandler: @escaping (BGTask) -> Void) {
         BGTaskScheduler.shared.register(forTaskWithIdentifier: identifier.rawValue, using: queue, launchHandler: launchHandler)
+        self.taskStates[identifier] = TaskStatus(state: .registered, lastUpdated: Date(), minimumDelay: minimumDelay)
         saveStates()
     }
 
     private func update(_ identifier: TaskIdentifier, to state: TaskState) {
         onMain {
-            self.taskStates[identifier] = TaskStatus(state: state, lastUpdated: Date())
+            guard let status = self.taskStates[identifier] else { fatalError("Task not registered") }
+            if state == .completed {
+                self.taskStates[identifier] =
+                    TaskStatus(state: state, lastUpdated: Date(), minimumDelay: status.minimumDelay, lastCompleted: Date())
+            } else {
+                self.taskStates[identifier] =
+                    TaskStatus(state: state, lastUpdated: Date(), minimumDelay: status.minimumDelay,
+                               lastCompleted: status.lastCompleted)
+            }
             self.saveStates()
-        }
-        if state == .unfinished {
-            logger.error("\(state.rawValue.uppercased()): \(identifier.rawValue.split(separator: ".").last!)")
-        } else {
-            logger.info("\(state.rawValue.uppercased()): \(identifier.rawValue.split(separator: ".").last!)")
+
+            if state == .unfinished {
+                logger.error("\(state.rawValue): \(identifier.rawValue.split(separator: ".").last!)")
+                
+            } else if state != status.state {
+                logger.info("\(state.rawValue): \(identifier.rawValue.split(separator: ".").last!)", subsystem: .tasks)
+            }
         }
     }
 
@@ -157,7 +211,7 @@ class TasksManager {
     }
 
     private func loadStates() {
-        guard let data = Settings.highlander[.taskStates] as? Data else { logger.info("No taskStates data in UserDefaults"); return }
+        guard let data = Settings.highlander[.taskStates] as? Data else { return }
         do {
             self.taskStates = try decoder.decode([TaskIdentifier: TaskStatus].self, from: data)
         } catch {

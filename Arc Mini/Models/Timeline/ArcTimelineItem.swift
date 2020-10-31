@@ -8,10 +8,13 @@
 
 import LocoKit
 import SwiftUI
+import Photos
 
 protocol ArcTimelineItem where Self: TimelineItem {
 
     var notes: [Note] { get }
+    var photos: PHFetchResult<PHAsset>? { get }
+    var needsConfirm: Bool { get }
 
     // MARK: - Health
 
@@ -62,7 +65,46 @@ extension ArcTimelineItem {
         ArcVisit.titleDateFormatter.timeStyle = timeStyle
         return ArcVisit.titleDateFormatter.string(from: date)
     }
+    
+    // MARK: - Photos
+    
+    var photos: PHFetchResult<PHAsset>? {
+        guard let dateRange = dateRange else { return nil }
 
+        let options = PHFetchOptions()
+        options.predicate = NSPredicate(format: "creationDate >= %@ AND creationDate <= %@",
+                                        dateRange.start as NSDate, dateRange.end as NSDate)
+        options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        options.wantsIncrementalChangeDetails = false
+
+        return PHAsset.fetchAssets(with: options)
+    }
+
+    var photosInside: [PHAsset] {
+        guard let photos = photos else { return [] }
+        var inside: [PHAsset] = []
+        photos.enumerateObjects { asset, index, stop in
+            if asset.hasLocationInside(timelineItem: self) {
+                inside.append(asset)
+            }
+        }
+        return inside
+    }
+
+    var photosOutside: [PHAsset] {
+        guard let photos = photos else { return [] }
+        var outside: [PHAsset] = []
+        photos.enumerateObjects { asset, index, stop in
+            if !asset.hasLocationInside(timelineItem: self) {
+                outside.append(asset)
+            }
+        }
+        return outside
+    }
+
+
+    // MARK: - Color
+    
     var uiColor: UIColor {
         if self.isDataGap { return .black }
         if let activityType = (self as? ArcPath)?.activityType { return UIColor.color(for: activityType) }

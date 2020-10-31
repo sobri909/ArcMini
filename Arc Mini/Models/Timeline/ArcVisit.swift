@@ -125,7 +125,23 @@ class ArcVisit: LocoKit.Visit, ArcTimelineItem {
         return placeId == otherPlaceId
     }
 
-    // MARK: - Custom title
+    // MARK: - Title
+    
+    override var title: String {
+
+        // have place with name
+        if let place = place, place.name.count > 0 { return place.name }
+
+        // have custom title
+        if let customTitle = customTitle, customTitle.count > 1 { return customTitle }
+
+        // have reverse geo
+        if let address = streetAddress { return address }
+
+        if isWorthKeeping { return "Unknown Place" }
+
+        return "Brief Stop"
+    }
     
     var customTitle: String? {
         didSet {
@@ -191,22 +207,14 @@ class ArcVisit: LocoKit.Visit, ArcTimelineItem {
         return peakDate
     }
 
+
     // MARK: - ArcTimelineItem
-
-    override var title: String {
-
-        // have place with name
-        if let place = place, place.name.count > 0 { return place.name }
-
-        // have custom title
-        if let customTitle = customTitle, customTitle.count > 1 { return customTitle }
-
-        // have reverse geo
-        if let address = streetAddress { return address }
-
-        if isWorthKeeping { return "Unknown Place" }
-
-        return "Brief Stop"
+    
+    var needsConfirm: Bool {
+        if isDataGap { return false }
+//        if uncertainPlace { return true }
+//        if needsUserCleanup { return true }
+        return false
     }
 
     // MARK: - TimelineItem

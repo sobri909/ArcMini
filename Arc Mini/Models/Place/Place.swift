@@ -8,7 +8,7 @@ import LocoKit
 import SwiftUI
 import CoreLocation
 
-class Place: TimelineObject, Hashable, Encodable {
+class Place: TimelineObject, Backupable, Hashable {
 
     // MARK: - Settings
 
@@ -84,6 +84,12 @@ class Place: TimelineObject, Hashable, Encodable {
     var objectId: UUID { return placeId }
     var store: TimelineStore? { return RecordingManager.store }
 
+    
+    // MARK: - Backupable
+    
+    var backupLastSaved: Date? { didSet { if oldValue != backupLastSaved { saveNoDate() } } }
+    static var backupFolderPrefixLength = 1
+
     // MARK: - PersistableRecord
 
     public static let databaseTableName = "Place"
@@ -133,6 +139,9 @@ class Place: TimelineObject, Hashable, Encodable {
             }
             container["visitTimesHistograms"] = serialised.joined(separator: "|")
         }
+        
+        // Backupable
+        container["backupLastSaved"] = backupLastSaved
     }
 
     // MARK: - Init
@@ -228,6 +237,9 @@ class Place: TimelineObject, Hashable, Encodable {
         } else if let visitTimesStrings = dict["visitTimesHistograms"] as? [String] {
             setVisitTimesHistograms(from: visitTimesStrings)
         }
+        
+        // Backupable
+        self.backupLastSaved = dict["backupLastSaved"] as? Date
 
         RecordingManager.store.add(self)
     }

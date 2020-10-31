@@ -18,9 +18,8 @@ let logger = Logger(label: "com.bigpaua.ArcMini.main") { _ in
     )
 }
 
-func fib (_ n: Int) -> Int {
-    guard n > 1 else {return n}
-    return fib(n - 1) + fib(n - 2)
+public enum Subsystem: String {
+    case backups, backup, memory, tasks, ui, locokit
 }
 
 class DebugLogger: LoggingFormatAndPipe.Pipe, ObservableObject {
@@ -109,4 +108,17 @@ class DebugLogger: LoggingFormatAndPipe.Pipe, ObservableObject {
         }
     }
 
+}
+
+func fib (_ n: Int) -> Int {
+    guard n > 1 else {return n}
+    return fib(n - 1) + fib(n - 2)
+}
+
+extension Logging.Logger {
+    @inlinable
+    public func info(_ message: String, subsystem: Subsystem, source: @autoclosure () -> String? = nil,
+                     file: String = #file, function: String = #function, line: UInt = #line) {
+        self.info("[\(subsystem.rawValue.uppercased())] \(message)", source: source(), file: file, function: function, line: line)
+    }
 }

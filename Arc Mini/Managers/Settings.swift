@@ -16,6 +16,7 @@ enum SettingsKey: String {
     // sessions
     case recordingOn
     case sharingOn
+    case backupsOn
     case totalBackgroundTime
     case totalForegroundTime
     case backgroundFailDate
@@ -52,6 +53,7 @@ class Settings {
 
     static var recordingOn: Bool { return highlander[.recordingOn] as? Bool ?? true }
     static var sharingOn: Bool { return highlander[.sharingOn] as? Bool ?? true }
+    static var backupsOn: Bool { return highlander[.backupsOn] as? Bool ?? false }
 
     static var showEndTimesOnTimeline: Bool {
         get { return highlander[.showEndTimesOnTimeline] as? Bool ?? false }

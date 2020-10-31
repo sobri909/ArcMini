@@ -232,6 +232,17 @@ class ArcPath: Path, ArcTimelineItem {
     var lastHealthKitLookup: Date?
 
     var _trackPlays: [TrackPlay]?
+    
+    // MARK: - ArcTimelineItem
+    
+    var needsConfirm: Bool {
+        if isDataGap { return false }
+        if modeMovingActivityType == nil { return true }
+        if unknownActivityType { return true }
+        if uncertainActivityType { return true }
+        if needsUserCleanup { return true }
+        return false
+    }
 
     // MARK: - TimelineItem
 

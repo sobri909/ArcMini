@@ -55,6 +55,18 @@ class Migrations {
                 table.add(column: "workoutRouteId", .text).indexed()
             }
         }
+        
+        migrator.registerMigration("Backups v2") { db in
+            try? db.alter(table: "Note") { table in
+                table.add(column: "backupLastSaved", .datetime).indexed()
+            }
+            try? db.alter(table: "TimelineItem") { table in
+                table.add(column: "backupLastSaved", .datetime).indexed()
+            }
+            try? db.alter(table: "LocomotionSample") { table in
+                table.add(column: "backupLastSaved", .datetime).indexed()
+            }
+        }
     }
 
     static func addLocoKitAuxiliaryMigrations(to migrator: inout DatabaseMigrator) {
@@ -65,9 +77,12 @@ class Migrations {
      * potentially time expensive, so need to be done backgrounded, post launch
      */
     static func addDelayedLocoKitMigrations(to migrator: inout DatabaseMigrator) {
-        // none yet
+        migrator.registerMigration("Backups v2 samples index") { db in
+            try db.create(index: "LocomotionSample_on_backupLastSaved_lastSaved", on: "LocomotionSample",
+                          columns: ["backupLastSaved", "lastSaved"])
+        }
     }
-
+    
     static func addArcMigrations(to migrator: inout DatabaseMigrator) {
         migrator.registerMigration("Place") { db in
             try db.create(table: "Place") { table in

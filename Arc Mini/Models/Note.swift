@@ -9,7 +9,7 @@
 import GRDB
 import LocoKit
 
-class Note: TimelineObject, Encodable {
+class Note: TimelineObject, Backupable {
 
     let noteId: UUID
     var date: Date { didSet { hasChanges = true } }
@@ -40,6 +40,10 @@ class Note: TimelineObject, Encodable {
         self.body = dict["body"] as! String
         self.deleted = dict["deleted"] as? Bool ?? false
         self.lastSaved = dict["lastSaved"] as? Date
+        
+        // Backupable
+        self.backupLastSaved = dict["backupLastSaved"] as? Date
+
         RecordingManager.store.add(self)
     }
 
@@ -92,8 +96,17 @@ class Note: TimelineObject, Encodable {
         container["source"] = source
         container["body"] = body
         container["deleted"] = deleted
+
         container["lastSaved"] = transactionDate ?? lastSaved ?? Date()
+        
+        // Backupable
+        container["backupLastSaved"] = backupLastSaved
     }
+    
+    // MARK: - Backupable
+    
+    var backupLastSaved: Date? { didSet { if oldValue != backupLastSaved { saveNoDate() } } }
+    static var backupFolderPrefixLength = 1
 
     // MARK: - Encodable
 

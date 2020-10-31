@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matt Greenfield. All rights reserved.
 //
 
+import os.log
 import GRDB
 import LocoKit
 
@@ -29,10 +30,16 @@ final class ArcStore: TimelineStore {
     let placeMap = NSMapTable<NSUUID, Place>.strongToWeakObjects()
     let noteMap = NSMapTable<NSUUID, Note>.strongToWeakObjects()
     let userModelMap = NSMapTable<NSString, UserActivityType>.strongToWeakObjects()
+    let timelineSummaryMap = NSMapTable<NSUUID, TimelineRangeSummary>.strongToWeakObjects()
 
     var placesInStore: Int { return mutex.sync { placeMap.objectEnumerator()?.allObjects.count ?? 0 } }
     var notesInStore: Int { return mutex.sync { noteMap.objectEnumerator()?.allObjects.count ?? 0 } }
     var userModelsInStore: Int { return mutex.sync { userModelMap.objectEnumerator()?.allObjects.count ?? 0 } }
+    var timelineSummariesInStore: Int { return mutex.sync { timelineSummaryMap.objectEnumerator()?.allObjects.count ?? 0 } }
+    
+    static var saveNoDateBatchSize = 50
+    var itemsToSaveNoDate: Set<TimelineItem> = []
+    var samplesToSaveNoDate: Set<ArcSample> = []
 
     // MARK: - Object creation
 
@@ -227,6 +234,147 @@ final class ArcStore: TimelineStore {
         }
     }
 
+    // MARK: - Timeline Summaries
+
+    func timelineSummary(for summaryId: UUID) -> TimelineRangeSummary? {
+        if let cached = mutex.sync(execute: { timelineSummaryMap.object(forKey: summaryId as NSUUID) }), !cached.invalidated { return cached }
+        return timelineSummary(where: "summaryId = ?", arguments: [summaryId.uuidString])
+    }
+
+    func timelineSummary(for dateRange: DateInterval) -> TimelineRangeSummary? {
+        return timelineSummary(where: "startDate = :start AND endDate = :end", arguments: ["start": dateRange.start, "end": dateRange.end])
+    }
+
+    func timelineSummary(where query: String, arguments: StatementArguments = StatementArguments()) -> TimelineRangeSummary? {
+        return timelineSummary(for: "SELECT * FROM TimelineRangeSummary WHERE " + query, arguments: arguments)
+    }
+
+    func timelineSummary(for query: String, arguments: StatementArguments = StatementArguments()) -> TimelineRangeSummary? {
+        return try! arcPool.read { db in
+            guard let row = try Row.fetchOne(db, sql: query, arguments: arguments) else { return nil }
+            return timelineSummary(for: row)
+        }
+    }
+
+    public func timelineSummaries(where query: String, arguments: StatementArguments = StatementArguments()) -> [TimelineRangeSummary] {
+        return timelineSummaries(for: "SELECT * FROM TimelineRangeSummary WHERE " + query, arguments: arguments)
+    }
+
+    public func timelineSummaries(for query: String, arguments: StatementArguments = StatementArguments()) -> [TimelineRangeSummary] {
+        return try! arcPool.read { db in
+            var summaries: [TimelineRangeSummary] = []
+            let rows = try Row.fetchCursor(db, sql: query, arguments: arguments)
+            while let row = try rows.next() { summaries.append(timelineSummary(for: row)) }
+            return summaries
+        }
+    }
+
+    func countTimelineSummaries(where query: String = "1", arguments: StatementArguments = StatementArguments()) -> Int {
+        return try! arcPool.read { db in
+            return try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM TimelineRangeSummary WHERE " + query, arguments: arguments)!
+        }
+    }
+
+    func timelineSummary(for row: Row) -> TimelineRangeSummary {
+        guard let summaryId = row["summaryId"] as String? else { fatalError("MISSING SUMMARYID") }
+        if let cached = mutex.sync(execute: { timelineSummaryMap.object(forKey: UUID(uuidString: summaryId)! as NSUUID) }), !cached.invalidated {
+            return cached
+        }
+        return TimelineRangeSummary(from: row.asDict(in: self))
+    }
+
+    func add(_ summary: TimelineRangeSummary) {
+        mutex.sync { timelineSummaryMap.setObject(summary, forKey: summary.summaryId as NSUUID) }
+    }
+
+    // MARK: - Saving for backups
+    // These save methods don't update the lastSaved date
+    
+    public func saveNoDate(_ object: TimelineObject) {
+        mutex.sync {
+            if let item = object as? TimelineItem {
+                itemsToSaveNoDate.insert(item)
+            } else if let sample = object as? ArcSample {
+                samplesToSaveNoDate.insert(sample)
+            }
+        }
+        if itemsToSaveNoDate.count + samplesToSaveNoDate.count >= ArcStore.saveNoDateBatchSize { saveNoDate() }
+    }
+
+    func saveNoDate() {
+        guard let pool = pool else { fatalError("Attempting to access the database when disconnected") }
+
+        var savingItems: Set<TimelineItem> = []
+        var savingSamples: Set<ArcSample> = []
+
+        mutex.sync {
+            savingItems = itemsToSaveNoDate
+            itemsToSaveNoDate.removeAll(keepingCapacity: true)
+
+            savingSamples = samplesToSaveNoDate
+            samplesToSaveNoDate.removeAll(keepingCapacity: true)
+        }
+
+        if !savingItems.isEmpty || !savingSamples.isEmpty {
+            print("items: %3d samples: %3d", savingItems.count, savingSamples.count)
+        }
+
+        if !savingItems.isEmpty {
+            do {
+                try pool.write { db in
+                    for case let item as TimelineObject in savingItems {
+                        do {
+                            try item.save(in: db)
+                            if item.lastSaved == nil {
+                                item.lastSaved = Date()
+                            }
+                        }
+                        catch PersistenceError.recordNotFound { os_log("PersistenceError.recordNotFound", type: .error) }
+                        catch let error as DatabaseError where error.resultCode == .SQLITE_CONSTRAINT {
+                            logger.error("\(error)")
+
+                            // break the edges and put it back in the queue
+                            logger.info("BREAKING ITEM EDGES")
+                            (item as? ArcTimelineItem)?.previousItemId = nil
+                            (item as? ArcTimelineItem)?.nextItemId = nil
+                            saveNoDate(item)
+
+                        } catch {
+                            saveNoDate(item)
+                        }
+                    }
+                }
+
+            } catch {
+                logger.error("\(error)")
+            }
+        }
+
+        if !savingSamples.isEmpty {
+            do {
+                try pool.write { db in
+                    for case let sample as TimelineObject in savingSamples {
+                        do {
+                            try sample.save(in: db)
+                            if sample.lastSaved == nil {
+                                sample.lastSaved = Date()
+                            }
+
+                        } catch PersistenceError.recordNotFound {
+                            print("PersistenceError.recordNotFound")
+
+                        } catch {
+                            saveNoDate(sample)
+                        }
+                    }
+                }
+                
+            } catch {
+                logger.error("\(error)")
+            }
+        }
+    }
+
     // MARK: - Counts
 
     var placesPendingUpdate: Int {
@@ -271,7 +419,15 @@ final class ArcStore: TimelineStore {
             fatalError()
         }
 
-        Migrations.addDelayedLocoKitMigrations(to: &migrator)
+        delay(20, onQueue: DispatchQueue.global()) {
+            var migrator = DatabaseMigrator()
+            Migrations.addDelayedLocoKitMigrations(to: &migrator)
+            do {
+                try migrator.migrate(pool)
+            } catch {
+                fatalError()
+            }
+        }
     }
 
     //  MARK: -

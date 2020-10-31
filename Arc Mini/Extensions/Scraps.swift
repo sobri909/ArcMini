@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Photos
+import LocoKit
 
 // fix back swipe navigation
 extension UINavigationController: UIGestureRecognizerDelegate {
@@ -84,6 +86,22 @@ extension URL {
     }
 }
 
+extension PHAsset {
+    func hasLocationInside(timelineItem: TimelineItem) -> Bool {
+        guard let location = self.location else { return false }
+
+        // test photo validity against the visit / path
+        if timelineItem.contains(location, sd: 5) { return true }
+
+        // test against the place
+        if let place = (timelineItem as? ArcVisit)?.place {
+            return place.contains(location: location)
+        }
+
+        return false
+    }
+}
+
 extension ProcessInfo.ThermalState {
     var stringValue: String {
         switch self {
@@ -116,3 +134,24 @@ extension ProcessInfo {
         return Measurement<UnitInformationStorage>(value: Double(info.phys_footprint), unit: .bytes)
     }
 }
+
+extension FileManager {
+    var iCloudDocsDir: URL? {
+        guard let iCloudRoot = url(forUbiquityContainerIdentifier: nil) else { return nil }
+
+        let docsDir = iCloudRoot.appendingPathComponent("Documents")
+
+        if !fileExists(atPath: docsDir.path, isDirectory: nil) {
+            do {
+                try createDirectory(at: docsDir, withIntermediateDirectories: true, attributes: nil)
+
+            } catch {
+                logger.error("\(error)")
+                return nil
+            }
+        }
+
+        return docsDir
+    }
+}
+

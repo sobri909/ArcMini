@@ -19,6 +19,7 @@ enum Weekday: Int, CaseIterable {
     case saturday = 7
 }
 
+let cachedLogStringFormatter = DateFormatter()
 let greg = Calendar(identifier: Calendar.Identifier.gregorian)
 
 extension Date {
@@ -29,6 +30,11 @@ extension Date {
     var previousDay: Date { return Calendar.current.date(byAdding: .day, value: -1, to: self)! }
     var endOfDay: Date { return nextDay.startOfDay }
     var weekday: Weekday { return Weekday(rawValue: greg.dateComponents([.weekday], from: self).weekday!)! }
+
+    var dayLogString: String {
+        cachedLogStringFormatter.dateFormat = "yyyy-MM-dd"
+        return cachedLogStringFormatter.string(from: self)
+    }
 }
 
 extension DateInterval: Identifiable {
