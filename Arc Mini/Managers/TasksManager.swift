@@ -12,11 +12,19 @@ import LocoKit
 class TasksManager {
 
     enum TaskIdentifier: String, Codable {
-        case placeModelUpdates = "com.bigpaua.ArcMini.placeModelUpdates"
-        case activityTypeModelUpdates = "com.bigpaua.ArcMini.activityTypeModelUpdates"
-        case updateTrustFactors = "com.bigpaua.ArcMini.updateTrustFactors"
-        case sanitiseStore = "com.bigpaua.ArcMini.sanitiseStore"
-        case iCloudDriveBackups = "com.bigpaua.ArcMini.iCloudDriveBackups"
+        case placeModelUpdates = "com.bigpaua.placeModelUpdates"
+        case activityTypeModelUpdates = "com.bigpaua.activityTypeModelUpdates"
+        case updateTrustFactors = "com.bigpaua.updateTrustFactors"
+        case sanitiseStore = "com.bigpaua.sanitiseStore"
+        case iCloudDriveBackups = "com.bigpaua.iCloudDriveBackups"
+        
+        // Arc v3 only
+        case activitySummaryUpdates = "com.bigpaua.LearnerCoacher.activitySummaryUpdates"
+        case simpleItemUpdates = "com.bigpaua.LearnerCoacher.simpleItemUpdates"
+        case cloudKitBackups = "com.bigpaua.LearnerCoacher.cloudKitBackups"
+        case dailyAutoExportUpdates = "com.bigpaua.LearnerCoacher.dailyAutoExportUpdates"
+        case monthlyAutoExportUpdates = "com.bigpaua.LearnerCoacher.monthlyAutoExportUpdates"
+        case wakeupCheck = "com.bigpaua.LearnerCoacher.wakeupCheck"
     }
 
     enum TaskState: String, Codable {
@@ -179,7 +187,7 @@ class TasksManager {
     private func register(_ identifier: TaskIdentifier, minimumDelay: TimeInterval = 0, queue: DispatchQueue? = nil, launchHandler: @escaping (BGTask) -> Void) {
         BGTaskScheduler.shared.register(forTaskWithIdentifier: identifier.rawValue, using: queue, launchHandler: launchHandler)
         if let status = self.taskStates[identifier] {
-            self.taskStates[identifier] = TaskStatus(state: .registered, lastUpdated: Date(), minimumDelay: minimumDelay,
+            self.taskStates[identifier] = TaskStatus(state: status.state, lastUpdated: Date(), minimumDelay: minimumDelay,
                                                      lastCompleted: status.lastCompleted)
         } else {
             self.taskStates[identifier] = TaskStatus(state: .registered, lastUpdated: Date(), minimumDelay: minimumDelay)
@@ -213,19 +221,28 @@ class TasksManager {
 
     private func saveStates() {
         do {
-            Settings.highlander[.taskStates] = try encoder.encode(taskStates)
+            if let groupDefaults = LocomotionManager.highlander.appGroup?.groupDefaults {
+                groupDefaults.set(try encoder.encode(taskStates), forKey: "taskStates")
+            } else {
+                Settings.highlander[.taskStates] = try encoder.encode(taskStates)
+            }
         } catch {
             logger.error("\(error)")
         }
     }
 
     private func loadStates() {
-        guard let data = Settings.highlander[.taskStates] as? Data else { return }
+        guard let data = storedStates else { return }
         do {
             self.taskStates = try decoder.decode([TaskIdentifier: TaskStatus].self, from: data)
         } catch {
             logger.error("\(error)")
         }
+    }
+    
+    private var storedStates: Data? {
+        if let data = LocomotionManager.highlander.appGroup?.groupDefaults?.value(forKey: "taskStates") as? Data { return data }
+        return Settings.highlander[.taskStates] as? Data
     }
 
     private func flushRunning() {
