@@ -71,8 +71,17 @@ struct RecordersWidgetEntryView: View {
                     Image("warningIcon20").renderingMode(.template).foregroundColor(Color.red)
                 }
             }
+            
+            VStack {
+                Spacer()
+                Text(Date(), style: .relative)
+                    .multilineTextAlignment(.center)
+                    .font(.system(size: 8, weight: .regular))
+                    .opacity(0.3)
+            }
         }
-        .padding(family == .systemSmall ? 16 : 20)
+        .padding([.top, .leading, .trailing], family == .systemSmall ? 16 : 20)
+        .padding([.bottom], 4)
     }
 
     func row(leftText: Text, rightText: Text, isActiveRecorder: Bool = false, isAlive: Bool = false) -> some View {
