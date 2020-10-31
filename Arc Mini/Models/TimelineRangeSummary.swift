@@ -219,7 +219,7 @@ class TimelineRangeSummary: TimelineObject, Backupable, Hashable {
                 self.lastSaved = self.transactionDate
             }
         } catch {
-            print("\(error)")
+            logger.error("\(error)")
         }
     }
 
@@ -252,11 +252,11 @@ class TimelineRangeSummary: TimelineObject, Backupable, Hashable {
                 try self.save(in: db)
             }
         } catch {
-            print("\(error)")
+            logger.error("\(error)")
         }
     }
     
-    // MARK: - Encodable
+    // MARK: - Codable
 
     enum CodingKeys: String, CodingKey {
         case summaryId
@@ -264,6 +264,20 @@ class TimelineRangeSummary: TimelineObject, Backupable, Hashable {
         case dateRange
         case isFavourite
         case itemsNeedingConfirmCount
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.summaryId = (try? container.decode(UUID.self, forKey: .summaryId)) ?? UUID()
+        self.dateRange = try container.decode(DateInterval.self, forKey: .dateRange)
+        if let source = try? container.decode(String.self, forKey: .source) { self.source = source }
+        self.isFavourite = (try? container.decode(Bool.self, forKey: .isFavourite)) ?? false
+        self.itemsNeedingConfirmCount = (try? container.decode(Int.self, forKey: .itemsNeedingConfirmCount)) ?? 0
+
+        self.segment = RecordingManager.store.segment(for: dateRange)
+        addObservers()
+        RecordingManager.store.add(self)
     }
 
     func encode(to encoder: Encoder) throws {

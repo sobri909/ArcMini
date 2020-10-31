@@ -3,12 +3,12 @@
 // Copyright (c) 2016 Big Paua. All rights reserved.
 //
 
-import GRDB
 import LocoKit
 import SwiftUI
 import CoreLocation
+import GRDB
 
-class Place: TimelineObject, Backupable, Hashable {
+class Place: Hashable, Backupable {
 
     // MARK: - Settings
 
@@ -51,6 +51,11 @@ class Place: TimelineObject, Backupable, Hashable {
     var startTimes: ArcHistogram? { didSet { hasChanges = true } }
     var endTimes: ArcHistogram? { didSet { hasChanges = true } }
 
+    // MARK: - Backupable
+    
+    var backupLastSaved: Date? { didSet { if oldValue != backupLastSaved { saveNoDate() } } }
+    static var backupFolderPrefixLength = 1
+    
     // MARK: - TimelineObject
 
     var transactionDate: Date?
@@ -83,12 +88,6 @@ class Place: TimelineObject, Backupable, Hashable {
     var source = "ArcMini"
     var objectId: UUID { return placeId }
     var store: TimelineStore? { return RecordingManager.store }
-
-    
-    // MARK: - Backupable
-    
-    var backupLastSaved: Date? { didSet { if oldValue != backupLastSaved { saveNoDate() } } }
-    static var backupFolderPrefixLength = 1
 
     // MARK: - PersistableRecord
 
@@ -384,7 +383,8 @@ class Place: TimelineObject, Backupable, Hashable {
     var itemId: UUID { return placeId }
     var color: UIColor { return .orange }
 
-    // MARK: - Encodable
+
+    // MARK: - Codable
 
     enum CodingKeys: String, CodingKey {
         case placeId
@@ -395,6 +395,22 @@ class Place: TimelineObject, Backupable, Hashable {
         case foursquareCategoryId
         case facebookPlaceId
         case isHome
+        case lastSaved
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.placeId = (try? container.decode(UUID.self, forKey: .placeId)) ?? UUID()
+        self.name = try container.decode(String.self, forKey: .name)
+        let coordinate = try container.decode(CLLocationCoordinate2D.self, forKey: .center)
+        self.center = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        self.radius = try container.decode(Radius.self, forKey: .radius)
+        self.foursquareVenueId = try? container.decode(String.self, forKey: .foursquareVenueId)
+        self.foursquareCategoryId = try? container.decode(String.self, forKey: .foursquareCategoryId)
+        self.facebookPlaceId = try? container.decode(String.self, forKey: .facebookPlaceId)
+        self.isHome = (try? container.decode(Bool.self, forKey: .isHome)) ?? false
+        self.lastSaved = try? container.decode(Date.self, forKey: .lastSaved)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -407,6 +423,7 @@ class Place: TimelineObject, Backupable, Hashable {
         if foursquareCategoryId != nil { try container.encode(foursquareCategoryId, forKey: .foursquareCategoryId) }
         if facebookPlaceId != nil { try container.encode(facebookPlaceId, forKey: .facebookPlaceId) }
         if isHome { try container.encode(isHome, forKey: .isHome) }
+        if lastSaved != nil { try container.encode(lastSaved, forKey: .lastSaved) }
     }
 
     // MARK: - Hashable
@@ -417,9 +434,9 @@ class Place: TimelineObject, Backupable, Hashable {
 
     static func ==(lhs: Place, rhs: Place) -> Bool {
         if lhs.placeId == rhs.placeId { return true }
-        if let venueId = lhs.foursquareVenueId, !venueId.isEmpty, venueId == rhs.foursquareVenueId { return true }
-        if let facebookId = lhs.facebookPlaceId, !facebookId.isEmpty, facebookId == rhs.facebookPlaceId { return true }
-        if let movesPlaceId = lhs.movesPlaceId, movesPlaceId == rhs.movesPlaceId { return true }
+        if let venueId = lhs.foursquareVenueId, !venueId.isEmpty, venueId == rhs.foursquareVenueId, lhs.visitsCount == rhs.visitsCount { return true }
+        if let facebookId = lhs.facebookPlaceId, !facebookId.isEmpty, facebookId == rhs.facebookPlaceId, lhs.visitsCount == rhs.visitsCount { return true }
+        if let movesPlaceId = lhs.movesPlaceId, movesPlaceId == rhs.movesPlaceId, lhs.visitsCount == rhs.visitsCount { return true }
         return false
     }
 

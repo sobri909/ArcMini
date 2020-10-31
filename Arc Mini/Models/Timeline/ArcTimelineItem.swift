@@ -10,7 +10,7 @@ import LocoKit
 import SwiftUI
 import Photos
 
-protocol ArcTimelineItem where Self: TimelineItem {
+protocol ArcTimelineItem: Backupable where Self: TimelineItem {
 
     var notes: [Note] { get }
     var photos: PHFetchResult<PHAsset>? { get }

@@ -11,28 +11,41 @@ import BackgroundTasks
 
 enum Backups {
 
-    static let maximumBackupFrequency: TimeInterval = .oneHour * 3
+    static let maximumBackupFrequency: TimeInterval = .oneHour * 6
     static let delayBetweenBatches: TimeInterval = 10
-    static let maxConcurrentOperationCount = 4
+    static let maxConcurrentOperationCount = 2
     
     static let notesBatchSize = 300
     static let placesBatchSize = 300
     static let summariesBatchSize = 40
     static let itemsBatchSize = 100
-    static let samplesBatchSize = 1000
+    static let sampleWeeksBatchSize = 4
     
     // MARK: -
     
     static func runBackups() {
         guard Settings.backupsOn else { return }
-        if bgTask == nil, !canBackupWithoutTask { return }
         
+        if bgTask == nil {
+            if !canBackupWithoutTask {
+                cancelBackupOperations()
+                if TasksManager.currentState(of: .iCloudDriveBackups) == .running {
+                    TasksManager.update(.iCloudDriveBackups, to: .unfinished)
+                }
+                return
+            }
+            if let last = TasksManager.lastCompleted(for: .iCloudDriveBackups), last.age < maximumBackupFrequency {
+                print("[BACKUPS] Last backup too recent (age: \(String(duration: last.age)))")
+                return
+            }
+        }
+            
         setupTaskExpiryHandler()
 
         backupQueue.addOperation {
             if bgTask == nil { TasksManager.update(.iCloudDriveBackups, to: .running) }
             
-            var notesCount = Int.max, placesCount = Int.max, summariesCount = Int.max, itemsCount = Int.max, samplesCount = Int.max
+            var notesCount = Int.max, placesCount = Int.max, summariesCount = Int.max, itemsCount = Int.max
             
             if backupQueue.operationCount < maxConcurrentOperationCount {
                 notesCount = backupNotes()
@@ -43,14 +56,14 @@ enum Backups {
                 print("backupQueue.operationCount: \(backupQueue.operationCount)")
             }
             
-            if samplesBackupQueue.operationCount < maxConcurrentOperationCount {
-                samplesCount = backupSamples()
+            if samplesBackupQueue.operationCount == 0 {
+                lastSamplesBatch = backupSamples()
             } else {
                 print("samplesBackupQueue.operationCount: \(samplesBackupQueue.operationCount)")
             }
             
             // not finished yet?
-            guard notesCount == 0, placesCount == 0, itemsCount < 2, summariesCount < 2, samplesCount < 20 else {
+            guard notesCount == 0, placesCount == 0, itemsCount < 2, summariesCount < 2, lastSamplesBatch.count < 2 else {
                 dedupedTask(scope: Settings.highlander, after: delayBetweenBatches) {
                     Backups.runBackups()
                 }
@@ -104,7 +117,7 @@ enum Backups {
         for item in batch {
             item.includeSamplesWhenEncoding = false
             backupQueue.addOperation {
-                (item as? Backupable)?.backup()
+                item.backup()
             }
         }
         return batch.count
@@ -124,15 +137,25 @@ enum Backups {
         return batch.count
     }
     
-    private static func backupSamples() -> Int {
-        let batch = samplesBackupBatch
-        if batch.count > 0 { logger.info("samplesBackupBatch: \(batch.count)", subsystem: .backups) }
-        for sample in batch {
-            samplesBackupQueue.addOperation {
-                sample.backup()
-            }
+    private static var lastSamplesBatch: [DateInterval] = []
+    
+    private static func backupSamples() -> [DateInterval] {
+        let batch = sampleWeeksBatch
+        for week in batch {
+            if lastSamplesBatch.contains(week) { print("ALREADY DONE: \(week)")}
+            backupSamples(for: week)
         }
-        return batch.count
+        return batch
+    }
+    
+    private static func backupSamples(for week: DateInterval) {
+        samplesBackupQueue.addOperation {
+            let samples = RecordingManager.store.samples(where: "date >= ? AND date < ? ORDER BY date",
+                                                         arguments: [week.start, week.end]) as! [ArcSample]
+            let weekString = weekFormatter.string(from: week.middle)
+            logger.info("backupSamples week: \(weekString), samples: \(samples.count)", subsystem: .backups)
+            samples.saveToBackups()
+        }
     }
     
     // MARK: - Counts
@@ -185,19 +208,37 @@ enum Backups {
         return results as? [ArcTimelineItem] ?? []
     }
 
-    private static var samplesBackupBatch: [ArcSample] {
-        RecordingManager.store.saveNoDate()
-        let results = RecordingManager.store.samples(
-            where: "(backupLastSaved IS NULL OR backupLastSaved < lastSaved) LIMIT ?",
-            arguments: [samplesBatchSize])
-        if results.isEmpty { return [] }
-        return results as? [ArcSample] ?? []
-    }
-    
     private static var summariesBackupBatch: [TimelineRangeSummary] {
         return RecordingManager.store.timelineSummaries(
             where: "(backupLastSaved IS NULL OR backupLastSaved < lastSaved) LIMIT ?",
             arguments: [summariesBatchSize])
+    }
+
+    private static var sampleWeeksBatch: [DateInterval] {
+        RecordingManager.store.saveNoDate()
+        guard let pool = RecordingManager.store.pool else { return [] }
+        let sql = """
+            SELECT
+                DISTINCT strftime('%Y-%m-%d', date)
+                FROM LocomotionSample
+                WHERE (backupLastSaved IS NULL OR backupLastSaved < lastSaved)
+                LIMIT ?
+            """
+        do {
+            let days = try pool.read { try Date.fetchAll($0, sql: sql, arguments: [sampleWeeksBatchSize * 7]) }
+            var weeks: Set<DateInterval> = []
+            for day in days {
+                let weekString = Backups.weekFormatter.string(from: day)
+                guard let start = Backups.weekFormatter.date(from: weekString) else { continue }
+                let range = DateInterval(start: start, end: start.nextWeek)
+                weeks.insert(range)
+            }
+            return Array(weeks)
+            
+        } catch {
+            logger.error("\(error)")
+            return []
+        }
     }
     
     // MARK: - Foreground backups
@@ -222,11 +263,21 @@ enum Backups {
         guard task.expirationHandler == nil else { return }
         
         task.expirationHandler = {
-            logger.info("Cancelling operations: \(backupQueue.operations.count)", subsystem: .backups)
-            backupQueue.cancelAllOperations()
-            samplesBackupQueue.cancelAllOperations()
+            cancelBackupOperations()
             bgTaskExpired()
         }
+    }
+    
+    private static func cancelBackupOperations() {
+        if backupQueue.operations.count > 0 {
+            logger.info("Cancelling backupQueue.operations: \(backupQueue.operations.count)", subsystem: .backups)
+        }
+        if samplesBackupQueue.operations.count > 0 {
+            logger.info("Cancelling samplesBackupQueue.operations: \(samplesBackupQueue.operations.count)", subsystem: .backups)
+        }
+        backupQueue.cancelAllOperations()
+        samplesBackupQueue.cancelAllOperations()
+
     }
     
     private static func bgTaskExpired() {
@@ -234,6 +285,21 @@ enum Backups {
         RecordingManager.safelyDisconnectFromDatabase()
         bgTask?.setTaskCompleted(success: false)
         TasksManager.highlander.scheduleBackgroundTasks()
+    }
+    
+    // MARK: - Debug
+    
+    static func resetBackupDates() {
+        backupQueue.addOperation {
+            guard let pool = RecordingManager.store.pool else { return }
+            do {
+                try pool.write { db in
+                    try db.execute(sql: "UPDATE LocomotionSample SET backupLastSaved = NULL")
+                }
+            } catch {
+                print("ERROR: \(error)")
+            }
+        }
     }
 
     // MARK: -
@@ -264,6 +330,12 @@ enum Backups {
         encoder.outputFormatting = .prettyPrinted
         encoder.dateEncodingStrategy = .iso8601
         return encoder
+    }()
+    
+    static let weekFormatter: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withYear, .withWeekOfYear, .withDashSeparatorInDate]
+        return formatter
     }()
     
 }

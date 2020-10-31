@@ -6,10 +6,10 @@
 //  Copyright © 2019 Big Paua. All rights reserved.
 //
 
-import GRDB
 import LocoKit
+import GRDB
 
-class Note: TimelineObject, Backupable {
+class Note: Backupable {
 
     let noteId: UUID
     var date: Date { didSet { hasChanges = true } }
@@ -108,19 +108,32 @@ class Note: TimelineObject, Backupable {
     var backupLastSaved: Date? { didSet { if oldValue != backupLastSaved { saveNoDate() } } }
     static var backupFolderPrefixLength = 1
 
-    // MARK: - Encodable
+    // MARK: - Codable
 
     enum CodingKeys: String, CodingKey {
         case noteId
         case date
         case body
+        case deleted
+        case lastSaved
     }
 
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.noteId = (try? container.decode(UUID.self, forKey: .noteId)) ?? UUID()
+        self.date = try container.decode(Date.self, forKey: .date)
+        self.body = try container.decode(String.self, forKey: .body)
+        self.deleted = (try? container.decode(Bool.self, forKey: .deleted)) ?? false
+        self.lastSaved = try? container.decode(Date.self, forKey: .lastSaved)
+    }
+    
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(noteId, forKey: .noteId)
         try container.encode(date, forKey: .date)
         try container.encode(body, forKey: .body)
+        if deleted { try container.encode(deleted, forKey: .deleted) }
+        if lastSaved != nil { try container.encode(lastSaved, forKey: .lastSaved) }
     }
 
 }

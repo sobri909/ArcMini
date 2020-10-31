@@ -1,47 +1,25 @@
 //
-//  Backupable.swift
+//  Array+ArcSample.swift
 //  Arc
 //
-//  Created by Matt Greenfield on 5/10/20.
+//  Created by Matt Greenfield on 16/10/20.
 //  Copyright © 2020 Big Paua. All rights reserved.
 //
 
-import LocoKit
+import Gzip
 
-protocol Backupable: TimelineObject, Decodable {
-    var backupLastSaved: Date? { get set }
-    static var backupFolderPrefixLength: Int { get }
+extension Array where Element: ArcSample {
     
-    func backup()
-    func saveNoDate()
-}
-
-extension Backupable {
-    
-    var needToBackup: Bool {
-        // don't backup if it hasn't been saved to SQLite yet
-        guard let lastSaved = lastSaved else { return false }
-
-        // needs backup if never been backed up before
-        guard let backupLastSaved = backupLastSaved else { return true }
-        
-        // backup out of date?
-        if backupLastSaved < lastSaved { return true }
-
-        return false
-    }
-   
-    func backup() {
-        guard needToBackup else { return }
+    func saveToBackups() {
         guard let backupsDir = Backups.backupsDir else { return }
-
+        guard let filename = weekFilename else { return }
+        
+        // don't to wasteful saves
+        guard needBackup else { return }
+        
         let manager = FileManager.default
-        let filename = objectId.uuidString + ".json"
-        var folderURL = backupsDir.appendingPathComponent(Self.databaseTableName, isDirectory: true)
-        if Self.backupFolderPrefixLength > 0 {
-            folderURL.appendPathComponent(String(objectId.uuidString.prefix(Self.backupFolderPrefixLength)), isDirectory: true)
-        }
-        let fullURL = folderURL.appendingPathComponent(filename)
+        let folderURL = backupsDir.appendingPathComponent("LocomotionSample", isDirectory: true)
+        let fullURL = folderURL.appendingPathComponent(filename + ".json.gz")
 
         // create the dir if missing
         do { try manager.createDirectory(at: folderURL, withIntermediateDirectories: true, attributes: nil) }
@@ -50,7 +28,7 @@ extension Backupable {
         let encodingDate = Date()
 
         let json: Data
-        do { json = try Backups.encoder.encode(ConcreteBackupable(object: self)) }
+        do { json = try Backups.encoder.encode(self).gzipped(level: .bestCompression) }
         catch { logger.error("\(error)"); return }
 
         let files: [URL]
@@ -82,7 +60,7 @@ extension Backupable {
 
                 document.close { success in
                     if !success { logger.error("document.close() failed"); return }
-                    self.backupLastSaved = encodingDate
+                    for sample in self { sample.backupLastSaved = encodingDate }
                 }
             }
 
@@ -102,12 +80,35 @@ extension Backupable {
                 try manager.setUbiquitous(true, itemAt: tempFile, destinationURL: fullURL)
 
                 // success
-                backupLastSaved = encodingDate
+                for sample in self { sample.backupLastSaved = encodingDate }
 
             } catch {
                 logger.error("\(error)")
             }
         }
     }
+    
+    var needBackup: Bool {
+        guard let weekFilename = weekFilename else { print("weekFilename == nil! WTF"); return false }
+        
+        for sample in self {
+            guard let lastSaved = sample.lastSaved else { continue }
 
+            // never been backed up?
+            guard let backupLastSaved = sample.backupLastSaved else { return true }
+
+            // db version is newer than backup?
+            if backupLastSaved < lastSaved { return true }
+        }
+        
+        print("week: \(weekFilename) needBackup: FALSE")
+        
+        return false
+    }
+
+    var weekFilename: String? {
+        guard let first = first else { return nil }
+        return Backups.weekFormatter.string(from: first.date)
+    }
+    
 }

@@ -47,12 +47,12 @@ class TasksManager {
     // MARK: -
 
     func registerBackgroundTasks() {
-        register(.placeModelUpdates) { task in
+        register(.placeModelUpdates, minimumDelay: .oneHour) { task in
             TasksManager.update(.placeModelUpdates, to: .running)
             PlaceCache.cache.updateQueuedPlaces(task: task as! BGProcessingTask)
         }
 
-        register(.activityTypeModelUpdates) { task in
+        register(.activityTypeModelUpdates, minimumDelay: .oneHour) { task in
             TasksManager.update(.activityTypeModelUpdates, to: .running)
             UserActivityTypesCache.highlander.updateQueuedModels(task: task as! BGProcessingTask)
         }
@@ -66,7 +66,7 @@ class TasksManager {
             task.setTaskCompleted(success: true)
         }
 
-        register(.sanitiseStore, queue: Jobs.highlander.secondaryQueue.underlyingQueue) { task in
+        register(.sanitiseStore, minimumDelay: .oneHour, queue: Jobs.highlander.secondaryQueue.underlyingQueue) { task in
             TasksManager.update(.sanitiseStore, to: .running)
             RecordingManager.store.connectToDatabase()
             TimelineProcessor.sanitise(store: RecordingManager.store)
@@ -86,7 +86,7 @@ class TasksManager {
         if loco.recordingState == .recording { return }
 
         if Settings.backupsOn {
-            TasksManager.schedule(.iCloudDriveBackups, requiresPower: true, requiresNetwork: true)
+            TasksManager.schedule(.iCloudDriveBackups, requiresPower: true)
         }
 
         /* generic tasks */
@@ -160,6 +160,10 @@ class TasksManager {
     static func currentState(of identifier: TaskIdentifier) -> TaskState? {
         return highlander.taskStates[identifier]?.state
     }
+    
+    static func lastCompleted(for identifier: TaskIdentifier) -> Date? {
+        return highlander.taskStates[identifier]?.lastCompleted
+    }
 
     // MARK: -
 
@@ -174,7 +178,12 @@ class TasksManager {
 
     private func register(_ identifier: TaskIdentifier, minimumDelay: TimeInterval = 0, queue: DispatchQueue? = nil, launchHandler: @escaping (BGTask) -> Void) {
         BGTaskScheduler.shared.register(forTaskWithIdentifier: identifier.rawValue, using: queue, launchHandler: launchHandler)
-        self.taskStates[identifier] = TaskStatus(state: .registered, lastUpdated: Date(), minimumDelay: minimumDelay)
+        if let status = self.taskStates[identifier] {
+            self.taskStates[identifier] = TaskStatus(state: .registered, lastUpdated: Date(), minimumDelay: minimumDelay,
+                                                     lastCompleted: status.lastCompleted)
+        } else {
+            self.taskStates[identifier] = TaskStatus(state: .registered, lastUpdated: Date(), minimumDelay: minimumDelay)
+        }
         saveStates()
     }
 

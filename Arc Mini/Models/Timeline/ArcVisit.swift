@@ -41,6 +41,9 @@ class ArcVisit: LocoKit.Visit, ArcTimelineItem {
         if let steps = dict["hkStepCount"] as? Double {
             self.hkStepCount = Int(steps)
         }
+        
+        // Backupable
+        self.backupLastSaved = dict["backupLastSaved"] as? Date
 
         super.init(from: dict, in: store)
     }
@@ -308,6 +311,16 @@ class ArcVisit: LocoKit.Visit, ArcTimelineItem {
 
         return super.withinMergeableDistance(from: otherItem)
     }
+    
+    // MARK: - Backupable
+    
+    static var backupFolderPrefixLength = 2
+    var backupLastSaved: Date? { didSet { if oldValue != backupLastSaved { saveNoDate() } } }
+    
+    public func saveNoDate() {
+        hasChanges = true
+        arcStore?.saveNoDate(self)
+    }
 
     // MARK: - Persistable
 
@@ -326,6 +339,9 @@ class ArcVisit: LocoKit.Visit, ArcTimelineItem {
         container["customTitle"] = customTitle
         container["placeId"] = placeId?.uuidString
         container["swarmCheckinId"] = swarmCheckinId
+        
+        // Backupable
+        container["backupLastSaved"] = backupLastSaved
     }
 
     // MARK: - Codable

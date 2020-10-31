@@ -431,7 +431,11 @@ final class ArcStore: TimelineStore {
     }
 
     //  MARK: -
-
+    
+    override var dateFields: [String] {
+        return super.dateFields + ["backupLastSaved"]
+    }
+    
     override var boolFields: [String] {
         return super.boolFields + ["restoring", "manualActivityType", "uncertainActivityType", "unknownActivityType", "manualPlace",
                                    "isHome", "isFavourite"]

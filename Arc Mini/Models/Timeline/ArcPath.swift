@@ -36,6 +36,9 @@ class ArcPath: Path, ArcTimelineItem {
         if let steps = dict["hkStepCount"] as? Double {
             self.hkStepCount = Int(steps)
         }
+        
+        // Backupable
+        self.backupLastSaved = dict["backupLastSaved"] as? Date
 
         super.init(from: dict, in: store)
     }
@@ -261,6 +264,16 @@ class ArcPath: Path, ArcTimelineItem {
         return super.scoreForConsuming(item: item)
     }
 
+    // MARK: - Backupable
+    
+    static var backupFolderPrefixLength = 2
+    var backupLastSaved: Date? { didSet { if oldValue != backupLastSaved { saveNoDate() } } }
+
+    public func saveNoDate() {
+        hasChanges = true
+        arcStore?.saveNoDate(self)
+    }
+
     // MARK: - Persistable
 
     override func encode(to container: inout PersistenceContainer) {
@@ -277,6 +290,9 @@ class ArcPath: Path, ArcTimelineItem {
         container["uncertainActivityType"] = _uncertainActivityType ?? true
         container["unknownActivityType"] = _unknownActivityType ?? true
         container["activityTypeConfidenceScore"] = activityTypeConfidenceScore
+        
+        // Backupable
+        container["backupLastSaved"] = backupLastSaved
     }
 
     // MARK: - Codable
