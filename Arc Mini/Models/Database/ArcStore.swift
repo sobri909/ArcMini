@@ -302,6 +302,7 @@ final class ArcStore: TimelineStore {
     }
 
     func saveNoDate() {
+        RecordingManager.store.connectToDatabase()
         guard let pool = pool else { fatalError("Attempting to access the database when disconnected") }
 
         var savingItems: Set<TimelineItem> = []

@@ -43,6 +43,8 @@ enum Backups {
         setupTaskExpiryHandler()
 
         backupQueue.addOperation {
+            RecordingManager.store.connectToDatabase()
+
             if bgTask == nil { TasksManager.update(.iCloudDriveBackups, to: .running) }
             
             var notesCount = Int.max, placesCount = Int.max, summariesCount = Int.max, itemsCount = Int.max
