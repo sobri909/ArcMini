@@ -88,7 +88,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
             logger.info("WENT FULLY HEADLESS")
 
-            RecordingManager.store.disconnectFromDatabase()
+            delay(2) { RecordingManager.store.disconnectFromDatabase() }
         }
     }
 
