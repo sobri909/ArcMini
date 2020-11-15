@@ -99,8 +99,6 @@ class TasksManager {
 
         /* generic tasks */
 
-        if loco.appGroup?.haveAppsInStandby == true, loco.recordingState.isCurrentRecorder { return }
-
         if RecordingManager.store.placesPendingUpdate > 0 {
             TasksManager.schedule(.placeModelUpdates, requiresPower: true)
         }
