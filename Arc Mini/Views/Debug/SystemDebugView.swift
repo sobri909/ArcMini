@@ -62,21 +62,20 @@ struct SystemDebugView: View {
         }
     }
     
-    func taskNameString(for task: TasksManager.TaskStatus, identifier: TasksManager.TaskIdentifier) -> String {
-        let shortName = identifier.rawValue.split(separator: ".").last!
+    func taskNameString(for task: TasksManager.TaskStatus, identifier: String) -> String {
         if task.state == .running {
-            return "▶︎ " + shortName
+            return "▶︎ " + identifier
         }
         if let lastCompleted = task.lastCompleted, (task.minimumDelay == 0 || lastCompleted.age < task.minimumDelay) {
             if task.state == .scheduled {
-                return "✓ ▷ " + shortName
+                return "✓ ▷ " + identifier
             }
-            return "✓ " + shortName
+            return "✓ " + identifier
         }
         if task.state == .scheduled {
-            return "▷ " + shortName
+            return "▷ " + identifier
         }
-        return String(shortName)
+        return String(identifier)
     }
     
     func statusString(for task: TasksManager.TaskStatus) -> String {

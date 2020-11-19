@@ -7,24 +7,31 @@
 //
 
 import BackgroundTasks
+import LocoKitCore
 import LocoKit
 
 class TasksManager {
 
     enum TaskIdentifier: String, Codable {
-        case placeModelUpdates = "com.bigpaua.placeModelUpdates"
-        case activityTypeModelUpdates = "com.bigpaua.activityTypeModelUpdates"
-        case updateTrustFactors = "com.bigpaua.updateTrustFactors"
-        case sanitiseStore = "com.bigpaua.sanitiseStore"
-        case iCloudDriveBackups = "com.bigpaua.iCloudDriveBackups"
+        case placeModelUpdates = "com.bigpaua.ArcMini.placeModelUpdates"
+        case activityTypeModelUpdates = "com.bigpaua.ArcMini.activityTypeModelUpdates"
+        case updateTrustFactors = "com.bigpaua.ArcMini.updateTrustFactors"
+        case sanitiseStore = "com.bigpaua.ArcMini.sanitiseStore"
+        case iCloudDriveBackups = "com.bigpaua.ArcMini.iCloudDriveBackups"
         
         // Arc v3 only
-        case activitySummaryUpdates = "com.bigpaua.LearnerCoacher.activitySummaryUpdates"
-        case simpleItemUpdates = "com.bigpaua.LearnerCoacher.simpleItemUpdates"
-        case cloudKitBackups = "com.bigpaua.LearnerCoacher.cloudKitBackups"
-        case dailyAutoExportUpdates = "com.bigpaua.LearnerCoacher.dailyAutoExportUpdates"
-        case monthlyAutoExportUpdates = "com.bigpaua.LearnerCoacher.monthlyAutoExportUpdates"
-        case wakeupCheck = "com.bigpaua.LearnerCoacher.wakeupCheck"
+        case activitySummaryUpdates = "com.bigpaua.ArcMini.activitySummaryUpdates"
+        case simpleItemUpdates = "com.bigpaua.ArcMini.simpleItemUpdates"
+        case cloudKitBackups = "com.bigpaua.ArcMini.cloudKitBackups"
+        case dailyAutoExportUpdates = "com.bigpaua.ArcMini.dailyAutoExportUpdates"
+        case monthlyAutoExportUpdates = "com.bigpaua.ArcMini.monthlyAutoExportUpdates"
+        case wakeupCheck = "com.bigpaua.ArcMini.wakeupCheck"
+        
+        var shortName: String { String(rawValue.split(separator: ".").last!) }
+        
+        init?(shortName: String) {
+            self.init(rawValue: "com.bigpaua.ArcMini." + shortName)
+        }
     }
 
     enum TaskState: String, Codable {
@@ -42,10 +49,11 @@ class TasksManager {
 
     static let highlander = TasksManager()
 
-    private(set) var taskStates: [TaskIdentifier: TaskStatus] = [:]
+    private(set) var taskStates: [String: TaskStatus] = [:]
     private(set) var activeTasks: [TaskIdentifier: BGTask] = [:]
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
+    private let mutex = PThreadMutex(type: .recursive)
 
     private init() {
         loadStates()
@@ -123,7 +131,7 @@ class TasksManager {
             }
         }
 
-        highlander.update(identifier, to: .scheduled)
+        highlander.update(identifier.shortName, to: .scheduled)
     }
 
     static func schedule(_ identifier: TaskIdentifier, requiresPower: Bool, requiresNetwork: Bool = false) {
@@ -133,10 +141,9 @@ class TasksManager {
         }
 
         guard currentState(of: identifier) != .scheduled else { return }
+        guard let currentStatus = highlander.mutex.sync(execute: { highlander.taskStates[identifier.shortName] }) else { fatalError("Task not registered") }
 
         onMain {
-            guard let currentStatus = highlander.taskStates[identifier] else { fatalError("Task not registered") }
-
             let request = BGProcessingTaskRequest(identifier: identifier.rawValue)
             if currentStatus.minimumDelay > 0, let lastCompleted = currentStatus.lastCompleted {
                 request.earliestBeginDate = lastCompleted + currentStatus.minimumDelay
@@ -151,30 +158,31 @@ class TasksManager {
             }
         }
 
-        highlander.update(identifier, to: .scheduled)
+        highlander.update(identifier.shortName, to: .scheduled)
     }
     
     static func start(_ identifier: TaskIdentifier, with bgTask: BGTask) {
-        highlander.update(identifier, to: .running)
-        highlander.activeTasks[identifier] = bgTask
+        highlander.update(identifier.shortName, to: .running)
+        highlander.mutex.sync { highlander.activeTasks[identifier] = bgTask }
     }
 
     static func update(_ identifier: TaskIdentifier, to state: TaskState) {
-        highlander.update(identifier, to: state)
+        highlander.update(identifier.shortName, to: state)
     }
 
     static func currentState(of identifier: TaskIdentifier) -> TaskState? {
-        return highlander.taskStates[identifier]?.state
+        return highlander.mutex.sync { highlander.taskStates[identifier.shortName]?.state }
     }
     
     static func lastCompleted(for identifier: TaskIdentifier) -> Date? {
-        return highlander.taskStates[identifier]?.lastCompleted
+        return highlander.mutex.sync { highlander.taskStates[identifier.shortName]?.lastCompleted }
     }
 
     // MARK: -
 
     static var haveTasksRunning: Bool {
-        for task in highlander.taskStates.values {
+        let taskStates = highlander.mutex.sync { highlander.taskStates }
+        for task in taskStates.values {
             if task.state == .running { return true }
         }
         return false
@@ -184,34 +192,39 @@ class TasksManager {
 
     private func register(_ identifier: TaskIdentifier, minimumDelay: TimeInterval = 0, queue: DispatchQueue? = nil, launchHandler: @escaping (BGTask) -> Void) {
         BGTaskScheduler.shared.register(forTaskWithIdentifier: identifier.rawValue, using: queue, launchHandler: launchHandler)
-        if let status = self.taskStates[identifier] {
-            self.taskStates[identifier] = TaskStatus(state: status.state, lastUpdated: Date(), minimumDelay: minimumDelay,
-                                                     lastCompleted: status.lastCompleted)
+        if let status = taskStates[identifier.shortName] {
+            mutex.sync {
+                taskStates[identifier.shortName] = TaskStatus(state: status.state, lastUpdated: Date(), minimumDelay: minimumDelay,
+                                                    lastCompleted: status.lastCompleted)
+            }
         } else {
-            self.taskStates[identifier] = TaskStatus(state: .registered, lastUpdated: Date(), minimumDelay: minimumDelay)
+            mutex.sync {
+                taskStates[identifier.shortName] = TaskStatus(state: .registered, lastUpdated: Date(), minimumDelay: minimumDelay)
+            }
         }
         saveStates()
     }
 
-    private func update(_ identifier: TaskIdentifier, to state: TaskState) {
-        onMain {
-            guard let status = self.taskStates[identifier] else { fatalError("Task not registered") }
+    private func update(_ shortName: String, to state: TaskState) {
+        guard let identifier = TaskIdentifier(shortName: shortName) else { fatalError("Unknown task identifier: \(shortName)") }
+        guard let status = mutex.sync(execute: { taskStates[identifier.shortName] }) else { fatalError("Task not registered") }
+        mutex.sync {
             if state == .completed {
-                self.taskStates[identifier] =
+                taskStates[identifier.shortName] =
                     TaskStatus(state: state, lastUpdated: Date(), minimumDelay: status.minimumDelay, lastCompleted: Date())
             } else {
-                self.taskStates[identifier] =
+                taskStates[identifier.shortName] =
                     TaskStatus(state: state, lastUpdated: Date(), minimumDelay: status.minimumDelay,
                                lastCompleted: status.lastCompleted)
             }
-            self.saveStates()
-
-            if state == .unfinished {
-                logger.error("\(state.rawValue): \(identifier.rawValue.split(separator: ".").last!)")
-                
-            } else if state != status.state {
-                logger.info("\(state.rawValue): \(identifier.rawValue.split(separator: ".").last!)", subsystem: .tasks)
-            }
+        }
+        self.saveStates()
+        
+        if state == .unfinished {
+            logger.error("\(state.rawValue): \(identifier.rawValue.split(separator: ".").last!)")
+            
+        } else if state != status.state {
+            logger.info("\(state.rawValue): \(identifier.rawValue.split(separator: ".").last!)", subsystem: .tasks)
         }
     }
 
@@ -220,9 +233,9 @@ class TasksManager {
     private func saveStates() {
         do {
             if let groupDefaults = LocomotionManager.highlander.appGroup?.groupDefaults {
-                groupDefaults.set(try encoder.encode(taskStates), forKey: "taskStates")
+                try mutex.sync { groupDefaults.set(try encoder.encode(taskStates), forKey: "taskStates") }
             } else {
-                Settings.highlander[.taskStates] = try encoder.encode(taskStates)
+                try mutex.sync { Settings.highlander[.taskStates] = try encoder.encode(taskStates) }
             }
         } catch {
             logger.error("\(error)")
@@ -232,7 +245,7 @@ class TasksManager {
     private func loadStates() {
         guard let data = storedStates else { return }
         do {
-            self.taskStates = try decoder.decode([TaskIdentifier: TaskStatus].self, from: data)
+            try mutex.sync { taskStates = try decoder.decode([String: TaskStatus].self, from: data) }
         } catch {
             logger.error("\(error)")
         }
@@ -244,9 +257,10 @@ class TasksManager {
     }
 
     private func flushRunning() {
-        let failed = taskStates.filter { $0.value.state == .running }
-        for identifier in failed.keys {
-            update(identifier, to: .unfinished)
+        let failed = mutex.sync { taskStates.filter { $0.value.state == .running } }
+        for shortName in failed.keys {
+            guard TaskIdentifier(shortName: shortName) != nil else { continue }
+            update(shortName, to: .unfinished)
         }
     }
 
