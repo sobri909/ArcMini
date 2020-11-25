@@ -23,9 +23,3 @@ struct TimelineScrollView: View {
     }
     
 }
-
-//struct TimelineScrollView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TimelineScrollView()
-//    }
-//}

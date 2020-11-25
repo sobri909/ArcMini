@@ -114,11 +114,3 @@ struct TimelineDayView: View {
     }
 
 }
-
-//struct TimelineView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TimelineDayView(timelineSegment: AppDelegate.todaySegment)
-//            .environmentObject(TimelineState())
-//            .environmentObject(MapState())
-//    }
-//}

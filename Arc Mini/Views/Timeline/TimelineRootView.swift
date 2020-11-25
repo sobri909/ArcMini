@@ -31,9 +31,3 @@ struct TimelineRootView: View {
     }
 
 }
-
-struct TimelineRootView_Previews: PreviewProvider {
-    static var previews: some View {
-        TimelineRootView()
-    }
-}
