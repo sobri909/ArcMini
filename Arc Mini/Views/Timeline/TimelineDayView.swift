@@ -30,7 +30,7 @@ struct TimelineDayView: View {
                         if let visit = timelineItem as? ArcVisit, visit.isWorthKeeping {
                             visit.findAPlace()
                         }
-                    }
+                    }.listRowInsets(EdgeInsets())
                 }
             }
             Rectangle().fill(Color("brandSecondary10")).frame(width: 0.5).edgesIgnoringSafeArea(.all)
@@ -66,16 +66,16 @@ struct TimelineDayView: View {
     func listBox(for item: TimelineItem) -> some View {
         
         // invalidated items can't appear in UI
-        if item.invalidated { return AnyView(EmptyView().listRowInsets(EdgeInsets())) }
+        if item.invalidated { return AnyView(EmptyView()) }
 
         // show a "thinking" item for shitty stuff that's still processing or can't be processed yet
         if item.isInvalid || (!item.isWorthKeeping && (RecordingManager.store.processing || activeItems.contains(item) || item.isMergeLocked)) {
             if timelineState.previousListBox is ThinkingListBox {
-                return AnyView(EmptyView().listRowInsets(EdgeInsets()))
+                return AnyView(EmptyView())
             }
             let box = ThinkingListBox()
             timelineState.previousListBox = box
-            return AnyView(box.listRowInsets(EdgeInsets()))
+            return AnyView(box)
         }
 
         let boxStack = ZStack {
@@ -94,8 +94,6 @@ struct TimelineDayView: View {
                 }
             }
         }
-        .buttonStyle(PlainButtonStyle())
-        .listRowInsets(EdgeInsets())
 
         return AnyView(boxStack)
     }
