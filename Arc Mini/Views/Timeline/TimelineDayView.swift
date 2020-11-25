@@ -78,7 +78,8 @@ struct TimelineDayView: View {
             return AnyView(box.listRowInsets(EdgeInsets()))
         }
 
-        let boxStack = NavigationLink(destination: ItemDetailsView(timelineItem: item)) {
+        let boxStack = ZStack {
+            NavigationLink(destination: ItemDetailsView(timelineItem: item)) {}
             self.timelineItemBox(for: item).onAppear {
                 if self.timelineSegment == self.timelineState.visibleTimelineSegment {
                     if item == self.filteredListItems.first {
