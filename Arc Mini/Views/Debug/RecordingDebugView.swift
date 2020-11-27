@@ -33,6 +33,7 @@ struct RecordingDebugView: View {
 
                 Section(header: Text(loco.recordingState.rawValue)) {
                     self.row(leftText: "Thermal state", rightText: AppDelegate.thermalState.stringValue)
+                    self.row(leftText: "Target samples per minute", rightText: "\(RecordingManager.recorder.samplesPerMinute)")
                     if loco.recordingState == .sleeping {
                         self.row(leftText: "Sleep cycle duration", rightText: String(duration: loco.sleepCycleDuration))
                         self.leavingProbabilityRow
@@ -43,6 +44,18 @@ struct RecordingDebugView: View {
                     self.horizontalAccuracyRow
                     self.verticalAccuracyRow
                     self.trustFactorRow
+                }
+                
+                let sample = RecordingManager.highlander.loco.locomotionSample()
+
+                if LocomotionManager.highlander.recordingState == .recording || LocomotionManager.highlander.recordingState == .wakeup {
+                    Section(header: Text(String(format: "Sample Glance (%@)", sample.movingState.rawValue))) {
+                        self.row(leftText: "Present", rightText: String(describing: sample))
+                        self.row(leftText: "Behind now", rightText: String(duration: sample.date.age))
+                        if let speed = sample.location?.speed, speed >= 0 {
+                            self.row(leftText: "Speed", rightText: String(speed: speed))
+                        }
+                    }
                 }
             }
             .navigationBarTitle("Arc Mini \(Bundle.versionNumber) (\(String(format: "%d", Bundle.buildNumber)))")
@@ -65,13 +78,13 @@ struct RecordingDebugView: View {
     }
 
     var trustFactorRow: AnyView {
-        guard let location = sample.location else { return AnyView(EmptyView()) }
-        guard let trustFactor = trustFactor(for: location) else { return AnyView(EmptyView()) }
+        guard let location = sample.location else { return AnyView(SwiftUI.EmptyView()) }
+        guard let trustFactor = trustFactor(for: location) else { return AnyView(SwiftUI.EmptyView()) }
         return AnyView(row(leftText: "Trust factor", rightText: String(format: "%.1f", trustFactor)))
     }
 
     var horizontalAccuracyRow: AnyView {
-        guard let location = sample.location else { return AnyView(EmptyView()) }
+        guard let location = sample.location else { return AnyView(SwiftUI.EmptyView()) }
         if let trustFactor = trustFactor(for: location) {
             let fudge = 100.0 * (1.0 - trustFactor)
             return AnyView(row(leftText: "Receiving horizontal accuracy",
@@ -81,13 +94,13 @@ struct RecordingDebugView: View {
     }
 
     var verticalAccuracyRow: AnyView {
-        guard let location = sample.location else { return AnyView(EmptyView()) }
+        guard let location = sample.location else { return AnyView(SwiftUI.EmptyView()) }
         return AnyView(row(leftText: "Receiving vertical accuracy", rightText: String(format: "%.0fm", location.verticalAccuracy)))
     }
 
     var leavingProbabilityRow: AnyView {
-        guard let currentVisit = RecordingManager.highlander.currentVisit else { return AnyView(EmptyView()) }
-        guard let mightLeave = currentVisit.leavingProbabilityNow else { return AnyView(EmptyView()) }
+        guard let currentVisit = RecordingManager.highlander.currentVisit else { return AnyView(SwiftUI.EmptyView()) }
+        guard let mightLeave = currentVisit.leavingProbabilityNow else { return AnyView(SwiftUI.EmptyView()) }
         return AnyView(row(leftText: "Leaving probability", rightText: String(format: "%.2f", mightLeave)))
     }
 
@@ -102,10 +115,4 @@ struct RecordingDebugView: View {
         }
     }
 
-}
-
-struct RecordingDebugView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecordingDebugView()
-    }
 }
