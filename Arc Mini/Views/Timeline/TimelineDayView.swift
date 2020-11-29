@@ -25,9 +25,9 @@ struct TimelineDayView: View {
         timelineState.previousListBox = nil
         return ZStack(alignment: .trailing) {
             List {
-                ForEach(filteredListItems) { timelineItem in
-                    listBox(for: timelineItem).onAppear {
-                        if let visit = timelineItem as? ArcVisit, visit.isWorthKeeping {
+                ForEach(filteredListItems) { displayItem in
+                    listBox(for: displayItem).onAppear {
+                        if let visit = displayItem.timelineItem as? ArcVisit, visit.isWorthKeeping {
                             visit.findAPlace()
                         }
                     }.listRowInsets(EdgeInsets())
@@ -48,8 +48,27 @@ struct TimelineDayView: View {
         .background(Color("background"))
     }
 
-    var filteredListItems: [TimelineItem] {
-        return timelineSegment.timelineItems.reversed().filter { $0.dateRange != nil }
+    var filteredListItems: [DisplayItem] {
+        var displayItems: [DisplayItem] = []
+        
+        var previousWasThinker = false
+        for item in timelineSegment.timelineItems.reversed() {
+            if item.dateRange == nil { continue }
+            if item.invalidated { continue }
+            
+            let useThinkers = RecordingManager.store.processing || activeItems.contains(item) || item.isMergeLocked
+
+            if item.isWorthKeeping {
+                displayItems.append(DisplayItem(timelineItem: item))
+                previousWasThinker = false
+                
+            } else if useThinkers && !previousWasThinker {
+                displayItems.append(DisplayItem(thinkerId: item.itemId))
+                previousWasThinker = true
+            }
+        }
+        
+        return displayItems
     }
 
     var isToday: Bool {
@@ -64,26 +83,19 @@ struct TimelineDayView: View {
         return []
     }
 
-    func listBox(for item: TimelineItem) -> some View {
-        
-        // invalidated items can't appear in UI
-        if item.invalidated { return AnyView(EmptyView()) }
+    func listBox(for displayItem: DisplayItem) -> some View {
 
         // show a "thinking" item for shitty stuff that's still processing or can't be processed yet
-        if item.isInvalid || (!item.isWorthKeeping && (RecordingManager.store.processing || activeItems.contains(item) || item.isMergeLocked)) {
-            if timelineState.previousListBox is ThinkingListBox {
-                return AnyView(EmptyView())
-            }
+        guard let item = displayItem.timelineItem else {
             let box = ThinkingListBox()
-            timelineState.previousListBox = box
             return AnyView(box)
         }
-
+        
         let boxStack = ZStack {
             NavigationLink(destination: ItemDetailsView(timelineItem: item)) {}
             self.timelineItemBox(for: item).onAppear {
                 if self.timelineSegment == self.timelineState.visibleTimelineSegment {
-                    if item == self.filteredListItems.first {
+                    if item == self.filteredListItems.first?.timelineItem {
                         self.mapState.selectedItems = [] // zoom to all items when scrolled to top
                     } else {
                         self.mapState.selectedItems.insert(item)
@@ -95,7 +107,7 @@ struct TimelineDayView: View {
                 }
             }
         }
-
+        
         return AnyView(boxStack)
     }
 
@@ -113,4 +125,18 @@ struct TimelineDayView: View {
         fatalError("nah")
     }
 
+    struct DisplayItem: Identifiable {
+        var id: UUID
+        var timelineItem: TimelineItem?
+        
+        init(timelineItem: TimelineItem? = nil, thinkerId: UUID? = nil) {
+            self.timelineItem = timelineItem
+            if let timelineItem = timelineItem {
+                id = timelineItem.itemId
+            } else {
+                id = thinkerId!
+            }
+        }
+    }
+    
 }
