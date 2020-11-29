@@ -38,6 +38,7 @@ struct TimelineDayView: View {
         .navigationBarTitle("")
         .navigationBarHidden(true)
         .onAppear {
+            guard timelineState.visibleDateRange == timelineSegment.dateRange else { return }
             mapState.selectedItems.removeAll()
             mapState.itemSegments.removeAll()
             timelineState.backButtonHidden = true
