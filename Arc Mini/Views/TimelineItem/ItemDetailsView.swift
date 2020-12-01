@@ -27,9 +27,14 @@ struct ItemDetailsView: View {
     // MARK: -
 
     var body: some View {
-        List {
-            Section(header: ItemDetailsHeader(timelineItem: self.timelineItem)) {
-                EmptyView()
+        ScrollView(.vertical) {
+            LazyVStack(alignment: .leading) {
+                ItemDetailsHeader(timelineItem: self.timelineItem)
+                if timelineItem.isVisit {
+                    Text("Visit Details")
+                } else {
+                    Text("Trip Details")
+                }
             }
         }
         .background(Color("background"))
