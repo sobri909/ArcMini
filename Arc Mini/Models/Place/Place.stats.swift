@@ -62,7 +62,7 @@ extension Place {
             self.needsUpdate = false
             self.save()
 
-            logger.info("UPDATED:  \(self.name)")
+            logger.info("UPDATED: \(self.name)")
 
             done()
         }
@@ -97,7 +97,7 @@ extension Place {
                 totalDays += 1
             }
             
-            if visit.manualPlace {
+            if visit.manualPlace, manualSamples.count < 14400 { // 24 hours of samples is enough
                 manualSamples.append(contentsOf: visit.samples)
             }
 
