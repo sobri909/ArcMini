@@ -369,6 +369,7 @@ class Place: Hashable, Backupable {
     var _lastVisit: DateInterval?
     var lastVisit: DateInterval? {
         if let cached = _lastVisit { return cached }
+        RecordingManager.store.connectToDatabase()
         guard let visit = RecordingManager.store.item(
             where: "placeId = ? AND deleted = 0 ORDER BY startDate DESC",
             arguments: [placeId.uuidString]) else { return nil }
