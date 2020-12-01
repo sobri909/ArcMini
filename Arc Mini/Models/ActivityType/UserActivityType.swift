@@ -76,9 +76,9 @@ class UserActivityType: MutableActivityType {
             self.updateFrom(samples: samples)
 
             if let accuracy = self.accuracyScore {
-                logger.info("UPDATED:  \(self.geoKey) (samples: \(self.totalSamples) accuracy: \(String(format: "%.2f", accuracy)))")
+                logger.info("UPDATED: \(self.geoKey) (samples: \(self.totalSamples) accuracy: \(String(format: "%.2f", accuracy)))")
             } else {
-                logger.info("UPDATED:  \(self.geoKey) (samples: \(self.totalSamples))")
+                logger.info("UPDATED: \(self.geoKey) (samples: \(self.totalSamples))")
             }
 
             if self.totalSamples > 0 {
