@@ -146,7 +146,10 @@ class TasksManager {
         onMain {
             let request = BGProcessingTaskRequest(identifier: identifier.rawValue)
             if currentStatus.minimumDelay > 0, let lastCompleted = currentStatus.lastCompleted {
-                request.earliestBeginDate = lastCompleted + currentStatus.minimumDelay
+                let earliestBeginDate = lastCompleted + currentStatus.minimumDelay
+                if earliestBeginDate > Date() { // only bother with this if it's a date in the future
+                    request.earliestBeginDate = earliestBeginDate
+                }
             }
             request.requiresNetworkConnectivity = requiresNetwork
             request.requiresExternalPower = requiresPower
