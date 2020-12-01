@@ -13,7 +13,7 @@ import LocoKit
 class TasksManager {
 
     enum TaskIdentifier: String, Codable {
-        case placeModelUpdates = "com.bigpaua.ArcMini.placeModelUpdates"
+        case placeModelUpdates = "com.bigpaua.ArcMini.placeModelUpdates2"
         case activityTypeModelUpdates = "com.bigpaua.ArcMini.activityTypeModelUpdates"
         case updateTrustFactors = "com.bigpaua.ArcMini.updateTrustFactors"
         case sanitiseStore = "com.bigpaua.ArcMini.sanitiseStore"
