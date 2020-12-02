@@ -27,6 +27,7 @@ class RecordingManager {
     private(set) var recorder = TimelineRecorder(store: store, classifier: UserTimelineClassifier.highlander)
     var loco: LocomotionManager { return LocomotionManager.highlander }
     var currentVisit: ArcVisit? { return recorder.currentVisit as? ArcVisit }
+    static var recordingState: RecordingState { return LocomotionManager.highlander.recordingState }
 
     var sleepStart: Date?
     var sleepTime: TimeInterval = 0
