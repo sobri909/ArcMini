@@ -26,13 +26,11 @@ struct ItemDetailsHeader: View {
             Text(arcItem.title)
                 .font(.system(size: 22, weight: .bold))
                 .foregroundColor(Color("brandTertiaryDark"))
-                .padding([.leading, .trailing], 20)
                 .frame(height: 28)
             Spacer().frame(height: 2)
             Text(self.dateRangeString)
                 .font(.system(size: 18, weight: .semibold))
                 .foregroundColor(Color("brandTertiaryLight"))
-                .padding([.leading, .trailing], 20)
                 .frame(height: 26)
             HStack(spacing: 0) {
                 self.segmentsButton
@@ -47,7 +45,6 @@ struct ItemDetailsHeader: View {
             Rectangle().fill(Color("brandSecondary10")).frame(height: 0.5)
             Spacer().frame(height: 20)
         }
-        .listRowInsets(EdgeInsets())
         .background(Color("background"))
     }
 
@@ -98,7 +95,7 @@ struct ItemDetailsHeader: View {
                     Text("Segments")
                         .font(.system(size: 15, weight: .regular))
                         .foregroundColor(Color("brandSecondaryDark"))
-                }.padding(.leading, 20)
+                }
             }
             .frame(height: 64)
             NavigationLink(destination: ItemSegmentsView(timelineItem: timelineItem), isActive: $tappedSegmentsButton) {
@@ -128,7 +125,6 @@ struct ItemDetailsHeader: View {
                             .foregroundColor(Color("brandSecondaryDark"))
                     }
                 }
-                .padding([.leading, .trailing], self.includeEditButton ? 0 : 20)
             }
             .frame(height: 64)
         }
@@ -152,7 +148,6 @@ struct ItemDetailsHeader: View {
                         .font(.system(size: 15, weight: .regular))
                         .foregroundColor(Color("brandSecondaryDark"))
                 }
-                .padding([.leading, .trailing], 20)
             }
             .frame(height: 64)
             NavigationLink(destination: editView(for: timelineItem), isActive: $tappedEditButton) {
@@ -162,9 +157,3 @@ struct ItemDetailsHeader: View {
     }
 
 }
-
-//struct ItemDetailsHeader_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ItemDetailsHeader()
-//    }
-//}

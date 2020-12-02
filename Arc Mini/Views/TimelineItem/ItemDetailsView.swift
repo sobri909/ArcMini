@@ -30,13 +30,40 @@ struct ItemDetailsView: View {
         ScrollView(.vertical) {
             LazyVStack(alignment: .leading) {
                 ItemDetailsHeader(timelineItem: self.timelineItem)
-                if timelineItem.isVisit {
-                    Text("Visit Details")
-                } else {
-                    Text("Trip Details")
+                HStack {
+                    if timelineItem.isVisit {
+                        Text("Visit Details").font(.system(size: 18, weight: .semibold))
+                    } else {
+                        Text("Trip Details").font(.system(size: 18, weight: .semibold))
+                    }
+                }.frame(height: 44)
+                
+                /** current item, current speed / altitude / etc **/
+
+                if RecordingManager.recordingState == .recording, timelineItem.isCurrentItem {
+                    if let location = timelineItem.samples.last?.location, location.hasUsableCoordinate {
+                        row(left: "Current location accuracy", right: Text(String(distance: location.horizontalAccuracy)))
+
+                        if timelineItem is ArcPath, location.horizontalAccuracy >= 0, location.horizontalAccuracy < 100 {
+                            row(left: "Current speed", right: Text(String(speed: location.speed)))
+                        }
+
+                        if location.verticalAccuracy >= 0 {
+                            row(left: "Current altitude", right: Text(String(format: "%@ (+/- %@)",
+                                                                             String(metres: location.altitude, isAltitude: true),
+                                                                             String(metres: location.verticalAccuracy, isAltitude: true))))
+                        }
+                    }
+                }
+                
+                if let path = timelineItem as? ArcPath, path.distance > 0 {
+                    row(left: "Distance", right: Text(String(format: "%@ at %@",
+                                                             String(metres: path.distance, isAltitude: false),
+                                                             String(speed: path.speed))))
                 }
             }
         }
+        .padding([.leading, .trailing], 20)
         .background(Color("background"))
         .navigationBarHidden(true)
         .navigationBarTitle("", displayMode: .inline)
@@ -58,11 +85,16 @@ struct ItemDetailsView: View {
             }
         }
     }
+    
+    func row(left leftText: String, right rightText: Text) -> some View {
+        return HStack {
+            Text(leftText)
+                .font(.system(size: 17, weight: .regular))
+            Spacer()
+            rightText
+                .font(.system(size: 15, weight: .semibold))
+                .foregroundColor(Color(UIColor.arcGray1))
+        }.frame(height: 44)
+    }
 
 }
-
-//struct ItemDetailsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ItemDetailsView()
-//    }
-//}
