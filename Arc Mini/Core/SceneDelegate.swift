@@ -72,7 +72,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = window
             window.makeKeyAndVisible()
 
-            logger.info("GREW A FULL HEAD")
+            logger.info("Grew a full head", subsystem: .ui)
         }
     }
 
@@ -86,7 +86,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = nil
             self.mapState.flush()
 
-            logger.info("WENT FULLY HEADLESS")
+            logger.info("Went fully headless", subsystem: .ui)
 
             delay(6) { RecordingManager.safelyDisconnectFromDatabase() }
         }
