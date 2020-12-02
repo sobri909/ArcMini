@@ -10,7 +10,15 @@ import SwiftUI
 import LocoKit
 
 struct SystemDebugView: View {
-
+    
+    @State var refreshingSamplesPending = false
+    @State var samplesPendingBackup: Int?
+    
+    var samplesPendingString: String {
+        if let samplesPendingBackup = samplesPendingBackup { return "\(samplesPendingBackup)" }
+        return "?"
+    }
+    
     var body: some View {
         NavigationView {
             List {
@@ -33,11 +41,19 @@ struct SystemDebugView: View {
                     self.row(leftText: "Places pending backup", right: Text("\(Backups.backupPlacesCount)"))
                     self.row(leftText: "Timeline Summaries pending backup", right: Text("\(Backups.backupTimelineSummariesCount)"))
                     self.row(leftText: "Items pending backup", right: Text("\(Backups.backupItemsCount)"))
-                    self.row(leftText: "Samples pending backup", right: Text("\(Backups.backupSamplesCount)"))
+                    self.row(leftText: "Samples pending backup", right: Text(samplesPendingString), rightButtonText: Text("refresh"))
+                        .opacity(refreshingSamplesPending ? 0.5 : 1)
+                        .onTapGesture {
+                            refreshingSamplesPending = true
+                            Arc_Mini.background {
+                                samplesPendingBackup = Backups.backupSamplesCount
+                                refreshingSamplesPending = false
+                            }
+                        }
                 }
                 self.taskRows
             }
-            .navigationBarTitle("Arc Mini \(Bundle.versionNumber) (\(String(format: "%d", Bundle.buildNumber)))")
+            .navigationBarTitle("Arc \(Bundle.versionNumber) (\(String(format: "%d", Bundle.buildNumber)))")
             .environment(\.defaultMinListRowHeight, 28)
         }
     }
@@ -54,11 +70,17 @@ struct SystemDebugView: View {
 
     // MARK: -
 
-    func row(leftText: String, right rightText: Text) -> some View {
+    func row(leftText: String, right rightText: Text, rightButtonText: Text? = nil) -> some View {
         return HStack {
             Text(leftText).font(.system(.footnote))
             Spacer()
             rightText.font(.system(.footnote)).opacity(0.6)
+            if let rightButtonText = rightButtonText {
+                rightButtonText.font(.system(.footnote))
+                    .padding([.leading, .trailing], 8)
+                    .foregroundColor(.white).background(Color.black)
+                    .cornerRadius(10)
+            }
         }
     }
     
