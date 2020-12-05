@@ -7,7 +7,6 @@
 //
 
 import BackgroundTasks
-import LocoKitCore
 import LocoKit
 
 class TasksManager {

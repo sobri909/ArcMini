@@ -7,7 +7,6 @@
 //
 
 import LocoKit
-import LocoKitCore
 
 class UserTimelineClassifier: MLClassifierManager {
 

@@ -8,7 +8,6 @@
 
 import GRDB
 import LocoKit
-import LocoKitCore
 import CoreLocation
 
 class ArcSample: PersistentSample, Backupable {

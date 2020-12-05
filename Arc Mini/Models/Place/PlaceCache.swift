@@ -8,7 +8,6 @@
 
 import GRDB
 import LocoKit
-import LocoKitCore
 import PromiseKit
 import CoreLocation
 import BackgroundTasks

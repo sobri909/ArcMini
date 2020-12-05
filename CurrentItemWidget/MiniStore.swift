@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matt Greenfield. All rights reserved.
 //
 
+import Foundation
 import LocoKit
 
 final class MiniStore: TimelineStore {

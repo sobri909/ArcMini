@@ -11,12 +11,30 @@
         }
       },
       {
+        "package": "GRDB",
+        "repositoryURL": "https://github.com/groue/GRDB.swift.git",
+        "state": {
+          "branch": null,
+          "revision": "5ee47c3c2765bdfde0f44c2ea9a263f6aa252d63",
+          "version": "4.14.0"
+        }
+      },
+      {
         "package": "Gzip",
         "repositoryURL": "https://github.com/1024jp/GzipSwift",
         "state": {
           "branch": null,
           "revision": "ba0b6cb51cc6202f896e469b87d2889a46b10d1b",
           "version": "5.1.1"
+        }
+      },
+      {
+        "package": "LocoKit",
+        "repositoryURL": "https://github.com/sobri909/LocoKit.git",
+        "state": {
+          "branch": "master",
+          "revision": "cab022c71e8ad6f8453b5a3966a578dfdfdef19c",
+          "version": null
         }
       },
       {
@@ -69,8 +87,17 @@
         "repositoryURL": "https://github.com/timbersoftware/SwiftUI-Introspect.git",
         "state": {
           "branch": "master",
-          "revision": "5c501bf4a581e683b96a4915bb2566e88a264c95",
+          "revision": "f1ec9da347a7fbe53c520d35434f6c2295650bd5",
           "version": null
+        }
+      },
+      {
+        "package": "Upsurge",
+        "repositoryURL": "https://github.com/alejandro-isaza/Upsurge.git",
+        "state": {
+          "branch": null,
+          "revision": "66c66253ab0d1a0988a6efb68f49629cf3e06a84",
+          "version": "0.11.0"
         }
       }
     ]
