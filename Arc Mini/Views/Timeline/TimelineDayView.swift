@@ -22,7 +22,6 @@ struct TimelineDayView: View {
     }
 
     var body: some View {
-        timelineState.previousListBox = nil
         return ZStack(alignment: .trailing) {
             List {
                 ForEach(filteredListItems) { displayItem in
@@ -114,12 +113,10 @@ struct TimelineDayView: View {
     func timelineItemBox(for item: TimelineItem) -> some View {
         if let visit = item as? ArcVisit {
             let box = VisitListBox(visit: visit)
-            timelineState.previousListBox = box
             return AnyView(box)
         }
         if let path = item as? ArcPath {
             let box = PathListBox(path: path)
-            timelineState.previousListBox = box
             return AnyView(box)
         }
         fatalError("nah")
