@@ -61,6 +61,18 @@ struct ItemDetailsView: View {
                                                              String(metres: path.distance, isAltitude: false),
                                                              String(speed: path.speed))))
                 }
+                
+                if let stepCountString = stepCountString {
+                    row(left: "Steps", right: Text(stepCountString))
+                }
+
+                if let ascended = timelineItem.floorsAscended, let descended = timelineItem.floorsDescended, (ascended > 0 || descended > 0) {
+                    row(left: "Flights climbed", right: Text(String(format: "%d up, %d down", ascended, descended)))
+                }
+                
+                if let altitude = timelineItem.altitude {
+                    row(left: "Altitude", right: Text(String(metres: altitude, isAltitude: true)))
+                }
             }
         }
         .padding([.leading, .trailing], 20)
@@ -68,23 +80,38 @@ struct ItemDetailsView: View {
         .navigationBarHidden(true)
         .navigationBarTitle("", displayMode: .inline)
         .onAppear {
-            if self.timelineItem.deleted {
-                self.presentationMode.wrappedValue.dismiss()
+            if timelineItem.deleted {
+                presentationMode.wrappedValue.dismiss()
                 return
             }
-            self.mapState.selectedItems = [self.timelineItem]
-            self.mapState.itemSegments = self.timelineItem.segmentsByActivityType
-            self.timelineState.mapHeightPercent = TimelineState.subMapHeightPercent
-            self.timelineState.backButtonHidden = false
-            self.timelineState.todayButtonHidden = true
+            mapState.selectedItems = [timelineItem]
+            mapState.itemSegments = timelineItem.segmentsByActivityType
+            timelineState.mapHeightPercent = TimelineState.subMapHeightPercent
+            timelineState.backButtonHidden = false
+            timelineState.todayButtonHidden = true
         }
         .onReceive(self.timelineState.$tappedBackButton) { tappedBackButton in
             if tappedBackButton {
-                self.presentationMode.wrappedValue.dismiss()
-                self.timelineState.tappedBackButton = false
+                presentationMode.wrappedValue.dismiss()
+                timelineState.tappedBackButton = false
             }
         }
     }
+    
+    // MARK: -
+    
+    var stepCountString: String? {
+        guard let stepCount = timelineItem.stepCount, stepCount > 0 else { return nil }
+        if let average = (timelineItem as? ArcVisit)?.place?.averageSteps, average > 0 {
+            let pctDiff = (Double(stepCount) / Double(average)) - 1.0
+            return String(format: "%@ (%.0f%% %@)",
+                          NumberFormatter.localizedString(from: NSNumber(value: stepCount), number: .decimal),
+                          abs(pctDiff * 100), pctDiff > 0 ? "up" : "down")
+        }
+        return NumberFormatter.localizedString(from: NSNumber(value: stepCount), number: .decimal)
+    }
+    
+    // MARK: -
     
     func row(left leftText: String, right rightText: Text) -> some View {
         return HStack {
