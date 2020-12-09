@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "SwiftUICharts",
+        "repositoryURL": "https://github.com/AppPear/ChartView",
+        "state": {
+          "branch": "master",
+          "revision": "08f0053b164f05ccbdb7153b1b3b10b565e8f1f1",
+          "version": null
+        }
+      },
+      {
         "package": "GRDB",
         "repositoryURL": "https://github.com/groue/GRDB.swift.git",
         "state": {
@@ -33,7 +42,7 @@
         "repositoryURL": "https://github.com/sobri909/LocoKit.git",
         "state": {
           "branch": "master",
-          "revision": "cab022c71e8ad6f8453b5a3966a578dfdfdef19c",
+          "revision": "1c3c5f9cb696ce993d26ae180b2eba53f00bae9b",
           "version": null
         }
       },
