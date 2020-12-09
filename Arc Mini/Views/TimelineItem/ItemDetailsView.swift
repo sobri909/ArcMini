@@ -65,13 +65,31 @@ struct ItemDetailsView: View {
                 if let stepCountString = stepCountString {
                     row(left: "Steps", right: Text(stepCountString))
                 }
-
+                
                 if let ascended = timelineItem.floorsAscended, let descended = timelineItem.floorsDescended, (ascended > 0 || descended > 0) {
                     row(left: "Flights climbed", right: Text(String(format: "%d up, %d down", ascended, descended)))
                 }
                 
                 if let altitude = timelineItem.altitude {
                     row(left: "Altitude", right: Text(String(metres: altitude, isAltitude: true)))
+                }
+                
+                // MARK: - Predictions
+                
+                if let visit = timelineItem as? ArcVisit, visit.isCurrentItem {
+                    if let leavingScore = visit.place?.leavingScoreFor(duration: visit.duration, at: Date()) {
+                        Spacer().frame(height: 12)
+                        
+                        HStack {
+                            Text("Predictions").font(.system(size: 18, weight: .semibold))
+                        }.frame(height: 44)
+                        
+                        row(left: "Chance of leaving now", right: Text(String(format: "%.0f%%", floor(leavingScore * 100))))
+
+                        if let date = visit.predictedLeavingTime, date.isToday || date.isTomorrow {
+                            row(left: "Leaving time", right: Text(date, style: .time))
+                        }
+                    }
                 }
             }
         }
