@@ -38,16 +38,16 @@ struct ItemDetailsView: View {
                     }
                 }.frame(height: 44)
                 
-                /** current item, current speed / altitude / etc **/
-
+                // MARK: - Current item, current speed / altitude / etc
+                
                 if RecordingManager.recordingState == .recording, timelineItem.isCurrentItem {
                     if let location = timelineItem.samples.last?.location, location.hasUsableCoordinate {
                         row(left: "Current location accuracy", right: Text(String(distance: location.horizontalAccuracy)))
-
+                        
                         if timelineItem is ArcPath, location.horizontalAccuracy >= 0, location.horizontalAccuracy < 100 {
                             row(left: "Current speed", right: Text(String(speed: location.speed)))
                         }
-
+                        
                         if location.verticalAccuracy >= 0 {
                             row(left: "Current altitude", right: Text(String(format: "%@ (+/- %@)",
                                                                              String(metres: location.altitude, isAltitude: true),
