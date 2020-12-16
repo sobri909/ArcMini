@@ -18,7 +18,7 @@ struct TimelineHeader: View {
     @State var optionsMenu: OptionsMenu = .main
     @State var exportURL: URL?
 
-    enum ModalView { case logs, system, recording, export }
+    enum ModalView { case logs, system, recording, classifier, export }
     enum OptionsMenu { case main, export }
 
     var body: some View {
@@ -53,6 +53,8 @@ struct TimelineHeader: View {
                 SystemDebugView()
             } else if self.modalView == .recording {
                 RecordingDebugView()
+            } else if self.modalView == .classifier {
+                ClassifierResultsView().environmentObject(RecordingManager.highlander.recorder)
             } else if self.modalView == .export {
                 ShareSheet(activityItems: [self.exportURL!])
             }
@@ -76,6 +78,10 @@ struct TimelineHeader: View {
                     },
                     .default(Text("Recording Debug Info")) {
                         self.modalView = .recording
+                        self.showingModal = true
+                    },
+                    .default(Text("Classifier Debug Info")) {
+                        self.modalView = .classifier
                         self.showingModal = true
                     },
                     .destructive(Text("Close"))

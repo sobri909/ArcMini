@@ -13,6 +13,7 @@ struct TextRow: View {
     var right: Text
     var leftFont: Font = .system(size: 17, weight: .regular)
     var rightFont: Font = .system(size: 15, weight: .semibold)
+    var height: CGFloat = 44
     
     var body: some View {
         HStack {
@@ -20,7 +21,7 @@ struct TextRow: View {
             Spacer()
             right.font(rightFont)
                 .foregroundColor(Color(UIColor.arcGray1))
-        }.frame(height: 44)
+        }.frame(height: height)
     }
 }
 
