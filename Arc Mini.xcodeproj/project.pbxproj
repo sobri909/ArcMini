@@ -84,6 +84,7 @@
 		C99F5EC5242A3F8600E172AE /* FSOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F5EC3242A3F8600E172AE /* FSOAuth.m */; };
 		C99F5EC6242A3F8600E172AE /* Foursquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99F5EC4242A3F8600E172AE /* Foursquare.swift */; };
 		C99F5EC9242A4EFA00E172AE /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99F5EC8242A4EFA00E172AE /* Settings.swift */; };
+		C9A239342580CC2E00E3E517 /* LineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A239332580CC2E00E3E517 /* LineChart.swift */; };
 		C9AA2250257B8D92002E2A0D /* LocoKit in Frameworks */ = {isa = PBXBuildFile; productRef = C9AA224F257B8D92002E2A0D /* LocoKit */; };
 		C9B1A6CF254D7E6A00F4EE2F /* Array+ArcSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B1A6CE254D7E6900F4EE2F /* Array+ArcSample.swift */; };
 		C9B1A6D5254D7F3500F4EE2F /* Gzip in Frameworks */ = {isa = PBXBuildFile; productRef = C9B1A6D4254D7F3500F4EE2F /* Gzip */; };
@@ -161,7 +162,7 @@
 		C9120BD5250BBDD80063A2B7 /* CurrentItemWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentItemWidget.swift; sourceTree = "<group>"; };
 		C9120BD8250BBDDA0063A2B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9120BDA250BBDDA0063A2B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C918CF2D243B1EE90019D350 /* TimelineRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineRootView.swift; sourceTree = "<group>"; };
+		C918CF2D243B1EE90019D350 /* TimelineRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TimelineRootView.swift; path = "Arc Mini/Views/TimelineItem/TimelineRootView.swift"; sourceTree = SOURCE_ROOT; };
 		C91CB40624CDB30E00AF0CF1 /* WorkoutImporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutImporter.swift; sourceTree = "<group>"; };
 		C91CB40824CDB86000AF0CF1 /* HealthKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKit.swift; sourceTree = "<group>"; };
 		C91F10EF25307DA900D3BD99 /* Backups.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Backups.swift; sourceTree = "<group>"; };
@@ -227,6 +228,7 @@
 		C99F5EC3242A3F8600E172AE /* FSOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSOAuth.m; sourceTree = "<group>"; };
 		C99F5EC4242A3F8600E172AE /* Foursquare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Foursquare.swift; sourceTree = "<group>"; };
 		C99F5EC8242A4EFA00E172AE /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		C9A239332580CC2E00E3E517 /* LineChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChart.swift; sourceTree = "<group>"; };
 		C9B1A6CE254D7E6900F4EE2F /* Array+ArcSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+ArcSample.swift"; sourceTree = "<group>"; };
 		C9B86B87242CAD8900D52C0D /* ArcError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcError.swift; sourceTree = "<group>"; };
 		C9BF95362446F959000F3299 /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 				C9DBE4262437462B00FCB8E5 /* Pager.swift */,
 				C937EE2E24546A2A009D1593 /* ShareSheet.swift */,
 				C99325932430EE59005299DC /* RowButtonStyle.swift */,
+				C9A239332580CC2E00E3E517 /* LineChart.swift */,
 				C92BF62A241D06B70089E4AD /* Map */,
 				C95C555F2413C02C0038EB3B /* Timeline */,
 				C9F98B78242FAB46003D2A23 /* TimelineItem */,
@@ -792,6 +795,7 @@
 				C9822A83240CF8D5006B70F4 /* AppDelegate.swift in Sources */,
 				C95E0E21241797D9008418A1 /* Colors.swift in Sources */,
 				C99325942430EE59005299DC /* RowButtonStyle.swift in Sources */,
+				C9A239342580CC2E00E3E517 /* LineChart.swift in Sources */,
 				C9DBE4272437462B00FCB8E5 /* Pager.swift in Sources */,
 				C952400C242F51D200F4522D /* ArcCoordinatesMatrix.swift in Sources */,
 				C953392924126E670005E98F /* MapView.swift in Sources */,

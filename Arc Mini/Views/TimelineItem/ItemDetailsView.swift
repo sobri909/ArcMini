@@ -6,8 +6,9 @@
 //  Copyright © 2020 Matt Greenfield. All rights reserved.
 //
 
-import SwiftUI
 import LocoKit
+import SwiftUI
+import SwiftUICharts
 
 struct ItemDetailsView: View {
 
@@ -17,17 +18,21 @@ struct ItemDetailsView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     var arcItem: ArcTimelineItem { return timelineItem as! ArcTimelineItem }
+    var speedGraphDatasets: LineChartDatasets?
 
     // MARK: -
 
     init(timelineItem: TimelineItem) {
         self.timelineItem = timelineItem
+        if let path = timelineItem as? ArcPath, !path.speedGraphData.isEmpty {
+            self.speedGraphDatasets = LineChartDatasets(datasets: path.speedGraphData.map { LineChartDataset(xyValues: $0) })
+        }
     }
 
     // MARK: -
 
     var body: some View {
-        ScrollView(.vertical) {
+        ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(alignment: .leading) {
                 ItemDetailsHeader(timelineItem: self.timelineItem)
                 HStack {
@@ -91,6 +96,21 @@ struct ItemDetailsView: View {
                         }
                     }
                 }
+                
+                // MARK: - Speed chart
+                
+                if let speedGraphDatasets = speedGraphDatasets {
+                    Spacer().frame(height: 12)
+
+                    HStack {
+                        Text("Trip Speed").font(.system(size: 18, weight: .semibold))
+                    }.frame(height: 44)
+                    
+                    LineChart(data: speedGraphDatasets, config: LineChartConfig(fixedMinimumY: 0, yLabelSpecifier: "%.0f km/h"))
+                        .frame(height: 100)
+                        .background(Color("brandSecondary05"))
+//                        .border(Color(white: 0.92), width: 0.5)
+                }
             }
         }
         .padding([.leading, .trailing], 20)
@@ -128,8 +148,6 @@ struct ItemDetailsView: View {
         }
         return NumberFormatter.localizedString(from: NSNumber(value: stepCount), number: .decimal)
     }
-    
-    // MARK: -
     
     func row(left leftText: String, right rightText: Text) -> some View {
         return HStack {

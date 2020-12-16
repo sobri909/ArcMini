@@ -9,6 +9,7 @@
 import GRDB
 import LocoKit
 import SwiftNotes
+import CoreLocation
 
 class ArcPath: Path, ArcTimelineItem {
 
@@ -225,7 +226,6 @@ class ArcPath: Path, ArcTimelineItem {
         TimelineProcessor.process(from: self)
     }
 
-
     // MARK: - Health
 
     var activeEnergyBurned: Double? { didSet { hasChanges = true } }
@@ -235,6 +235,30 @@ class ArcPath: Path, ArcTimelineItem {
     var lastHealthKitLookup: Date?
 
     var _trackPlays: [TrackPlay]?
+    
+    // MARK: - UI
+    
+    var _speedGraphData: [[(TimeInterval, CLLocationSpeed)]]?
+    var speedGraphData: [[(TimeInterval, CLLocationSpeed)]] {
+        if let cached = _speedGraphData { return cached }
+        var groups: [[(TimeInterval, CLLocationSpeed)]] = []
+        var currentGroup: [(TimeInterval, CLLocationSpeed)] = []
+        for sample in samples {
+            guard sample.hasUsableCoordinate, let location = sample.location, location.horizontalAccuracy < 100, location.speed >= 0 else {
+                if !currentGroup.isEmpty {
+                    groups.append(currentGroup)
+                    currentGroup = []
+                }
+                continue
+            }
+            currentGroup.append((sample.date.timeIntervalSince1970, location.speed))
+        }
+        if !currentGroup.isEmpty {
+            groups.append(currentGroup)
+        }
+        _speedGraphData = groups
+        return groups
+    }
     
     // MARK: - ArcTimelineItem
     
@@ -255,6 +279,7 @@ class ArcPath: Path, ArcTimelineItem {
         _needsUserCleanup = nil
         _uncertainActivityType = nil
         _unknownActivityType = nil
+        _speedGraphData = nil
     }
     override func scoreForConsuming(item: TimelineItem) -> ConsumptionScore {
 
