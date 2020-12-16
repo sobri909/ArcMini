@@ -65,7 +65,10 @@ struct SystemDebugView: View {
 
     var taskRows: some View {
         Section(header: Text("Task States")) {
-            ForEach(TasksManager.highlander.taskStates.sorted { $0.value.lastUpdated > $1.value.lastUpdated }, id: \.0) { identifier, status in
+            let sortedStates = TasksManager.highlander.taskStates.sorted {
+                $0.value.lastCompleted ?? $0.value.lastUpdated - .oneYear > $1.value.lastCompleted ?? $0.value.lastUpdated - .oneYear
+            }
+            ForEach(sortedStates, id: \.0) { identifier, status in
                 self.row(leftText: taskNameString(for: status, identifier: identifier), right: Text(statusString(for: status)))
             }
         }
