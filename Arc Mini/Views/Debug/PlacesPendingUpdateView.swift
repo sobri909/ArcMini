@@ -25,9 +25,3 @@ struct PlacesPendingUpdateView: View {
         return names ?? []
     }
 }
-
-struct PlacesPendingUpdateView_Previews: PreviewProvider {
-    static var previews: some View {
-        PlacesPendingUpdateView()
-    }
-}

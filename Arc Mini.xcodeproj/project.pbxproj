@@ -401,8 +401,8 @@
 			children = (
 				C93062B0243F1B0D00DE47CC /* DebugLogsView.swift */,
 				C93062B2243F209F00DE47CC /* DebugLogView.swift */,
-				C928C2EE2443522300586121 /* RecordingDebugView.swift */,
 				C92EE1652445A73D005DDDCB /* SystemDebugView.swift */,
+				C928C2EE2443522300586121 /* RecordingDebugView.swift */,
 				C92EE1672445BA4F005DDDCB /* PlacesPendingUpdateView.swift */,
 				C92EE1692445C2DB005DDDCB /* ModelsPendingUpdateView.swift */,
 				C95705032589C65E00A7E691 /* ClassifierResultsView.swift */,

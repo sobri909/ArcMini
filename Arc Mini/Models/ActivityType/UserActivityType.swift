@@ -12,8 +12,6 @@ import CoreLocation
 import BackgroundTasks
 
 class UserActivityType: MutableActivityType {
-    
-    var updateTimer: Timer?
 
     init?(dict: [String: Any?]) {
         super.init(dict: dict, geoKeyPrefix: "U", in: RecordingManager.store)

@@ -32,9 +32,11 @@ struct SystemDebugView: View {
                     NavigationLink(destination: PlacesPendingUpdateView()) {
                         self.row(leftText: "Places pending update", right: Text("\(RecordingManager.store.placesPendingUpdate)"))
                     }
+                    .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                     NavigationLink(destination: ModelsPendingUpdateView()) {
                         self.row(leftText: "UD models pending update", right: Text("\(RecordingManager.store.modelsPendingUpdate)"))
                     }
+                    .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                 }
                 Section(header: Text("Pending Backups")) {
                     self.row(leftText: "Notes pending backup", right: Text("\(Backups.backupNotesCount)"))
@@ -53,6 +55,7 @@ struct SystemDebugView: View {
                 }
                 self.taskRows
             }
+            .listStyle(SidebarListStyle())
             .navigationBarTitle("Arc \(Bundle.versionNumber) (\(String(format: "%d", Bundle.buildNumber)))")
             .environment(\.defaultMinListRowHeight, 28)
         }
@@ -72,16 +75,18 @@ struct SystemDebugView: View {
 
     func row(leftText: String, right rightText: Text, rightButtonText: Text? = nil) -> some View {
         return HStack {
-            Text(leftText).font(.system(.footnote))
+            Text(leftText).font(.system(size: 12, weight: .regular))
             Spacer()
-            rightText.font(.system(.footnote)).opacity(0.6)
+            rightText.font(.system(size: 12, weight: .regular)).opacity(0.6)
             if let rightButtonText = rightButtonText {
-                rightButtonText.font(.system(.footnote))
+                rightButtonText.font(.system(size: 12, weight: .regular))
                     .padding([.leading, .trailing], 8)
                     .foregroundColor(.white).background(Color.black)
                     .cornerRadius(10)
             }
         }
+        .frame(height: 28)
+        .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
     }
     
     func taskNameString(for task: TasksManager.TaskStatus, identifier: String) -> String {

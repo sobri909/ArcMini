@@ -20,7 +20,8 @@ struct TextRow: View {
             left.font(leftFont)
             Spacer()
             right.font(rightFont)
-                .foregroundColor(Color(UIColor.arcGray1))
+                .opacity(0.6)
+//                .foregroundColor(Color(UIColor.arcGray1))
         }.frame(height: height)
     }
 }

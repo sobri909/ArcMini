@@ -31,7 +31,7 @@ struct RecordingDebugView: View {
                     }
                 }
 
-                Section(header: Text(loco.recordingState.rawValue)) {
+                Section(header: Text(loco.recordingState.rawValue.capitalized)) {
                     self.row(leftText: "Thermal state", rightText: AppDelegate.thermalState.stringValue)
                     self.row(leftText: "Target samples per minute", rightText: "\(RecordingManager.recorder.samplesPerMinute)")
                     if loco.recordingState == .sleeping {
@@ -58,6 +58,7 @@ struct RecordingDebugView: View {
                     }
                 }
             }
+            .listStyle(SidebarListStyle())
             .navigationBarTitle("Arc Mini \(Bundle.versionNumber) (\(String(format: "%d", Bundle.buildNumber)))")
             .environment(\.defaultMinListRowHeight, 28)
         }
@@ -107,12 +108,14 @@ struct RecordingDebugView: View {
     // MARK: -
 
     func row(leftText: String, rightText: String, highlight: Bool = false, fade: Bool = false) -> some View {
-        let font = highlight ? Font.system(.footnote).bold() : Font.system(.footnote)
+        let font: Font = highlight ? .system(size: 12, weight: .bold) : .system(size: 12, weight: .regular)
         return HStack {
             Text(leftText).font(font).opacity(fade ? 0.6 : 1)
             Spacer()
             Text(rightText).font(font).opacity(0.6).opacity(fade ? 0.6 : 1)
         }
+        .frame(height: 28)
+        .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
     }
 
 }

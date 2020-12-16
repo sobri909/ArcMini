@@ -24,9 +24,3 @@ struct ModelsPendingUpdateView: View {
         return names ?? []
     }
 }
-
-struct ModelsPendingUpdateView_Previews: PreviewProvider {
-    static var previews: some View {
-        ModelsPendingUpdateView()
-    }
-}
