@@ -1,6 +1,5 @@
 //
 //  SystemDebugView.swift
-//  Arc Mini
 //
 //  Created by Matt Greenfield on 14/4/20.
 //  Copyright © 2020 Matt Greenfield. All rights reserved.

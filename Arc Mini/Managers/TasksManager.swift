@@ -97,8 +97,7 @@ class TasksManager {
     }
 
     func scheduleBackgroundTasks() {
-        let loco = LocomotionManager.highlander
-        if loco.recordingState == .recording { return }
+        if LocomotionManager.highlander.recordingState == .recording { return }
 
         if Settings.backupsOn {
             TasksManager.schedule(.iCloudDriveBackups, requiresPower: true)
@@ -139,7 +138,6 @@ class TasksManager {
             return
         }
 
-        guard currentState(of: identifier) != .scheduled else { return }
         guard let currentStatus = highlander.mutex.sync(execute: { highlander.taskStates[identifier.shortName] }) else { fatalError("Task not registered") }
 
         onMain {
