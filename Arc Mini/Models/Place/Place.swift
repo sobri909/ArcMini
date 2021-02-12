@@ -125,7 +125,8 @@ class Place: Hashable, Backupable {
         container["startTimesHistogram"] = startTimes?.serialised
         container["endTimesHistogram"] = endTimes?.serialised
         container["durationsHistogram"] = durations?.serialised
-        container["coordinatesMatrix"] = coordinatesMatrix?.serialised
+        container["coordinatesMatrixBlob"] = coordinatesMatrix?.serialisedData
+        container["coordinatesMatrix"] = nil
 
         if let visitTimes = visitTimes {
             var serialised: [String] = []
@@ -225,7 +226,10 @@ class Place: Hashable, Backupable {
             self.durations?.binValueName = "Visit"
             self.durations?.binValueNamePlural = "Visits"
         }
-        if let serialised = dict["coordinatesMatrix"] as? String {
+        if let serialised = dict["coordinatesMatrixBlob"] as? Data {
+            self.coordinatesMatrix = ArcCoordinatesMatrix(data: serialised)
+            
+        } else if let serialised = dict["coordinatesMatrix"] as? String {
             self.coordinatesMatrix = ArcCoordinatesMatrix(string: serialised)
         }
         if let visitTimesHistograms = dict["visitTimesHistograms"] as? String {
@@ -236,7 +240,7 @@ class Place: Hashable, Backupable {
         } else if let visitTimesStrings = dict["visitTimesHistograms"] as? [String] {
             setVisitTimesHistograms(from: visitTimesStrings)
         }
-        
+
         // Backupable
         self.backupLastSaved = dict["backupLastSaved"] as? Date
 
@@ -374,7 +378,7 @@ class Place: Hashable, Backupable {
             where: "placeId = ? AND deleted = 0 ORDER BY startDate DESC",
             arguments: [placeId.uuidString]) else { return nil }
         if !visit.isCurrentItem {
-            _lastVisit = visit.dateRange 
+            _lastVisit = visit.dateRange
         }
         return _lastVisit
     }
@@ -383,8 +387,7 @@ class Place: Hashable, Backupable {
 
     var itemId: UUID { return placeId }
     var color: UIColor { return .orange }
-
-
+    
     // MARK: - Codable
 
     enum CodingKeys: String, CodingKey {

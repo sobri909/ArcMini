@@ -115,6 +115,7 @@ class Migrations {
                 table.column("endTimesHistogram", .text)
                 table.column("durationsHistogram", .text)
                 table.column("coordinatesMatrix", .text)
+                table.column("coordinatesMatrixBlob", .blob)
                 table.column("visitTimesHistograms", .text)
             }
 
@@ -126,6 +127,12 @@ class Migrations {
                 table.column("date", .datetime).primaryKey()
                 table.column("name", .text).notNull().indexed()
                 table.column("artist", .text).indexed()
+            }
+        }
+        
+        migrator.registerMigration("Place FlatBuffers") { db in
+            try? db.alter(table: "Place") { table in
+                table.add(column: "coordinatesMatrixBlob", .blob)
             }
         }
     }

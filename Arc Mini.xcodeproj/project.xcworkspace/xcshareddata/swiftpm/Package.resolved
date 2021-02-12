@@ -20,6 +20,15 @@
         }
       },
       {
+        "package": "FlatBuffers",
+        "repositoryURL": "https://github.com/mustiikhalil/flatbuffers.git",
+        "state": {
+          "branch": null,
+          "revision": "d1bad799d82545f3ab70e6baa86e714927eb4a84",
+          "version": "0.8.1"
+        }
+      },
+      {
         "package": "GRDB",
         "repositoryURL": "https://github.com/groue/GRDB.swift.git",
         "state": {
