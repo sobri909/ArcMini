@@ -210,7 +210,6 @@ class ArcVisit: LocoKit.Visit, ArcTimelineItem {
         return peakDate
     }
 
-
     // MARK: - ArcTimelineItem
     
     var needsConfirm: Bool {

@@ -148,9 +148,3 @@ struct TimelineHeader: View {
     }
 
 }
-
-struct TimelineHeader_Previews: PreviewProvider {
-    static var previews: some View {
-        TimelineHeader()
-    }
-}

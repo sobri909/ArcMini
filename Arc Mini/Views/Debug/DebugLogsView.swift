@@ -59,9 +59,3 @@ struct DebugLogsView: View {
     }
 
 }
-
-struct DebugLogsView_Previews: PreviewProvider {
-    static var previews: some View {
-        DebugLogsView()
-    }
-}
