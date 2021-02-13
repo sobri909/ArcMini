@@ -19,7 +19,7 @@ let logger = Logger(label: "com.bigpaua.ArcMini.main") { _ in
 }
 
 public enum Subsystem: String {
-    case backups, backup, memory, tasks, ui, locokit
+    case backups, backup, memory, tasks, ui, locokit, misc
 }
 
 class DebugLogger: LoggingFormatAndPipe.Pipe, ObservableObject {
@@ -120,5 +120,17 @@ extension Logging.Logger {
     public func info(_ message: String, subsystem: Subsystem, source: @autoclosure () -> String? = nil,
                      file: String = #file, function: String = #function, line: UInt = #line) {
         self.info("[\(subsystem.rawValue.uppercased())] \(message)", source: source(), file: file, function: function, line: line)
+    }
+    
+    @inlinable
+    public func error(_ message: String, subsystem: Subsystem, source: @autoclosure () -> String? = nil,
+                      file: String = #file, function: String = #function, line: UInt = #line) {
+        self.error("[\(subsystem.rawValue.uppercased())] [ERROR] \(message)", source: source(), file: file, function: function, line: line)
+    }
+    
+    @inlinable
+    public func error(_ error: Error, subsystem: Subsystem, source: @autoclosure () -> String? = nil,
+                      file: String = #file, function: String = #function, line: UInt = #line) {
+        self.error("[\(subsystem.rawValue.uppercased())] [ERROR] \(error)", source: source(), file: file, function: function, line: line)
     }
 }
