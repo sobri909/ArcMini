@@ -111,6 +111,7 @@
 		C9C874F32458484000BAB9A3 /* ItemDetailsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C874F22458484000BAB9A3 /* ItemDetailsHeader.swift */; };
 		C9C96AAF242760A2006D2E5B /* VisitEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C96AAE242760A2006D2E5B /* VisitEditView.swift */; };
 		C9C96AB224278052006D2E5B /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = C9C96AB124278052006D2E5B /* Introspect */; };
+		C9CA45F525D7F84A00154592 /* PlaceRTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CA45F425D7F84A00154592 /* PlaceRTree.swift */; };
 		C9DAA083249F97BE004BA946 /* ThinkingListBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DAA082249F97BE004BA946 /* ThinkingListBox.swift */; };
 		C9DBE4272437462B00FCB8E5 /* Pager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DBE4262437462B00FCB8E5 /* Pager.swift */; };
 		C9DBE429243746FF00FCB8E5 /* TimelineScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DBE428243746FF00FCB8E5 /* TimelineScrollView.swift */; };
@@ -256,6 +257,7 @@
 		C9C827B6243DEB7F00F3199B /* DebugLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogger.swift; sourceTree = "<group>"; };
 		C9C874F22458484000BAB9A3 /* ItemDetailsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsHeader.swift; sourceTree = "<group>"; };
 		C9C96AAE242760A2006D2E5B /* VisitEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitEditView.swift; sourceTree = "<group>"; };
+		C9CA45F425D7F84A00154592 /* PlaceRTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceRTree.swift; sourceTree = "<group>"; };
 		C9DAA082249F97BE004BA946 /* ThinkingListBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThinkingListBox.swift; sourceTree = "<group>"; };
 		C9DBE4262437462B00FCB8E5 /* Pager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pager.swift; sourceTree = "<group>"; };
 		C9DBE428243746FF00FCB8E5 /* TimelineScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineScrollView.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 		C90D786D2428FFD2004ABFD0 /* Place */ = {
 			isa = PBXGroup;
 			children = (
+				C9CA45F425D7F84A00154592 /* PlaceRTree.swift */,
 				C90D78672428FFCE004ABFD0 /* Place.scores.swift */,
 				C90D78662428FFCE004ABFD0 /* Place.stats.swift */,
 				C90D78652428FFCE004ABFD0 /* Place.swift */,
@@ -864,6 +867,7 @@
 				C9F98B77242FAB38003D2A23 /* ItemSegmentsView.swift in Sources */,
 				C95E0E252417AEB8008418A1 /* VisitListBox.swift in Sources */,
 				C9C874F32458484000BAB9A3 /* ItemDetailsHeader.swift in Sources */,
+				C9CA45F525D7F84A00154592 /* PlaceRTree.swift in Sources */,
 				C93062B1243F1B0D00DE47CC /* DebugLogsView.swift in Sources */,
 				C91F10F425307DA900D3BD99 /* Backupable.swift in Sources */,
 				C9C96AAF242760A2006D2E5B /* VisitEditView.swift in Sources */,

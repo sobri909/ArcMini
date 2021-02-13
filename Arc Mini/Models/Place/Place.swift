@@ -21,6 +21,8 @@ class Place: Hashable, Backupable {
     var name: String = "" { didSet { hasChanges = true } }
     var needsUpdate: Bool = false { didSet { hasChanges = true } }
     var lastUpdated: Date?
+    
+    var rtreeId: Int64?
 
     private var _invalidated = false
     public var invalidated: Bool { return _invalidated }
@@ -50,7 +52,8 @@ class Place: Hashable, Backupable {
     var visitTimes: [Weekday: ArcHistogram]? { didSet { hasChanges = true } }
     var startTimes: ArcHistogram? { didSet { hasChanges = true } }
     var endTimes: ArcHistogram? { didSet { hasChanges = true } }
-
+    var lastVisitEndDate: Date? { didSet { hasChanges = true } }
+    
     // MARK: - Backupable
     
     var backupLastSaved: Date? { didSet { if oldValue != backupLastSaved { saveNoDate() } } }
@@ -101,6 +104,7 @@ class Place: Hashable, Backupable {
         container["placeId"] = placeId.uuidString
         container["lastSaved"] = transactionDate ?? lastSaved ?? Date()
         container["needsUpdate"] = needsUpdate
+        container["rtreeId"] = rtreeId
 
         container["name"] = name
         container["latitude"] = center.coordinate.latitude
@@ -116,6 +120,7 @@ class Place: Hashable, Backupable {
 
         container["visitsCount"] = visitsCount
         container["visitDays"] = visitDays
+        container["lastVisitEndDate"] = lastVisitEndDate
 
         container["averageSteps"] = averageSteps
         container["averageCalories"] = averageCalories
@@ -160,6 +165,8 @@ class Place: Hashable, Backupable {
         } else {
             self.placeId = UUID()
         }
+        
+        self.rtreeId = dict["rtreeId"] as? Int64
 
         self.lastSaved = dict["lastSaved"] as? Date
 
@@ -187,6 +194,8 @@ class Place: Hashable, Backupable {
         self.foursquareVenueId = dict["foursquareVenueId"] as? String
         self.foursquareCategoryId = dict["foursquareCategoryId"] as? String
         self.facebookPlaceId = dict["facebookPlaceId"] as? String
+        
+        self.lastVisitEndDate = dict["lastVisitEndDate"] as? Date
 
         if let movesPlaceId = dict["movesPlaceId"] as? Int { self.movesPlaceId = movesPlaceId }
         else if let movesPlaceId = dict["movesPlaceId"] as? Int64 { self.movesPlaceId = Int(movesPlaceId) }
@@ -228,7 +237,6 @@ class Place: Hashable, Backupable {
         }
         if let serialised = dict["coordinatesMatrixBlob"] as? Data {
             self.coordinatesMatrix = ArcCoordinatesMatrix(data: serialised)
-            
         } else if let serialised = dict["coordinatesMatrix"] as? String {
             self.coordinatesMatrix = ArcCoordinatesMatrix(string: serialised)
         }
@@ -243,6 +251,11 @@ class Place: Hashable, Backupable {
 
         // Backupable
         self.backupLastSaved = dict["backupLastSaved"] as? Date
+
+        // backfill rtree indexes
+        if lastSaved != nil, rtreeId == nil {
+            delay(1) { self.updateRTree() }
+        }
 
         RecordingManager.store.add(self)
     }

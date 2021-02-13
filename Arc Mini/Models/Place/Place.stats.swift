@@ -58,6 +58,7 @@ extension Place {
             self.updateVisitTimes(visits: visits)
             self.updateDurations(visits: visits)
             self.updateMiscStats(visits: visits)
+            self.updateRTree()
             self.lastUpdated = Date()
             self.needsUpdate = false
             self.save()
@@ -82,19 +83,28 @@ extension Place {
         var maxHeartRateVisits = 0, totalMaxHeartRate: Double = 0
         var totalStepsVisits = 0, totalSteps = 0
         var manualSamples: [LocomotionSample] = []
+        var maxEndDate: Date?
         
         for visit in visits {
-            guard let visitStartDate = visit.startDate else { continue }
+            guard let dateRange = visit.dateRange else { continue }
             
             // calc total unique visit days
             if let current = currentDay {
-                if !visitStartDate.isSameDayAs(current) {
+                if !dateRange.start.isSameDayAs(current) {
                     currentDay = visit.startDate
                     totalDays += 1
                 }
             } else {
                 currentDay = visit.startDate
                 totalDays += 1
+            }
+            
+            if let max = maxEndDate {
+                if dateRange.end > max {
+                    maxEndDate = dateRange.end
+                }
+            } else {
+                maxEndDate = dateRange.end
             }
             
             if visit.manualPlace, manualSamples.count < 14400 { // 24 hours of samples is enough
@@ -138,6 +148,7 @@ extension Place {
         }
         
         self.visitDays = totalDays
+        self.lastVisitEndDate = maxEndDate
         
         // location and radius
         if !manualSamples.isEmpty, let center = manualSamples.weightedCenter {
@@ -145,7 +156,7 @@ extension Place {
             let radius = manualSamples.radius(from: center)
             self.radius = Radius(mean: max(radius.mean, Place.minimumPlaceRadius), sd: radius.sd)
         }
-        
+
         // other averages
         if totalStepsVisits > 1 {
             self.averageSteps = totalSteps / totalStepsVisits
@@ -158,6 +169,26 @@ extension Place {
         }
         if maxHeartRateVisits > 1 {
             self.averageMaxHeartRate = totalMaxHeartRate / Double(maxHeartRateVisits)
+        }
+    }
+    
+    func updateRTree() {
+        let pool = RecordingManager.store.arcPool
+        do {
+            if let rtreeId = rtreeId {
+                let rtree = PlaceRTree(id: rtreeId, latitude: center.coordinate.latitude, longitude: center.coordinate.longitude)
+                try pool.write { try rtree.update($0) }
+                print("[\(name)] UPDATED RTREE (id: \(rtreeId))")
+            } else {
+                var rtree = PlaceRTree(latitude: center.coordinate.latitude, longitude: center.coordinate.longitude)
+                try pool.write { try rtree.insert($0) }
+                rtreeId = rtree.id
+                print("[\(name)] INSERTED RTREE (id: \(rtreeId!))")
+                saveNoDate()
+            }
+            
+        } catch {
+            logger.error(error, subsystem: .misc)
         }
     }
 

@@ -89,6 +89,7 @@ class Migrations {
                 table.column("placeId", .text).primaryKey()
                 table.column("lastSaved", .datetime).notNull().indexed()
                 table.column("needsUpdate", .boolean).indexed()
+                table.column("rtreeId", .integer).indexed()
 
                 table.column("name", .text).notNull().indexed()
                 table.column("foursquareVenueId", .text).indexed()
@@ -105,7 +106,8 @@ class Migrations {
 
                 table.column("visitsCount", .integer).notNull().indexed().defaults(to: 0)
                 table.column("visitDays", .integer).notNull().defaults(to: 0)
-
+                table.column("lastVisitEndDate", .date)
+                
                 table.column("averageSteps", .integer)
                 table.column("averageCalories", .double)
                 table.column("averageHeartRate", .double)
@@ -114,9 +116,12 @@ class Migrations {
                 table.column("startTimesHistogram", .text)
                 table.column("endTimesHistogram", .text)
                 table.column("durationsHistogram", .text)
-                table.column("coordinatesMatrix", .text)
+                table.column("coordinatesMatrix", .text) // deprecated
                 table.column("coordinatesMatrixBlob", .blob)
                 table.column("visitTimesHistograms", .text)
+                
+                // Backupable
+                table.column("backupLastSaved", .datetime).indexed()
             }
 
             try db.create(index: "Place_on_longitude_latitude", on: "Place", columns: ["longitude", "latitude"])
@@ -133,6 +138,19 @@ class Migrations {
         migrator.registerMigration("Place FlatBuffers") { db in
             try? db.alter(table: "Place") { table in
                 table.add(column: "coordinatesMatrixBlob", .blob)
+            }
+        }
+
+        migrator.registerMigration("Place RTree") { db in
+            try db.execute(sql: "CREATE VIRTUAL TABLE PlaceRTree USING rtree(id, latitude, longitude)")
+            try? db.alter(table: "Place") { table in
+                table.add(column: "rtreeId", .integer).indexed()
+            }
+        }
+
+        migrator.registerMigration("Place lastVisit") { db in
+            try? db.alter(table: "Place") { table in
+                table.add(column: "lastVisitEndDate", .date)
             }
         }
     }

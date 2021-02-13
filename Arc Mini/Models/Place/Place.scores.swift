@@ -62,12 +62,12 @@ extension Place {
     }
 
     func lastVisitScoreFor(startTime: TimeInterval) -> Double? {
-        guard let lastVisit = lastVisit else { return nil }
+        guard let lastVisitEndDate = lastVisitEndDate else { return nil }
 
         // visits past 365 days ago are too old
         let maxAgo: TimeInterval = 60 * 60 * 24 * 365
 
-        let sinceLast = lastVisit.end.age
+        let sinceLast = lastVisitEndDate.age
         let score = (1.0 - sinceLast / maxAgo)
 
         return score.clamped(min: 0.01, max: 1.0)
