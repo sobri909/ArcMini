@@ -176,11 +176,14 @@ extension Place {
         let pool = RecordingManager.store.arcPool
         do {
             if let rtreeId = rtreeId {
-                let rtree = PlaceRTree(id: rtreeId, latitude: center.coordinate.latitude, longitude: center.coordinate.longitude)
+                let rtree = PlaceRTree(id: rtreeId,
+                                       latMin: center.coordinate.latitude, latMax: center.coordinate.latitude,
+                                       lonMin: center.coordinate.longitude, lonMax: center.coordinate.longitude)
                 try pool.write { try rtree.update($0) }
                 print("[\(name)] UPDATED RTREE (id: \(rtreeId))")
             } else {
-                var rtree = PlaceRTree(latitude: center.coordinate.latitude, longitude: center.coordinate.longitude)
+                var rtree = PlaceRTree(latMin: center.coordinate.latitude, latMax: center.coordinate.latitude,
+                                       lonMin: center.coordinate.longitude, lonMax: center.coordinate.longitude)
                 try pool.write { try rtree.insert($0) }
                 rtreeId = rtree.id
                 print("[\(name)] INSERTED RTREE (id: \(rtreeId!))")

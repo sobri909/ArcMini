@@ -141,11 +141,13 @@ class Migrations {
             }
         }
 
-        migrator.registerMigration("Place RTree") { db in
-            try db.execute(sql: "CREATE VIRTUAL TABLE PlaceRTree USING rtree(id, latitude, longitude)")
+        migrator.registerMigration("Place RTree 2") { db in
+            try db.execute(sql: "DROP TABLE IF EXISTS PlaceRTree")
+            try db.execute(sql: "CREATE VIRTUAL TABLE PlaceRTree USING rtree(id, latMin, latMax, lonMin, lonMax)")
             try? db.alter(table: "Place") { table in
                 table.add(column: "rtreeId", .integer).indexed()
             }
+            try db.execute(sql: "UPDATE Place SET rtreeId = NULL")
         }
 
         migrator.registerMigration("Place lastVisit") { db in

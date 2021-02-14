@@ -10,8 +10,10 @@ import GRDB
 
 struct PlaceRTree: MutablePersistableRecord, Encodable {
     var id: Int64?
-    var latitude: Double
-    var longitude: Double
+    var latMin: Double
+    var latMax: Double
+    var lonMin: Double
+    var lonMax: Double
 
     mutating func didInsert(with rowID: Int64, for column: String?) {
         self.id = rowID

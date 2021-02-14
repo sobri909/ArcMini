@@ -44,7 +44,14 @@ class PlaceCache {
     }
 
     func placesNear(_ coordinate: CLLocationCoordinate2D, padding: CLLocationDegrees = 0.02) -> [Place] {
-        let query = "latitude > :latMin AND latitude < :latMax AND longitude > :longMin AND longitude < :longMax"
+        let query = """
+            SELECT *
+            FROM Place, PlaceRTree AS r
+            WHERE
+                rtreeId = r.id
+                AND r.latMin >= :latMin AND r.latMax <= :latMax
+                AND r.lonMin >= :longMin AND r.lonMax <= :longMax
+        """
 
         return store.places(where: query, arguments: [
             "latMin": coordinate.latitude - padding, "latMax": coordinate.latitude + padding,

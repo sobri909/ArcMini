@@ -199,7 +199,6 @@
 		C953392624126E250005E98F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C953392824126E670005E98F /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		C953392A24127CF30005E98F /* TimelineDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineDayView.swift; sourceTree = "<group>"; };
-		C95394EE2580A93B00714C7F /* LocoKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = LocoKit; path = ../LocoKit; sourceTree = "<group>"; };
 		C95705032589C65E00A7E691 /* ClassifierResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifierResultsView.swift; sourceTree = "<group>"; };
 		C95705082589D6A200A7E691 /* TextRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRow.swift; sourceTree = "<group>"; };
 		C95705102589DC6C00A7E691 /* TimelineRootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineRootView.swift; sourceTree = "<group>"; };
@@ -495,7 +494,6 @@
 		C9822A76240CF8D5006B70F4 = {
 			isa = PBXGroup;
 			children = (
-				C95394EE2580A93B00714C7F /* LocoKit */,
 				C9822A81240CF8D5006B70F4 /* Arc Mini */,
 				C9C045CB24A891B300C1A99C /* RecordersWidget */,
 				C9120BD4250BBDD80063A2B7 /* CurrentItemWidget */,
