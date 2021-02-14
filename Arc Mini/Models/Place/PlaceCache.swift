@@ -53,7 +53,7 @@ class PlaceCache {
                 AND r.lonMin >= :longMin AND r.lonMax <= :longMax
         """
 
-        return store.places(where: query, arguments: [
+        return store.places(for: query, arguments: [
             "latMin": coordinate.latitude - padding, "latMax": coordinate.latitude + padding,
             "longMin": coordinate.longitude - padding, "longMax": coordinate.longitude + padding
             ]
