@@ -1269,7 +1269,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sobri909/LocoKit.git";
 			requirement = {
-				branch = master;
+				branch = develop;
 				kind = branch;
 			};
 		};

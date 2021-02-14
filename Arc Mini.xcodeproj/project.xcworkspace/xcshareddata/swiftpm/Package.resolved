@@ -50,8 +50,8 @@
         "package": "LocoKit",
         "repositoryURL": "https://github.com/sobri909/LocoKit.git",
         "state": {
-          "branch": "master",
-          "revision": "1c3c5f9cb696ce993d26ae180b2eba53f00bae9b",
+          "branch": "develop",
+          "revision": "154d8e58855df7edb9f937498a1e9a97e42a142d",
           "version": null
         }
       },
