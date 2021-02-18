@@ -88,14 +88,24 @@ struct CurrentItemWidgetEntryView : View {
             
             VStack {
                 Spacer()
-                Text(Date(), style: .relative)
-                    .multilineTextAlignment(.center)
-                    .font(.system(size: 8, weight: .regular))
-                    .opacity(0.3)
+                HStack {
+                    Text(Date(), style: .relative)
+                        .font(.system(size: 8, weight: .regular))
+                        .opacity(0.3)
+                    Spacer()
+                    HStack(spacing: 3) {
+                        ForEach(appGroup.sortedApps, id: \.updated) { appState in
+                            Text("●")
+                                .font(.system(size: 8, weight: .regular))
+                                .foregroundColor(appState.isAlive ? Color.green : Color.red)
+                                .opacity(0.4)
+                        }
+                    }
+                }
             }
         }
-        .padding([.top, .leading, .trailing], family == .systemSmall ? 16 : 20)
-        .padding([.bottom], 4)
+        .padding([.top, .leading, .trailing], 16)
+        .padding([.bottom], 12)
     }
     
 }
