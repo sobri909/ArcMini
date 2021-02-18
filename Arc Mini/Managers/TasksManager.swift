@@ -217,6 +217,9 @@ class TasksManager {
                     TaskStatus(state: state, lastUpdated: Date(), minimumDelay: status.minimumDelay,
                                lastCompleted: status.lastCompleted)
             }
+            if state != .running {
+                activeTasks[identifier] = nil
+            }
         }
         self.saveStates()
         
