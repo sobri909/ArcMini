@@ -94,7 +94,7 @@ struct CurrentItemWidgetEntryView : View {
                         .opacity(0.3)
                     Spacer()
                     HStack(spacing: 3) {
-                        ForEach(appGroup.sortedApps, id: \.updated) { appState in
+                        ForEach(appGroup.apps.values.sorted { $0.appName.sortIndex < $1.appName.sortIndex }, id: \.updated) { appState in
                             Text("●")
                                 .font(.system(size: 8, weight: .regular))
                                 .foregroundColor(appState.isAlive ? Color.green : Color.red)

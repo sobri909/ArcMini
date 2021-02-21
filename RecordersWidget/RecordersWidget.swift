@@ -47,7 +47,7 @@ struct RecordersWidgetEntryView: View {
                     Text("Arc Recorders").font(.system(size: 14, weight: .semibold))
                         .frame(height: 28)
                 }
-                ForEach(appGroup.sortedApps, id: \.updated) { appState in
+                ForEach(appGroup.apps.values.sorted { $0.appName.sortIndex < $1.appName.sortIndex }, id: \.updated) { appState in
                     if appState.isAlive || family == .systemSmall {
                         self.row(
                             leftText: appState.isAlive ? Text(appState.recordingState.rawValue) : Text("dead"),
