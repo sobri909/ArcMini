@@ -15,7 +15,7 @@
         "repositoryURL": "https://github.com/AppPear/ChartView",
         "state": {
           "branch": "master",
-          "revision": "08f0053b164f05ccbdb7153b1b3b10b565e8f1f1",
+          "revision": "9115a992c91fa19cbb4f2241084240d38654a1fc",
           "version": null
         }
       },
@@ -51,7 +51,7 @@
         "repositoryURL": "https://github.com/sobri909/LocoKit.git",
         "state": {
           "branch": "develop",
-          "revision": "154d8e58855df7edb9f937498a1e9a97e42a142d",
+          "revision": "5c4cc1bd6e840895fd70cd736a9069e16861e1fd",
           "version": null
         }
       },
@@ -78,8 +78,8 @@
         "repositoryURL": "https://github.com/apple/swift-log",
         "state": {
           "branch": null,
-          "revision": "173f567a2dfec11d74588eea82cecea555bdc0bc",
-          "version": "1.4.0"
+          "revision": "5d66f7ba25daf4f94100e7022febf3c75e37a6c7",
+          "version": "1.4.2"
         }
       },
       {
@@ -105,7 +105,7 @@
         "repositoryURL": "https://github.com/timbersoftware/SwiftUI-Introspect.git",
         "state": {
           "branch": "master",
-          "revision": "f1ec9da347a7fbe53c520d35434f6c2295650bd5",
+          "revision": "d055f1fba8ec9391df2980fb68fb46d9411f6f5f",
           "version": null
         }
       },
