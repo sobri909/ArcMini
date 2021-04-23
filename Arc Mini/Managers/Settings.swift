@@ -37,6 +37,8 @@ enum SettingsKey: String {
     case allowMapTilt
 
     case taskStates
+
+    static let sharedSettings: [SettingsKey] = [.recordingOn, .backupsOn]
 }
 
 // MARK: -
@@ -51,7 +53,10 @@ class Settings {
 
     // MARK: -
 
-    static var recordingOn: Bool { return highlander[.recordingOn] as? Bool ?? true }
+    static var recordingOn: Bool {
+        get { highlander[.recordingOn] as? Bool ?? true }
+        set { highlander[.recordingOn] = newValue }
+    }
     static var sharingOn: Bool { return highlander[.sharingOn] as? Bool ?? true }
     static var backupsOn: Bool { return highlander[.backupsOn] as? Bool ?? false }
 
@@ -184,7 +189,7 @@ class Settings {
 
     private static var debugDeviceString: String {
         return "arc: \(Bundle.versionNumber) (\(Bundle.buildNumber)), "
-            + "dev: \(UIDevice.current.modelCode) (\(UIDevice.current.systemVersion))"
+            + "dev: \(UIDevice.current.modelCode) (\(UIDevice.current.systemVersion)) \(Locale.preferredLanguages[0])"
     }
 
     private static var debugProblemsString: String {
@@ -249,11 +254,36 @@ class Settings {
     // MARK: - Subscript
 
     subscript(key: SettingsKey) -> Any? {
-        get { return UserDefaults.standard.value(forKey: key.rawValue) as Any? }
-        set(value) { UserDefaults.standard.set(value, forKey: key.rawValue) }
+        get {
+            if SettingsKey.sharedSettings.contains(key) {
+                let loco = LocomotionManager.highlander
+                if let value = loco.appGroup?.get(setting: key.rawValue) as Any? {
+                    return value
+                }
+                
+                // if there's a local value, move it to the app group
+                if let value = UserDefaults.standard.value(forKey: key.rawValue) as Any? {
+                    loco.appGroup?.set(setting: key.rawValue, value: value)
+                    UserDefaults.standard.removeObject(forKey: key.rawValue)
+                    logger.info("moved shared setting to AppGroup (key: \(key.rawValue), value: \(value))", subsystem: .misc)
+                    return value
+                }
+            }
+            return UserDefaults.standard.value(forKey: key.rawValue) as Any?
+        }
+        
+        set(value) {
+            if SettingsKey.sharedSettings.contains(key) {
+                LocomotionManager.highlander.appGroup?.set(setting: key.rawValue, value: value)
+            } else {
+                UserDefaults.standard.set(value, forKey: key.rawValue)
+            }
+        }
     }
 
 }
+
+// MARK: -
 
 extension String {
     fileprivate func appendingCode(_ code: String, boolValue: Bool, safeValue: Bool) -> String {
