@@ -99,9 +99,9 @@ class TasksManager {
     func scheduleBackgroundTasks() {
         if LocomotionManager.highlander.recordingState == .recording { return }
 
-        if Settings.backupsOn {
-            TasksManager.schedule(.iCloudDriveBackups, requiresPower: true)
-        }
+//        if Settings.backupsOn {
+//            TasksManager.schedule(.iCloudDriveBackups, requiresPower: true)
+//        }
 
         /* generic tasks */
 
