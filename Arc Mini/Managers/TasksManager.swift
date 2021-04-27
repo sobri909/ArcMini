@@ -19,6 +19,7 @@ class TasksManager {
         case iCloudDriveBackups = "com.bigpaua.ArcMini.iCloudDriveBackups"
         
         // Arc v3 only
+        case housekeepCloudKit = "com.bigpaua.ArcMini.housekeepCloudKit"
         case activitySummaryUpdates = "com.bigpaua.ArcMini.activitySummaryUpdates"
         case simpleItemUpdates = "com.bigpaua.ArcMini.simpleItemUpdates"
         case cloudKitBackups = "com.bigpaua.ArcMini.cloudKitBackups"
@@ -82,12 +83,22 @@ class TasksManager {
         }
 
         register(.sanitiseStore, minimumDelay: .oneHour, queue: Jobs.highlander.secondaryQueue.underlyingQueue) { task in
+            task.expirationHandler = {
+                TasksManager.update(.sanitiseStore, to: .expired)
+                task.setTaskCompleted(success: false)
+            }
+            
             TasksManager.update(.sanitiseStore, to: .running)
             RecordingManager.store.connectToDatabase()
             TimelineProcessor.sanitise(store: RecordingManager.store)
             RecordingManager.safelyDisconnectFromDatabase()
-            TasksManager.update(.sanitiseStore, to: .completed)
-            task.setTaskCompleted(success: true)
+            
+            if TasksManager.currentState(of: .sanitiseStore) == .expired {
+                task.setTaskCompleted(success: false)
+            } else {
+                TasksManager.update(.sanitiseStore, to: .completed)
+                task.setTaskCompleted(success: true)
+            }
         }
 
         register(.iCloudDriveBackups, minimumDelay: Backups.maximumBackupFrequency) { task in
