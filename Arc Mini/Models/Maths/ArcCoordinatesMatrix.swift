@@ -1,5 +1,5 @@
 //
-//  ArcCoordinatesMatrix.swift
+//  Matrix.swift
 //  LearnerCoacher
 //
 //  Created by Matt Greenfield on 7/05/17.
@@ -10,31 +10,8 @@ import os.log
 import CoreLocation
 import Upsurge
 import LocoKit
-import FlatBuffers
 
 class ArcCoordinatesMatrix: CoordinatesMatrix {
-    
-    convenience init?(data: Data) {
-        let bb = ByteBuffer(data: data)
-        let fbBins = CoordinateBins.getRootAsCoordinateBins(bb: bb)
-
-        let latRange = (min: fbBins.latMin, max: fbBins.latMax)
-        let lngRange = (min: fbBins.lonMin, max: fbBins.lonMax)
-        let lngBinWidth = (lngRange.max - lngRange.min) / Double(fbBins.lonBinsCount)
-        let latBinWidth = (latRange.max - latRange.min) / Double(fbBins.latBinsCount)
-        
-        var bins = Array(repeating: Array<UInt16>(repeating: fbBins.pseudoCount, count: Int(fbBins.lonBinsCount)), count: Int(fbBins.latBinsCount))
-        
-        for i in 0..<fbBins.latBinsCount {
-            guard let fbRow = fbBins.latBins(at: i) else { print("shit"); continue }
-            let lonBins = fbRow.lonBins
-            bins[Int(i)] = lonBins
-        }
-        
-        self.init(bins: bins, latBinWidth: latBinWidth, lngBinWidth: lngBinWidth, latRange: latRange,
-                  lngRange: lngRange, pseudoCount: fbBins.pseudoCount)
-    }
-
     
     // only used by Places so far. only they care about maximumBinCount
     convenience init?(samples: [LocomotionSample], maximumBinCount: Int = 20) {
@@ -76,23 +53,6 @@ class ArcCoordinatesMatrix: CoordinatesMatrix {
        
         self.init(coordinates: coordinates, latBinCount: latBinCount, lngBinCount: lngBinCount, latRange: latRange,
                   lngRange: lngRange, pseudoCount: 1)
-    }
-    
-    var serialisedData: Data {
-        var builder = FlatBufferBuilder(initialSize: 1)
-        var fbRows: [Offset<UOffset>] = []
-        for row in bins {
-            let vector = builder.createVector(row)
-            let fbRow = BinsRow.createBinsRow(&builder, vectorOfLonBins: vector)
-            fbRows.append(fbRow)
-        }
-        let rowsVector = builder.createVector(ofOffsets: fbRows)
-        let fbBins = CoordinateBins.createCoordinateBins(&builder, pseudoCount: pseudoCount,
-                                                         latMin: latRange.min, latMax: latRange.max,
-                                                         lonBinsCount: UInt16(bins[0].count), lonMin: lngRange.min, lonMax: lngRange.max,
-                                                         vectorOfLatBins: rowsVector)
-        builder.finish(offset: fbBins)
-        return builder.data
     }
 
 }

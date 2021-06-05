@@ -51,7 +51,7 @@
         "repositoryURL": "https://github.com/sobri909/LocoKit.git",
         "state": {
           "branch": "develop",
-          "revision": "8a6afcf0cbfdd6b43572c8d09b095af72d0d574d",
+          "revision": "28964e20e0f297d4b4742629ff157756474d748d",
           "version": null
         }
       },
@@ -60,8 +60,8 @@
         "repositoryURL": "https://github.com/mxcl/PromiseKit",
         "state": {
           "branch": null,
-          "revision": "aea48ea1855f5d82e2dffa6027afce3aab8f3dd7",
-          "version": "6.13.3"
+          "revision": "d2f7ba14bcdc45e18f4f60ad9df883fb9055f081",
+          "version": "6.15.3"
         }
       },
       {
@@ -105,7 +105,7 @@
         "repositoryURL": "https://github.com/timbersoftware/SwiftUI-Introspect.git",
         "state": {
           "branch": "master",
-          "revision": "d055f1fba8ec9391df2980fb68fb46d9411f6f5f",
+          "revision": "72a509c93166540c0adf8323fd2652daade7f9f6",
           "version": null
         }
       },

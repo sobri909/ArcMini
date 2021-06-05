@@ -99,8 +99,6 @@
 		C9C045CF24A891B500C1A99C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9C045CE24A891B500C1A99C /* Assets.xcassets */; };
 		C9C045D324A891B500C1A99C /* RecordersWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C9C045C624A891B300C1A99C /* RecordersWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C9C2264625D66D5C00FC3D9D /* FlatBuffers in Frameworks */ = {isa = PBXBuildFile; productRef = C9C2264525D66D5C00FC3D9D /* FlatBuffers */; };
-		C9C2264C25D66DD300FC3D9D /* CoordinateBins.fbs in Resources */ = {isa = PBXBuildFile; fileRef = C9C2264A25D66DD300FC3D9D /* CoordinateBins.fbs */; };
-		C9C2264D25D66DD300FC3D9D /* CoordinateBins.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2264B25D66DD300FC3D9D /* CoordinateBins.swift */; };
 		C9C5C009242FB2C700BC064E /* MapState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C5C008242FB2C700BC064E /* MapState.swift */; };
 		C9C6FBF2243333D3004F868C /* TimelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C6FBF1243333D3004F868C /* TimelineState.swift */; };
 		C9C827AD243C7B1E00F3199B /* Calendar+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C827AC243C7B1E00F3199B /* Calendar+extensions.swift */; };
@@ -247,8 +245,6 @@
 		C9C045CC24A891B300C1A99C /* RecordersWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordersWidget.swift; sourceTree = "<group>"; };
 		C9C045CE24A891B500C1A99C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9C045D024A891B500C1A99C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C9C2264A25D66DD300FC3D9D /* CoordinateBins.fbs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CoordinateBins.fbs; sourceTree = "<group>"; };
-		C9C2264B25D66DD300FC3D9D /* CoordinateBins.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateBins.swift; sourceTree = "<group>"; };
 		C9C5C008242FB2C700BC064E /* MapState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapState.swift; sourceTree = "<group>"; };
 		C9C6FBF1243333D3004F868C /* TimelineState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineState.swift; sourceTree = "<group>"; };
 		C9C827AC243C7B1E00F3199B /* Calendar+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+extensions.swift"; sourceTree = "<group>"; };
@@ -432,8 +428,6 @@
 		C9524008242F50BA00F4522D /* Maths */ = {
 			isa = PBXGroup;
 			children = (
-				C9C2264A25D66DD300FC3D9D /* CoordinateBins.fbs */,
-				C9C2264B25D66DD300FC3D9D /* CoordinateBins.swift */,
 				C952400A242F51D200F4522D /* ArcCoordinatesMatrix.swift */,
 				C9524009242F51D200F4522D /* ArcHistogram.swift */,
 			);
@@ -783,7 +777,6 @@
 				C9BF95372446F959000F3299 /* Config.plist in Resources */,
 				C9822A8F240CF8D8006B70F4 /* LaunchScreen.storyboard in Resources */,
 				C9822A89240CF8D8006B70F4 /* Assets.xcassets in Resources */,
-				C9C2264C25D66DD300FC3D9D /* CoordinateBins.fbs in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -870,7 +863,6 @@
 				C91F10F425307DA900D3BD99 /* Backupable.swift in Sources */,
 				C9C96AAF242760A2006D2E5B /* VisitEditView.swift in Sources */,
 				C9EB6644241A60FA00F545AF /* ArcStore.swift in Sources */,
-				C9C2264D25D66DD300FC3D9D /* CoordinateBins.swift in Sources */,
 				C9B1A6CF254D7E6A00F4EE2F /* Array+ArcSample.swift in Sources */,
 				C92BF626241D06AD0089E4AD /* VisitCircle.swift in Sources */,
 				C9C827B7243DEB7F00F3199B /* DebugLogger.swift in Sources */,
