@@ -10,7 +10,6 @@ import LocoKit
 import CloudKit
 import PromiseKit
 import BackgroundTasks
-import Upsurge
 
 extension Place {
 
@@ -27,10 +26,10 @@ extension Place {
             let done = {
                 PlaceCache.cache.updateQueuedPlaces(task: task)
             }
-
-            let items = RecordingManager.store.items(
-                where: "placeId = ? AND isVisit = 1 AND deleted = 0 ORDER BY startDate DESC",
-                arguments: [self.placeId.uuidString])
+            
+            let items = RecordingManager.store
+                .items(where: "placeId = ? AND isVisit = 1 AND deleted = 0 ORDER BY startDate DESC", arguments: [self.placeId.uuidString])
+                .filter { $0.dateRange != nil }
             
             guard let visits = items as? [ArcVisit] else {
                 self.needsUpdate = false
