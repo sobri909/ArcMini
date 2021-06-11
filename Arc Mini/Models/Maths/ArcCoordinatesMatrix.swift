@@ -8,7 +8,6 @@
 
 import os.log
 import CoreLocation
-import Upsurge
 import LocoKit
 
 class ArcCoordinatesMatrix: CoordinatesMatrix {
@@ -24,10 +23,10 @@ class ArcCoordinatesMatrix: CoordinatesMatrix {
            lng.append((coordinate.longitude))
         }
         
-        let lngMean = mean(lng)
-        let latMean = mean(lat)
-        let lngSD = std(lng)
-        let latSD = std(lat)
+        let lngMean = lng.mean
+        let latMean = lat.mean
+        let lngSD = lng.standardDeviation
+        let latSD = lat.standardDeviation
         
         // trim outliers
         let xTrimRange = (min: lngMean - (lngSD * 3), max: lngMean + (lngSD * 3))
