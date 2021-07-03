@@ -20,21 +20,12 @@
         }
       },
       {
-        "package": "FlatBuffers",
-        "repositoryURL": "https://github.com/mustiikhalil/flatbuffers.git",
-        "state": {
-          "branch": null,
-          "revision": "d1bad799d82545f3ab70e6baa86e714927eb4a84",
-          "version": "0.8.1"
-        }
-      },
-      {
         "package": "GRDB",
         "repositoryURL": "https://github.com/groue/GRDB.swift.git",
         "state": {
           "branch": null,
-          "revision": "5ee47c3c2765bdfde0f44c2ea9a263f6aa252d63",
-          "version": "4.14.0"
+          "revision": "af13c91744ad8607c94ffbca3b0f98fa00692417",
+          "version": "5.8.0"
         }
       },
       {
@@ -51,7 +42,7 @@
         "repositoryURL": "https://github.com/sobri909/LocoKit.git",
         "state": {
           "branch": "develop",
-          "revision": "28964e20e0f297d4b4742629ff157756474d748d",
+          "revision": "c3ee5073cf7a6c6eba6f5fd8d03faf2287b230fd",
           "version": null
         }
       },
