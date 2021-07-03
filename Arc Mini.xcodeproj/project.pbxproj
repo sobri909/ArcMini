@@ -935,6 +935,7 @@
 				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = U5N7VG8DUG;
 				INFOPLIST_FILE = CurrentItemWidget/Bits/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -958,6 +959,7 @@
 				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = U5N7VG8DUG;
 				INFOPLIST_FILE = CurrentItemWidget/Bits/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
