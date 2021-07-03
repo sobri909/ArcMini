@@ -98,7 +98,6 @@
 		C9C045CD24A891B300C1A99C /* RecordersWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C045CC24A891B300C1A99C /* RecordersWidget.swift */; };
 		C9C045CF24A891B500C1A99C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9C045CE24A891B500C1A99C /* Assets.xcassets */; };
 		C9C045D324A891B500C1A99C /* RecordersWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C9C045C624A891B300C1A99C /* RecordersWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		C9C2264625D66D5C00FC3D9D /* FlatBuffers in Frameworks */ = {isa = PBXBuildFile; productRef = C9C2264525D66D5C00FC3D9D /* FlatBuffers */; };
 		C9C5C009242FB2C700BC064E /* MapState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C5C008242FB2C700BC064E /* MapState.swift */; };
 		C9C6FBF2243333D3004F868C /* TimelineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C6FBF1243333D3004F868C /* TimelineState.swift */; };
 		C9C827AD243C7B1E00F3199B /* Calendar+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C827AC243C7B1E00F3199B /* Calendar+extensions.swift */; };
@@ -291,7 +290,6 @@
 				C9F5F147257E0F4D0041A8E8 /* SwiftUICharts in Frameworks */,
 				C9C827B5243DEB0000F3199B /* LoggingFormatAndPipe in Frameworks */,
 				C9F32F4A242A60A100184862 /* HealthKit.framework in Frameworks */,
-				C9C2264625D66D5C00FC3D9D /* FlatBuffers in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -680,7 +678,6 @@
 				C9B1A6D4254D7F3500F4EE2F /* Gzip */,
 				C9AA224F257B8D92002E2A0D /* LocoKit */,
 				C9F5F146257E0F4D0041A8E8 /* SwiftUICharts */,
-				C9C2264525D66D5C00FC3D9D /* FlatBuffers */,
 			);
 			productName = "Arc Mini";
 			productReference = C9822A7F240CF8D5006B70F4 /* Arc Mini.app */;
@@ -748,7 +745,6 @@
 				C9B1A6D3254D7F3500F4EE2F /* XCRemoteSwiftPackageReference "GzipSwift" */,
 				C9AA224E257B8D92002E2A0D /* XCRemoteSwiftPackageReference "LocoKit" */,
 				C9F5F145257E0F4D0041A8E8 /* XCRemoteSwiftPackageReference "ChartView" */,
-				C9C2264425D66D5C00FC3D9D /* XCRemoteSwiftPackageReference "flatbuffers" */,
 			);
 			productRefGroup = C9822A80240CF8D5006B70F4 /* Products */;
 			projectDirPath = "";
@@ -1275,14 +1271,6 @@
 				minimumVersion = 5.1.1;
 			};
 		};
-		C9C2264425D66D5C00FC3D9D /* XCRemoteSwiftPackageReference "flatbuffers" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mustiikhalil/flatbuffers.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.8.1;
-			};
-		};
 		C9C827B0243DDA7100F3199B /* XCRemoteSwiftPackageReference "swift-log" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-log";
@@ -1357,11 +1345,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C9B1A6D3254D7F3500F4EE2F /* XCRemoteSwiftPackageReference "GzipSwift" */;
 			productName = Gzip;
-		};
-		C9C2264525D66D5C00FC3D9D /* FlatBuffers */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C9C2264425D66D5C00FC3D9D /* XCRemoteSwiftPackageReference "flatbuffers" */;
-			productName = FlatBuffers;
 		};
 		C9C827B1243DDA7100F3199B /* Logging */ = {
 			isa = XCSwiftPackageProductDependency;
