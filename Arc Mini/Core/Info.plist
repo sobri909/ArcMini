@@ -33,7 +33,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Arc Mini needs to know your location to record your daily location timelines</string>
 	<key>NSMotionUsageDescription</key>
-	<string>Arc Mini needs to monitor your movement to record your daily timelines</string>
+	<string>Arc Mini needs to record accelerometer and pedometer data to accurately determine your movement types when recording your daily timelines</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
