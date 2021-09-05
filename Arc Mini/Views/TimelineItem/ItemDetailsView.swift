@@ -8,7 +8,6 @@
 
 import LocoKit
 import SwiftUI
-import SwiftUICharts
 
 struct ItemDetailsView: View {
 

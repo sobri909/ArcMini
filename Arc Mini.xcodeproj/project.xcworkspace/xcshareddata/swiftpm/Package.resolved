@@ -6,17 +6,8 @@
         "repositoryURL": "https://github.com/tadija/AEXML",
         "state": {
           "branch": null,
-          "revision": "502c4d43a6cc9c395d19111e09dc62ad834977b5",
-          "version": "4.6.0"
-        }
-      },
-      {
-        "package": "SwiftUICharts",
-        "repositoryURL": "https://github.com/AppPear/ChartView",
-        "state": {
-          "branch": "master",
-          "revision": "9115a992c91fa19cbb4f2241084240d38654a1fc",
-          "version": null
+          "revision": "38f7d00b23ecd891e1ee656fa6aeebd6ba04ecc3",
+          "version": "4.6.1"
         }
       },
       {
@@ -33,8 +24,8 @@
         "repositoryURL": "https://github.com/groue/GRDB.swift.git",
         "state": {
           "branch": null,
-          "revision": "af13c91744ad8607c94ffbca3b0f98fa00692417",
-          "version": "5.8.0"
+          "revision": "1acf8e4b1ea90ed314c7c477051efc7933946b22",
+          "version": "5.11.0"
         }
       },
       {
@@ -51,7 +42,7 @@
         "repositoryURL": "https://github.com/sobri909/LocoKit.git",
         "state": {
           "branch": "develop",
-          "revision": "c3ee5073cf7a6c6eba6f5fd8d03faf2287b230fd",
+          "revision": "58dcc3d5ac4f865a8f9c2b6a90d2a7496ca816c1",
           "version": null
         }
       },

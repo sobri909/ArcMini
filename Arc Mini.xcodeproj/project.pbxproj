@@ -116,7 +116,6 @@
 		C9EB6644241A60FA00F545AF /* ArcStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB6643241A60FA00F545AF /* ArcStore.swift */; };
 		C9F32F47242A5BBE00184862 /* Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F32F46242A5BBE00184862 /* Health.swift */; };
 		C9F32F4A242A60A100184862 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F32F49242A60A100184862 /* HealthKit.framework */; };
-		C9F5F147257E0F4D0041A8E8 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = C9F5F146257E0F4D0041A8E8 /* SwiftUICharts */; };
 		C9F98B77242FAB38003D2A23 /* ItemSegmentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F98B76242FAB38003D2A23 /* ItemSegmentsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -207,6 +206,7 @@
 		C95E0E2B2417B773008418A1 /* ArcVisit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcVisit.swift; sourceTree = "<group>"; };
 		C95E0E2C2417B773008418A1 /* ArcPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcPath.swift; sourceTree = "<group>"; };
 		C969D1DD245199B600874305 /* ArcAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcAnnotation.swift; sourceTree = "<group>"; };
+		C96BCC2926E49CB500201CB5 /* GRDB.swift */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GRDB.swift; path = ../GRDB.swift; sourceTree = "<group>"; };
 		C96E00B72449B3AD00A3635F /* TasksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksManager.swift; sourceTree = "<group>"; };
 		C970732C243889D400E3B938 /* LocoKit+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocoKit+extensions.swift"; sourceTree = "<group>"; };
 		C977E57324AB600700B2F0BA /* RecordersWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RecordersWidgetExtension.entitlements; sourceTree = "<group>"; };
@@ -287,7 +287,6 @@
 				C9524005242F3DE000F4522D /* SwiftNotes in Frameworks */,
 				C985BBEC24C34EAE001ACFB0 /* Sentry in Frameworks */,
 				C9C96AB224278052006D2E5B /* Introspect in Frameworks */,
-				C9F5F147257E0F4D0041A8E8 /* SwiftUICharts in Frameworks */,
 				C9C827B5243DEB0000F3199B /* LoggingFormatAndPipe in Frameworks */,
 				C9F32F4A242A60A100184862 /* HealthKit.framework in Frameworks */,
 			);
@@ -486,6 +485,7 @@
 		C9822A76240CF8D5006B70F4 = {
 			isa = PBXGroup;
 			children = (
+				C96BCC2926E49CB500201CB5 /* GRDB.swift */,
 				C9822A81240CF8D5006B70F4 /* Arc Mini */,
 				C9C045CB24A891B300C1A99C /* RecordersWidget */,
 				C9120BD4250BBDD80063A2B7 /* CurrentItemWidget */,
@@ -677,7 +677,6 @@
 				C985BBEB24C34EAE001ACFB0 /* Sentry */,
 				C9B1A6D4254D7F3500F4EE2F /* Gzip */,
 				C9AA224F257B8D92002E2A0D /* LocoKit */,
-				C9F5F146257E0F4D0041A8E8 /* SwiftUICharts */,
 			);
 			productName = "Arc Mini";
 			productReference = C9822A7F240CF8D5006B70F4 /* Arc Mini.app */;
@@ -744,7 +743,6 @@
 				C985BBEA24C34EAE001ACFB0 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 				C9B1A6D3254D7F3500F4EE2F /* XCRemoteSwiftPackageReference "GzipSwift" */,
 				C9AA224E257B8D92002E2A0D /* XCRemoteSwiftPackageReference "LocoKit" */,
-				C9F5F145257E0F4D0041A8E8 /* XCRemoteSwiftPackageReference "ChartView" */,
 			);
 			productRefGroup = C9822A80240CF8D5006B70F4 /* Products */;
 			projectDirPath = "";
@@ -1096,7 +1094,7 @@
 				DEVELOPMENT_TEAM = U5N7VG8DUG;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Arc Mini/Core/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1121,7 +1119,7 @@
 				DEVELOPMENT_TEAM = U5N7VG8DUG;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Arc Mini/Core/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1295,14 +1293,6 @@
 				kind = branch;
 			};
 		};
-		C9F5F145257E0F4D0041A8E8 /* XCRemoteSwiftPackageReference "ChartView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/AppPear/ChartView";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1360,11 +1350,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C9C96AB024278051006D2E5B /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
 			productName = Introspect;
-		};
-		C9F5F146257E0F4D0041A8E8 /* SwiftUICharts */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C9F5F145257E0F4D0041A8E8 /* XCRemoteSwiftPackageReference "ChartView" */;
-			productName = SwiftUICharts;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
