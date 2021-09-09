@@ -10,6 +10,8 @@ import LocoKit
 import Combine
 
 class TimelineState: ObservableObject {
+    
+    static let highlander = TimelineState()
 
     static let rootMapHeightPercent: CGFloat = 0.4
     static let subMapHeightPercent: CGFloat = 0.4 // should be 0.35, but view sizing is an issue at the moment

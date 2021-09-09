@@ -9,6 +9,9 @@
 import LocoKit
 
 class MapState: ObservableObject {
+    
+    static let highlander = MapState()
+    
     @Published var selectedItems: Set<TimelineItem> = []
     @Published var itemSegments: Array<ItemSegment> = []
     @Published var showingFullMap = false
