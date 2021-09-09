@@ -21,9 +21,9 @@ struct NavBar: View {
     }
 
     var backButton: some View {
-        Button(action: {
+        Button {
             self.timelineState.tappedBackButton = true
-        }) {
+        } label: {
             Image(systemName: "chevron.left")
                 .foregroundColor(.white)
                 .frame(width: 40, height: 40)
@@ -34,9 +34,9 @@ struct NavBar: View {
     }
 
     var todayButton: some View {
-        Button(action: {
+        Button {
             self.timelineState.goto(date: Date())
-        }) {
+        } label: {
             Image(systemName: "chevron.right.2")
                 .foregroundColor(.white)
                 .frame(width: 40, height: 40)
@@ -46,10 +46,4 @@ struct NavBar: View {
         .frame(width: 56, height: 56)
     }
 
-}
-
-struct NavBarView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavBar()
-    }
 }
