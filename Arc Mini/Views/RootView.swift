@@ -11,13 +11,10 @@ import LocoKit
 
 struct RootView: View {
 
-    @EnvironmentObject var timelineState: TimelineState
-    @EnvironmentObject var mapState: MapState
-
     var body: some View {
         GeometryReader { metrics in
             ZStack(alignment: .bottom) {
-                MapView(mapState: self.mapState, timelineState: self.timelineState)
+                MapView(mapState: MapState.highlander, timelineState: TimelineState.highlander)
                     .edgesIgnoringSafeArea(.all)
                 VStack(spacing: 0) {
                     NavBar()
@@ -25,30 +22,30 @@ struct RootView: View {
                     HStack {
                         Spacer()
                         self.fullMapButton
-                            .offset(x: 0, y: self.mapState.showingFullMap ? self.timelineHeight(for: metrics, includingSafeArea: false) : 0)
+                            .offset(x: 0, y: MapState.highlander.showingFullMap ? self.timelineHeight(for: metrics, includingSafeArea: false) : 0)
                     }
                     NavigationView {
                         TimelineRootView()
                     }
                     .frame(width: metrics.size.width, height: self.timelineHeight(for: metrics))
-                    .offset(x: 0, y: self.mapState.showingFullMap ? self.timelineHeight(for: metrics, includingSafeArea: true) : 0)
+                    .offset(x: 0, y: MapState.highlander.showingFullMap ? self.timelineHeight(for: metrics, includingSafeArea: true) : 0)
                 }
             }
         }
     }
 
     func timelineHeight(for metrics: GeometryProxy, includingSafeArea: Bool = false) -> CGFloat {
-        let height = metrics.size.height * self.timelineState.bodyHeightPercent
+        let height = metrics.size.height * TimelineState.highlander.bodyHeightPercent
         return includingSafeArea ? height + metrics.safeAreaInsets.bottom : height
     }
 
     var fullMapButton: some View {
         Button(action: {
             withAnimation(.spring()) {
-                self.mapState.showingFullMap.toggle()
+                MapState.highlander.showingFullMap.toggle()
             }
         }) {
-            Image(systemName: self.mapState.showingFullMap ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right")
+            Image(systemName: MapState.highlander.showingFullMap ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right")
                 .font(.system(size: 14, weight: .medium))
                 .foregroundColor(Color("brandSecondaryBase").opacity(0.4))
                 .frame(width: 40, height: 32)
