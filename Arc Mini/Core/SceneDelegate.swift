@@ -17,9 +17,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     var scene: UIScene?
 
-    var mapState = MapState()
-    var timelineState = TimelineState()
-
     override init() {
         super.init()
 
@@ -66,8 +63,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             let window = UIWindow(windowScene: scene)
             let rootView = RootView()
-                .environmentObject(self.timelineState)
-                .environmentObject(self.mapState)
+                .environmentObject(TimelineState.highlander)
+                .environmentObject(MapState.highlander)
             window.rootViewController = UIHostingController(rootView: rootView)
             self.window = window
             window.makeKeyAndVisible()
@@ -84,7 +81,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window?.rootViewController?.view.removeFromSuperview()
             self.window?.rootViewController = nil
             self.window = nil
-            self.mapState.flush()
+            MapState.highlander.flush()
 
             logger.info("Went fully headless", subsystem: .ui)
 

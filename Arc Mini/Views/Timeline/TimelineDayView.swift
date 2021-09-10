@@ -12,8 +12,6 @@ import LocoKit
 struct TimelineDayView: View {
 
     @ObservedObject var timelineSegment: TimelineSegment
-    @EnvironmentObject var timelineState: TimelineState
-    @EnvironmentObject var mapState: MapState
 
     init(timelineSegment: TimelineSegment) {
         self.timelineSegment = timelineSegment
@@ -37,12 +35,12 @@ struct TimelineDayView: View {
         .navigationBarTitle("")
         .navigationBarHidden(true)
         .onAppear {
-            guard timelineState.visibleDateRange == timelineSegment.dateRange else { return }
-            mapState.selectedItems.removeAll()
-            mapState.itemSegments.removeAll()
-            timelineState.backButtonHidden = true
-            timelineState.updateTodayButton()
-            timelineState.mapHeightPercent = TimelineState.rootMapHeightPercent
+            guard TimelineState.highlander.visibleDateRange == timelineSegment.dateRange else { return }
+            MapState.highlander.selectedItems.removeAll()
+            MapState.highlander.itemSegments.removeAll()
+            TimelineState.highlander.backButtonHidden = true
+            TimelineState.highlander.updateTodayButton()
+            TimelineState.highlander.mapHeightPercent = TimelineState.rootMapHeightPercent
         }
         .background(Color("background"))
     }
@@ -92,19 +90,20 @@ struct TimelineDayView: View {
         
         let boxStack = ZStack {
             NavigationLink(destination: ItemDetailsView(timelineItem: item)) {}
-            self.timelineItemBox(for: item).onAppear {
-                if self.timelineSegment == self.timelineState.visibleTimelineSegment {
-                    if item == self.filteredListItems.first?.timelineItem {
-                        self.mapState.selectedItems = [] // zoom to all items when scrolled to top
-                    } else {
-                        self.mapState.selectedItems.insert(item)
+            self.timelineItemBox(for: item)
+                .onAppear {
+                    if self.timelineSegment == TimelineState.highlander.visibleTimelineSegment {
+                        if item == self.filteredListItems.first?.timelineItem {
+                            MapState.highlander.selectedItems = [] // zoom to all items when scrolled to top
+                        } else {
+                            MapState.highlander.selectedItems.insert(item)
+                        }
+                    }
+                }.onDisappear {
+                    if self.timelineSegment == TimelineState.highlander.visibleTimelineSegment {
+                        MapState.highlander.selectedItems.remove(item)
                     }
                 }
-            }.onDisappear {
-                if self.timelineSegment == self.timelineState.visibleTimelineSegment {
-                    self.mapState.selectedItems.remove(item)
-                }
-            }
         }
         
         return AnyView(boxStack)

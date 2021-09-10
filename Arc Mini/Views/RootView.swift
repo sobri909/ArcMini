@@ -10,11 +10,13 @@ import SwiftUI
 import LocoKit
 
 struct RootView: View {
+    
+    @EnvironmentObject var mapState: MapState
 
     var body: some View {
         GeometryReader { metrics in
             ZStack(alignment: .bottom) {
-                MapView(mapState: MapState.highlander, timelineState: TimelineState.highlander)
+                MapView(mapState: self.mapState, timelineState: TimelineState.highlander)
                     .edgesIgnoringSafeArea(.all)
                 VStack(spacing: 0) {
                     NavBar()
@@ -22,13 +24,13 @@ struct RootView: View {
                     HStack {
                         Spacer()
                         self.fullMapButton
-                            .offset(x: 0, y: MapState.highlander.showingFullMap ? self.timelineHeight(for: metrics, includingSafeArea: false) : 0)
+                            .offset(x: 0, y: self.mapState.showingFullMap ? self.timelineHeight(for: metrics, includingSafeArea: false) : 0)
                     }
                     NavigationView {
                         TimelineRootView()
                     }
                     .frame(width: metrics.size.width, height: self.timelineHeight(for: metrics))
-                    .offset(x: 0, y: MapState.highlander.showingFullMap ? self.timelineHeight(for: metrics, includingSafeArea: true) : 0)
+                    .offset(x: 0, y: self.mapState.showingFullMap ? self.timelineHeight(for: metrics, includingSafeArea: true) : 0)
                 }
             }
         }
@@ -40,12 +42,12 @@ struct RootView: View {
     }
 
     var fullMapButton: some View {
-        Button(action: {
+        Button {
             withAnimation(.spring()) {
                 MapState.highlander.showingFullMap.toggle()
             }
-        }) {
-            Image(systemName: MapState.highlander.showingFullMap ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right")
+        } label: {
+            Image(systemName: self.mapState.showingFullMap ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right")
                 .font(.system(size: 14, weight: .medium))
                 .foregroundColor(Color("brandSecondaryBase").opacity(0.4))
                 .frame(width: 40, height: 32)

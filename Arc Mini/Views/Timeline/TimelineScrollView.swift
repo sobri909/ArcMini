@@ -11,7 +11,6 @@ import SwiftUI
 struct TimelineScrollView: View {
 
     @EnvironmentObject var timelineState: TimelineState
-    @EnvironmentObject var mapState: MapState
 
     var body: some View {
         Pager(pageCount: timelineState.dateRanges.count, currentIndex: $timelineState.currentCardIndex) {

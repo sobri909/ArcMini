@@ -10,9 +10,6 @@ import SwiftUI
 
 struct TimelineRootView: View {
 
-    @EnvironmentObject var mapState: MapState
-    @EnvironmentObject var timelineState: TimelineState
-
     var body: some View {
         VStack(spacing: 0) {
             TimelineHeader()

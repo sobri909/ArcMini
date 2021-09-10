@@ -10,8 +10,7 @@ import LocoKit
 import SwiftUI
 
 struct ItemDetailsView: View {
-
-    @EnvironmentObject var mapState: MapState
+    
     @EnvironmentObject var timelineState: TimelineState
     @ObservedObject var timelineItem: TimelineItem
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -121,11 +120,11 @@ struct ItemDetailsView: View {
                 presentationMode.wrappedValue.dismiss()
                 return
             }
-            mapState.selectedItems = [timelineItem]
-            mapState.itemSegments = timelineItem.segmentsByActivityType
-            timelineState.mapHeightPercent = TimelineState.subMapHeightPercent
-            timelineState.backButtonHidden = false
-            timelineState.todayButtonHidden = true
+            MapState.highlander.selectedItems = [timelineItem]
+            MapState.highlander.itemSegments = timelineItem.segmentsByActivityType
+            TimelineState.highlander.mapHeightPercent = TimelineState.subMapHeightPercent
+            TimelineState.highlander.backButtonHidden = false
+            TimelineState.highlander.todayButtonHidden = true
         }
         .onReceive(self.timelineState.$tappedBackButton) { tappedBackButton in
             if tappedBackButton {

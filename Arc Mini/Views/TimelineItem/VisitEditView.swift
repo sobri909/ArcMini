@@ -34,7 +34,6 @@ extension View {
 
 struct VisitEditView: View {
 
-    @EnvironmentObject var mapState: MapState
     @EnvironmentObject var timelineState: TimelineState
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
@@ -118,10 +117,10 @@ struct VisitEditView: View {
                 self.presentationMode.wrappedValue.dismiss()
                 return
             }
-            self.mapState.selectedItems = [self.visit]
-            self.mapState.itemSegments = self.visit.segmentsByActivityType
-            self.timelineState.backButtonHidden = false
-            self.timelineState.todayButtonHidden = true
+            MapState.highlander.selectedItems = [self.visit]
+            MapState.highlander.itemSegments = self.visit.segmentsByActivityType
+            TimelineState.highlander.backButtonHidden = false
+            TimelineState.highlander.todayButtonHidden = true
             self.placeClassifier.updateResults()
         }
         .onReceive(self.timelineState.$tappedBackButton) { tappedBackButton in

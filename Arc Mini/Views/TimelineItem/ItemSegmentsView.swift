@@ -12,7 +12,6 @@ import LocoKit
 struct ItemSegmentsView: View {
 
     @ObservedObject var timelineItem: TimelineItem
-    @EnvironmentObject var mapState: MapState
     @EnvironmentObject var timelineState: TimelineState
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
@@ -99,10 +98,10 @@ struct ItemSegmentsView: View {
         .navigationBarHidden(true)
         .navigationBarTitle("", displayMode: .inline)
         .onAppear {
-            self.mapState.selectedItems = [self.timelineItem]
-            self.mapState.itemSegments = self.timelineItem.segmentsByActivityType
-            self.timelineState.backButtonHidden = false
-            self.timelineState.todayButtonHidden = true
+            MapState.highlander.selectedItems = [self.timelineItem]
+            MapState.highlander.itemSegments = self.timelineItem.segmentsByActivityType
+            TimelineState.highlander.backButtonHidden = false
+            TimelineState.highlander.todayButtonHidden = true
         }
         .onReceive(self.timelineState.$tappedBackButton) { tappedBackButton in
             if tappedBackButton {
