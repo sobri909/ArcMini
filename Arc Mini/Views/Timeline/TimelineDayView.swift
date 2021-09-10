@@ -36,11 +36,15 @@ struct TimelineDayView: View {
         .navigationBarHidden(true)
         .onAppear {
             guard TimelineState.highlander.visibleDateRange == timelineSegment.dateRange else { return }
+            self.timelineSegment.startUpdating()
             MapState.highlander.selectedItems.removeAll()
             MapState.highlander.itemSegments.removeAll()
             TimelineState.highlander.backButtonHidden = true
             TimelineState.highlander.updateTodayButton()
             TimelineState.highlander.mapHeightPercent = TimelineState.rootMapHeightPercent
+        }
+        .onDisappear {
+            self.timelineSegment.stopUpdating()
         }
         .background(Color("background"))
     }
