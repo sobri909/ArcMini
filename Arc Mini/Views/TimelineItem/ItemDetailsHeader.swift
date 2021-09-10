@@ -84,9 +84,9 @@ struct ItemDetailsHeader: View {
 
     var segmentsButton: some View {
         ZStack(alignment: .leading) {
-            Button(action: {
+            Button {
                 self.tappedSegmentsButton = true
-            }) {
+            } label: {
                 HStack(alignment: .center) {
                     Image(systemName: "circle.grid.2x2")
                         .font(.system(size: 18, weight: .regular))
