@@ -114,7 +114,6 @@ struct ItemDetailsView: View {
         .padding([.leading, .trailing], 20)
         .background(Color("background"))
         .navigationBarHidden(true)
-        .navigationBarTitle("", displayMode: .inline)
         .onAppear {
             if timelineItem.deleted {
                 presentationMode.wrappedValue.dismiss()
