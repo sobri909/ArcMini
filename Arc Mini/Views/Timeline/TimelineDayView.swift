@@ -20,7 +20,7 @@ struct TimelineDayView: View {
     }
 
     var body: some View {
-        return ZStack(alignment: .trailing) {
+        ZStack(alignment: .trailing) {
             List {
                 ForEach(filteredListItems) { displayItem in
                     listBox(for: displayItem).onAppear {
