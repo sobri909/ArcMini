@@ -23,11 +23,18 @@ struct TimelineDayView: View {
         ZStack(alignment: .trailing) {
             List {
                 ForEach(filteredListItems) { displayItem in
-                    listBox(for: displayItem).onAppear {
+                    let box = listBox(for: displayItem).onAppear {
                         if let visit = displayItem.timelineItem as? ArcVisit, visit.isWorthKeeping {
                             visit.findAPlace()
                         }
-                    }.listRowInsets(EdgeInsets())
+                    }
+                    .listRowInsets(EdgeInsets())
+                    
+                    if #available(iOS 15.0, *) {
+                        box.listRowSeparator(.hidden)
+                    } else {
+                        box
+                    }
                 }
             }
             Rectangle().fill(Color("brandSecondary10")).frame(width: 0.5).edgesIgnoringSafeArea(.all)
