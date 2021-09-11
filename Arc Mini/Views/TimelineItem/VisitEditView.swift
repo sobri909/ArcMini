@@ -137,9 +137,3 @@ struct VisitEditView: View {
     }
 
 }
-
-//struct VisitEditView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        VisitEditView()
-//    }
-//}

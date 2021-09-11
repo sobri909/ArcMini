@@ -135,9 +135,3 @@ struct ItemSegmentsView: View {
     }
 
 }
-
-//struct SegmentsEditView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SegmentsEditView()
-//    }
-//}
