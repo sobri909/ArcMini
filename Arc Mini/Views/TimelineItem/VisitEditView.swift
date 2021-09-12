@@ -34,12 +34,10 @@ extension View {
 
 struct VisitEditView: View {
 
-    @EnvironmentObject var timelineState: TimelineState
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
     @ObservedObject var visit: ArcVisit
     @ObservedObject var placeClassifier: PlaceClassifier
-
+    @EnvironmentObject var timelineState: TimelineState
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State var searchTextEditing = false
 
     init(visit: ArcVisit, placeClassifier: PlaceClassifier) {

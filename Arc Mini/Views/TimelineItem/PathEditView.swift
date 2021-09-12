@@ -12,70 +12,65 @@ import LocoKit
 struct PathEditView: View {
 
     @ObservedObject var path: ArcPath
-    @EnvironmentObject var mapState: MapState
     @EnvironmentObject var timelineState: TimelineState
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
+    var body: some View {
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(alignment: .leading, spacing: 0) {
+                ItemDetailsHeader(timelineItem: self.path, includeEditButton: false)
+                    .padding([.leading, .trailing], 20)
+                
+                ForEach(Array(classifierResults), id: \.name) { result in
+                    Button {
+                        self.path.trainActivityType(to: result.name)
+                        self.presentationMode.wrappedValue.dismiss()
+                    } label: {
+                        HStack {
+                            if self.pathTypeMatches(result) {
+                                Text(result.name.displayName.capitalized.localised())
+                                    .font(.system(size: 17, weight: .semibold))
+                            } else {
+                                Text(result.name.displayName.capitalized.localised())
+                                    .font(.system(size: 17, weight: .regular))
+                            }
+                            Spacer()
+                            Text(String(format: "%.0f", result.normalisedScore(in: self.classifierResults) * 100))
+                                .font(.system(size: 15, weight: .semibold))
+                                .foregroundColor(Color(UIColor.arcGray1))
+                        }
+                    }
+                    .padding([.leading, .trailing], 20)
+                    .frame(height: 44)
+                    .background(Color("background"))
+                }
+            }
+        }
+        .navigationBarHidden(true)
+        .onAppear {
+            if self.path.deleted {
+                self.presentationMode.wrappedValue.dismiss()
+                return
+            }
+            MapState.highlander.selectedItems = [self.path]
+            MapState.highlander.itemSegments = self.path.segmentsByActivityType
+            TimelineState.highlander.backButtonHidden = false
+            TimelineState.highlander.todayButtonHidden = true
+        }
+    }
+
+    // MARK: -
+    
     var classifierResults: ClassifierResults {
         if let results = path.classifierResults {
             return results
         }
         return ClassifierResults(results: [], moreComing: true)
     }
-
-    var body: some View {
-        List {
-            ItemDetailsHeader(timelineItem: self.path, includeEditButton: false)
-            ForEach(Array(classifierResults), id: \.name) { result in
-                Button(action: {
-                    self.path.trainActivityType(to: result.name)
-                    self.presentationMode.wrappedValue.dismiss()
-                }) {
-                    HStack {
-                        if self.pathTypeMatches(result) {
-                            Text(result.name.displayName.capitalized.localised())
-                                .font(.system(size: 17, weight: .semibold))
-                        } else {
-                            Text(result.name.displayName.capitalized.localised())
-                                .font(.system(size: 17, weight: .regular))
-                        }
-                        Spacer()
-                        Text(String(format: "%.0f", result.normalisedScore(in: self.classifierResults) * 100))
-                            .font(.system(size: 15, weight: .semibold))
-                            .foregroundColor(Color(UIColor.arcGray1))
-                    }
-                }
-                .padding([.leading, .trailing], 20)
-                .frame(height: 44)
-                .listRowInsets(EdgeInsets())
-                .background(Color("background"))
-
-            }
-        }
-        .environment(\.defaultMinListRowHeight, 44)
-        .navigationBarHidden(true)
-        .navigationBarTitle("", displayMode: .inline)
-        .onAppear {
-            if self.path.deleted {
-                self.presentationMode.wrappedValue.dismiss()
-                return
-            }
-            self.mapState.selectedItems = [self.path]
-            self.mapState.itemSegments = self.path.segmentsByActivityType
-            self.timelineState.backButtonHidden = false
-            self.timelineState.todayButtonHidden = true
-        }
-    }
-
+    
     func pathTypeMatches(_ result: ClassifierResultItem) -> Bool {
         guard path.manualActivityType else { return false }
         return result.name == path.activityType
     }
 
 }
-
-//struct PathEditView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PathEditView()
-//    }
-//}
