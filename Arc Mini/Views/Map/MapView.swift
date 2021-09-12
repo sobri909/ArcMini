@@ -156,6 +156,7 @@ final class MapView: UIViewRepresentable {
         }
         
         // extra padding to avoid weird off centre position if zoom rect is too small
+        // (only an iOS 15 problem? not seeing it on iOS 14 test device)
         if mapRect!.size.height < 300 {
             let padding = 300 - mapRect!.size.height
             mapRect = mapRect!.insetBy(dx: 0, dy: -padding)
