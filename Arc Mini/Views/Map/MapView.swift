@@ -154,6 +154,12 @@ final class MapView: UIViewRepresentable {
                 mapRect = mapRect!.union(overlay.boundingMapRect)
             }
         }
+        
+        // extra padding to avoid weird off centre position if zoom rect is too small
+        if mapRect!.size.height < 300 {
+            let padding = 300 - mapRect!.size.height
+            mapRect = mapRect!.insetBy(dx: 0, dy: -padding)
+        }
 
         // NOTE: iPhone X notch is 30px high, and top safe area is 44px. so to get 20px padding from notch the top padding is 6px
         let safeHeight = UIScreen.main.bounds.height - map.safeAreaInsets.top - map.safeAreaInsets.bottom
