@@ -49,68 +49,70 @@ struct VisitEditView: View {
     }
 
     var body: some View {
-        List {
-            if placeClassifier.query.isEmpty && !searchTextEditing {
-                ItemDetailsHeader(timelineItem: self.visit, includeEditButton: false)
-            } else {
-                Spacer().frame(height: 24).listRowInsets(EdgeInsets()).background(Color("background"))
-            }
-            VStack {
-                HStack {
-                    Image(systemName: "magnifyingglass")
-                    TextField("Search nearby places", text: $placeClassifier.query, onEditingChanged: { isEditing in
-                        self.searchTextEditing = isEditing
-                    }, onCommit: {
-                        print("onCommit")
-                    }).foregroundColor(Color("brandTertiaryBase"))
-                    Spacer().frame(width: 8)
-                    Button(action: {
-                        self.placeClassifier.query = ""
-                    }) {
-                        Image(systemName: "xmark.circle.fill").opacity(self.placeClassifier.query.isEmpty ? 0 : 1)
-                    }
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(alignment: .leading) {
+                if placeClassifier.query.isEmpty && !searchTextEditing {
+                    ItemDetailsHeader(timelineItem: self.visit, includeEditButton: false)
+                        .padding([.leading, .trailing], 20)
+                } else {
+                    Spacer().frame(height: 24).background(Color("background"))
                 }
-                .padding([.leading, .trailing], 12)
-                .frame(height: 40)
-                .foregroundColor(Color("brandTertiaryBase"))
-                .background(Color("brandSecondary05"))
-                .cornerRadius(8)
-                Spacer().frame(height: 20)
-            }
-            .padding([.leading, .trailing], 20)
-            .listRowInsets(EdgeInsets())
-            .background(Color("background"))
-
-            ForEach(placeClassifier.results, id: \.place.placeId) { result in
-                Button(action: {
-                    self.visit.usePlace(result.place, manualPlace: true)
-                    self.presentationMode.wrappedValue.dismiss()
-                }) {
+                
+                VStack {
                     HStack {
-                        result.place.categoryImage.renderingMode(.template).foregroundColor(Color("brandSecondary80"))
-                        Spacer().frame(width: 20)
-                        if self.visit.place == result.place {
-                            Text(result.place.name)
-                                .font(.system(size: 17, weight: .semibold))
-                        } else {
-                            Text(result.place.name)
-                                .font(.system(size: 17, weight: .regular))
+                        Image(systemName: "magnifyingglass")
+                        TextField("Search nearby places", text: $placeClassifier.query, onEditingChanged: { isEditing in
+                            self.searchTextEditing = isEditing
+                        }, onCommit: {
+                            print("onCommit")
+                        }).foregroundColor(Color("brandTertiaryBase"))
+                        Spacer().frame(width: 8)
+                        Button(action: {
+                            self.placeClassifier.query = ""
+                        }) {
+                            Image(systemName: "xmark.circle.fill").opacity(self.placeClassifier.query.isEmpty ? 0 : 1)
                         }
-                        Spacer()
-                        Text(self.rightText(for: result.place))
-                            .font(.system(size: 15, weight: .semibold))
-                            .foregroundColor(Color(UIColor.arcGray1))
                     }
+                    .padding([.leading, .trailing], 12)
+                    .frame(height: 40)
+                    .foregroundColor(Color("brandTertiaryBase"))
+                    .background(Color("brandSecondary05"))
+                    .cornerRadius(8)
+                    Spacer().frame(height: 20)
                 }
                 .padding([.leading, .trailing], 20)
-                .frame(height: 44)
-                .listRowInsets(EdgeInsets())
                 .background(Color("background"))
+                
+                LazyVStack(alignment: .leading, spacing: 0) {
+                    ForEach(placeClassifier.results, id: \.place.placeId) { result in
+                        Button {
+                            self.visit.usePlace(result.place, manualPlace: true)
+                            self.presentationMode.wrappedValue.dismiss()
+                        } label: {
+                            HStack {
+                                result.place.categoryImage.renderingMode(.template).foregroundColor(Color("brandSecondary80"))
+                                Spacer().frame(width: 20)
+                                if self.visit.place == result.place {
+                                    Text(result.place.name)
+                                        .font(.system(size: 17, weight: .semibold))
+                                } else {
+                                    Text(result.place.name)
+                                        .font(.system(size: 17, weight: .regular))
+                                }
+                                Spacer()
+                                Text(self.rightText(for: result.place))
+                                    .font(.system(size: 15, weight: .semibold))
+                                    .foregroundColor(Color(UIColor.arcGray1))
+                            }
+                        }
+                        .padding([.leading, .trailing], 20)
+                        .frame(height: 44)
+                        .background(Color("background"))
+                    }
+                }
             }
         }
-        .environment(\.defaultMinListRowHeight, 0)
         .navigationBarHidden(true)
-        .navigationBarTitle("", displayMode: .inline)
         .resignKeyboardOnDragGesture()
         .onAppear {
             if self.visit.deleted {
