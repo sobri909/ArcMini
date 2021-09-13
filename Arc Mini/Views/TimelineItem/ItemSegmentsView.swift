@@ -12,7 +12,6 @@ import LocoKit
 struct ItemSegmentsView: View {
 
     @ObservedObject var timelineItem: TimelineItem
-    @EnvironmentObject var timelineState: TimelineState
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     let formatter: DateFormatter = {
@@ -100,10 +99,10 @@ struct ItemSegmentsView: View {
             TimelineState.highlander.backButtonHidden = false
             TimelineState.highlander.todayButtonHidden = true
         }
-        .onReceive(self.timelineState.$tappedBackButton) { tappedBackButton in
+        .onReceive(TimelineState.highlander.$tappedBackButton) { tappedBackButton in
             if tappedBackButton {
                 self.presentationMode.wrappedValue.dismiss()
-                self.timelineState.tappedBackButton = false
+                TimelineState.highlander.tappedBackButton = false
             }
         }
     }

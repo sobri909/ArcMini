@@ -12,7 +12,6 @@ import LocoKit
 struct PathEditView: View {
 
     @ObservedObject var path: ArcPath
-    @EnvironmentObject var timelineState: TimelineState
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     var body: some View {
@@ -56,6 +55,12 @@ struct PathEditView: View {
             MapState.highlander.itemSegments = self.path.segmentsByActivityType
             TimelineState.highlander.backButtonHidden = false
             TimelineState.highlander.todayButtonHidden = true
+        }
+        .onReceive(TimelineState.highlander.$tappedBackButton) { tappedBackButton in
+            if tappedBackButton {
+                self.presentationMode.wrappedValue.dismiss()
+                TimelineState.highlander.tappedBackButton = false
+            }
         }
     }
 

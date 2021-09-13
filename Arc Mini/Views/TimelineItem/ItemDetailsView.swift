@@ -11,7 +11,6 @@ import SwiftUI
 
 struct ItemDetailsView: View {
     
-    @EnvironmentObject var timelineState: TimelineState
     @ObservedObject var timelineItem: TimelineItem
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
@@ -125,10 +124,10 @@ struct ItemDetailsView: View {
             TimelineState.highlander.backButtonHidden = false
             TimelineState.highlander.todayButtonHidden = true
         }
-        .onReceive(self.timelineState.$tappedBackButton) { tappedBackButton in
+        .onReceive(TimelineState.highlander.$tappedBackButton) { tappedBackButton in
             if tappedBackButton {
-                presentationMode.wrappedValue.dismiss()
-                timelineState.tappedBackButton = false
+                self.presentationMode.wrappedValue.dismiss()
+                TimelineState.highlander.tappedBackButton = false
             }
         }
     }

@@ -13,8 +13,6 @@ struct ItemSegmentEditView: View {
 
     var itemSegment: ItemSegment
     var classifierResults: ClassifierResults
-    @EnvironmentObject var mapState: MapState
-    @EnvironmentObject var timelineState: TimelineState
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var body: some View {
@@ -49,29 +47,22 @@ struct ItemSegmentEditView: View {
             }
         }
         .navigationBarHidden(true)
-        .navigationBarTitle("", displayMode: .inline)
         .onAppear {
             if let timelineItem = self.itemSegment.timelineItem {
-                self.mapState.selectedItems = [timelineItem]
+                MapState.highlander.selectedItems = [timelineItem]
             } else {
-                self.mapState.selectedItems = []
+                MapState.highlander.selectedItems = []
             }
-            self.mapState.itemSegments = [self.itemSegment]
-            self.timelineState.backButtonHidden = false
-            self.timelineState.todayButtonHidden = true
+            MapState.highlander.itemSegments = [self.itemSegment]
+            TimelineState.highlander.backButtonHidden = false
+            TimelineState.highlander.todayButtonHidden = true
         }
-        .onReceive(self.timelineState.$tappedBackButton) { tappedBackButton in
+        .onReceive(TimelineState.highlander.$tappedBackButton) { tappedBackButton in
             if tappedBackButton {
                 self.presentationMode.wrappedValue.dismiss()
-                self.timelineState.tappedBackButton = false
+                TimelineState.highlander.tappedBackButton = false
             }
         }
     }
 
 }
-
-//struct SegmentEditView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SegmentEditView()
-//    }
-//}

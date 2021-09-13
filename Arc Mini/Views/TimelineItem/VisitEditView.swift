@@ -36,7 +36,6 @@ struct VisitEditView: View {
 
     @ObservedObject var visit: ArcVisit
     @ObservedObject var placeClassifier: PlaceClassifier
-    @EnvironmentObject var timelineState: TimelineState
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State var searchTextEditing = false
 
@@ -123,10 +122,10 @@ struct VisitEditView: View {
             TimelineState.highlander.todayButtonHidden = true
             self.placeClassifier.updateResults()
         }
-        .onReceive(self.timelineState.$tappedBackButton) { tappedBackButton in
+        .onReceive(TimelineState.highlander.$tappedBackButton) { tappedBackButton in
             if tappedBackButton {
                 self.presentationMode.wrappedValue.dismiss()
-                self.timelineState.tappedBackButton = false
+                TimelineState.highlander.tappedBackButton = false
             }
         }
     }
