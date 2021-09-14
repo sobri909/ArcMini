@@ -41,6 +41,9 @@ class RecordingManager {
         when(loco, does: .wentFromSleepModeToRecording) { _ in
             self.didStartSleeping()
         }
+        when(.updatedTimelineItem) { _ in
+            self.updateSamplingFrequency()
+        }
     }
 
     func startRecording() {
@@ -60,6 +63,47 @@ class RecordingManager {
         // start the safety nets
         loco.locationManager.startMonitoringVisits()
         loco.locationManager.startMonitoringSignificantLocationChanges()
+    }
+    
+    // MARK: -
+
+    func updateSamplingFrequency() {
+        RecordingManager.store.connectToDatabase()
+        
+        guard let currentActivityType = recorder.currentItem?.samples.last?.activityType else { return }
+
+        var desiredFrequency: Double
+
+        if ActivityTypeName.canSaveToWorkouts.contains(currentActivityType) { // fast for workouts
+            desiredFrequency = 25
+
+        } else if currentActivityType == .airplane { // slow for planes
+            desiredFrequency = 4
+
+        } else { // normal speed
+            desiredFrequency = 10
+        }
+
+        // reduce for low battery level
+        if UIDevice.current.batteryLevel < 0.3 {
+            desiredFrequency -= 4
+        }
+
+        // reduce for Low Power Mode
+        if ProcessInfo.processInfo.isLowPowerModeEnabled {
+            desiredFrequency -= 4
+        }
+
+        // reduce for thermal state
+        switch AppDelegate.thermalState {
+        case .nominal: break
+        case .fair: desiredFrequency -= 2
+        case .serious: desiredFrequency -= 10
+        case .critical: desiredFrequency -= 15
+        @unknown default: break
+        }
+
+        recorder.samplesPerMinute = desiredFrequency.clamped(min: 4, max: 25)
     }
 
     // MARK: - Recording state changes
