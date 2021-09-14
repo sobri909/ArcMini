@@ -56,6 +56,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         when(ProcessInfo.thermalStateDidChangeNotification) { _ in
             self.thermalStateChanged()
+            RecordingManager.highlander.updateSamplingFrequency()
+        }
         }
 
         applyUIAppearanceOverrides()
