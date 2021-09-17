@@ -21,22 +21,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         super.init()
 
         when(.tookOverRecording) { _ in
-            logger.info("tookOverRecording")
+            logger.info("tookOverRecording", subsystem: .locokit)
             WidgetCenter.shared.reloadAllTimelines()
         }
 
         when(.concededRecording) { _ in
             if let currentRecorder = LocomotionManager.highlander.appGroup?.currentRecorder {
-                logger.info("concededRecording to \(currentRecorder.appName)")
+                logger.info("concededRecording to \(currentRecorder.appName)", subsystem: .locokit)
             } else {
-                logger.info("concededRecording to UNKNOWN!")
+                logger.info("concededRecording to UNKNOWN!", subsystem: .locokit)
             }
             WidgetCenter.shared.reloadAllTimelines()
             self.goFullyHeadless()
         }
         
         when(.currentItemChanged) { _ in
-            logger.info("currentItemChanged")
+            logger.info("currentItemChanged", subsystem: .locokit)
             WidgetCenter.shared.reloadAllTimelines()
         }
         when(.timelineObjectsExternallyModified) { _ in
