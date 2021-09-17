@@ -34,6 +34,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             WidgetCenter.shared.reloadAllTimelines()
             self.goFullyHeadless()
         }
+        
+        when(.currentItemChanged) { _ in
+            logger.info("currentItemChanged")
+            WidgetCenter.shared.reloadAllTimelines()
+        }
     }
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
