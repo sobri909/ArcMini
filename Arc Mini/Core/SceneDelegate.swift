@@ -39,6 +39,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             logger.info("currentItemChanged")
             WidgetCenter.shared.reloadAllTimelines()
         }
+        when(.timelineObjectsExternallyModified) { _ in
+            guard let currentItem = RecordingManager.recorder.currentItem else { return }
+            guard let appGroup = LocomotionManager.highlander.appGroup else { return }
+            if appGroup.currentRecorder?.currentItemTitle != currentItem.title {
+                logger.info("currentItemTitle changed", subsystem: .locokit)
+                WidgetCenter.shared.reloadAllTimelines()
+            }
+        }
     }
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
