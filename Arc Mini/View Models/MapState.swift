@@ -17,10 +17,12 @@ class MapState: ObservableObject {
     @Published var showingFullMap = false
     @Published var tappedSelectedItem = false
     var selectedTimelineItem: ArcTimelineItem?
+    var visibleItems: Set<TimelineItem> = []
 
     func flush() {
         selectedItems = []
         itemSegments = []
         selectedTimelineItem = nil
+        visibleItems = []
     }
 }

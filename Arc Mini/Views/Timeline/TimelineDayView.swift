@@ -44,6 +44,7 @@ struct TimelineDayView: View {
         .onAppear {
             guard TimelineState.highlander.visibleDateRange == timelineSegment.dateRange else { return }
             self.timelineSegment.startUpdating()
+            MapState.highlander.visibleItems.removeAll()
             MapState.highlander.selectedItems.removeAll()
             MapState.highlander.itemSegments.removeAll()
             TimelineState.highlander.backButtonHidden = true
@@ -104,15 +105,13 @@ struct TimelineDayView: View {
             self.timelineItemBox(for: item)
                 .onAppear {
                     if self.timelineSegment == TimelineState.highlander.visibleTimelineSegment {
-                        if item == self.filteredListItems.first?.timelineItem {
-                            MapState.highlander.selectedItems = [] // zoom to all items when scrolled to top
-                        } else {
-                            MapState.highlander.selectedItems.insert(item)
-                        }
+                        MapState.highlander.visibleItems.insert(item)
+                        updateSelectedItems()
                     }
                 }.onDisappear {
                     if self.timelineSegment == TimelineState.highlander.visibleTimelineSegment {
-                        MapState.highlander.selectedItems.remove(item)
+                        MapState.highlander.visibleItems.remove(item)
+                        updateSelectedItems()
                     }
                 }
         }
@@ -131,7 +130,19 @@ struct TimelineDayView: View {
         }
         fatalError("nah")
     }
+    
+    // MARK: -
+    
+    func updateSelectedItems() {
+        if let first = filteredListItems.first?.timelineItem, MapState.highlander.visibleItems.contains(first) {
+            MapState.highlander.selectedItems = [] // zoom to all items when scrolled to top
+        } else {
+            MapState.highlander.selectedItems = MapState.highlander.visibleItems
+        }
+    }
 
+    // MARK: -
+    
     struct DisplayItem: Identifiable {
         var id: UUID
         var timelineItem: TimelineItem?
