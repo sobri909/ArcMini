@@ -39,20 +39,11 @@ struct TimelineDayView: View {
             }
             Rectangle().fill(Color("brandSecondary10")).frame(width: 0.5).edgesIgnoringSafeArea(.all)
         }
-        .navigationBarTitle("")
         .navigationBarHidden(true)
-        .onAppear {
-            guard TimelineState.highlander.visibleDateRange == timelineSegment.dateRange else { return }
-            self.timelineSegment.startUpdating()
-            MapState.highlander.visibleItems.removeAll()
-            MapState.highlander.selectedItems.removeAll()
-            MapState.highlander.itemSegments.removeAll()
-            TimelineState.highlander.backButtonHidden = true
-            TimelineState.highlander.updateTodayButton()
-            TimelineState.highlander.mapHeightPercent = TimelineState.rootMapHeightPercent
-        }
-        .onDisappear {
-            self.timelineSegment.stopUpdating()
+        .onAppear { updateForAppearDisappear() }
+        .onDisappear { updateForAppearDisappear() }
+        .onReceive(TimelineState.highlander.$currentCardIndex) { _ in
+            updateForAppearDisappear()
         }
         .background(Color("background"))
     }
@@ -132,6 +123,20 @@ struct TimelineDayView: View {
     }
     
     // MARK: -
+    
+    func updateForAppearDisappear() {
+        guard TimelineState.highlander.visibleDateRange == timelineSegment.dateRange else {
+            timelineSegment.stopUpdating()
+            return
+        }
+        timelineSegment.startUpdating()
+        MapState.highlander.visibleItems.removeAll()
+        MapState.highlander.selectedItems.removeAll()
+        MapState.highlander.itemSegments.removeAll()
+        TimelineState.highlander.backButtonHidden = true
+        TimelineState.highlander.updateTodayButton()
+        TimelineState.highlander.mapHeightPercent = TimelineState.rootMapHeightPercent
+    }
     
     func updateSelectedItems() {
         if let first = filteredListItems.first?.timelineItem, MapState.highlander.visibleItems.contains(first) {
