@@ -24,6 +24,7 @@ struct PathListBox: View {
                 }
                 Spacer()
             }
+            .frame(height: 44)
             .padding([.leading], 102)
             .padding([.trailing], 20)
             .background(Color("background"))
@@ -48,9 +49,3 @@ struct PathListBox: View {
     }
 
 }
-
-//struct PathListBox_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PathListBox()
-//    }
-//}

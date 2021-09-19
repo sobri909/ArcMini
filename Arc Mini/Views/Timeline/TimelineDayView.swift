@@ -22,6 +22,18 @@ struct TimelineDayView: View {
     var body: some View {
         ZStack(alignment: .trailing) {
             List {
+                let top = Rectangle()
+                    .frame(height: 20).opacity(0)
+                    .listRowInsets(EdgeInsets())
+                    .onAppear { TimelineState.highlander.timelineScrolledToTop = true }
+                    .onDisappear { TimelineState.highlander.timelineScrolledToTop = false }
+                
+                if #available(iOS 15.0, *) {
+                    top.listRowSeparator(.hidden)
+                } else {
+                    top
+                }
+                
                 ForEach(filteredListItems) { displayItem in
                     let box = listBox(for: displayItem).onAppear {
                         if let visit = displayItem.timelineItem as? ArcVisit, visit.isWorthKeeping {
@@ -37,6 +49,8 @@ struct TimelineDayView: View {
                     }
                 }
             }
+            .listStyle(.plain)
+            .environment(\.defaultMinListRowHeight, 0)
             Rectangle().fill(Color("brandSecondary10")).frame(width: 0.5).edgesIgnoringSafeArea(.all)
         }
         .navigationBarHidden(true)
@@ -96,12 +110,12 @@ struct TimelineDayView: View {
             self.timelineItemBox(for: item)
                 .onAppear {
                     if self.timelineSegment == TimelineState.highlander.visibleTimelineSegment {
-                        MapState.highlander.visibleItems.insert(item)
+                        TimelineState.highlander.visibleItems.insert(item)
                         updateSelectedItems()
                     }
                 }.onDisappear {
                     if self.timelineSegment == TimelineState.highlander.visibleTimelineSegment {
-                        MapState.highlander.visibleItems.remove(item)
+                        TimelineState.highlander.visibleItems.remove(item)
                         updateSelectedItems()
                     }
                 }
@@ -130,19 +144,19 @@ struct TimelineDayView: View {
             return
         }
         timelineSegment.startUpdating()
-        MapState.highlander.visibleItems.removeAll()
         MapState.highlander.selectedItems.removeAll()
         MapState.highlander.itemSegments.removeAll()
+        TimelineState.highlander.visibleItems.removeAll()
         TimelineState.highlander.backButtonHidden = true
         TimelineState.highlander.updateTodayButton()
         TimelineState.highlander.mapHeightPercent = TimelineState.rootMapHeightPercent
     }
     
     func updateSelectedItems() {
-        if let first = filteredListItems.first?.timelineItem, MapState.highlander.visibleItems.contains(first) {
+        if TimelineState.highlander.timelineScrolledToTop {
             MapState.highlander.selectedItems = [] // zoom to all items when scrolled to top
         } else {
-            MapState.highlander.selectedItems = MapState.highlander.visibleItems
+            MapState.highlander.selectedItems = TimelineState.highlander.visibleItems
         }
     }
 

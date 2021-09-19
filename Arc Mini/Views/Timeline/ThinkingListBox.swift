@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct ThinkingListBox: View {
-
      var body: some View {
         ZStack {
             HStack {
@@ -20,19 +19,10 @@ struct ThinkingListBox: View {
                 }
                 Spacer()
             }
+            .frame(height: 44)
             .padding([.leading], 102)
             .padding([.trailing], 20)
             .background(Color("background"))
         }
-    }
-
-    var title: String {
-        return "Thinking..."
-    }
-}
-
-struct ThinkingListBox_Previews: PreviewProvider {
-    static var previews: some View {
-        ThinkingListBox()
     }
 }

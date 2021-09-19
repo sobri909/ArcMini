@@ -30,6 +30,9 @@ class TimelineState: ObservableObject {
     @Published var tappedBackButton = false
     @Published var tappedTodayButton = false
 
+    var visibleItems: Set<TimelineItem> = []
+    var timelineScrolledToTop = true
+
     private var cardIndexObserver: AnyCancellable?
 
     init() {
