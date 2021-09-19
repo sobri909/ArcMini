@@ -54,10 +54,10 @@ struct TimelineDayView: View {
             Rectangle().fill(Color("brandSecondary10")).frame(width: 0.5).edgesIgnoringSafeArea(.all)
         }
         .navigationBarHidden(true)
-        .onAppear { updateForAppearDisappear() }
-        .onDisappear { updateForAppearDisappear() }
+        .onAppear { updateForAppear() }
+        .onDisappear { updateForDisappear() }
         .onReceive(TimelineState.highlander.$currentCardIndex) { _ in
-            updateForAppearDisappear()
+            updateForCurrentCardIndex()
         }
         .background(Color("background"))
     }
@@ -138,11 +138,7 @@ struct TimelineDayView: View {
     
     // MARK: -
     
-    func updateForAppearDisappear() {
-        guard TimelineState.highlander.visibleDateRange == timelineSegment.dateRange else {
-            timelineSegment.stopUpdating()
-            return
-        }
+    func updateForAppear() {
         timelineSegment.startUpdating()
         MapState.highlander.selectedItems.removeAll()
         MapState.highlander.itemSegments.removeAll()
@@ -150,6 +146,18 @@ struct TimelineDayView: View {
         TimelineState.highlander.backButtonHidden = true
         TimelineState.highlander.updateTodayButton()
         TimelineState.highlander.mapHeightPercent = TimelineState.rootMapHeightPercent
+    }
+    
+    func updateForDisappear() {
+        timelineSegment.stopUpdating()
+    }
+    
+    func updateForCurrentCardIndex() {
+        if TimelineState.highlander.visibleDateRange == timelineSegment.dateRange {
+            updateForAppear()
+        } else {
+            updateForDisappear()
+        }
     }
     
     func updateSelectedItems() {
