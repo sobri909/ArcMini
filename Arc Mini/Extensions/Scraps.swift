@@ -9,6 +9,7 @@
 import UIKit
 import Photos
 import LocoKit
+import SwiftUI
 
 // fix back swipe navigation
 extension UINavigationController: UIGestureRecognizerDelegate {
@@ -18,6 +19,13 @@ extension UINavigationController: UIGestureRecognizerDelegate {
     }
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return viewControllers.count > 1
+    }
+}
+
+extension Color {
+    static var semiRandomColor: Color {
+        let rand = CGFloat(arc4random() % UInt32(12))
+        return Color(hue: (30 * rand) / 360, saturation: 0.5, brightness: 0.8)
     }
 }
 
