@@ -43,7 +43,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             guard let currentItem = RecordingManager.recorder.currentItem else { return }
             guard let appGroup = LocomotionManager.highlander.appGroup else { return }
             if appGroup.currentRecorder?.currentItemTitle != currentItem.title {
-                logger.info("currentItemTitle changed", subsystem: .locokit)
                 WidgetCenter.shared.reloadAllTimelines()
             }
         }
