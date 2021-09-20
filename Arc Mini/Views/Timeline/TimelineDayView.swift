@@ -107,12 +107,16 @@ struct TimelineDayView: View {
                 .onAppear {
                     if self.timelineSegment == TimelineState.highlander.visibleTimelineSegment {
                         TimelineState.highlander.visibleItems.insert(item)
-                        updateSelectedItems()
+                        DispatchQueue.main.asyncDeduped(target: self.timelineSegment, after: 0.2) {
+                            self.updateSelectedItems()
+                        }
                     }
                 }.onDisappear {
                     if self.timelineSegment == TimelineState.highlander.visibleTimelineSegment {
                         TimelineState.highlander.visibleItems.remove(item)
-                        updateSelectedItems()
+                        DispatchQueue.main.asyncDeduped(target: self.timelineSegment, after: 0.2) {
+                            self.updateSelectedItems()
+                        }
                     }
                 }
         }
@@ -157,6 +161,8 @@ struct TimelineDayView: View {
     }
     
     func updateSelectedItems() {
+        guard self.timelineSegment == TimelineState.highlander.visibleTimelineSegment else { return }
+
         if TimelineState.highlander.timelineScrolledToTop {
             MapState.highlander.selectedItems = [] // zoom to all items when scrolled to top
         } else {
