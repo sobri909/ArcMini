@@ -13,12 +13,20 @@ struct TimelineDayView: View {
 
     @ObservedObject var timelineSegment: TimelineSegment
 
-    init(timelineSegment: TimelineSegment) {
-        self.timelineSegment = timelineSegment
-        UITableViewCell.appearance().selectionStyle = .none
-        UITableView.appearance().backgroundColor = UIColor(named: "background")
+    var isToday: Bool {
+        return timelineSegment.dateRange?.contains(Date()) == true
     }
 
+    // the items inside the recorder's processing boundary
+    var activeItems: [TimelineItem] {
+        if isToday, !LocomotionManager.highlander.recordingState.isSleeping, let currentItem = RecordingManager.recorder.currentItem {
+            return TimelineProcessor.itemsToProcess(from: currentItem)
+        }
+        return []
+    }
+
+    // MARK: - Views
+    
     var body: some View {
         ZStack(alignment: .trailing) {
             List {
@@ -85,18 +93,6 @@ struct TimelineDayView: View {
         return displayItems
     }
 
-    var isToday: Bool {
-        return timelineSegment.dateRange?.contains(Date()) == true
-    }
-
-    // the items inside the recorder's processing boundary
-    var activeItems: [TimelineItem] {
-        if isToday, !LocomotionManager.highlander.recordingState.isSleeping, let currentItem = RecordingManager.recorder.currentItem {
-            return TimelineProcessor.itemsToProcess(from: currentItem)
-        }
-        return []
-    }
-
     func listBox(for displayItem: DisplayItem) -> some View {
 
         // show a "thinking" item for shitty stuff that's still processing or can't be processed yet
@@ -136,7 +132,7 @@ struct TimelineDayView: View {
         fatalError("nah")
     }
     
-    // MARK: -
+    // MARK: - Actions
     
     func updateForAppear() {
         timelineSegment.startUpdating()
