@@ -40,8 +40,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             WidgetCenter.shared.reloadAllTimelines()
         }
         when(.timelineObjectsExternallyModified) { _ in
-            guard let currentItem = RecordingManager.recorder.currentItem else { return }
+            RecordingManager.store.connectToDatabase()
             guard let appGroup = LocomotionManager.highlander.appGroup else { return }
+            guard let currentItem = RecordingManager.recorder.currentItem else { return }
             if appGroup.currentRecorder?.currentItemTitle != currentItem.title {
                 WidgetCenter.shared.reloadAllTimelines()
             }
