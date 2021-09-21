@@ -108,10 +108,13 @@ struct ItemDetailsView: View {
                         .background(Color("brandSecondary05"))
 //                        .border(Color(white: 0.92), width: 0.5)
                 }
+                
+                Spacer().frame(height: 40)
             }
         }
         .padding([.leading, .trailing], 20)
         .background(Color("background"))
+        .edgesIgnoringSafeArea(.all)
         .navigationBarHidden(true)
         .onAppear {
             if timelineItem.deleted {

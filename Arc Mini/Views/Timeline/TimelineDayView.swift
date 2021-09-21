@@ -62,14 +62,14 @@ struct TimelineDayView: View {
             .environment(\.defaultMinListRowHeight, 0)
             Rectangle().fill(Color("brandSecondary10")).frame(width: 0.5).edgesIgnoringSafeArea(.all)
         }
+        .background(Color("background"))
+        .edgesIgnoringSafeArea(.all)
         .navigationBarHidden(true)
         .onAppear { updateForAppear() }
         .onDisappear { updateForDisappear() }
         .onReceive(TimelineState.highlander.$currentCardIndex) { _ in
             updateForCurrentCardIndex()
         }
-        .background(Color("background"))
-        .edgesIgnoringSafeArea(.all)
     }
 
     var filteredListItems: [DisplayItem] {

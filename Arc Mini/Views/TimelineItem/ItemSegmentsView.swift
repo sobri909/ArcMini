@@ -85,10 +85,11 @@ struct ItemSegmentsView: View {
                     .frame(maxWidth: .infinity, minHeight: 24)
                     .overlay(RoundedRectangle(cornerRadius: 9.5).stroke(Color(0xE5634F), lineWidth: 1).opacity(0.2))
                     .padding([.leading, .trailing], 20)
-                Spacer().frame(height: 24)
+                Spacer().frame(height: 40)
             }
         }
         .background(Color("background"))
+        .edgesIgnoringSafeArea(.all)
         .navigationBarHidden(true)
         .onAppear {
             MapState.highlander.selectedItems = [self.timelineItem]
