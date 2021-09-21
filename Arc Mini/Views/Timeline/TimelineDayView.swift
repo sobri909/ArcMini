@@ -32,6 +32,7 @@ struct TimelineDayView: View {
             List {
                 let top = Rectangle()
                     .frame(height: 20).opacity(0)
+                    .background(Color("background"))
                     .listRowInsets(EdgeInsets())
                     .onAppear { TimelineState.highlander.timelineScrolledToTop = true }
                     .onDisappear { TimelineState.highlander.timelineScrolledToTop = false }
@@ -68,6 +69,7 @@ struct TimelineDayView: View {
             updateForCurrentCardIndex()
         }
         .background(Color("background"))
+        .edgesIgnoringSafeArea(.all)
     }
 
     var filteredListItems: [DisplayItem] {
