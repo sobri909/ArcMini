@@ -43,8 +43,11 @@ struct PathEditView: View {
                     .frame(height: 44)
                     .background(Color("background"))
                 }
+                Spacer().frame(height: 40)
             }
         }
+        .background(Color("background"))
+        .edgesIgnoringSafeArea(.all)
         .navigationBarHidden(true)
         .onAppear {
             if self.path.deleted {

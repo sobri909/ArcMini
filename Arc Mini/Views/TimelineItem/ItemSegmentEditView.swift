@@ -60,8 +60,11 @@ struct ItemSegmentEditView: View {
                     .listRowInsets(EdgeInsets())
                     .background(Color("background"))
                 }
+                Spacer().frame(height: 40)
             }
         }
+        .background(Color("background"))
+        .edgesIgnoringSafeArea(.all)
         .navigationBarHidden(true)
         .onAppear {
             if let timelineItem = self.itemSegment.timelineItem {
