@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/groue/GRDB.swift.git",
         "state": {
           "branch": null,
-          "revision": "1acf8e4b1ea90ed314c7c477051efc7933946b22",
-          "version": "5.11.0"
+          "revision": "32b2923e890df320906e64cbd0faca22a8bfda14",
+          "version": "5.12.0"
         }
       },
       {
@@ -42,7 +42,7 @@
         "repositoryURL": "https://github.com/sobri909/LocoKit.git",
         "state": {
           "branch": "develop",
-          "revision": "58dcc3d5ac4f865a8f9c2b6a90d2a7496ca816c1",
+          "revision": "ceae2aaea7c9f697a0afa94cdcd6b33f8f2d0434",
           "version": null
         }
       },
@@ -60,8 +60,8 @@
         "repositoryURL": "https://github.com/getsentry/sentry-cocoa.git",
         "state": {
           "branch": null,
-          "revision": "946cbb6daccedf40d652a12138f78e96f660e1ad",
-          "version": "6.2.1"
+          "revision": "4abaa663a7916902ae9196a8bf3c4c047caacc17",
+          "version": "7.3.0"
         }
       },
       {
