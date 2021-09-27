@@ -206,7 +206,6 @@
 		C95E0E2B2417B773008418A1 /* ArcVisit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcVisit.swift; sourceTree = "<group>"; };
 		C95E0E2C2417B773008418A1 /* ArcPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcPath.swift; sourceTree = "<group>"; };
 		C969D1DD245199B600874305 /* ArcAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcAnnotation.swift; sourceTree = "<group>"; };
-		C96BCC2926E49CB500201CB5 /* GRDB.swift */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GRDB.swift; path = ../GRDB.swift; sourceTree = "<group>"; };
 		C96E00B72449B3AD00A3635F /* TasksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksManager.swift; sourceTree = "<group>"; };
 		C970732C243889D400E3B938 /* LocoKit+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocoKit+extensions.swift"; sourceTree = "<group>"; };
 		C977E57324AB600700B2F0BA /* RecordersWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RecordersWidgetExtension.entitlements; sourceTree = "<group>"; };
@@ -485,7 +484,6 @@
 		C9822A76240CF8D5006B70F4 = {
 			isa = PBXGroup;
 			children = (
-				C96BCC2926E49CB500201CB5 /* GRDB.swift */,
 				C9822A81240CF8D5006B70F4 /* Arc Mini */,
 				C9C045CB24A891B300C1A99C /* RecordersWidget */,
 				C9120BD4250BBDD80063A2B7 /* CurrentItemWidget */,
