@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 options.dsn = sentryDSN
                 options.enableAutoSessionTracking = true
                 options.sessionTrackingIntervalMillis = UInt(TimeInterval.oneHour * 6 * 1000)
-                options.debug = true // Enabled debug when first installing is always helpful
+                options.debug = false 
             }
             if let userId = UIDevice.current.identifierForVendor {
                 SentrySDK.setUser(Sentry.User(userId: userId.uuidString))
