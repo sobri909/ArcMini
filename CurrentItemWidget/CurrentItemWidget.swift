@@ -95,10 +95,17 @@ struct CurrentItemWidgetEntryView : View {
                     Spacer()
                     HStack(spacing: 3) {
                         ForEach(appGroup.apps.values.sorted { $0.appName.sortIndex < $1.appName.sortIndex }, id: \.updated) { appState in
-                            Text("●")
-                                .font(.system(size: 8, weight: .regular))
-                                .foregroundColor(appState.isAlive ? Color.green : Color.red)
-                                .opacity(0.4)
+                            if appState.isAlive {
+                                Text("●")
+                                    .font(.system(size: 8, weight: .regular))
+                                    .foregroundColor(Color.green)
+                                    .opacity(0.4)
+                            } else {
+                                Text("■")
+                                    .font(.system(size: 10, weight: .regular))
+                                    .foregroundColor(Color.red)
+                                    .opacity(0.4)
+                            }
                         }
                     }
                 }
