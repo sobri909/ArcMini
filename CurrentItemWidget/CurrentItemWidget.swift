@@ -89,7 +89,7 @@ struct CurrentItemWidgetEntryView : View {
             VStack {
                 Spacer()
                 HStack {
-                    Text(Date(), style: .relative)
+                    Text("\(Date(), style: .relative) ago")
                         .font(.system(size: 8, weight: .regular))
                         .opacity(0.3)
                     Spacer()
