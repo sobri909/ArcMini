@@ -65,6 +65,15 @@ class RecordingManager {
         loco.locationManager.startMonitoringSignificantLocationChanges()
     }
     
+    func stopRecording() {
+        recorder.stopRecording()
+
+        // stop the safety nets
+        loco.locationManager.stopMonitoringVisits()
+        loco.locationManager.stopMonitoringSignificantLocationChanges()
+        loco.locationManager.allowsBackgroundLocationUpdates = false
+    }
+    
     // MARK: -
 
     func updateSamplingFrequency() {

@@ -84,6 +84,13 @@ struct TimelineHeader: View {
                         self.modalView = .classifier
                         self.showingModal = true
                     },
+                    .default(Text(Settings.recordingOn ? "Turn off recording" : "Restart recording")) {
+                        if Settings.recordingOn {
+                            self.stopRecording()
+                        } else {
+                            self.restartRecording()
+                        }
+                    },
                     .destructive(Text("Close"))
                 ])
             } else {
@@ -131,6 +138,8 @@ struct TimelineHeader: View {
         }
         .frame(width: 56, height: 64)
     }
+    
+    // MARK: - Actions
 
     func exportToJSON() {
         guard let tempURL = timelineState.visibleTimelineSegment?.exportToJSON(filenameType: .day) else { return }
@@ -145,6 +154,16 @@ struct TimelineHeader: View {
         self.exportURL = tempURL
         self.modalView = .export
         self.showingModal = true
+    }
+    
+    func stopRecording() {
+        Settings.recordingOn = false
+        RecordingManager.highlander.stopRecording()
+    }
+
+    func restartRecording() {
+        Settings.recordingOn = true
+        RecordingManager.highlander.startRecording()
     }
 
 }
