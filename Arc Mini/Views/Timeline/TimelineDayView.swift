@@ -76,6 +76,7 @@ struct TimelineDayView: View {
         var displayItems: [DisplayItem] = []
         
         var previousWasThinker = false
+        var previousWasPath = false
         for item in timelineSegment.timelineItems.reversed() {
             if item.dateRange == nil { continue }
             if item.invalidated { continue }
@@ -83,12 +84,17 @@ struct TimelineDayView: View {
             let useThinkers = RecordingManager.store.processing || activeItems.contains(item) || item.isMergeLocked
 
             if item.isWorthKeeping {
+                if previousWasPath, item.isPath {
+                    displayItems.append(.spacer)
+                }
                 displayItems.append(DisplayItem(timelineItem: item))
                 previousWasThinker = false
+                previousWasPath = item.isPath
                 
             } else if useThinkers && !previousWasThinker {
                 displayItems.append(DisplayItem(thinkerId: item.itemId))
                 previousWasThinker = true
+                previousWasPath = false
             }
         }
         
@@ -96,6 +102,10 @@ struct TimelineDayView: View {
     }
 
     func listBox(for displayItem: DisplayItem) -> some View {
+        if displayItem.isSpacer {
+            let box = Spacer().frame(width: 20, height: 16)
+            return AnyView(box)
+        }
 
         // show a "thinking" item for shitty stuff that's still processing or can't be processed yet
         guard let item = displayItem.timelineItem else {
@@ -177,9 +187,21 @@ struct TimelineDayView: View {
     struct DisplayItem: Identifiable {
         var id: UUID
         var timelineItem: TimelineItem?
+        var isSpacer = false
         
-        init(timelineItem: TimelineItem? = nil, thinkerId: UUID? = nil) {
+        static var spacer: DisplayItem {
+            return DisplayItem(spacer: true)
+        }
+        
+        init(timelineItem: TimelineItem? = nil, thinkerId: UUID? = nil, spacer: Bool = false) {
+            if spacer {
+                isSpacer = true
+                id = UUID()
+                return
+            }
+            
             self.timelineItem = timelineItem
+            
             if let timelineItem = timelineItem {
                 id = timelineItem.itemId
             } else {

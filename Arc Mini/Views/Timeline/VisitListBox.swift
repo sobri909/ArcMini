@@ -31,7 +31,7 @@ struct VisitListBox: View {
                 Text(title).font(.system(size: 16, weight: .semibold))
                 Spacer()
             }
-            .padding(EdgeInsets(top: 18, leading: 20, bottom: 18, trailing: 20))
+            .padding(EdgeInsets(top: 14, leading: 20, bottom: 14, trailing: 20))
             .background(Color("background"))
             .contextMenu {
                 NavigationLink(destination: VisitEditView(visit: visit, placeClassifier: visit.placeClassifier)) {
@@ -39,9 +39,9 @@ struct VisitListBox: View {
                     Image(systemName: "square.and.pencil")
                 }
                 if !visit.isCurrentItem {
-                    Button(action: {
+                    Button {
                         self.showDeleteAlert = true
-                    }) {
+                    } label: {
                         Text("Delete visit")
                         Image(systemName: "trash")
                     }
