@@ -179,13 +179,11 @@ extension Place {
                                        latMin: center.coordinate.latitude, latMax: center.coordinate.latitude,
                                        lonMin: center.coordinate.longitude, lonMax: center.coordinate.longitude)
                 try pool.write { try rtree.update($0) }
-                print("[\(name)] UPDATED RTREE (id: \(rtreeId))")
             } else {
                 var rtree = PlaceRTree(latMin: center.coordinate.latitude, latMax: center.coordinate.latitude,
                                        lonMin: center.coordinate.longitude, lonMax: center.coordinate.longitude)
                 try pool.write { try rtree.insert($0) }
                 rtreeId = rtree.id
-                print("[\(name)] INSERTED RTREE (id: \(rtreeId!))")
                 saveNoDate()
             }
             
