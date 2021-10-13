@@ -94,7 +94,7 @@ struct TimelineDayView: View {
             } else if useThinkers && !previousWasThinker {
                 displayItems.append(DisplayItem(thinkerId: item.itemId))
                 previousWasThinker = true
-                previousWasPath = false
+                previousWasPath = true // thinker looks same as path, so needs spacer
             }
         }
         
@@ -103,7 +103,7 @@ struct TimelineDayView: View {
 
     func listBox(for displayItem: DisplayItem) -> some View {
         if displayItem.isSpacer {
-            let box = Spacer().frame(width: 20, height: 16)
+            let box = Spacer().frame(width: 20, height: 16).background(Color("background"))
             return AnyView(box)
         }
 
