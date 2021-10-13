@@ -44,6 +44,12 @@ extension String {
     }
 }
 
+extension CGFloat {
+    static var onePixel: CGFloat {
+        return 1.0 / UIScreen.main.nativeScale
+    }
+}
+
 extension Data {
     func appendToURL(_ fileURL: URL) throws {
         if let fileHandle = try? FileHandle(forWritingTo: fileURL) {

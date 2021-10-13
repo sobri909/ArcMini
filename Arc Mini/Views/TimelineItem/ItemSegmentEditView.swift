@@ -14,21 +14,24 @@ struct ItemSegmentEditView: View {
     var itemSegment: ItemSegment
     var classifierResults: ClassifierResults
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
+    @State var tappedSplitButton = false
+
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading, spacing: 0) {
                 Spacer().frame(height: 24)
-                Text("Change Activity")
+                Text("Edit Segment")
                     .font(.system(size: 24, weight: .bold))
-                    .padding([.leading, .trailing], 20)
                     .frame(height: 30)
-                Spacer().frame(height: 24)
-                Rectangle().fill(Color("brandSecondary10"))
-                    .padding([.leading, .trailing], 20)
-                    .frame(height: 0.5)
+                HStack(spacing: 0) {
+                    splitButton
+                    Spacer()
+                    promoteButton
+                }
+                Rectangle().fill(Color("brandSecondary10")).frame(height: 0.5)
                 Spacer().frame(height: 24)
             }
+            .padding([.leading, .trailing], 20)
             .background(Color("background"))
             
             VStack(alignment: .leading, spacing: 0) {
@@ -47,8 +50,13 @@ struct ItemSegmentEditView: View {
                         self.presentationMode.wrappedValue.dismiss()
                     } label: {
                         HStack {
-                            Text(result.name.displayName.capitalized.localised())
-                                .font(.system(size: 17, weight: .regular))
+                            if itemSegment.activityType == result.name {
+                                Text(result.name.displayName.capitalized.localised())
+                                    .font(.system(size: 17, weight: .semibold))
+                            } else {
+                                Text(result.name.displayName.capitalized.localised())
+                                    .font(.system(size: 17, weight: .regular))
+                            }
                             Spacer()
                             Text(String(format: "%.0f", result.normalisedScore(in: self.classifierResults) * 100))
                                 .font(.system(size: 15, weight: .semibold))
@@ -67,21 +75,65 @@ struct ItemSegmentEditView: View {
         .edgesIgnoringSafeArea(.all)
         .navigationBarHidden(true)
         .onAppear {
-            if let timelineItem = self.itemSegment.timelineItem {
+            if let timelineItem = itemSegment.timelineItem {
                 MapState.highlander.selectedItems = [timelineItem]
             } else {
                 MapState.highlander.selectedItems = []
             }
-            MapState.highlander.itemSegments = [self.itemSegment]
+            MapState.highlander.itemSegments = [itemSegment]
             TimelineState.highlander.backButtonHidden = false
             TimelineState.highlander.todayButtonHidden = true
         }
         .onReceive(TimelineState.highlander.$tappedBackButton) { tappedBackButton in
             if tappedBackButton {
-                self.presentationMode.wrappedValue.dismiss()
+                presentationMode.wrappedValue.dismiss()
                 TimelineState.highlander.tappedBackButton = false
             }
         }
     }
+    
+    // MARK: - Buttons
 
+    var splitButton: some View {
+        ZStack(alignment: .leading) {
+            Button {
+                self.tappedSplitButton = true
+            } label: {
+                HStack(alignment: .center) {
+                    Image(systemName: "scissors")
+                        .font(.system(size: 18, weight: .regular))
+                        .foregroundColor(Color("brandSecondary80"))
+                        .frame(width: 24, height: 24)
+                    Text("Split")
+                        .font(.system(size: 15, weight: .regular))
+                        .foregroundColor(Color("brandSecondaryDark"))
+                }
+            }
+            .frame(height: 64)
+            NavigationLink(destination: ItemSegmentSplitView(itemSegment: itemSegment), isActive: $tappedSplitButton) {
+                EmptyView()
+            }.hidden()
+        }
+    }
+    
+    var promoteButton: some View {
+        ZStack(alignment: .leading) {
+            Button {
+                // TODO
+            } label: {
+                HStack(alignment: .center) {
+                    Image(systemName: "square.and.arrow.up.on.square")
+                        .font(.system(size: 18, weight: .regular))
+                        .foregroundColor(Color("brandSecondary80"))
+                        .frame(width: 24, height: 24)
+                        .offset(x: 0, y: -1.5)
+                    Text("Promote")
+                        .font(.system(size: 15, weight: .regular))
+                        .foregroundColor(Color("brandSecondaryDark"))
+                }
+            }
+            .frame(height: 64)
+        }
+    }
+    
 }

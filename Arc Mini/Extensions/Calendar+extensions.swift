@@ -22,6 +22,10 @@ enum Weekday: Int, CaseIterable {
 let cachedLogStringFormatter = DateFormatter()
 let greg = Calendar(identifier: Calendar.Identifier.gregorian)
 
+public func -(lhs: Date, rhs: Date) -> TimeInterval {
+    return lhs.timeIntervalSince(rhs)
+}
+
 extension Date {
     var isToday: Bool { return Calendar.current.isDateInToday(self) }
     var isYesterday: Bool { return Calendar.current.isDateInYesterday(self) }

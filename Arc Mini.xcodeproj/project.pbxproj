@@ -90,6 +90,7 @@
 		C9AA2250257B8D92002E2A0D /* LocoKit in Frameworks */ = {isa = PBXBuildFile; productRef = C9AA224F257B8D92002E2A0D /* LocoKit */; };
 		C9B1A6CF254D7E6A00F4EE2F /* Array+ArcSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B1A6CE254D7E6900F4EE2F /* Array+ArcSample.swift */; };
 		C9B1A6D5254D7F3500F4EE2F /* Gzip in Frameworks */ = {isa = PBXBuildFile; productRef = C9B1A6D4254D7F3500F4EE2F /* Gzip */; };
+		C9B81E26270ED993003D7D3C /* ItemSegmentSplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B81E25270ED993003D7D3C /* ItemSegmentSplitView.swift */; };
 		C9B86B88242CAD8900D52C0D /* ArcError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B86B87242CAD8900D52C0D /* ArcError.swift */; };
 		C9BF95372446F959000F3299 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = C9BF95362446F959000F3299 /* Config.plist */; };
 		C9BF9539244744CC000F3299 /* DeleteVisitAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BF9538244744CC000F3299 /* DeleteVisitAlert.swift */; };
@@ -234,6 +235,7 @@
 		C99F5EC8242A4EFA00E172AE /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		C9A239332580CC2E00E3E517 /* LineChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChart.swift; sourceTree = "<group>"; };
 		C9B1A6CE254D7E6900F4EE2F /* Array+ArcSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+ArcSample.swift"; sourceTree = "<group>"; };
+		C9B81E25270ED993003D7D3C /* ItemSegmentSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSegmentSplitView.swift; sourceTree = "<group>"; };
 		C9B86B87242CAD8900D52C0D /* ArcError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcError.swift; sourceTree = "<group>"; };
 		C9BF95362446F959000F3299 /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		C9BF9538244744CC000F3299 /* DeleteVisitAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteVisitAlert.swift; sourceTree = "<group>"; };
@@ -622,6 +624,7 @@
 				C90D78532428FBA2004ABFD0 /* PathEditView.swift */,
 				C9F98B76242FAB38003D2A23 /* ItemSegmentsView.swift */,
 				C97C193B2432164700FC45A1 /* ItemSegmentEditView.swift */,
+				C9B81E25270ED993003D7D3C /* ItemSegmentSplitView.swift */,
 			);
 			path = TimelineItem;
 			sourceTree = "<group>";
@@ -807,6 +810,7 @@
 				C91F110325307F3D00D3BD99 /* ArcDocument.swift in Sources */,
 				C92EE1682445BA4F005DDDCB /* PlacesPendingUpdateView.swift in Sources */,
 				C95E0E292417B6DD008418A1 /* ArcTimelineItem.swift in Sources */,
+				C9B81E26270ED993003D7D3C /* ItemSegmentSplitView.swift in Sources */,
 				C91F10F325307DA900D3BD99 /* ConcreteBackupable.swift in Sources */,
 				C9C5C009242FB2C700BC064E /* MapState.swift in Sources */,
 				C95705112589DC6C00A7E691 /* TimelineRootView.swift in Sources */,
