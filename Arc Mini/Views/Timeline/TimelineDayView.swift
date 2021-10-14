@@ -103,7 +103,7 @@ struct TimelineDayView: View {
 
     func listBox(for displayItem: DisplayItem) -> some View {
         if displayItem.isSpacer {
-            let box = Spacer().frame(width: 20, height: 16).background(Color("background"))
+            let box = Spacer().frame(maxWidth: .infinity, maxHeight: 16).background(Color("background"))
             return AnyView(box)
         }
 
