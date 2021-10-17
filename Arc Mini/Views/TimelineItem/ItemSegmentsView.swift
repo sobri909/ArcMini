@@ -48,7 +48,7 @@ struct ItemSegmentsView: View {
             
             LazyVStack(alignment: .leading, spacing: 0) {
                 ForEach(self.timelineItem.segmentsByActivityType.reversed(), id: \.id) { segment in
-                    NavigationLink(destination: ItemSegmentEditView(itemSegment: segment, classifierResults: segment.classifierResults!)) {
+                    NavigationLink(destination: ItemSegmentEditView(itemSegment: segment)) {
                         HStack {
                             Circle().fill(Color(segment.activityType?.color ?? UIColor.black)).frame(width: 10, height: 10)
                             if segment.isDataGap {

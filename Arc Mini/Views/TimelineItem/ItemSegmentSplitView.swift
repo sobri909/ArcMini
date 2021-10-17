@@ -44,6 +44,7 @@ struct ItemSegmentSplitView: View {
                     Spacer()
                     doneButton
                 }
+                Spacer().frame(height: 16)
                 Rectangle().fill(Color("brandSecondary10")).frame(height: .onePixel)
                 Spacer().frame(height: 24)
                 
@@ -52,6 +53,8 @@ struct ItemSegmentSplitView: View {
                     Spacer()
                     Text(rightDateString).font(.system(size: 13, weight: .regular))
                 }
+                .frame(height: 20)
+                .opacity(0.7)
                 HStack {
                     Text(String(duration: leftSegment.duration, style: .short, alwaysIncludeSeconds: true))
                         .font(.system(size: 13, weight: .regular))
@@ -59,6 +62,8 @@ struct ItemSegmentSplitView: View {
                     Text(String(duration: rightSegment.duration, style: .short, alwaysIncludeSeconds: true))
                         .font(.system(size: 13, weight: .regular))
                 }
+                .frame(height: 20)
+                .opacity(0.7)
                 
                 Slider(value: $sliderValue, in: 0...1) { _ in
                     movedSlider()
@@ -69,6 +74,7 @@ struct ItemSegmentSplitView: View {
                         HStack {
                             Text("\(leftSegment.samples.count) samples")
                                 .font(.system(size: 13, weight: .regular))
+                                .opacity(0.7)
                             Spacer()
                         }
                     )
@@ -80,6 +86,7 @@ struct ItemSegmentSplitView: View {
                             Spacer()
                             Text("\(rightSegment.samples.count) samples")
                                 .font(.system(size: 13, weight: .regular))
+                                .opacity(0.7)
                         }
                     )
                 }
@@ -97,19 +104,16 @@ struct ItemSegmentSplitView: View {
                     .font(.system(size: 18, weight: .bold))
                 Spacer().frame(height: 12)
                 
-                Button {
-                    // TODO
-                } label: {
+                NavigationLink(destination: ItemSegmentEditView(itemSegment: leftSegment, splittingSegment: true, splitActivityType: $manualLeftActivityType)) {
                     HStack {
-                        Text("Left segment")
+                        Text("First segment")
                             .font(.system(size: 17, weight: .regular))
                             .foregroundColor(Color("blackWhiteText"))
                         Spacer()
-                        let activityType: ActivityTypeName = leftSegment.activityType ?? .stationary
-                        Text(activityType.displayName.capitalized.localised())
+                        Text(leftActivityType.displayName.capitalized.localised())
                             .font(.system(size: 17, weight: .regular))
                             .foregroundColor(Color("blackWhiteText"))
-                            .opacity(0.6)
+                            .opacity(0.5)
                         Image(systemName: "chevron.right")
                             .font(.system(size: 18, weight: .regular))
                             .foregroundColor(Color("brandSecondary80"))
@@ -118,19 +122,17 @@ struct ItemSegmentSplitView: View {
                     .frame(height: 44)
                 }
                 
-                Button {
-                    // TODO
-                } label: {
+            
+                NavigationLink(destination: ItemSegmentEditView(itemSegment: rightSegment, splittingSegment: true, splitActivityType: $manualRightActivityType)) {
                     HStack {
-                        Text("Right segment")
+                        Text("Second segment")
                             .font(.system(size: 17, weight: .regular))
                             .foregroundColor(Color("blackWhiteText"))
                         Spacer()
-                        let activityType: ActivityTypeName = rightSegment.activityType ?? .stationary
-                        Text(activityType.displayName.capitalized.localised())
+                        Text(rightActivityType.displayName.capitalized.localised())
                             .font(.system(size: 17, weight: .regular))
                             .foregroundColor(Color("blackWhiteText"))
-                            .opacity(0.6)
+                            .opacity(0.5)
                         Image(systemName: "chevron.right")
                             .font(.system(size: 18, weight: .regular))
                             .foregroundColor(Color("brandSecondary80"))
@@ -141,12 +143,14 @@ struct ItemSegmentSplitView: View {
             }
             .padding([.leading, .trailing], 20)
                 
-            Spacer()
+            Spacer().frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .background(Color("background"))
         .edgesIgnoringSafeArea(.all)
         .navigationBarHidden(true)
         .onAppear {
+            leftSegment.manualActivityType = manualLeftActivityType
+            rightSegment.manualActivityType = manualRightActivityType
             movedSlider()
             MapState.highlander.itemSegments = [leftSegment, rightSegment]
         }
@@ -173,7 +177,7 @@ struct ItemSegmentSplitView: View {
                         .foregroundColor(Color("brandSecondaryDark"))
                 }
             }
-            .frame(height: 64)
+            .frame(height: 30)
         }
     }
     

@@ -12,21 +12,25 @@ import LocoKit
 struct ItemSegmentEditView: View {
 
     var itemSegment: ItemSegment
-    var classifierResults: ClassifierResults
+    var splittingSegment = false
+    var splitActivityType: Binding<ActivityTypeName?>? = .constant(nil)
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @State var tappedSplitButton = false
-
+    
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading, spacing: 0) {
                 Spacer().frame(height: 24)
-                Text("Edit Segment")
+                Text(splittingSegment ? "Edit Segment" : "Activity Type")
                     .font(.system(size: 24, weight: .bold))
                     .frame(height: 30)
-                HStack(spacing: 0) {
-                    splitButton
-                    Spacer()
-                    promoteButton
+                if splittingSegment {
+                    Spacer().frame(height: 16)
+                } else {
+                    HStack(spacing: 0) {
+                        splitButton
+                        Spacer()
+                        promoteButton
+                    }
                 }
                 Rectangle().fill(Color("brandSecondary10")).frame(height: 0.5)
                 Spacer().frame(height: 24)
@@ -35,17 +39,23 @@ struct ItemSegmentEditView: View {
             .background(Color("background"))
             
             VStack(alignment: .leading, spacing: 0) {
-                ForEach(Array(classifierResults), id: \.name) { result in
+                ForEach(Array(itemSegment.classifierResults!), id: \.name) { result in
                     Button {
-                        self.itemSegment.trainActivityType(to: result.name)
-                        (self.itemSegment.timelineItem as? ArcTimelineItem)?.brexit(self.itemSegment) { newItem in
-                            guard let path = newItem as? ArcPath else { return }
-                            path._manualActivityType = true
-                            path._needsUserCleanup = false
-                            path._uncertainActivityType = false
-                            path._unknownActivityType = false
-                            path.save()
-                            TimelineProcessor.process(from: path)
+                        if splittingSegment {
+                            print("splitActivityType = \(result.name)")
+                            splitActivityType?.wrappedValue = result.name
+                        } else {
+                            print("training the segment")
+                            self.itemSegment.trainActivityType(to: result.name)
+                            (self.itemSegment.timelineItem as? ArcTimelineItem)?.brexit(self.itemSegment) { newItem in
+                                guard let path = newItem as? ArcPath else { return }
+                                path._manualActivityType = true
+                                path._needsUserCleanup = false
+                                path._uncertainActivityType = false
+                                path._unknownActivityType = false
+                                path.save()
+                                TimelineProcessor.process(from: path)
+                            }
                         }
                         self.presentationMode.wrappedValue.dismiss()
                     } label: {
@@ -58,7 +68,7 @@ struct ItemSegmentEditView: View {
                                     .font(.system(size: 17, weight: .regular))
                             }
                             Spacer()
-                            Text(String(format: "%.0f", result.normalisedScore(in: self.classifierResults) * 100))
+                            Text(String(format: "%.0f", result.normalisedScore(in: itemSegment.classifierResults!) * 100))
                                 .font(.system(size: 15, weight: .semibold))
                                 .foregroundColor(Color(UIColor.arcGray1))
                         }
@@ -96,9 +106,7 @@ struct ItemSegmentEditView: View {
 
     var splitButton: some View {
         ZStack(alignment: .leading) {
-            Button {
-                self.tappedSplitButton = true
-            } label: {
+            NavigationLink(destination: ItemSegmentSplitView(itemSegment: itemSegment)) {
                 HStack(alignment: .center) {
                     Image(systemName: "scissors")
                         .font(.system(size: 18, weight: .regular))
@@ -110,9 +118,6 @@ struct ItemSegmentEditView: View {
                 }
             }
             .frame(height: 64)
-            NavigationLink(destination: ItemSegmentSplitView(itemSegment: itemSegment), isActive: $tappedSplitButton) {
-                EmptyView()
-            }.hidden()
         }
     }
     
