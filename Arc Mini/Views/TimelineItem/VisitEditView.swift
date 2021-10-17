@@ -92,9 +92,13 @@ struct VisitEditView: View {
                                 if self.visit.place == result.place {
                                     Text(result.place.name)
                                         .font(.system(size: 17, weight: .semibold))
+                                        .lineLimit(1)
+                                        .foregroundColor(Color("blackWhiteText"))
                                 } else {
                                     Text(result.place.name)
                                         .font(.system(size: 17, weight: .regular))
+                                        .lineLimit(1)
+                                        .foregroundColor(Color("blackWhiteText"))
                                 }
                                 Spacer()
                                 Text(self.rightText(for: result.place))

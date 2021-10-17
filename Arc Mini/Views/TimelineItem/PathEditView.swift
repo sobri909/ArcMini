@@ -29,9 +29,11 @@ struct PathEditView: View {
                             if self.pathTypeMatches(result) {
                                 Text(result.name.displayName.capitalized.localised())
                                     .font(.system(size: 17, weight: .semibold))
+                                    .foregroundColor(Color("blackWhiteText"))
                             } else {
                                 Text(result.name.displayName.capitalized.localised())
                                     .font(.system(size: 17, weight: .regular))
+                                    .foregroundColor(Color("blackWhiteText"))
                             }
                             Spacer()
                             Text(String(format: "%.0f", result.normalisedScore(in: self.classifierResults) * 100))

@@ -59,6 +59,7 @@ struct ItemSegmentsView: View {
                             } else {
                                 Text(segment.activityType?.displayName.capitalized.localised() ?? "Unknown".localised())
                                     .font(.system(size: 17, weight: .regular))
+                                    .foregroundColor(Color("blackWhiteText"))
                             }
                             Spacer()
                             Text(self.rightText(for: segment))
