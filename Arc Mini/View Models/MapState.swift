@@ -13,6 +13,7 @@ class MapState: ObservableObject {
     static let highlander = MapState()
     
     @Published var selectedItems: Set<TimelineItem> = []
+    @Published var selectedSegments: Array<ItemSegment> = []
     @Published var itemSegments: Array<ItemSegment> = []
     @Published var showingFullMap = false
     @Published var tappedSelectedItem = false

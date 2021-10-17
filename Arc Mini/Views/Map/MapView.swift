@@ -98,6 +98,8 @@ final class MapView: UIViewRepresentable {
     func add(_ segment: ItemSegment, to map: MKMapView) -> MKOverlay? {
         if segment.samples.isEmpty { return nil }
 
+        var coords = segment.samples.compactMap { $0.location?.coordinate }
+
         // a stationary segment? add annotation and circle
         if segment.activityType == .stationary, let center = segment.center {
             map.addAnnotation(SegmentAnnotation(coordinate: center.coordinate))
@@ -106,6 +108,12 @@ final class MapView: UIViewRepresentable {
             circle.color = .arcSelected
             map.addOverlay(circle, level: .aboveLabels)
 
+            // is also the selected segment? add its path too
+            if mapState.selectedSegments.contains(segment), !coords.isEmpty {
+                let line = PathPolyline(coordinates: &coords, count: coords.count, color: segment.activityType?.color ?? .black)
+                map.addOverlay(line)
+            }
+            
             return circle
         }
 
@@ -113,8 +121,6 @@ final class MapView: UIViewRepresentable {
         if segment.samples.count == 1, let sample = segment.samples.first {
             return add(sample, to: map)
         }
-        
-        var coords = segment.samples.compactMap { $0.location?.coordinate }
 
         if !coords.isEmpty {
             let line = PathPolyline(coordinates: &coords, count: coords.count, color: segment.activityType?.color ?? .black)

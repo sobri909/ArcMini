@@ -96,6 +96,7 @@ struct ItemSegmentsView: View {
             }
             MapState.highlander.selectedItems = [self.timelineItem]
             MapState.highlander.itemSegments = self.timelineItem.segmentsByActivityType
+            MapState.highlander.selectedSegments = []
             TimelineState.highlander.backButtonHidden = false
             TimelineState.highlander.todayButtonHidden = true
         }

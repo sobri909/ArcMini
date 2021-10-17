@@ -153,6 +153,7 @@ struct ItemSegmentSplitView: View {
             rightSegment.manualActivityType = manualRightActivityType
             movedSlider()
             MapState.highlander.itemSegments = [leftSegment, rightSegment]
+            MapState.highlander.selectedSegments = [leftSegment, rightSegment]
         }
         .onReceive(TimelineState.highlander.$tappedBackButton) { tappedBackButton in
             if tappedBackButton {

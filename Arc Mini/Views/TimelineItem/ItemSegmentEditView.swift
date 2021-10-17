@@ -95,6 +95,7 @@ struct ItemSegmentEditView: View {
                 MapState.highlander.selectedItems = []
             }
             MapState.highlander.itemSegments = [itemSegment]
+            MapState.highlander.selectedSegments = [itemSegment]
             TimelineState.highlander.backButtonHidden = false
             TimelineState.highlander.todayButtonHidden = true
         }
