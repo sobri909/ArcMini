@@ -52,8 +52,12 @@ struct PathEditView: View {
         .edgesIgnoringSafeArea(.all)
         .navigationBarHidden(true)
         .onAppear {
-            if self.path.deleted {
-                self.presentationMode.wrappedValue.dismiss()
+            if path.deleted {
+                presentationMode.wrappedValue.dismiss()
+                return
+            }
+            if TimelineState.highlander.popToDetailsView {
+                presentationMode.wrappedValue.dismiss()
                 return
             }
             MapState.highlander.selectedItems = [self.path]

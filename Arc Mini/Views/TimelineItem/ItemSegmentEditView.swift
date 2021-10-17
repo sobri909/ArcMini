@@ -85,6 +85,10 @@ struct ItemSegmentEditView: View {
         .edgesIgnoringSafeArea(.all)
         .navigationBarHidden(true)
         .onAppear {
+            if TimelineState.highlander.popToDetailsView {
+                presentationMode.wrappedValue.dismiss()
+                return
+            }
             if let timelineItem = itemSegment.timelineItem {
                 MapState.highlander.selectedItems = [timelineItem]
             } else {

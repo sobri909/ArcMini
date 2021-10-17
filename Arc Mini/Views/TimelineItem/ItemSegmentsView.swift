@@ -90,6 +90,10 @@ struct ItemSegmentsView: View {
         .edgesIgnoringSafeArea(.all)
         .navigationBarHidden(true)
         .onAppear {
+            if TimelineState.highlander.popToDetailsView {
+                presentationMode.wrappedValue.dismiss()
+                return
+            }
             MapState.highlander.selectedItems = [self.timelineItem]
             MapState.highlander.itemSegments = self.timelineItem.segmentsByActivityType
             TimelineState.highlander.backButtonHidden = false

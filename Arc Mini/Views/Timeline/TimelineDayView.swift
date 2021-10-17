@@ -156,6 +156,7 @@ struct TimelineDayView: View {
         MapState.highlander.itemSegments.removeAll()
         TimelineState.highlander.visibleItems.removeAll()
         TimelineState.highlander.backButtonHidden = true
+        TimelineState.highlander.popToDetailsView = false
         TimelineState.highlander.updateTodayButton()
         TimelineState.highlander.mapHeightPercent = TimelineState.rootMapHeightPercent
     }

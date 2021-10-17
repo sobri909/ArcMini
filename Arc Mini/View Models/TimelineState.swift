@@ -32,6 +32,7 @@ class TimelineState: ObservableObject {
 
     var visibleItems: Set<TimelineItem> = []
     var timelineScrolledToTop = true
+    var popToDetailsView = false
 
     private var cardIndexObserver: AnyCancellable?
 

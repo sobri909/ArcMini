@@ -285,6 +285,7 @@ struct ItemSegmentSplitView: View {
         if let manualRightActivityType = manualRightActivityType {
             rightSegment.trainActivityType(to: manualRightActivityType)
         }
+        TimelineState.highlander.popToDetailsView = true
         presentationMode.wrappedValue.dismiss()
     }
     

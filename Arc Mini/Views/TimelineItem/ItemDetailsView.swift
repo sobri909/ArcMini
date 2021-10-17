@@ -121,6 +121,9 @@ struct ItemDetailsView: View {
                 presentationMode.wrappedValue.dismiss()
                 return
             }
+            if TimelineState.highlander.popToDetailsView {
+                TimelineState.highlander.popToDetailsView = false
+            }
             MapState.highlander.selectedItems = [timelineItem]
             MapState.highlander.itemSegments = timelineItem.segmentsByActivityType
             TimelineState.highlander.mapHeightPercent = TimelineState.subMapHeightPercent

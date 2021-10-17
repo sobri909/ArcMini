@@ -119,8 +119,12 @@ struct VisitEditView: View {
         .navigationBarHidden(true)
         .resignKeyboardOnDragGesture()
         .onAppear {
-            if self.visit.deleted {
-                self.presentationMode.wrappedValue.dismiss()
+            if visit.deleted {
+                presentationMode.wrappedValue.dismiss()
+                return
+            }
+            if TimelineState.highlander.popToDetailsView {
+                presentationMode.wrappedValue.dismiss()
                 return
             }
             MapState.highlander.selectedItems = [self.visit]
