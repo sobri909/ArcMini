@@ -52,12 +52,12 @@ struct ItemSegmentsView: View {
                         HStack {
                             Circle().fill(Color(segment.activityType?.color ?? UIColor.black)).frame(width: 10, height: 10)
                             if segment.isDataGap {
-                                Text("Data Gap".localised())
+                                Text("Data Gap".localised() + " (\(segment.samples.count))")
                                     .font(.system(size: 17, weight: .regular))
                                     .foregroundColor(.red)
                                 
                             } else {
-                                Text(segment.activityType?.displayName.capitalized.localised() ?? "Unknown".localised())
+                                Text((segment.activityType?.displayName.capitalized.localised() ?? "Unknown".localised()) + " (\(segment.samples.count))")
                                     .font(.system(size: 17, weight: .regular))
                                     .foregroundColor(Color("blackWhiteText"))
                             }
