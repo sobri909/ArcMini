@@ -220,8 +220,6 @@ struct ItemSegmentSplitView: View {
         var leftSamples: [PersistentSample] = []
         var rightSamples: [PersistentSample] = []
         
-        print("value: \(sliderValue)")
-
         for sample in itemSegment.samples {
             if sample.date < boundaryDate {
                 leftSamples.append(sample)
