@@ -20,7 +20,7 @@ struct ItemSegmentEditView: View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading, spacing: 0) {
                 Spacer().frame(height: 24)
-                Text(splittingSegment ? "Edit Segment" : "Activity Type")
+                Text(splittingSegment ? "Activity Type" : "Edit Segment")
                     .font(.system(size: 24, weight: .bold))
                     .frame(height: 30)
                 if splittingSegment {
@@ -42,10 +42,8 @@ struct ItemSegmentEditView: View {
                 ForEach(Array(itemSegment.classifierResults!), id: \.name) { result in
                     Button {
                         if splittingSegment {
-                            print("splitActivityType = \(result.name)")
                             splitActivityType?.wrappedValue = result.name
                         } else {
-                            print("training the segment")
                             self.itemSegment.trainActivityType(to: result.name)
                             (self.itemSegment.timelineItem as? ArcTimelineItem)?.brexit(self.itemSegment) { newItem in
                                 guard let path = newItem as? ArcPath else { return }
@@ -57,7 +55,7 @@ struct ItemSegmentEditView: View {
                                 TimelineProcessor.process(from: path)
                             }
                         }
-                        self.presentationMode.wrappedValue.dismiss()
+                        delay(0.1) { self.presentationMode.wrappedValue.dismiss() }
                     } label: {
                         HStack {
                             if itemSegment.activityType == result.name {
