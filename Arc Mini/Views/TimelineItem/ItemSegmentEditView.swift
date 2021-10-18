@@ -44,16 +44,7 @@ struct ItemSegmentEditView: View {
                         if splittingSegment {
                             splitActivityType?.wrappedValue = result.name
                         } else {
-                            self.itemSegment.trainActivityType(to: result.name)
-                            (self.itemSegment.timelineItem as? ArcTimelineItem)?.brexit(self.itemSegment) { newItem in
-                                guard let path = newItem as? ArcPath else { return }
-                                path._manualActivityType = true
-                                path._needsUserCleanup = false
-                                path._uncertainActivityType = false
-                                path._unknownActivityType = false
-                                path.save()
-                                TimelineProcessor.process(from: path)
-                            }
+                            confirm(activityType: result.name)
                         }
                         delay(0.1) { self.presentationMode.wrappedValue.dismiss() }
                     } label: {
@@ -129,7 +120,10 @@ struct ItemSegmentEditView: View {
     var promoteButton: some View {
         ZStack(alignment: .leading) {
             Button {
-                // TODO
+                if let activityType = itemSegment.activityType {
+                    confirm(activityType: activityType)
+                    delay(0.1) { self.presentationMode.wrappedValue.dismiss() }
+                }
             } label: {
                 HStack(alignment: .center) {
                     Image(systemName: "square.and.arrow.up.on.square")
@@ -143,6 +137,21 @@ struct ItemSegmentEditView: View {
                 }
             }
             .frame(height: 64)
+        }
+    }
+    
+    // MARK: - Actions
+    
+    func confirm(activityType: ActivityTypeName) {
+        self.itemSegment.trainActivityType(to: activityType)
+        (self.itemSegment.timelineItem as? ArcTimelineItem)?.brexit(self.itemSegment) { newItem in
+            guard let path = newItem as? ArcPath else { return }
+            path._manualActivityType = true
+            path._needsUserCleanup = false
+            path._uncertainActivityType = false
+            path._unknownActivityType = false
+            path.save()
+            TimelineProcessor.process(from: path)
         }
     }
     
