@@ -27,9 +27,9 @@ struct ItemSegmentEditView: View {
                     Spacer().frame(height: 16)
                 } else {
                     HStack(spacing: 0) {
-                        splitButton
-                        Spacer()
                         promoteButton
+                        Spacer()
+                        splitButton
                     }
                 }
                 Rectangle().fill(Color("brandSecondary10")).frame(height: 0.5)
@@ -131,7 +131,7 @@ struct ItemSegmentEditView: View {
                         .foregroundColor(Color("brandSecondary80"))
                         .frame(width: 24, height: 24)
                         .offset(x: 0, y: -1.5)
-                    Text("Promote")
+                    Text("Promote to timeline")
                         .font(.system(size: 15, weight: .regular))
                         .foregroundColor(Color("brandSecondaryDark"))
                 }
