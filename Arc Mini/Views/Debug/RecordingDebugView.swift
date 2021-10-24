@@ -12,9 +12,12 @@ import CoreLocation
 
 struct RecordingDebugView: View {
     
-    var sample: LocomotionSample = LocomotionManager.highlander.locomotionSample()
-
+    @ObservedObject var timelineRecorder = RecordingManager.recorder
     var loco: LocomotionManager { return LocomotionManager.highlander }
+    
+    var latestSample: LocomotionSample? {
+        return timelineRecorder.currentItem?.samples.last
+    }
 
     var body: some View {
         NavigationView {
@@ -31,7 +34,7 @@ struct RecordingDebugView: View {
                     }
                 }
 
-                Section(header: Text(loco.recordingState.rawValue.capitalized)) {
+                Section(header: Text(loco.recordingState.rawValue)) {
                     self.row(leftText: "Thermal state", rightText: AppDelegate.thermalState.stringValue)
                     self.row(leftText: "Target samples per minute", rightText: "\(RecordingManager.recorder.samplesPerMinute)")
                     if loco.recordingState == .sleeping {
@@ -49,16 +52,19 @@ struct RecordingDebugView: View {
                 let sample = RecordingManager.highlander.loco.locomotionSample()
 
                 if LocomotionManager.highlander.recordingState == .recording || LocomotionManager.highlander.recordingState == .wakeup {
-                    Section(header: Text(String(format: "Sample Glance (%@)", sample.movingState.rawValue))) {
-                        self.row(leftText: "Present", rightText: String(describing: sample))
+                    Section(header: Text("Latest Sample")) {
+                        self.row(leftText: "Contents", rightText: String(describing: sample))
                         self.row(leftText: "Behind now", rightText: String(duration: sample.date.age))
+                        self.row(leftText: "Moving state", rightText: sample.movingState.rawValue)
+                        if let accuracy = sample.location?.horizontalAccuracy {
+                            self.row(leftText: "Horizontal accuracy", rightText: String(distance: accuracy))
+                        }
                         if let speed = sample.location?.speed, speed >= 0 {
                             self.row(leftText: "Speed", rightText: String(speed: speed))
                         }
                     }
                 }
             }
-            .listStyle(SidebarListStyle())
             .navigationBarTitle("Arc Mini \(Bundle.versionNumber) (\(String(format: "%d", Bundle.buildNumber)))")
             .environment(\.defaultMinListRowHeight, 28)
         }
@@ -79,13 +85,13 @@ struct RecordingDebugView: View {
     }
 
     var trustFactorRow: AnyView {
-        guard let location = sample.location else { return AnyView(SwiftUI.EmptyView()) }
+        guard let location = latestSample?.location else { return AnyView(SwiftUI.EmptyView()) }
         guard let trustFactor = trustFactor(for: location) else { return AnyView(SwiftUI.EmptyView()) }
         return AnyView(row(leftText: "Trust factor", rightText: String(format: "%.1f", trustFactor)))
     }
 
     var horizontalAccuracyRow: AnyView {
-        guard let location = sample.location else { return AnyView(SwiftUI.EmptyView()) }
+        guard let location = latestSample?.location else { return AnyView(SwiftUI.EmptyView()) }
         if let trustFactor = trustFactor(for: location) {
             let fudge = 100.0 * (1.0 - trustFactor)
             return AnyView(row(leftText: "Receiving horizontal accuracy",
@@ -95,7 +101,7 @@ struct RecordingDebugView: View {
     }
 
     var verticalAccuracyRow: AnyView {
-        guard let location = sample.location else { return AnyView(SwiftUI.EmptyView()) }
+        guard let location =  latestSample?.location else { return AnyView(SwiftUI.EmptyView()) }
         return AnyView(row(leftText: "Receiving vertical accuracy", rightText: String(format: "%.0fm", location.verticalAccuracy)))
     }
 
@@ -108,14 +114,12 @@ struct RecordingDebugView: View {
     // MARK: -
 
     func row(leftText: String, rightText: String, highlight: Bool = false, fade: Bool = false) -> some View {
-        let font: Font = highlight ? .system(size: 12, weight: .bold) : .system(size: 12, weight: .regular)
+        let font = highlight ? Font.system(.footnote).bold() : Font.system(.footnote)
         return HStack {
             Text(leftText).font(font).opacity(fade ? 0.6 : 1)
             Spacer()
             Text(rightText).font(font).opacity(0.6).opacity(fade ? 0.6 : 1)
         }
-        .frame(height: 28)
-        .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
     }
 
 }
