@@ -11,18 +11,29 @@ import SwiftUI
 struct NavBar: View {
 
     @EnvironmentObject var timelineState: TimelineState
+    @EnvironmentObject var mapState: MapState
 
+    var backButtonHidden: Bool {
+        if mapState.showingFullMap { return true }
+        return timelineState.backButtonHidden
+    }
+    
+    var todayButtonHidden: Bool {
+        if mapState.showingFullMap { return true }
+        return timelineState.todayButtonHidden
+    }
+    
     var body: some View {
         HStack {
-            self.backButton.opacity(self.timelineState.backButtonHidden ? 0 : 1)
+            backButton.opacity(backButtonHidden ? 0 : 1)
             Spacer()
-            self.todayButton.opacity(self.timelineState.todayButtonHidden ? 0 : 1)
+            todayButton.opacity(todayButtonHidden ? 0 : 1)
         }.padding(.top, 4)
     }
 
     var backButton: some View {
         Button {
-            self.timelineState.tappedBackButton = true
+            timelineState.tappedBackButton = true
         } label: {
             Image(systemName: "chevron.left")
                 .foregroundColor(.white)
@@ -35,7 +46,7 @@ struct NavBar: View {
 
     var todayButton: some View {
         Button {
-            self.timelineState.goto(date: Date())
+            timelineState.goto(date: Date())
         } label: {
             Image(systemName: "chevron.right.2")
                 .foregroundColor(.white)
