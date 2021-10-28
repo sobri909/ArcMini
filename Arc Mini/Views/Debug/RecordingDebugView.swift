@@ -49,9 +49,7 @@ struct RecordingDebugView: View {
                     self.trustFactorRow
                 }
                 
-                let sample = RecordingManager.highlander.loco.locomotionSample()
-
-                if LocomotionManager.highlander.recordingState == .recording || LocomotionManager.highlander.recordingState == .wakeup {
+                if let sample = latestSample {
                     Section(header: Text("Latest Sample")) {
                         self.row(leftText: "Contents", rightText: String(describing: sample))
                         self.row(leftText: "Behind now", rightText: String(duration: sample.date.age))
