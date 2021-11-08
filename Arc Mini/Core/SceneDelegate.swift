@@ -16,6 +16,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     var scene: UIScene?
+    var backgroundingDate: Date?
+    var timeInBackground: TimeInterval { return backgroundingDate?.age ?? 0 }
+
+    let goHeadlessAfterBackgroundTime: TimeInterval = .oneMinute * 8
 
     override init() {
         super.init()
@@ -63,6 +67,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         growAFullHead()
+    }
+    
+    func sceneDidEnterBackground(_ scene: UIScene) {
+        backgroundingDate = Date()
+        
+        // go headless after long enough in background
+        delay(goHeadlessAfterBackgroundTime + 1) {
+            if self.timeInBackground >= self.goHeadlessAfterBackgroundTime {
+                self.goFullyHeadless()
+            }
+        }
     }
 
     // MARK: -
