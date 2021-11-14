@@ -11,21 +11,32 @@ import LocoKit
 
 struct VisitListBox: View {
 
+    @EnvironmentObject var timelineState: TimelineState
     @ObservedObject var visit: ArcVisit
-
     @State var showDeleteAlert = false
 
     var body: some View {
         VStack {
             HStack(alignment: .top, spacing: 0) {
-                VStack(alignment: .leading) {
-                    Text(visit.startTimeString ?? "")
-                        .frame(width: 72, alignment: .leading)
-                        .font(.system(size: 16, weight: .medium))
-                    Text(String(duration: visit.duration, style: .abbreviated))
-                        .frame(width: 72, alignment: .leading)
-                        .font(.system(size: 13, weight: .regular))
-                }
+                Button {
+                    timelineState.showStartEndDates.toggle()
+                } label: {
+                    VStack(alignment: .leading) {
+                        if timelineState.showStartEndDates {
+                            Text(visit.endTimeString ?? "")
+                                .frame(width: 72, alignment: .leading)
+                                .font(.system(size: 16, weight: .medium))
+                                .frame(height: 17)
+                        }
+                        Text(visit.startTimeString ?? "")
+                            .frame(width: 72, alignment: .leading)
+                            .font(.system(size: 16, weight: .medium))
+                            .frame(height: 17)
+                        Text(String(duration: visit.duration, style: .abbreviated))
+                            .frame(width: 72, alignment: .leading)
+                            .font(.system(size: 13, weight: .regular))
+                    }
+                }.buttonStyle(.plain)
                 self.categoryImage.renderingMode(.template).foregroundColor(self.categoryColor)
                 Spacer().frame(width: 24)
                 Text(title).font(.system(size: 16, weight: .semibold))

@@ -29,6 +29,8 @@ class TimelineState: ObservableObject {
 
     @Published var tappedBackButton = false
     @Published var tappedTodayButton = false
+    
+    @Published var showStartEndDates = false
 
     var visibleItems: Set<TimelineItem> = []
     var timelineScrolledToTop = true
