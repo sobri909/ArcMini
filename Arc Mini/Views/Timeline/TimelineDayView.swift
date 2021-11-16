@@ -114,7 +114,6 @@ struct TimelineDayView: View {
         }
         
         let boxStack = ZStack {
-            NavigationLink(destination: ItemDetailsView(timelineItem: item)) {}
             self.timelineItemBox(for: item)
                 .onAppear {
                     if self.timelineSegment == TimelineState.highlander.visibleTimelineSegment {

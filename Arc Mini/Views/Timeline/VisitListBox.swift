@@ -13,12 +13,14 @@ struct VisitListBox: View {
 
     @EnvironmentObject var timelineState: TimelineState
     @ObservedObject var visit: ArcVisit
-    @State var showDeleteAlert = false
+    @State var openDetailsView = false
     @State var openEditView = false
     @State var openSegmentsView = false
+    @State var showDeleteAlert = false
 
     var body: some View {
         ZStack {
+            NavigationLink(destination: ItemDetailsView(timelineItem: visit), isActive: $openDetailsView) {}
             NavigationLink(destination: VisitEditView(visit: visit, placeClassifier: visit.placeClassifier), isActive: $openEditView) {}
             NavigationLink(destination: ItemSegmentsView(timelineItem: visit), isActive: $openSegmentsView) {}
             VStack {
@@ -42,13 +44,22 @@ struct VisitListBox: View {
                                 .font(.system(size: 13, weight: .regular))
                         }
                     }.buttonStyle(.plain)
-                    self.categoryImage.renderingMode(.template).foregroundColor(self.categoryColor)
-                    Spacer().frame(width: 24)
-                    Text(title).font(.system(size: 16, weight: .semibold))
-                    Spacer()
+                    Button {
+                        openDetailsView = true
+                    } label: {
+                        self.categoryImage.renderingMode(.template).foregroundColor(self.categoryColor)
+                        Spacer().frame(width: 24)
+                        Text(title).font(.system(size: 16, weight: .semibold))
+                        Spacer()
+                    }.buttonStyle(.plain)
                 }
                 .padding(EdgeInsets(top: 14, leading: 20, bottom: 14, trailing: 20))
                 .background(Color("background"))
+                .onAppear {
+                    openDetailsView = false
+                    openEditView = false
+                    openSegmentsView = false 
+                }
                 .contextMenu {
                     Button {
                         openEditView = true
