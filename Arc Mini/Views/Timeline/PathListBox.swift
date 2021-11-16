@@ -12,9 +12,13 @@ import LocoKit
 struct PathListBox: View {
 
     @ObservedObject var path: ArcPath
+    @State var openEditView = false
+    @State var openSegmentsView = false
     
     var body: some View {
         ZStack {
+            NavigationLink(destination: PathEditView(path: path), isActive: $openEditView) {}
+            NavigationLink(destination: ItemSegmentsView(timelineItem: path), isActive: $openSegmentsView) {}
             HStack {
                 Rectangle().fill(path.color).frame(width: 3).cornerRadius(1.5)
                 Spacer().frame(width: 34)
@@ -29,11 +33,15 @@ struct PathListBox: View {
             .padding([.trailing], 20)
             .background(Color("background"))
             .contextMenu {
-                NavigationLink(destination: PathEditView(path: path)) {
+                Button {
+                    openEditView = true
+                } label: {
                     Text("Edit trip")
                     Image(systemName: "square.and.pencil")
                 }
-                NavigationLink(destination: ItemSegmentsView(timelineItem: path)) {
+                Button {
+                    openSegmentsView = true
+                } label: {
                     Text("Edit individual segments")
                     Image(systemName: "ellipsis")
                 }

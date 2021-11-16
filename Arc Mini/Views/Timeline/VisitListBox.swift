@@ -14,56 +14,66 @@ struct VisitListBox: View {
     @EnvironmentObject var timelineState: TimelineState
     @ObservedObject var visit: ArcVisit
     @State var showDeleteAlert = false
+    @State var openEditView = false
+    @State var openSegmentsView = false
 
     var body: some View {
-        VStack {
-            HStack(alignment: .top, spacing: 0) {
-                Button {
-                    timelineState.showStartEndDates.toggle()
-                } label: {
-                    VStack(alignment: .leading) {
-                        if timelineState.showStartEndDates {
-                            Text(visit.endTimeString ?? "")
+        ZStack {
+            NavigationLink(destination: VisitEditView(visit: visit, placeClassifier: visit.placeClassifier), isActive: $openEditView) {}
+            NavigationLink(destination: ItemSegmentsView(timelineItem: visit), isActive: $openSegmentsView) {}
+            VStack {
+                HStack(alignment: .top, spacing: 0) {
+                    Button {
+                        timelineState.showStartEndDates.toggle()
+                    } label: {
+                        VStack(alignment: .leading) {
+                            if timelineState.showStartEndDates {
+                                Text(visit.endTimeString ?? "")
+                                    .frame(width: 72, alignment: .leading)
+                                    .font(.system(size: 16, weight: .medium))
+                                    .frame(height: 17)
+                            }
+                            Text(visit.startTimeString ?? "")
                                 .frame(width: 72, alignment: .leading)
                                 .font(.system(size: 16, weight: .medium))
                                 .frame(height: 17)
+                            Text(String(duration: visit.duration, style: .abbreviated))
+                                .frame(width: 72, alignment: .leading)
+                                .font(.system(size: 13, weight: .regular))
                         }
-                        Text(visit.startTimeString ?? "")
-                            .frame(width: 72, alignment: .leading)
-                            .font(.system(size: 16, weight: .medium))
-                            .frame(height: 17)
-                        Text(String(duration: visit.duration, style: .abbreviated))
-                            .frame(width: 72, alignment: .leading)
-                            .font(.system(size: 13, weight: .regular))
-                    }
-                }.buttonStyle(.plain)
-                self.categoryImage.renderingMode(.template).foregroundColor(self.categoryColor)
-                Spacer().frame(width: 24)
-                Text(title).font(.system(size: 16, weight: .semibold))
-                Spacer()
-            }
-            .padding(EdgeInsets(top: 14, leading: 20, bottom: 14, trailing: 20))
-            .background(Color("background"))
-            .contextMenu {
-                NavigationLink(destination: VisitEditView(visit: visit, placeClassifier: visit.placeClassifier)) {
-                    Text("Edit visit")
-                    Image(systemName: "square.and.pencil")
+                    }.buttonStyle(.plain)
+                    self.categoryImage.renderingMode(.template).foregroundColor(self.categoryColor)
+                    Spacer().frame(width: 24)
+                    Text(title).font(.system(size: 16, weight: .semibold))
+                    Spacer()
                 }
-                if !visit.isCurrentItem {
+                .padding(EdgeInsets(top: 14, leading: 20, bottom: 14, trailing: 20))
+                .background(Color("background"))
+                .contextMenu {
                     Button {
-                        self.showDeleteAlert = true
+                        openEditView = true
                     } label: {
-                        Text("Delete visit")
-                        Image(systemName: "trash")
+                        Text("Edit visit")
+                        Image(systemName: "square.and.pencil")
                     }
-                    .foregroundColor(.red)
-                    .alert(isPresented: $showDeleteAlert) {
-                        Alert.delete(visit: self.visit)
+                    if !visit.isCurrentItem {
+                        Button {
+                            self.showDeleteAlert = true
+                        } label: {
+                            Text("Delete visit")
+                            Image(systemName: "trash")
+                        }
+                        .foregroundColor(.red)
+                        .alert(isPresented: $showDeleteAlert) {
+                            Alert.delete(visit: self.visit)
+                        }
                     }
-                }
-                NavigationLink(destination: ItemSegmentsView(timelineItem: visit)) {
-                    Text("Edit individual segments")
-                    Image(systemName: "ellipsis")
+                    Button {
+                        openSegmentsView = true
+                    } label: {
+                        Text("Edit individual segments")
+                        Image(systemName: "ellipsis")
+                    }
                 }
             }
         }
