@@ -6,8 +6,9 @@
 //  Copyright © 2020 Matt Greenfield. All rights reserved.
 //
 
-import LocoKit
+import SwiftUI
 import Combine
+import LocoKit
 
 class TimelineState: ObservableObject {
     

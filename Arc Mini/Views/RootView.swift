@@ -28,6 +28,7 @@ struct RootView: View {
                     }
                     NavigationView {
                         TimelineRootView()
+                            .environmentObject(MapSelection.highlander)
                     }
                     .frame(width: metrics.size.width, height: self.timelineHeight(for: metrics))
                     .offset(x: 0, y: self.mapState.showingFullMap ? self.timelineHeight(for: metrics, includingSafeArea: true) : 0)

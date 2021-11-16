@@ -183,16 +183,16 @@ final class MapView: UIViewRepresentable {
     // MARK: - MKMapViewDelegate
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(self, mapState: mapState)
+        Coordinator(parent: self)
     }
 
     class Coordinator: NSObject, MKMapViewDelegate {
         var parent: MapView
-        var mapState: MapState
+        var mapState = MapState.highlander
+        var mapSelection = MapSelection.highlander
 
-        init(_ parent: MapView, mapState: MapState) {
+        init(parent: MapView) {
             self.parent = parent
-            self.mapState = mapState
         }
 
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -208,14 +208,16 @@ final class MapView: UIViewRepresentable {
         }
 
         func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-            mapState.selectedTimelineItem = (view.annotation as? ArcAnnotation)?.timelineItem
+            mapSelection.selectedTimelineItem = (view.annotation as? ArcAnnotation)?.timelineItem
+            
             guard let callout = view.subviews.first else { return }
             let tapper = UITapGestureRecognizer(target: self, action: #selector(tappedCallout))
             callout.addGestureRecognizer(tapper)
         }
 
         @objc func tappedCallout() {
-            mapState.tappedSelectedItem = true
+            mapSelection.tappedSelectedItem = true
+            mapState.showingFullMap = false
         }
     }
 

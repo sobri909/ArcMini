@@ -7,6 +7,7 @@
 //
 
 import LocoKit
+import SwiftUI
 
 class MapState: ObservableObject {
     
@@ -16,12 +17,9 @@ class MapState: ObservableObject {
     @Published var selectedSegments: Array<ItemSegment> = []
     @Published var itemSegments: Array<ItemSegment> = []
     @Published var showingFullMap = false
-    @Published var tappedSelectedItem = false
-    var selectedTimelineItem: ArcTimelineItem?
 
     func flush() {
         selectedItems = []
         itemSegments = []
-        selectedTimelineItem = nil
     }
 }

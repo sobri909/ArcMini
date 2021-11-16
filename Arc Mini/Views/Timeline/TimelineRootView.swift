@@ -12,22 +12,23 @@ struct TimelineRootView: View {
 
     // TODO: need to get map item tapping to details view back,
     // without triggering view updates that invalidate the nav tree. sigh
+    @EnvironmentObject var mapSelection: MapSelection
     
     var body: some View {
         VStack(spacing: 0) {
             TimelineHeader()
             TimelineScrollView()
-//            NavigationLink(destination: self.selectedItemDetailsView, isActive: self.$mapState.tappedSelectedItem) {
-//                EmptyView()
-//            }
+            NavigationLink(destination: selectedItemDetailsView, isActive: $mapSelection.tappedSelectedItem) {
+                EmptyView()
+            }
         }
     }
 
-//    var selectedItemDetailsView: some View {
-//        if let selectedItem = mapState.selectedTimelineItem {
-//            return AnyView(ItemDetailsView(timelineItem: selectedItem))
-//        }
-//        return AnyView(EmptyView())
-//    }
+    var selectedItemDetailsView: some View {
+        if let selectedItem = mapSelection.selectedTimelineItem {
+            return AnyView(ItemDetailsView(timelineItem: selectedItem))
+        }
+        return AnyView(EmptyView())
+    }
 
 }
