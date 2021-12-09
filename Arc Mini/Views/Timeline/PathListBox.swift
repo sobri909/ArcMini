@@ -19,8 +19,8 @@ struct PathListBox: View {
     var body: some View {
         ZStack {
             NavigationLink(destination: ItemDetailsView(timelineItem: path), isActive: $openDetailsView) {}
-            NavigationLink(destination: PathEditView(path: path), isActive: $openEditView) {}
-            NavigationLink(destination: ItemSegmentsView(timelineItem: path), isActive: $openSegmentsView) {}
+//            NavigationLink(destination: PathEditView(path: path), isActive: $openEditView) {}
+//            NavigationLink(destination: ItemSegmentsView(timelineItem: path), isActive: $openSegmentsView) {}
             Button {
                 openDetailsView = true
             } label: {
@@ -43,20 +43,20 @@ struct PathListBox: View {
                 openEditView = false
                 openSegmentsView = false
             }
-            .contextMenu {
-                Button {
-                    openEditView = true
-                } label: {
-                    Text("Edit trip")
-                    Image(systemName: "square.and.pencil")
-                }
-                Button {
-                    openSegmentsView = true
-                } label: {
-                    Text("Edit individual segments")
-                    Image(systemName: "ellipsis")
-                }
-            }
+//            .contextMenu {
+//                Button {
+//                    openEditView = true
+//                } label: {
+//                    Text("Edit trip")
+//                    Image(systemName: "square.and.pencil")
+//                }
+//                Button {
+//                    openSegmentsView = true
+//                } label: {
+//                    Text("Edit individual segments")
+//                    Image(systemName: "ellipsis")
+//                }
+//            }
         }
     }
 

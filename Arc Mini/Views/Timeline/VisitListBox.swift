@@ -21,8 +21,8 @@ struct VisitListBox: View {
     var body: some View {
         ZStack {
             NavigationLink(destination: ItemDetailsView(timelineItem: visit), isActive: $openDetailsView) {}
-            NavigationLink(destination: VisitEditView(visit: visit, placeClassifier: visit.placeClassifier), isActive: $openEditView) {}
-            NavigationLink(destination: ItemSegmentsView(timelineItem: visit), isActive: $openSegmentsView) {}
+//            NavigationLink(destination: VisitEditView(visit: visit, placeClassifier: visit.placeClassifier), isActive: $openEditView) {}
+//            NavigationLink(destination: ItemSegmentsView(timelineItem: visit), isActive: $openSegmentsView) {}
             VStack {
                 HStack(alignment: .top, spacing: 0) {
                     Button {
@@ -60,32 +60,32 @@ struct VisitListBox: View {
                     openEditView = false
                     openSegmentsView = false 
                 }
-                .contextMenu {
-                    Button {
-                        openEditView = true
-                    } label: {
-                        Text("Edit visit")
-                        Image(systemName: "square.and.pencil")
-                    }
-                    if !visit.isCurrentItem {
-                        Button {
-                            self.showDeleteAlert = true
-                        } label: {
-                            Text("Delete visit")
-                            Image(systemName: "trash")
-                        }
-                        .foregroundColor(.red)
-                        .alert(isPresented: $showDeleteAlert) {
-                            Alert.delete(visit: self.visit)
-                        }
-                    }
-                    Button {
-                        openSegmentsView = true
-                    } label: {
-                        Text("Edit individual segments")
-                        Image(systemName: "ellipsis")
-                    }
-                }
+//                .contextMenu {
+//                    Button {
+//                        openEditView = true
+//                    } label: {
+//                        Text("Edit visit")
+//                        Image(systemName: "square.and.pencil")
+//                    }
+//                    if !visit.isCurrentItem {
+//                        Button {
+//                            self.showDeleteAlert = true
+//                        } label: {
+//                            Text("Delete visit")
+//                            Image(systemName: "trash")
+//                        }
+//                        .foregroundColor(.red)
+//                        .alert(isPresented: $showDeleteAlert) {
+//                            Alert.delete(visit: self.visit)
+//                        }
+//                    }
+//                    Button {
+//                        openSegmentsView = true
+//                    } label: {
+//                        Text("Edit individual segments")
+//                        Image(systemName: "ellipsis")
+//                    }
+//                }
             }
         }
     }
