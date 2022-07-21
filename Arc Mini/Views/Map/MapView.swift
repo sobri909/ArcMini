@@ -10,7 +10,7 @@ import SwiftUI
 import LocoKit
 import MapKit
 
-final class MapView: UIViewRepresentable {
+struct MapView: UIViewRepresentable {
 
     @ObservedObject var mapState: MapState
     @ObservedObject var timelineState: TimelineState
