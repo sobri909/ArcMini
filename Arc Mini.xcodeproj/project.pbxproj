@@ -40,10 +40,6 @@
 		C93062B1243F1B0D00DE47CC /* DebugLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93062B0243F1B0D00DE47CC /* DebugLogsView.swift */; };
 		C93062B3243F209F00DE47CC /* DebugLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93062B2243F209F00DE47CC /* DebugLogView.swift */; };
 		C937EE2F24546A2A009D1593 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C937EE2E24546A2A009D1593 /* ShareSheet.swift */; };
-		C94808102441BE6100091943 /* UserActivityTypesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948080C2441BE6100091943 /* UserActivityTypesCache.swift */; };
-		C94808112441BE6100091943 /* UserActivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948080D2441BE6100091943 /* UserActivityType.swift */; };
-		C94808122441BE6100091943 /* UserActivityTypeClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948080E2441BE6100091943 /* UserActivityTypeClassifier.swift */; };
-		C94808132441BE6100091943 /* UserTimelineClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C948080F2441BE6100091943 /* UserTimelineClassifier.swift */; };
 		C9524005242F3DE000F4522D /* SwiftNotes in Frameworks */ = {isa = PBXBuildFile; productRef = C9524004242F3DE000F4522D /* SwiftNotes */; };
 		C9524007242F502700F4522D /* RecordingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9524006242F502700F4522D /* RecordingManager.swift */; };
 		C952400B242F51D200F4522D /* ArcHistogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9524009242F51D200F4522D /* ArcHistogram.swift */; };
@@ -116,6 +112,10 @@
 		C9DBE429243746FF00FCB8E5 /* TimelineScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DBE428243746FF00FCB8E5 /* TimelineScrollView.swift */; };
 		C9E072E72510F181006C6BFC /* MiniStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E072E62510F181006C6BFC /* MiniStore.swift */; };
 		C9EB6644241A60FA00F545AF /* ArcStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB6643241A60FA00F545AF /* ArcStore.swift */; };
+		C9F1EB13288957CB00D9324C /* UserActivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F1EB0F288957CB00D9324C /* UserActivityType.swift */; };
+		C9F1EB14288957CB00D9324C /* UserActivityTypesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F1EB10288957CB00D9324C /* UserActivityTypesCache.swift */; };
+		C9F1EB15288957CB00D9324C /* UserActivityTypeClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F1EB11288957CB00D9324C /* UserActivityTypeClassifier.swift */; };
+		C9F1EB16288957CB00D9324C /* UserTimelineClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F1EB12288957CB00D9324C /* UserTimelineClassifier.swift */; };
 		C9F32F47242A5BBE00184862 /* Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F32F46242A5BBE00184862 /* Health.swift */; };
 		C9F32F4A242A60A100184862 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F32F49242A60A100184862 /* HealthKit.framework */; };
 		C9F98B77242FAB38003D2A23 /* ItemSegmentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F98B76242FAB38003D2A23 /* ItemSegmentsView.swift */; };
@@ -187,10 +187,6 @@
 		C93062B2243F209F00DE47CC /* DebugLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogView.swift; sourceTree = "<group>"; };
 		C937EE2E24546A2A009D1593 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		C941494824704B3900C89424 /* Arc Mini.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Arc Mini.entitlements"; sourceTree = "<group>"; };
-		C948080C2441BE6100091943 /* UserActivityTypesCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityTypesCache.swift; sourceTree = "<group>"; };
-		C948080D2441BE6100091943 /* UserActivityType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityType.swift; sourceTree = "<group>"; };
-		C948080E2441BE6100091943 /* UserActivityTypeClassifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityTypeClassifier.swift; sourceTree = "<group>"; };
-		C948080F2441BE6100091943 /* UserTimelineClassifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTimelineClassifier.swift; sourceTree = "<group>"; };
 		C9524006242F502700F4522D /* RecordingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingManager.swift; sourceTree = "<group>"; };
 		C9524009242F51D200F4522D /* ArcHistogram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcHistogram.swift; sourceTree = "<group>"; };
 		C952400A242F51D200F4522D /* ArcCoordinatesMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcCoordinatesMatrix.swift; sourceTree = "<group>"; };
@@ -237,8 +233,15 @@
 		C99F5EC8242A4EFA00E172AE /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		C9A239332580CC2E00E3E517 /* LineChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChart.swift; sourceTree = "<group>"; };
 		C9B1A6CE254D7E6900F4EE2F /* Array+ArcSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+ArcSample.swift"; sourceTree = "<group>"; };
+		C9B81E24270C1A94003D7D3C /* LocoKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = LocoKit; path = ../LocoKit; sourceTree = "<group>"; };
 		C9B81E25270ED993003D7D3C /* ItemSegmentSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSegmentSplitView.swift; sourceTree = "<group>"; };
 		C9B86B87242CAD8900D52C0D /* ArcError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcError.swift; sourceTree = "<group>"; };
+		C9B98F18279524A9005E1203 /* ImportTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportTask.swift; sourceTree = "<group>"; };
+		C9B98F19279524A9005E1203 /* ArcImporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcImporter.swift; sourceTree = "<group>"; };
+		C9B98F1D2795251A005E1203 /* ImportTaskDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportTaskDetails.swift; sourceTree = "<group>"; };
+		C9B98F1E2795251A005E1203 /* RestoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestoreView.swift; sourceTree = "<group>"; };
+		C9B98F1F2795251A005E1203 /* ErrorLogView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorLogView.swift; sourceTree = "<group>"; };
+		C9B98F202795251A005E1203 /* ImportList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportList.swift; sourceTree = "<group>"; };
 		C9BF95362446F959000F3299 /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		C9BF9538244744CC000F3299 /* DeleteVisitAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteVisitAlert.swift; sourceTree = "<group>"; };
 		C9C045C624A891B300C1A99C /* RecordersWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RecordersWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -261,6 +264,10 @@
 		C9E072E62510F181006C6BFC /* MiniStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniStore.swift; sourceTree = "<group>"; };
 		C9E072E8251115B2006C6BFC /* CurrentItemWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CurrentItemWidgetExtension.entitlements; sourceTree = "<group>"; };
 		C9EB6643241A60FA00F545AF /* ArcStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcStore.swift; sourceTree = "<group>"; };
+		C9F1EB0F288957CB00D9324C /* UserActivityType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityType.swift; sourceTree = "<group>"; };
+		C9F1EB10288957CB00D9324C /* UserActivityTypesCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityTypesCache.swift; sourceTree = "<group>"; };
+		C9F1EB11288957CB00D9324C /* UserActivityTypeClassifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityTypeClassifier.swift; sourceTree = "<group>"; };
+		C9F1EB12288957CB00D9324C /* UserTimelineClassifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTimelineClassifier.swift; sourceTree = "<group>"; };
 		C9F32F46242A5BBE00184862 /* Health.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Health.swift; sourceTree = "<group>"; };
 		C9F32F49242A60A100184862 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		C9F98B76242FAB38003D2A23 /* ItemSegmentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSegmentsView.swift; sourceTree = "<group>"; };
@@ -417,10 +424,10 @@
 		C94808142441BE6D00091943 /* ActivityType */ = {
 			isa = PBXGroup;
 			children = (
-				C948080D2441BE6100091943 /* UserActivityType.swift */,
-				C948080E2441BE6100091943 /* UserActivityTypeClassifier.swift */,
-				C948080C2441BE6100091943 /* UserActivityTypesCache.swift */,
-				C948080F2441BE6100091943 /* UserTimelineClassifier.swift */,
+				C9F1EB0F288957CB00D9324C /* UserActivityType.swift */,
+				C9F1EB11288957CB00D9324C /* UserActivityTypeClassifier.swift */,
+				C9F1EB10288957CB00D9324C /* UserActivityTypesCache.swift */,
+				C9F1EB12288957CB00D9324C /* UserTimelineClassifier.swift */,
 			);
 			path = ActivityType;
 			sourceTree = "<group>";
@@ -488,6 +495,7 @@
 		C9822A76240CF8D5006B70F4 = {
 			isa = PBXGroup;
 			children = (
+				C9B81E24270C1A94003D7D3C /* LocoKit */,
 				C9822A81240CF8D5006B70F4 /* Arc Mini */,
 				C9C045CB24A891B300C1A99C /* RecordersWidget */,
 				C9120BD4250BBDD80063A2B7 /* CurrentItemWidget */,
@@ -517,6 +525,7 @@
 				C9C6FBF3243333D9004F868C /* View Models */,
 				C91F7ACC241645A90013A5D5 /* Views */,
 				C91F10F825307DB600D3BD99 /* Backups */,
+				C9B98F1C279524B0005E1203 /* Import */,
 			);
 			path = "Arc Mini";
 			sourceTree = "<group>";
@@ -563,6 +572,19 @@
 				C9C045CE24A891B500C1A99C /* Assets.xcassets */,
 			);
 			path = Bits;
+			sourceTree = "<group>";
+		};
+		C9B98F1C279524B0005E1203 /* Import */ = {
+			isa = PBXGroup;
+			children = (
+				C9B98F1F2795251A005E1203 /* ErrorLogView.swift */,
+				C9B98F202795251A005E1203 /* ImportList.swift */,
+				C9B98F1D2795251A005E1203 /* ImportTaskDetails.swift */,
+				C9B98F1E2795251A005E1203 /* RestoreView.swift */,
+				C9B98F19279524A9005E1203 /* ArcImporter.swift */,
+				C9B98F18279524A9005E1203 /* ImportTask.swift */,
+			);
+			path = Import;
 			sourceTree = "<group>";
 		};
 		C9C045CB24A891B300C1A99C /* RecordersWidget */ = {
@@ -821,10 +843,12 @@
 				C9F32F47242A5BBE00184862 /* Health.swift in Sources */,
 				C969D1DE245199B600874305 /* ArcAnnotation.swift in Sources */,
 				C9BF9539244744CC000F3299 /* DeleteVisitAlert.swift in Sources */,
+				C9F1EB14288957CB00D9324C /* UserActivityTypesCache.swift in Sources */,
 				C98783042435F1EB001B4E7D /* SegmentAnnotationView.swift in Sources */,
-				C94808112441BE6100091943 /* UserActivityType.swift in Sources */,
 				C994D5F02455967F003B3152 /* GPX.swift in Sources */,
+				C9F1EB13288957CB00D9324C /* UserActivityType.swift in Sources */,
 				C99F5EB7242A2C5000E172AE /* Note.swift in Sources */,
+				C9F1EB15288957CB00D9324C /* UserActivityTypeClassifier.swift in Sources */,
 				C99F5EB6242A2C5000E172AE /* TrackPlay.swift in Sources */,
 				C9C827AD243C7B1E00F3199B /* Calendar+extensions.swift in Sources */,
 				C9822A85240CF8D5006B70F4 /* SceneDelegate.swift in Sources */,
@@ -846,7 +870,6 @@
 				C953392B24127CF30005E98F /* TimelineDayView.swift in Sources */,
 				C99F5EBF242A371C00E172AE /* Scraps.swift in Sources */,
 				C9C827AF243C830500F3199B /* DispatchQueue.swift in Sources */,
-				C94808132441BE6100091943 /* UserTimelineClassifier.swift in Sources */,
 				C99F5EC9242A4EFA00E172AE /* Settings.swift in Sources */,
 				C92EE1662445A73D005DDDCB /* SystemDebugView.swift in Sources */,
 				C929C8882535CFA5001BF9C3 /* TimelineSegment+internal.swift in Sources */,
@@ -857,6 +880,7 @@
 				C95705092589D6A300A7E691 /* TextRow.swift in Sources */,
 				C9F98B77242FAB38003D2A23 /* ItemSegmentsView.swift in Sources */,
 				C95E0E252417AEB8008418A1 /* VisitListBox.swift in Sources */,
+				C9F1EB16288957CB00D9324C /* UserTimelineClassifier.swift in Sources */,
 				C9C874F32458484000BAB9A3 /* ItemDetailsHeader.swift in Sources */,
 				C9CA45F525D7F84A00154592 /* PlaceRTree.swift in Sources */,
 				C93062B1243F1B0D00DE47CC /* DebugLogsView.swift in Sources */,
@@ -868,7 +892,6 @@
 				C9C827B7243DEB7F00F3199B /* DebugLogger.swift in Sources */,
 				C90D78692428FFCE004ABFD0 /* PlaceClassifier.swift in Sources */,
 				C90D786A2428FFCE004ABFD0 /* Place.swift in Sources */,
-				C94808122441BE6100091943 /* UserActivityTypeClassifier.swift in Sources */,
 				C92BF628241D06AD0089E4AD /* VisitAnnotation.swift in Sources */,
 				C929C8802535CE61001BF9C3 /* ArcSample.swift in Sources */,
 				C99F5EC6242A3F8600E172AE /* Foursquare.swift in Sources */,
@@ -881,7 +904,6 @@
 				C98967EC2435F27200D55AFE /* SegmentAnnotation.swift in Sources */,
 				C9DBE429243746FF00FCB8E5 /* TimelineScrollView.swift in Sources */,
 				C952400B242F51D200F4522D /* ArcHistogram.swift in Sources */,
-				C94808102441BE6100091943 /* UserActivityTypesCache.swift in Sources */,
 				C91F11082530848100D3BD99 /* TimelineRangeSummary.swift in Sources */,
 				C92BF629241D06AD0089E4AD /* VisitAnnotationView.swift in Sources */,
 				C97DCDEB242395C3006437B7 /* ItemDetailsView.swift in Sources */,

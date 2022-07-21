@@ -8,6 +8,8 @@
 
 import LocoKit
 import SwiftNotes
+import Foundation
+import UIKit
 
 class RecordingManager {
 
@@ -17,17 +19,19 @@ class RecordingManager {
 
     // MARK: -
 
+    // singletons
     static let highlander = RecordingManager()
-
     static let store = ArcStore()
-    static var recorder: TimelineRecorder { return highlander.recorder }
+    static let recorder = TimelineRecorder(store: store, classifier: UserTimelineClassifier.highlander)
 
-    // MARK: -
+    static var recordingState: RecordingState { return LocomotionManager.highlander.recordingState }
 
-    private(set) var recorder = TimelineRecorder(store: store, classifier: UserTimelineClassifier.highlander)
+    var recorder: TimelineRecorder { return RecordingManager.recorder }
     var loco: LocomotionManager { return LocomotionManager.highlander }
     var currentVisit: ArcVisit? { return recorder.currentVisit as? ArcVisit }
-    static var recordingState: RecordingState { return LocomotionManager.highlander.recordingState }
+
+    // states
+    var recordingState: RecordingState { return loco.recordingState }
 
     var sleepStart: Date?
     var sleepTime: TimeInterval = 0
