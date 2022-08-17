@@ -221,6 +221,12 @@ class ArcVisit: LocoKit.Visit, ArcTimelineItem {
 
     // MARK: - TimelineItem
 
+    override var isMergeLocked: Bool {
+        if super.isMergeLocked { return true }
+        if source == "HealthKit" { return true }
+        return false
+    }
+
     // MARK: - Validness / Keepness
 
     override var isValid: Bool {

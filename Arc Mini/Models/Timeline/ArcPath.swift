@@ -273,6 +273,12 @@ class ArcPath: Path, ArcTimelineItem {
 
     // MARK: - TimelineItem
 
+    override var isMergeLocked: Bool {
+        if super.isMergeLocked { return true }
+        if source == "HealthKit" { return true }
+        return false
+    }
+
     override func sampleTypesChanged() {
         super.sampleTypesChanged()
         _manualActivityType = nil
