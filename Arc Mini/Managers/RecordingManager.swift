@@ -88,7 +88,7 @@ class RecordingManager {
         var desiredFrequency: Double
 
         if ActivityTypeName.canSaveToWorkouts.contains(currentActivityType) { // fast for workouts
-            desiredFrequency = 25
+            desiredFrequency = 30
 
         } else if currentActivityType == .airplane { // slow for planes
             desiredFrequency = 4
@@ -116,7 +116,7 @@ class RecordingManager {
         @unknown default: break
         }
 
-        recorder.samplesPerMinute = desiredFrequency.clamped(min: 4, max: 25)
+        recorder.samplesPerMinute = desiredFrequency.clamped(min: 4, max: 30)
     }
 
     // MARK: - Recording state changes
