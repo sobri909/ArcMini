@@ -952,7 +952,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = CurrentItemWidget/Bits/CurrentItemWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 29;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_TEAM = U5N7VG8DUG;
 				INFOPLIST_FILE = CurrentItemWidget/Bits/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
@@ -977,7 +977,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = CurrentItemWidget/Bits/CurrentItemWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 29;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_TEAM = U5N7VG8DUG;
 				INFOPLIST_FILE = CurrentItemWidget/Bits/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
@@ -1176,7 +1176,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = RecordersWidget/Bits/RecordersWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 29;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_TEAM = U5N7VG8DUG;
 				INFOPLIST_FILE = RecordersWidget/Bits/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1200,7 +1200,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = RecordersWidget/Bits/RecordersWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 29;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_TEAM = U5N7VG8DUG;
 				INFOPLIST_FILE = RecordersWidget/Bits/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
