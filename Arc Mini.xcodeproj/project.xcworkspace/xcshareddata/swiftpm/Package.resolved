@@ -1,115 +1,113 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "AEXML",
-        "repositoryURL": "https://github.com/tadija/AEXML",
-        "state": {
-          "branch": null,
-          "revision": "38f7d00b23ecd891e1ee656fa6aeebd6ba04ecc3",
-          "version": "4.6.1"
-        }
-      },
-      {
-        "package": "FlatBuffers",
-        "repositoryURL": "https://github.com/mustiikhalil/flatbuffers",
-        "state": {
-          "branch": null,
-          "revision": "d1bad799d82545f3ab70e6baa86e714927eb4a84",
-          "version": "0.8.1"
-        }
-      },
-      {
-        "package": "GRDB",
-        "repositoryURL": "https://github.com/groue/GRDB.swift.git",
-        "state": {
-          "branch": null,
-          "revision": "23f4254ae36fa19aecd73047c0577a9f49850d1c",
-          "version": "5.26.0"
-        }
-      },
-      {
-        "package": "Gzip",
-        "repositoryURL": "https://github.com/1024jp/GzipSwift",
-        "state": {
-          "branch": null,
-          "revision": "ba0b6cb51cc6202f896e469b87d2889a46b10d1b",
-          "version": "5.1.1"
-        }
-      },
-      {
-        "package": "LocoKit",
-        "repositoryURL": "https://github.com/sobri909/LocoKit.git",
-        "state": {
-          "branch": "develop",
-          "revision": "ceae2aaea7c9f697a0afa94cdcd6b33f8f2d0434",
-          "version": null
-        }
-      },
-      {
-        "package": "PromiseKit",
-        "repositoryURL": "https://github.com/mxcl/PromiseKit",
-        "state": {
-          "branch": null,
-          "revision": "d2f7ba14bcdc45e18f4f60ad9df883fb9055f081",
-          "version": "6.15.3"
-        }
-      },
-      {
-        "package": "Sentry",
-        "repositoryURL": "https://github.com/getsentry/sentry-cocoa.git",
-        "state": {
-          "branch": null,
-          "revision": "4abaa663a7916902ae9196a8bf3c4c047caacc17",
-          "version": "7.3.0"
-        }
-      },
-      {
-        "package": "swift-log",
-        "repositoryURL": "https://github.com/apple/swift-log",
-        "state": {
-          "branch": null,
-          "revision": "5d66f7ba25daf4f94100e7022febf3c75e37a6c7",
-          "version": "1.4.2"
-        }
-      },
-      {
-        "package": "swift-log-format-and-pipe",
-        "repositoryURL": "https://github.com/Adorkable/swift-log-format-and-pipe",
-        "state": {
-          "branch": null,
-          "revision": "bd29badb9e6b18122ec10b84eed534db83cad279",
-          "version": "0.1.1"
-        }
-      },
-      {
-        "package": "SwiftNotes",
-        "repositoryURL": "https://github.com/sobri909/SwiftNotes",
-        "state": {
-          "branch": "master",
-          "revision": "1240d0b252551d78f2eb37a0bd468b9fa0a398e3",
-          "version": null
-        }
-      },
-      {
-        "package": "Introspect",
-        "repositoryURL": "https://github.com/timbersoftware/SwiftUI-Introspect.git",
-        "state": {
-          "branch": "master",
-          "revision": "72a509c93166540c0adf8323fd2652daade7f9f6",
-          "version": null
-        }
-      },
-      {
-        "package": "Upsurge",
-        "repositoryURL": "https://github.com/alejandro-isaza/Upsurge.git",
-        "state": {
-          "branch": null,
-          "revision": "66c66253ab0d1a0988a6efb68f49629cf3e06a84",
-          "version": "0.11.0"
-        }
+  "pins" : [
+    {
+      "identity" : "aexml",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tadija/AEXML",
+      "state" : {
+        "revision" : "38f7d00b23ecd891e1ee656fa6aeebd6ba04ecc3",
+        "version" : "4.6.1"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "flatbuffers",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mustiikhalil/flatbuffers",
+      "state" : {
+        "revision" : "d1bad799d82545f3ab70e6baa86e714927eb4a84",
+        "version" : "0.8.1"
+      }
+    },
+    {
+      "identity" : "grdb.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/groue/GRDB.swift.git",
+      "state" : {
+        "revision" : "23f4254ae36fa19aecd73047c0577a9f49850d1c",
+        "version" : "5.26.0"
+      }
+    },
+    {
+      "identity" : "gzipswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/1024jp/GzipSwift",
+      "state" : {
+        "revision" : "7a7f17761c76a932662ab77028a4329f67d645a4",
+        "version" : "5.2.0"
+      }
+    },
+    {
+      "identity" : "locokit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sobri909/LocoKit.git",
+      "state" : {
+        "branch" : "workout-routes",
+        "revision" : "9cb6154a395bde6830713aa0f9a1fcd6ee739e6f"
+      }
+    },
+    {
+      "identity" : "promisekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mxcl/PromiseKit",
+      "state" : {
+        "revision" : "ed3192004c0b00b4b3d7baa9578ee655c66faae3",
+        "version" : "6.18.0"
+      }
+    },
+    {
+      "identity" : "sentry-cocoa",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/getsentry/sentry-cocoa.git",
+      "state" : {
+        "revision" : "5bc31fd9bb476539387de7c6ff32acfaf2407157",
+        "version" : "7.23.0"
+      }
+    },
+    {
+      "identity" : "swift-log",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-log",
+      "state" : {
+        "revision" : "6fe203dc33195667ce1759bf0182975e4653ba1c",
+        "version" : "1.4.4"
+      }
+    },
+    {
+      "identity" : "swift-log-format-and-pipe",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Adorkable/swift-log-format-and-pipe",
+      "state" : {
+        "revision" : "bd29badb9e6b18122ec10b84eed534db83cad279",
+        "version" : "0.1.1"
+      }
+    },
+    {
+      "identity" : "swiftnotes",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sobri909/SwiftNotes",
+      "state" : {
+        "branch" : "master",
+        "revision" : "1240d0b252551d78f2eb37a0bd468b9fa0a398e3"
+      }
+    },
+    {
+      "identity" : "swiftui-introspect",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/timbersoftware/SwiftUI-Introspect.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "7ef0df639079491ee1aaf6b83b6fd4d08df80393"
+      }
+    },
+    {
+      "identity" : "upsurge",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/alejandro-isaza/Upsurge.git",
+      "state" : {
+        "revision" : "66c66253ab0d1a0988a6efb68f49629cf3e06a84",
+        "version" : "0.11.0"
+      }
+    }
+  ],
+  "version" : 2
 }

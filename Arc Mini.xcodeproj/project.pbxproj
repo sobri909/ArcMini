@@ -233,7 +233,6 @@
 		C99F5EC8242A4EFA00E172AE /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		C9A239332580CC2E00E3E517 /* LineChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChart.swift; sourceTree = "<group>"; };
 		C9B1A6CE254D7E6900F4EE2F /* Array+ArcSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+ArcSample.swift"; sourceTree = "<group>"; };
-		C9B81E24270C1A94003D7D3C /* LocoKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = LocoKit; path = ../LocoKit; sourceTree = "<group>"; };
 		C9B81E25270ED993003D7D3C /* ItemSegmentSplitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSegmentSplitView.swift; sourceTree = "<group>"; };
 		C9B86B87242CAD8900D52C0D /* ArcError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArcError.swift; sourceTree = "<group>"; };
 		C9B98F18279524A9005E1203 /* ImportTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportTask.swift; sourceTree = "<group>"; };
@@ -495,7 +494,6 @@
 		C9822A76240CF8D5006B70F4 = {
 			isa = PBXGroup;
 			children = (
-				C9B81E24270C1A94003D7D3C /* LocoKit */,
 				C9822A81240CF8D5006B70F4 /* Arc Mini */,
 				C9C045CB24A891B300C1A99C /* RecordersWidget */,
 				C9120BD4250BBDD80063A2B7 /* CurrentItemWidget */,
@@ -1297,7 +1295,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sobri909/LocoKit.git";
 			requirement = {
-				branch = develop;
+				branch = "workout-routes";
 				kind = branch;
 			};
 		};
