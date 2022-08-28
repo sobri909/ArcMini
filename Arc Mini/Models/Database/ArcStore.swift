@@ -6,7 +6,6 @@
 //  Copyright © 2020 Matt Greenfield. All rights reserved.
 //
 
-import os.log
 import GRDB
 import LocoKit
 
@@ -330,7 +329,7 @@ final class ArcStore: TimelineStore {
                                 item.lastSaved = Date()
                             }
                         }
-                        catch PersistenceError.recordNotFound { os_log("PersistenceError.recordNotFound", type: .error) }
+                        catch PersistenceError.recordNotFound { logger.error("PersistenceError.recordNotFound") }
                         catch let error as DatabaseError where error.resultCode == .SQLITE_CONSTRAINT {
                             logger.error("\(error)")
 
