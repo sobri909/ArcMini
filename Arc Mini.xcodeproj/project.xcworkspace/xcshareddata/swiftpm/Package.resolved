@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sobri909/LocoKit.git",
       "state" : {
-        "branch" : "workout-routes",
-        "revision" : "9cb6154a395bde6830713aa0f9a1fcd6ee739e6f"
+        "branch" : "core-ml",
+        "revision" : "22b5d7ef359c3ba5ca5ccffbd5c929d45e045c09"
       }
     },
     {
@@ -50,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mxcl/PromiseKit",
       "state" : {
-        "revision" : "ed3192004c0b00b4b3d7baa9578ee655c66faae3",
-        "version" : "6.18.0"
+        "revision" : "43772616c46a44a9977e41924ae01d0e55f2f9ca",
+        "version" : "6.18.1"
       }
     },
     {
@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/getsentry/sentry-cocoa.git",
       "state" : {
-        "revision" : "5bc31fd9bb476539387de7c6ff32acfaf2407157",
-        "version" : "7.23.0"
+        "revision" : "4a60ff4287d4c6ac64085ad48606ef5ecaec9817",
+        "version" : "7.24.1"
       }
     },
     {
@@ -96,7 +96,7 @@
       "location" : "https://github.com/timbersoftware/SwiftUI-Introspect.git",
       "state" : {
         "branch" : "master",
-        "revision" : "7ef0df639079491ee1aaf6b83b6fd4d08df80393"
+        "revision" : "d3cbf32788250741d397cfb5bcd532c37aa1096d"
       }
     },
     {

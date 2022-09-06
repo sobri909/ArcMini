@@ -1295,7 +1295,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sobri909/LocoKit.git";
 			requirement = {
-				branch = "workout-routes";
+				branch = "core-ml";
 				kind = branch;
 			};
 		};
