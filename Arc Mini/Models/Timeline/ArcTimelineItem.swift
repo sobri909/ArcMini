@@ -133,8 +133,7 @@ extension ArcTimelineItem {
         guard let store = store as? ArcStore else { return }
 
         store.process {
-            if self.deleted || self.nextItem?.deleted == true || self.previousItem?.deleted == true { return }
-            if self.isMergeLocked || self.nextItem?.isMergeLocked == true || self.previousItem?.isMergeLocked == true { return }
+            if self.isMergeLocked || self.deleted { return }
 
             // brexiting a visit from a visit with the same place? that's a waste of time
             if let visit = self as? ArcVisit, place != nil, place?.placeId == visit.placeId { return }
