@@ -87,7 +87,7 @@ class Foursquare {
 
             urlString += String(format: "&ll=%f,%f", location.coordinate.latitude, location.coordinate.longitude)
 
-            if let query = query, query.count > 0 {
+            if let query = query, query.count > 0, let encoded = query.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
                 urlString += "&query=\(query)"
             }
 
