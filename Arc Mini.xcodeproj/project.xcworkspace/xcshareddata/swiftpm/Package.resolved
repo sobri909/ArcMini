@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/groue/GRDB.swift.git",
       "state" : {
-        "revision" : "23f4254ae36fa19aecd73047c0577a9f49850d1c",
-        "version" : "5.26.0"
+        "revision" : "dd7e7f39e8e4d7a22d258d9809a882f914690b01",
+        "version" : "5.26.1"
       }
     },
     {
@@ -42,7 +42,7 @@
       "location" : "https://github.com/sobri909/LocoKit.git",
       "state" : {
         "branch" : "core-ml",
-        "revision" : "22b5d7ef359c3ba5ca5ccffbd5c929d45e045c09"
+        "revision" : "4a00d2f14112746fb1deb49f508f7e12eb4202d2"
       }
     },
     {
@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/getsentry/sentry-cocoa.git",
       "state" : {
-        "revision" : "4a60ff4287d4c6ac64085ad48606ef5ecaec9817",
-        "version" : "7.24.1"
+        "revision" : "199000acd6a0a3f9c8e0bff03ef233f930993c71",
+        "version" : "7.25.1"
       }
     },
     {
