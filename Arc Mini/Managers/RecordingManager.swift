@@ -14,8 +14,8 @@ import UIKit
 class RecordingManager {
 
     static let maximumSleepCycleDuration: TimeInterval = 60
-    static let minimumSleepCycleDuration: TimeInterval = 12
-    static let fallbackSleepCycleDuration: TimeInterval = 30
+    static let minimumSleepCycleDuration: TimeInterval = 8
+    static let fallbackSleepCycleDuration: TimeInterval = 20
 
     // MARK: -
 
@@ -163,7 +163,7 @@ class RecordingManager {
             return RecordingManager.fallbackSleepCycleDuration
         }
 
-        let logProb = log10(1.0 / nowProb)
+        let logProb = log10(1.0 / nowProb) * 0.5
         let duration = RecordingManager.maximumSleepCycleDuration * logProb
 
         return duration.clamped(min: RecordingManager.minimumSleepCycleDuration, max: RecordingManager.maximumSleepCycleDuration)
