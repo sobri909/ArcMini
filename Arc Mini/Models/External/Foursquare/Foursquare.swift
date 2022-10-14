@@ -3,6 +3,7 @@
 // Copyright (c) 2016 Big Paua. All rights reserved.
 //
 
+import UIKit
 import SwiftNotes
 import PromiseKit
 import CoreLocation
@@ -15,56 +16,6 @@ class Foursquare {
 
     static var haveSetMissingUserProperty = false
     static var lastCheckinsImport: Date?
-
-    // MARK: - Importing Swarm checkins
-
-    static func importCheckins() {
-//        let timeout: TimeInterval = AppDelegate.reachability.connection == .wifi ? 60 * 5 : 60 * 30
-//        if let lastCheckinsImport = lastCheckinsImport, lastCheckinsImport.age < timeout { return }
-//
-//        lastCheckinsImport = Date()
-//
-//        var fromDate = Settings.firstDate
-//        if let lastCheckinDate = Settings.highlander[.lastSwarmCheckinDate] as? Date {
-//            fromDate = lastCheckinDate
-//        }
-//
-//        Foursquare.fetchCheckins(from: fromDate).done { checkins in
-//            guard let checkins = checkins else { return }
-//
-//            for checkin in checkins {
-//                // look for a visit matching the checkin's time
-//                let query = "isVisit = 1 AND startDate <= ? AND endDate >= ?"
-//                if let visit = Stalker.store.item(where: query, arguments: [checkin.createdAtDate, checkin.createdAtDate]) as? ArcVisit {
-//
-//                    // if the visit doesn't have a Swarm checkin, assign this one
-//                    if visit.swarmCheckinId == nil {
-//                        logger.info("ASSIGNED CHECKIN TO VISIT: \(visit.startDate?.dayTimeLogString), \(checkin.venue?.name)")
-//                        visit.swarmCheckinId = checkin.id
-//                        visit.save()
-//                    }
-//
-//                    // if the visit doesn't have a manual place, assign the checkin's venue and make it manual
-//                    if !visit.manualPlace, let venue = checkin.venue {
-//                        if let place = PlaceCache.cache.placeFor(foursquareVenueId: venue.id) {
-//                            visit.usePlace(place, manualPlace: true)
-//                            logger.info("ASSIGNED CHECKIN PLACE TO VISIT: \(place.name), \(visit.startDate?.dayTimeLogString)")
-//
-//                        } else if let place = Place(foursquareVenue: venue) {
-//                            visit.usePlace(place, manualPlace: true)
-//                            logger.info("ASSIGNED NEW CHECKIN PLACE TO VISIT: \(place.name), \(visit.startDate?.dayTimeLogString)")
-//                        }
-//                    }
-//                } else {
-//                    logger.info("NO VISIT FOUND FOR CHECKIN")
-//                    // TODO: if no matching visit, create a visit at the given time, using existing samples if possible
-//                }
-//
-//                Settings.highlander[.lastSwarmCheckinDate] = checkin.createdAtDate
-//            }
-//
-//        }.cauterize()
-    }
 
     // MARK: - Fetch venues
 
@@ -88,7 +39,7 @@ class Foursquare {
             urlString += String(format: "&ll=%f,%f", location.coordinate.latitude, location.coordinate.longitude)
 
             if let query = query, query.count > 0, let encoded = query.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
-                urlString += "&query=\(query)"
+                urlString += "&query=\(encoded)"
             }
 
             guard let url = URL(string: urlString) else {
