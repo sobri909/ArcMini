@@ -16,6 +16,7 @@ class PlaceCache {
 
     static let maxRangeNoQuery: CLLocationDistance = 500
     static let maxRangeWithQuery: CLLocationDistance = 5000
+    static let useFoursquareV3API = true
 
     static var cache = PlaceCache()
 
@@ -31,8 +32,8 @@ class PlaceCache {
 
     // MARK: - Cache lookups
 
-    func placeFor(foursquareVenueId: String) -> Place? {
-        return store.place(where: "foursquareVenueId = ?", arguments: [foursquareVenueId])
+    func placeFor(foursquarePlaceId: String) -> Place? {
+        return store.place(where: "foursquareVenueId = ?", arguments: [foursquarePlaceId])
     }
 
     func placeFor(facebookPlaceId: String) -> Place? {
@@ -56,7 +57,7 @@ class PlaceCache {
         return store.places(for: query, arguments: [
             "latMin": coordinate.latitude - padding, "latMax": coordinate.latitude + padding,
             "longMin": coordinate.longitude - padding, "longMax": coordinate.longitude + padding
-            ]
+        ]
         )
     }
 
@@ -94,41 +95,83 @@ class PlaceCache {
     private func fetchFoursquarePlaces(for location: CLLocation, query: String = "") -> Promise<Void> {
         return Promise { seal in
             background {
-                Foursquare.fetchVenues(for: location, query: query).done { venues in
-                    background {
-                        guard let venues = venues else { seal.fulfill(()); return }
-                        
-                        var index = 0
-                        for venue in venues {
-                            if let place = PlaceCache.cache.placeFor(foursquareVenueId: venue.id) {
-                                place.foursquareResultsIndex = index
+                if PlaceCache.useFoursquareV3API {
+                    Foursquare.fetchPlaces(for: location, query: query).done { fsPlaces in
+                        background {
+                            guard let fsPlaces = fsPlaces else { seal.fulfill(()); return }
 
-                                // fill in missing category ids
-                                if place.foursquareCategoryId == nil {
-                                    place.foursquareCategoryId = venue.primaryCategory?.id
+                            var index = 0
+                            for fsPlace in fsPlaces {
+                                if let place = PlaceCache.cache.placeFor(foursquarePlaceId: fsPlace.id) {
+                                    place.foursquareResultsIndex = index
+
+                                    // fill in missing category ids
+                                    if place.foursquareCategoryIntId == nil {
+                                        place.foursquareCategoryIntId = fsPlace.primaryCategory?.id
+                                        place.save()
+                                    }
+
+                                    // update name if changed
+                                    if fsPlace.name != place.name {
+                                        logger.info("UPDATING PLACE NAME: (old: \(place.name), new: \(fsPlace.name))")
+                                        place.name = fsPlace.name
+                                        place.save()
+                                    }
+
+                                } else if let place = Place(foursquarePlace: fsPlace) {
+                                    place.foursquareResultsIndex = index
                                     place.save()
+                                    place.updateRTree()
                                 }
 
-                                // update name if changed
-                                if venue.name != place.name {
-                                    logger.info("UPDATING PLACE NAME: (old: \(place.name), new: \(venue.name))")
-                                    place.name = venue.name
-                                    place.save()
-                                }
-
-                            } else if let place = Place(foursquareVenue: venue) {
-                                place.foursquareResultsIndex = index
-                                place.save()
+                                index += 1
                             }
 
-                            index += 1
+                            seal.fulfill(())
                         }
-                        
+
+                    }.catch { error in
                         seal.fulfill(())
                     }
 
-                }.catch { error in
-                    seal.fulfill(())
+                } else { // Foursquare v2 API
+                    Foursquare.fetchVenues(for: location, query: query).done { venues in
+                        background {
+                            guard let venues = venues else { seal.fulfill(()); return }
+
+                            var index = 0
+                            for venue in venues {
+                                if let place = PlaceCache.cache.placeFor(foursquarePlaceId: venue.id) {
+                                    place.foursquareResultsIndex = index
+
+                                    // fill in missing category ids
+                                    if place.foursquareCategoryId == nil {
+                                        place.foursquareCategoryId = venue.primaryCategory?.id
+                                        place.save()
+                                    }
+
+                                    // update name if changed
+                                    if venue.name != place.name {
+                                        logger.info("UPDATING PLACE NAME: (old: \(place.name), new: \(venue.name))")
+                                        place.name = venue.name
+                                        place.save()
+                                    }
+
+                                } else if let place = Place(foursquareVenue: venue) {
+                                    place.foursquareResultsIndex = index
+                                    place.save()
+                                    place.updateRTree()
+                                }
+
+                                index += 1
+                            }
+
+                            seal.fulfill(())
+                        }
+
+                    }.catch { error in
+                        seal.fulfill(())
+                    }
                 }
             }
         }
@@ -151,9 +194,7 @@ class PlaceCache {
 
         // handle background expiration
         if backgroundTaskExpired {
-            TasksManager.update(.placeModelUpdates, to: .expired)
             RecordingManager.safelyDisconnectFromDatabase()
-            task.setTaskCompleted(success: false)
             TasksManager.highlander.scheduleBackgroundTasks()
             return
         }
@@ -163,6 +204,8 @@ class PlaceCache {
             backgroundTaskExpired = false
             task.expirationHandler = {
                 self.backgroundTaskExpired = true
+                TasksManager.update(.placeModelUpdates, to: .expired)
+                task.setTaskCompleted(success: false)
             }
         }
 
@@ -173,10 +216,48 @@ class PlaceCache {
             return
         }
 
+        // housekeep
+        deleteUnusedPlaces()
+        pruneRTreeRows()
+
         // job's finished
         TasksManager.update(.placeModelUpdates, to: .completed)
         RecordingManager.safelyDisconnectFromDatabase()
         task.setTaskCompleted(success: true)
+    }
+
+    func deleteUnusedPlaces() {
+        let store = RecordingManager.store
+        background {
+            RecordingManager.store.connectToDatabase()
+
+            let unusedPlaces = store.places(where: "visitsCount = 0 AND needsUpdate != 1")
+            for place in unusedPlaces {
+                let visitsCount = store.countItems(where: "placeId = ? AND deleted = 0 AND disabled = 0", arguments: [place.placeId.uuidString])
+                guard visitsCount == 0 else { place.setNeedsUpdate(); continue }
+                do {
+                    logger.info("deleting: \(place.name)")
+                    try store.arcPool.write { db in
+                        try db.execute(sql: "DELETE FROM Place WHERE placeId = ?", arguments: [place.placeId.uuidString])
+                    }
+                } catch {
+                    logger.error(error, subsystem: .misc)
+                }
+            }
+        }
+    }
+
+    func pruneRTreeRows() {
+        background {
+            RecordingManager.store.connectToDatabase()
+            do {
+                try RecordingManager.store.arcPool.write {
+                    try $0.execute(sql: "DELETE FROM PlaceRTree WHERE id NOT IN (SELECT rtreeId FROM Place WHERE rtreeId IS NOT NULL)")
+                }
+            } catch {
+                logger.error(error, subsystem: .misc)
+            }
+        }
     }
 
 }

@@ -32,7 +32,8 @@ class Place: Hashable, Backupable {
     var radius: Radius = Radius.zero { didSet { hasChanges = true } }
 
     var foursquareVenueId: String? { didSet { hasChanges = true } }
-    var foursquareCategoryId: String? { didSet { hasChanges = true } }
+    var foursquareCategoryIntId: Int? { didSet { hasChanges = true } } // Foursquare v3
+    var foursquareCategoryId: String? { didSet { hasChanges = true } } // Foursquare v2
     var foursquareResultsIndex: Int? { didSet { hasChanges = true } }
     var facebookPlaceId: String? { didSet { hasChanges = true } }
     var movesPlaceId: Int? { didSet { hasChanges = true } }
@@ -114,6 +115,7 @@ class Place: Hashable, Backupable {
 
         container["foursquareVenueId"] = foursquareVenueId
         container["foursquareCategoryId"] = foursquareCategoryId
+        container["foursquareCategoryIntId"] = foursquareCategoryIntId
         container["facebookPlaceId"] = facebookPlaceId
         container["movesPlaceId"] = movesPlaceId
         container["isHome"] = isHome
@@ -193,6 +195,7 @@ class Place: Hashable, Backupable {
         self.isHome = dict["isHome"] as? Bool ?? false
         self.foursquareVenueId = dict["foursquareVenueId"] as? String
         self.foursquareCategoryId = dict["foursquareCategoryId"] as? String
+        self.foursquareCategoryIntId = dict["foursquareCategoryIntId"] as? Int
         self.facebookPlaceId = dict["facebookPlaceId"] as? String
         
         self.lastVisitEndDate = dict["lastVisitEndDate"] as? Date
@@ -277,6 +280,19 @@ class Place: Hashable, Backupable {
         visitTimes = histograms
     }
 
+    // Foursquare v3 API
+    convenience init?(foursquarePlace fsPlace: Foursquare.Place) {
+        var dict: [String: Any?] = [:]
+        dict["name"] = fsPlace.name
+        dict["center"] = fsPlace.location
+        dict["radiusMean"] = Place.minimumNewPlaceRadius
+        dict["radiusSD"] = 0
+        dict["foursquareVenueId"] = fsPlace.id
+        dict["foursquareCategoryId"] = fsPlace.primaryCategory?.id
+        self.init(from: dict)
+    }
+
+    // Foursquare v2 API
     convenience init?(foursquareVenue venue: Foursquare.Venue) {
         var dict: [String: Any?] = [:]
         dict["name"] = venue.name
@@ -307,8 +323,11 @@ class Place: Hashable, Backupable {
     }
 
     var categoryUIImage: UIImage {
-        // have a proper icon?
+        // have a API v2 caregory id?
         if let categoryId = foursquareCategoryId { return UIImage(foursquareCategoryId: categoryId) }
+
+        // have a API v3 category id?
+        if let categoryIntId = foursquareCategoryIntId { return UIImage(foursquareCategoryIntId: categoryIntId) }
 
         // it's a home place?
         if isHome { return UIImage(named: "homeIcon")! }
@@ -410,6 +429,7 @@ class Place: Hashable, Backupable {
         case radius
         case foursquareVenueId
         case foursquareCategoryId
+        case foursquareCategoryIntId
         case facebookPlaceId
         case isHome
         case lastSaved
@@ -425,6 +445,7 @@ class Place: Hashable, Backupable {
         self.radius = try container.decode(Radius.self, forKey: .radius)
         self.foursquareVenueId = try? container.decode(String.self, forKey: .foursquareVenueId)
         self.foursquareCategoryId = try? container.decode(String.self, forKey: .foursquareCategoryId)
+        self.foursquareCategoryIntId = try? container.decode(Int.self, forKey: .foursquareCategoryIntId)
         self.facebookPlaceId = try? container.decode(String.self, forKey: .facebookPlaceId)
         self.isHome = (try? container.decode(Bool.self, forKey: .isHome)) ?? false
         self.lastSaved = try? container.decode(Date.self, forKey: .lastSaved)
@@ -438,6 +459,7 @@ class Place: Hashable, Backupable {
         try container.encode(radius, forKey: .radius)
         if foursquareVenueId != nil { try container.encode(foursquareVenueId, forKey: .foursquareVenueId) }
         if foursquareCategoryId != nil { try container.encode(foursquareCategoryId, forKey: .foursquareCategoryId) }
+        if foursquareCategoryIntId != nil { try container.encode(foursquareCategoryIntId, forKey: .foursquareCategoryIntId) }
         if facebookPlaceId != nil { try container.encode(facebookPlaceId, forKey: .facebookPlaceId) }
         if isHome { try container.encode(isHome, forKey: .isHome) }
         if lastSaved != nil { try container.encode(lastSaved, forKey: .lastSaved) }

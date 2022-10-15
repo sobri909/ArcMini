@@ -14,10 +14,74 @@ extension NSNotification.Name {
 
 class Foursquare {
 
-    static var haveSetMissingUserProperty = false
-    static var lastCheckinsImport: Date?
+    // MARK: - Fetch places (v3 API)
 
-    // MARK: - Fetch venues
+    static func fetchPlaces(for location: CLLocation, query: String? = nil) -> Promise<[Place]?> {
+        return Promise { seal in
+            guard let apiKey = Settings.foursquareAPIKey else { seal.fulfill(nil); return }
+
+            var urlString = "https://api.foursquare.com/v3/places"
+
+            if query == nil || query?.isEmpty == true {
+                urlString += "/nearby"
+            } else {
+                urlString += "/search"
+            }
+
+            urlString += String(format: "?limit=50&ll=%f,%f", location.coordinate.latitude, location.coordinate.longitude)
+
+            if let query = query, query.count > 0 {
+                urlString += "&query=\(query)"
+            }
+
+            // authed user?
+            if let token = Settings.highlander[.foursquareToken] as? String {
+                urlString += String(format: "&oauth_token=%@", token)
+            }
+
+            guard let url = URL(string: urlString) else {
+                seal.fulfill(nil)
+                return
+            }
+
+            var request = URLRequest(url: url)
+            request.addValue(apiKey, forHTTPHeaderField: "Authorization")
+
+            if let languageCode = Locale.preferredLanguages.first {
+                request.setValue(languageCode, forHTTPHeaderField: "Accept-Language")
+            }
+
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    logger.error("\(error)")
+                    seal.fulfill(nil)
+                    return
+                }
+
+                if let error = handle(response: response) {
+                    logger.error("\(error)")
+                }
+
+                guard let data = data else {
+                    seal.fulfill(nil)
+                    return
+                }
+                
+                do {
+                    let result = try JSONDecoder().decode(PlacesSearchResult.self, from: data)
+                    seal.fulfill(result.results)
+
+                } catch {
+                    logger.error("\(error)")
+                    seal.fulfill(nil)
+                }
+            }
+            
+            task.resume()
+        }
+    }
+
+    // MARK: - Fetch venues (v2 API)
 
     static func fetchVenues(for location: CLLocation, query: String? = nil) -> Promise<[Venue]?> {
         return Promise { seal in
@@ -67,7 +131,7 @@ class Foursquare {
                     seal.fulfill(nil)
                     return
                 }
-                
+
                 do {
                     let result = try JSONDecoder().decode(VenuesSearchResult.self, from: data)
                     seal.fulfill(result.response?.venues)
@@ -77,147 +141,20 @@ class Foursquare {
                     seal.fulfill(nil)
                 }
             }
-            
-            task.resume()
-        }
-    }
-
-    // MARK: - Check in
-
-    static func checkIn(to venueId: String, location: CLLocation) -> Promise<Checkin?> {
-        return Promise { seal in
-            guard let token = Settings.highlander[.foursquareToken] as? String else {
-                let error = ArcError(code: .foursquareTokenMissing, description: "Missing Foursquare token")
-                logger.error("\(error)")
-                seal.reject(error)
-                return
-            }
-
-            var urlString = "https://api.foursquare.com/v2/checkins/add"
-
-            // api version
-            urlString += "?v=20181201&m=swarm"
-
-            // auth
-            urlString += String(format: "&oauth_token=%@", token)
-
-            // the venue to check in to
-            urlString += String(format: "&venueId=%@", venueId)
-
-            // location stuff
-            urlString += String(format: "&ll=%f,%f", location.coordinate.latitude, location.coordinate.longitude)
-            if location.horizontalAccuracy > 0 {
-                urlString += String(format: "&llAcc=%f", location.horizontalAccuracy)
-            }
-            if location.verticalAccuracy > 0 {
-                urlString += String(format: "&alt=%f&altAcc=%f", location.altitude, location.verticalAccuracy)
-            }
-
-            guard let url = URL(string: urlString) else {
-                seal.fulfill(nil)
-                return
-            }
-
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    logger.error("\(error)")
-                    seal.reject(error)
-                    return
-                }
-
-                if let error = handle(response: response) {
-                    logger.error("\(error)")
-                    seal.reject(error)
-                    return
-                }
-
-                guard let data = data else {
-                    seal.fulfill(nil)
-                    return
-                }
-
-                do {
-                    let decoder = JSONDecoder()
-                    decoder.dateDecodingStrategy = .secondsSince1970
-                    let result = try decoder.decode(CheckinResult.self, from: data)
-                    seal.fulfill(result.response?.checkin)
-
-                } catch {
-                    logger.error("\(error)")
-                    seal.reject(error)
-                }
-            }
 
             task.resume()
         }
     }
-
-    // MARK: - Fetch checkins
-
-    static func fetchCheckins(from startDate: Date) -> Promise<[Checkin]?> {
-        return Promise { seal in
-            guard let token = Settings.highlander[.foursquareToken] as? String else {
-                seal.fulfill(nil)
-                return
-            }
-
-            var urlString = "https://api.foursquare.com/v2/users/self/checkins"
-            urlString += "?v=20190821&m=swarm"
-            urlString += "&sort=oldestfirst"
-            urlString += "&afterTimestamp=" + String(format: "%.0f", startDate.timeIntervalSince1970)
-            urlString += "&oauth_token=" + token
-
-            guard let url = URL(string: urlString) else {
-                seal.fulfill(nil)
-                return
-            }
-
-            var request = URLRequest(url: url)
-            if let languageCode = Locale.preferredLanguages.first {
-                request.setValue(languageCode, forHTTPHeaderField: "Accept-Language")
-            }
-
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    logger.error("\(error)")
-                    seal.fulfill(nil)
-                    return
-                }
-
-                if let error = handle(response: response) {
-                    logger.error("\(error)")
-                }
-
-                guard let data = data else {
-                    seal.fulfill(nil)
-                    return
-                }
-
-                do {
-                    let result = try JSONDecoder().decode(CheckinsResult.self, from: data)
-                    seal.fulfill(result.response?.checkins.items)
-
-                } catch {
-                    logger.error("\(error)")
-                    seal.fulfill(nil)
-                }
-            }
-
-            task.resume()
-        }
-    }
-
 
     private static func handle(response: URLResponse?) -> Error? {
         guard let response = response as? HTTPURLResponse else { return nil }
         if response.statusCode == 401 { // invalid token
+            logger.info("INVALID FOURSQUARE TOKEN")
             Settings.highlander[.foursquareToken] = nil
             return ArcError(code: .foursquareTokenInvalid, description: "Invalid Foursquare token")
         }
         if response.statusCode == 429 { // rate limited!
+            logger.info("FOURSQUARE RATE LIMITED")
             return ArcError(code: .foursquareRateLimited, description: "Foursquare rate limited")
         }
         return nil
@@ -247,7 +184,49 @@ class Foursquare {
         }
     }
 
-    // MARK: - Venue responses
+    // MARK: - Venue responses (v3 API)
+
+    struct PlacesSearchResult: Decodable {
+        var results: [Place]
+    }
+
+    struct Place: Decodable {
+        var id: String
+        var name: String
+        var geocodes: [String: Geocode]
+        var categories: [Category]
+
+        var primaryCategory: Category? {
+            return categories.first { $0.primary != false }
+        }
+
+        var location: CLLocation? {
+            return geocodes["main"]?.clLocation
+        }
+
+        struct Geocode: Decodable {
+            var latitude: CLLocationDegrees
+            var longitude: CLLocationDegrees
+            var clLocation: CLLocation {
+                return CLLocation(latitude: latitude, longitude: longitude)
+            }
+        }
+
+        struct Category: Decodable {
+            var id: Int
+            var name: String
+            var primary: Bool?
+        }
+
+        enum CodingKeys: String, CodingKey {
+            case id = "fsq_id"
+            case name
+            case categories
+            case geocodes
+        }
+    }
+
+    // MARK: - Venue responses (v2 API)
 
     struct VenuesSearchResult: Decodable {
         var response: Response?
@@ -282,45 +261,19 @@ class Foursquare {
         }
     }
 
-    // MARK: - Checkin responses
-
-    struct CheckinResult: Decodable {
-        var response: Response?
-
-        struct Response: Decodable {
-            var checkin: Checkin?
-        }
-    }
-
-    struct CheckinsResult: Decodable {
-        var response: Response?
-
-        struct Response: Decodable {
-            var checkins: CheckinsResponse
-        }
-
-        struct CheckinsResponse: Decodable {
-            var count: Int
-            var items: [Checkin]
-        }
-    }
-
-    struct Checkin: Decodable {
-        var id: String
-        var createdAt: Double
-        var timeZoneOffset: Double // minutes
-        var venue: Venue?
-
-        var createdAtDate: Date {
-            return Date(timeIntervalSince1970: createdAt)
-        }
-    }
-
 }
 
 // MARK: - Venue category icons
 
 extension UIImage {
+
+    // https://developer.foursquare.com/docs/categories
+    convenience init(foursquareCategoryIntId: Int) {
+        switch foursquareCategoryIntId {
+        default:
+            self.init(named: "defaultPlaceIcon24")!
+        }
+    }
 
     // https://developer.foursquare.com/docs/resources/categories
     convenience init(foursquareCategoryId: String) {

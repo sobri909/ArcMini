@@ -155,6 +155,12 @@ class Migrations {
                 table.add(column: "lastVisitEndDate", .date)
             }
         }
+
+        migrator.registerMigration("Place Foursquare V3") { db in
+            try? db.alter(table: "Place") { table in
+                table.add(column: "foursquareCategoryIntId", .integer)
+            }
+        }
     }
 
 }

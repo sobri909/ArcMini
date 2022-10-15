@@ -235,6 +235,10 @@ class Settings {
         }
     }()
 
+    static let foursquareAPIKey: String? = {
+        return configPlist?["FoursquareAPIKey"] as? String
+    }()
+
     static let foursquareClientId: String? = {
         return configPlist?["FoursquareClientId"] as? String
     }()
