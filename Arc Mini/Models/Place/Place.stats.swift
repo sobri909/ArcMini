@@ -26,6 +26,8 @@ extension Place {
             let done = {
                 PlaceCache.cache.updateQueuedPlaces(task: task)
             }
+
+            RecordingManager.store.connectToDatabase()
             
             let items = RecordingManager.store
                 .items(where: "placeId = ? AND isVisit = 1 AND deleted = 0 ORDER BY startDate DESC", arguments: [self.placeId.uuidString])
