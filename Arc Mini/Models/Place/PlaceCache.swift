@@ -95,6 +95,11 @@ class PlaceCache {
     private func fetchFoursquarePlaces(for location: CLLocation, query: String = "") -> Promise<Void> {
         return Promise { seal in
             background {
+                if Settings.restrictFoursquareQueriesToBackers, !Settings.isActiveBacker {
+                    seal.fulfill(())
+                    return
+                }
+
                 if PlaceCache.useFoursquareV3API {
                     Foursquare.fetchPlaces(for: location, query: query).done { fsPlaces in
                         background {

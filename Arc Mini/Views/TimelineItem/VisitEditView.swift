@@ -79,38 +79,46 @@ struct VisitEditView: View {
                 }
                 .padding([.leading, .trailing], 20)
                 .background(Color("background"))
-                
-                LazyVStack(alignment: .leading, spacing: 0) {
-                    ForEach(placeClassifier.results, id: \.place.placeId) { result in
-                        Button {
-                            self.visit.usePlace(result.place, manualPlace: true)
-                            self.presentationMode.wrappedValue.dismiss()
-                        } label: {
-                            HStack {
-                                result.place.categoryImage.renderingMode(.template).foregroundColor(Color("brandSecondary80"))
-                                Spacer().frame(width: 20)
-                                if self.visit.place == result.place {
-                                    Text(result.place.name)
-                                        .font(.system(size: 17, weight: .semibold))
-                                        .lineLimit(1)
-                                        .foregroundColor(Color("blackWhiteText"))
-                                } else {
-                                    Text(result.place.name)
-                                        .font(.system(size: 17, weight: .regular))
-                                        .lineLimit(1)
-                                        .foregroundColor(Color("blackWhiteText"))
+
+                if Settings.restrictFoursquareQueriesToBackers, !Settings.isActiveBacker, placeClassifier.results.isEmpty {
+                    Text("Foursquare Place results are available with an active Arc App subscription")
+                        .multilineTextAlignment(.center)
+                        .padding(20)
+                        .alignHorizontalCentre()
+
+                } else {
+                    LazyVStack(alignment: .leading, spacing: 0) {
+                        ForEach(placeClassifier.results, id: \.place.placeId) { result in
+                            Button {
+                                self.visit.usePlace(result.place, manualPlace: true)
+                                self.presentationMode.wrappedValue.dismiss()
+                            } label: {
+                                HStack {
+                                    result.place.categoryImage.renderingMode(.template).foregroundColor(Color("brandSecondary80"))
+                                    Spacer().frame(width: 20)
+                                    if self.visit.place == result.place {
+                                        Text(result.place.name)
+                                            .font(.system(size: 17, weight: .semibold))
+                                            .lineLimit(1)
+                                            .foregroundColor(Color("blackWhiteText"))
+                                    } else {
+                                        Text(result.place.name)
+                                            .font(.system(size: 17, weight: .regular))
+                                            .lineLimit(1)
+                                            .foregroundColor(Color("blackWhiteText"))
+                                    }
+                                    Spacer()
+                                    Text(self.rightText(for: result.place))
+                                        .font(.system(size: 15, weight: .semibold))
+                                        .foregroundColor(Color(UIColor.arcGray1))
                                 }
-                                Spacer()
-                                Text(self.rightText(for: result.place))
-                                    .font(.system(size: 15, weight: .semibold))
-                                    .foregroundColor(Color(UIColor.arcGray1))
                             }
+                            .padding([.leading, .trailing], 20)
+                            .frame(height: 44)
+                            .background(Color("background"))
                         }
-                        .padding([.leading, .trailing], 20)
-                        .frame(height: 44)
-                        .background(Color("background"))
+                        Spacer().frame(height: 40)
                     }
-                    Spacer().frame(height: 40)
                 }
             }
         }

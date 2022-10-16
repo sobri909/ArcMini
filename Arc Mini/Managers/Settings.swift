@@ -17,10 +17,7 @@ enum SettingsKey: String {
     case recordingOn
     case sharingOn
     case backupsOn
-    case totalBackgroundTime
-    case totalForegroundTime
-    case backgroundFailDate
-    case lastTerminatedDate
+    case isActiveBacker
 
     // onboarding
     case haveRequestedHealthPermissions
@@ -38,7 +35,9 @@ enum SettingsKey: String {
 
     case taskStates
 
-    static let sharedSettings: [SettingsKey] = [.recordingOn, .backupsOn]
+    static let sharedSettings: [SettingsKey] = [
+        .recordingOn, .backupsOn, .isActiveBacker
+    ]
 }
 
 // MARK: -
@@ -50,6 +49,7 @@ class Settings {
     // MARK: -
 
     static let earliestAllowedDate = Date(timeIntervalSince1970: 946684800) // 01-1-2000 (earlier than Arc App, to allow Moves imports)
+    static let restrictFoursquareQueriesToBackers = true
 
     // MARK: -
 
@@ -59,6 +59,7 @@ class Settings {
     }
     static var sharingOn: Bool { return highlander[.sharingOn] as? Bool ?? true }
     static var backupsOn: Bool { return highlander[.backupsOn] as? Bool ?? false }
+    static var isActiveBacker: Bool { return highlander[.isActiveBacker] as? Bool ?? false }
 
     static var showEndTimesOnTimeline: Bool {
         get { return highlander[.showEndTimesOnTimeline] as? Bool ?? false }
@@ -73,30 +74,6 @@ class Settings {
     static var allowMapTilt: Bool {
         get { return highlander[.allowMapTilt] as? Bool ?? false }
         set(newValue) { highlander[.allowMapTilt] = newValue }
-    }
-
-    // MARK: -
-
-    static var totalBackgroundTime: TimeInterval {
-        get { return highlander[.totalBackgroundTime] as? TimeInterval ?? 0 }
-        set(newValue) { highlander[.totalBackgroundTime] = newValue }
-    }
-    static var totalForegroundTime: TimeInterval {
-        get { return highlander[.totalForegroundTime] as? TimeInterval ?? 0 }
-        set(newValue) { highlander[.totalForegroundTime] = newValue }
-    }
-//    static var totalUptime: TimeInterval {
-//        let total = totalBackgroundTime + totalForegroundTime
-//        return total > 0 ? total : AppDelegate.delly.uptime
-//    }
-//    static var foregroundTimePerDay: TimeInterval {
-//        let pctInForeground = totalForegroundTime / totalUptime
-//        return (60 * 60 * 24) * pctInForeground
-//    }
-
-    static var hasBeenTerminatedToday: Bool {
-        guard let last = highlander[.lastTerminatedDate] as? Date else { return false }
-        return last.age < .oneDay
     }
 
     // MARK: - Onboarding
