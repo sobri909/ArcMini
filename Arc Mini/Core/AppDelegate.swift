@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Sentry
 import LocoKit
 import SwiftNotes
 
@@ -23,18 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - App lifecycle
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        if let sentryDSN = Settings.sentryDSN {
-            SentrySDK.start { options in
-                options.dsn = sentryDSN
-                options.enableAutoSessionTracking = true
-                options.sessionTrackingIntervalMillis = UInt(TimeInterval.oneHour * 6 * 1000)
-                options.debug = false 
-            }
-            if let userId = UIDevice.current.identifierForVendor {
-                SentrySDK.setUser(Sentry.User(userId: userId.uuidString))
-            }
-        }
-
         logger.info("didFinishLaunchingWithOptions")
 
         LocoKitService.apiKey = "bee1aa1af978486b9186780a07cc240e"

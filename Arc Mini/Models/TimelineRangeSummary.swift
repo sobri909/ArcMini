@@ -8,7 +8,6 @@
 
 import GRDB
 import Photos
-import Sentry
 import LocoKit
 import SwiftNotes
 

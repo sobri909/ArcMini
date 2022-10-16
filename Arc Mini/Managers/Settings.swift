@@ -224,14 +224,6 @@ class Settings {
         return configPlist?["FoursquareClientSecret"] as? String
     }()
 
-    static let lastFmAPIKey: String? = {
-        return configPlist?["LastFmAPIKey"] as? String
-    }()
-
-    static let sentryDSN: String? = {
-        return configPlist?["SentryDSN"] as? String
-    }()
-
     // MARK: - Subscript
 
     subscript(key: SettingsKey) -> Any? {

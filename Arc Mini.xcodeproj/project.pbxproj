@@ -69,16 +69,13 @@
 		C9822A89240CF8D8006B70F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9822A88240CF8D8006B70F4 /* Assets.xcassets */; };
 		C9822A8F240CF8D8006B70F4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9822A8D240CF8D8006B70F4 /* LaunchScreen.storyboard */; };
 		C983603024969AFE007940F6 /* HeadlessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C983602F24969AFE007940F6 /* HeadlessView.swift */; };
-		C985BBEC24C34EAE001ACFB0 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = C985BBEB24C34EAE001ACFB0 /* Sentry */; };
 		C98783042435F1EB001B4E7D /* SegmentAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98783032435F1EB001B4E7D /* SegmentAnnotationView.swift */; };
 		C98967EC2435F27200D55AFE /* SegmentAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98967EB2435F27200D55AFE /* SegmentAnnotation.swift */; };
 		C99325942430EE59005299DC /* RowButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99325932430EE59005299DC /* RowButtonStyle.swift */; };
 		C994D5F02455967F003B3152 /* GPX.swift in Sources */ = {isa = PBXBuildFile; fileRef = C994D5EF2455967F003B3152 /* GPX.swift */; };
 		C994D5F324559A5D003B3152 /* AEXML in Frameworks */ = {isa = PBXBuildFile; productRef = C994D5F224559A5D003B3152 /* AEXML */; };
 		C99F5EB3242A240D00E172AE /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = C99F5EB2242A240D00E172AE /* PromiseKit */; };
-		C99F5EB6242A2C5000E172AE /* TrackPlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99F5EB4242A2C5000E172AE /* TrackPlay.swift */; };
 		C99F5EB7242A2C5000E172AE /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99F5EB5242A2C5000E172AE /* Note.swift */; };
-		C99F5EBD242A307400E172AE /* LastFm.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99F5EBC242A307400E172AE /* LastFm.swift */; };
 		C99F5EBF242A371C00E172AE /* Scraps.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99F5EBE242A371C00E172AE /* Scraps.swift */; };
 		C99F5EC5242A3F8600E172AE /* FSOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = C99F5EC3242A3F8600E172AE /* FSOAuth.m */; };
 		C99F5EC6242A3F8600E172AE /* Foursquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99F5EC4242A3F8600E172AE /* Foursquare.swift */; };
@@ -222,9 +219,7 @@
 		C98967EB2435F27200D55AFE /* SegmentAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentAnnotation.swift; sourceTree = "<group>"; };
 		C99325932430EE59005299DC /* RowButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowButtonStyle.swift; sourceTree = "<group>"; };
 		C994D5EF2455967F003B3152 /* GPX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPX.swift; sourceTree = "<group>"; };
-		C99F5EB4242A2C5000E172AE /* TrackPlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackPlay.swift; sourceTree = "<group>"; };
 		C99F5EB5242A2C5000E172AE /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
-		C99F5EBC242A307400E172AE /* LastFm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastFm.swift; sourceTree = "<group>"; };
 		C99F5EBE242A371C00E172AE /* Scraps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scraps.swift; sourceTree = "<group>"; };
 		C99F5EC1242A3F8500E172AE /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		C99F5EC2242A3F8600E172AE /* FSOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSOAuth.h; sourceTree = "<group>"; };
@@ -294,7 +289,6 @@
 				C9B1A6D5254D7F3500F4EE2F /* Gzip in Frameworks */,
 				C994D5F324559A5D003B3152 /* AEXML in Frameworks */,
 				C9524005242F3DE000F4522D /* SwiftNotes in Frameworks */,
-				C985BBEC24C34EAE001ACFB0 /* Sentry in Frameworks */,
 				C9C96AB224278052006D2E5B /* Introspect in Frameworks */,
 				C9C827B5243DEB0000F3199B /* LoggingFormatAndPipe in Frameworks */,
 				C9F32F4A242A60A100184862 /* HealthKit.framework in Frameworks */,
@@ -483,7 +477,6 @@
 				C90D786D2428FFD2004ABFD0 /* Place */,
 				C9524008242F50BA00F4522D /* Maths */,
 				C99F5EB5242A2C5000E172AE /* Note.swift */,
-				C99F5EB4242A2C5000E172AE /* TrackPlay.swift */,
 				C91F11072530848100D3BD99 /* TimelineRangeSummary.swift */,
 				C91CB40624CDB30E00AF0CF1 /* WorkoutImporter.swift */,
 				C9B86B87242CAD8900D52C0D /* ArcError.swift */,
@@ -632,7 +625,6 @@
 			isa = PBXGroup;
 			children = (
 				C99F5EC7242A3F9900E172AE /* Foursquare */,
-				C99F5EBC242A307400E172AE /* LastFm.swift */,
 				C9F32F46242A5BBE00184862 /* Health.swift */,
 			);
 			path = External;
@@ -698,7 +690,6 @@
 				C9C827B1243DDA7100F3199B /* Logging */,
 				C9C827B4243DEB0000F3199B /* LoggingFormatAndPipe */,
 				C994D5F224559A5D003B3152 /* AEXML */,
-				C985BBEB24C34EAE001ACFB0 /* Sentry */,
 				C9B1A6D4254D7F3500F4EE2F /* Gzip */,
 				C9AA224F257B8D92002E2A0D /* LocoKit */,
 			);
@@ -764,7 +755,6 @@
 				C9C827B0243DDA7100F3199B /* XCRemoteSwiftPackageReference "swift-log" */,
 				C9C827B3243DEB0000F3199B /* XCRemoteSwiftPackageReference "swift-log-format-and-pipe" */,
 				C994D5F124559A5D003B3152 /* XCRemoteSwiftPackageReference "AEXML" */,
-				C985BBEA24C34EAE001ACFB0 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 				C9B1A6D3254D7F3500F4EE2F /* XCRemoteSwiftPackageReference "GzipSwift" */,
 				C9AA224E257B8D92002E2A0D /* XCRemoteSwiftPackageReference "LocoKit" */,
 			);
@@ -847,7 +837,6 @@
 				C9F1EB13288957CB00D9324C /* UserActivityType.swift in Sources */,
 				C99F5EB7242A2C5000E172AE /* Note.swift in Sources */,
 				C9F1EB15288957CB00D9324C /* UserActivityTypeClassifier.swift in Sources */,
-				C99F5EB6242A2C5000E172AE /* TrackPlay.swift in Sources */,
 				C9C827AD243C7B1E00F3199B /* Calendar+extensions.swift in Sources */,
 				C9822A85240CF8D5006B70F4 /* SceneDelegate.swift in Sources */,
 				C97C193C2432164700FC45A1 /* ItemSegmentEditView.swift in Sources */,
@@ -896,7 +885,6 @@
 				C91F10F225307DA900D3BD99 /* Backups.swift in Sources */,
 				C95E0E2E2417B773008418A1 /* ArcPath.swift in Sources */,
 				C9524007242F502700F4522D /* RecordingManager.swift in Sources */,
-				C99F5EBD242A307400E172AE /* LastFm.swift in Sources */,
 				C90D78682428FFCE004ABFD0 /* PlaceCache.swift in Sources */,
 				C90D786C2428FFCE004ABFD0 /* Place.scores.swift in Sources */,
 				C98967EC2435F27200D55AFE /* SegmentAnnotation.swift in Sources */,
@@ -1267,14 +1255,6 @@
 				kind = branch;
 			};
 		};
-		C985BBEA24C34EAE001ACFB0 /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/getsentry/sentry-cocoa.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.0.0;
-			};
-		};
 		C994D5F124559A5D003B3152 /* XCRemoteSwiftPackageReference "AEXML" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tadija/AEXML";
@@ -1348,11 +1328,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C9524003242F3DE000F4522D /* XCRemoteSwiftPackageReference "SwiftNotes" */;
 			productName = SwiftNotes;
-		};
-		C985BBEB24C34EAE001ACFB0 /* Sentry */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C985BBEA24C34EAE001ACFB0 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
-			productName = Sentry;
 		};
 		C994D5F224559A5D003B3152 /* AEXML */ = {
 			isa = XCSwiftPackageProductDependency;

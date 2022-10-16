@@ -175,10 +175,6 @@ class ArcVisit: LocoKit.Visit, ArcTimelineItem {
     var hkStepCount: Int? { didSet { hasChanges = true } }
     var lastHealthKitLookup: Date?
 
-    // MARK: - Last.fm
-
-    var _trackPlays: [TrackPlay]?
-
     // MARK: - Leaving probability
 
     var leavingProbabilityNow: Double? {

@@ -234,8 +234,6 @@ class ArcPath: Path, ArcTimelineItem {
     var hkStepCount: Int? { didSet { hasChanges = true } }
     var lastHealthKitLookup: Date?
 
-    var _trackPlays: [TrackPlay]?
-    
     // MARK: - UI
     
     var _speedGraphData: [[(TimeInterval, CLLocationSpeed)]]?
