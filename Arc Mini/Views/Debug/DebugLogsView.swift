@@ -27,7 +27,9 @@ struct DebugLogsView: View {
                 .onDelete(perform: delete)
             }
             .navigationBarTitle("Session Logs")
-            .navigationBarItems(trailing: EditButton())
+            .toolbar {
+                deleteAllButton
+            }
         }
     }
 
@@ -41,6 +43,30 @@ struct DebugLogsView: View {
         guard let created = resourceValues.creationDate else { return nil }
         guard let modified = resourceValues.contentModificationDate else { return nil }
         return modified.timeIntervalSince(created)
+    }
+
+    var deleteAllButton: some View {
+        Button {
+            deleteAll()
+        } label: {
+            Text("Delete all")
+        }
+    }
+
+    // MARK: - Actions
+
+    func deleteAll() {
+        for url in debugLogger.logFileURLs {
+
+            // can't delete the current session log file
+            if url.lastPathComponent == DebugLogger.highlander.sessionLogFileURL.lastPathComponent { continue }
+
+            do {
+                try debugLogger.delete(url)
+            } catch {
+                logger.error("Couldn't delete the log file.")
+            }
+        }
     }
 
     func delete(at offsets: IndexSet) {
