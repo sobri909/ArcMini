@@ -43,6 +43,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             logger.info("currentItemChanged", subsystem: .locokit)
             WidgetCenter.shared.reloadAllTimelines()
         }
+
+        when(.currentItemTitleChanged) { _ in
+            logger.info("currentItemTitleChanged", subsystem: .locokit)
+            WidgetCenter.shared.reloadAllTimelines()
+        }
+        
         when(.timelineObjectsExternallyModified) { _ in
             RecordingManager.store.connectToDatabase()
             guard let appGroup = LocomotionManager.highlander.appGroup else { return }
