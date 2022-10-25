@@ -58,7 +58,6 @@ class TimelineState: ObservableObject {
         let selectedDateObserver = $selectedDate
             .removeDuplicates()
             .sink { [weak self] newDate in
-                print("OBSERVED selectedDate: \(newDate)")
                 self?.goto(date: newDate)
             }
         observers.append(selectedDateObserver)
