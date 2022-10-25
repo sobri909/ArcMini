@@ -24,9 +24,18 @@ struct TimelineHeader: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 0) {
-                Text(dailyTitle)
-                    .font(.system(size: 17, weight: .semibold))
-                    .foregroundColor(Color("brandTertiaryDark"))
+                Button {
+                    timelineState.showingCalendar = true
+                } label: {
+                    HStack {
+                        Text(dailyTitle)
+                            .lineLimit(1)
+                            .font(.system(size: 17, weight: .semibold))
+                            .foregroundColor(Color("brandTertiaryDark"))
+                        Spacer()
+                    }
+                }
+                .frame(maxWidth: .infinity, minHeight: 64)
                 Spacer()
                 self.previousButton
                 self.nextButton
