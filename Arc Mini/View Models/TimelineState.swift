@@ -21,6 +21,7 @@ class TimelineState: ObservableObject {
 
     @Published var dateRanges: Array<DateInterval> = []
     @Published var currentCardIndex = 0
+    @Published var selectedDate = Date()
 
     @Published var mapHeightPercent: CGFloat = rootMapHeightPercent
     var bodyHeightPercent: CGFloat { return 1.0 - mapHeightPercent }
@@ -32,25 +33,35 @@ class TimelineState: ObservableObject {
     @Published var tappedTodayButton = false
     
     @Published var showStartEndDates = false
+    @Published var showingCalendar = false
 
     var visibleItems: Set<TimelineItem> = []
     var timelineScrolledToTop = true
     var popToDetailsView = false
 
-    private var cardIndexObserver: AnyCancellable?
+    private var observers: [AnyCancellable] = []
 
     init() {
         dateRanges.append(Calendar.current.dateInterval(of: .day, for: Date().previousDay)!)
         dateRanges.append(Calendar.current.dateInterval(of: .day, for: Date())!)
         currentCardIndex = 1
 
-        cardIndexObserver = $currentCardIndex
+        let cardIndexObserver = $currentCardIndex
             .removeDuplicates()
             .debounce(for: 0.3, scheduler: DispatchQueue.main)
-            .sink { newCardIndex in
-                self.updateTodayButton(newCardIndex: newCardIndex)
-                self.updateEdges()
+            .sink { [weak self] newCardIndex in
+                self?.updateTodayButton(newCardIndex: newCardIndex)
+                self?.updateEdges()
         }
+        observers.append(cardIndexObserver)
+
+        let selectedDateObserver = $selectedDate
+            .removeDuplicates()
+            .sink { [weak self] newDate in
+                print("OBSERVED selectedDate: \(newDate)")
+                self?.goto(date: newDate)
+            }
+        observers.append(selectedDateObserver)
 
     }
 
@@ -89,7 +100,18 @@ class TimelineState: ObservableObject {
 
         guard let index = dateRanges.firstIndex(of: range) else { return }
 
+        // avoid redundant loops
+        if index == currentCardIndex { return }
+
         currentCardIndex = index
+
+        if let range = visibleDateRange, range.middle != selectedDate {
+            selectedDate = range.middle
+
+            if #unavailable(iOS 16) {
+                showingCalendar = false
+            }
+        }
     }
 
     // MARK: -

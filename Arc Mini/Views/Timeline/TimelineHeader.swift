@@ -105,6 +105,23 @@ struct TimelineHeader: View {
                 ])
             }
         }
+        .sheet(isPresented: $timelineState.showingCalendar) {
+            if #available(iOS 16.0, *) {
+                calendarSheet
+                    .presentationDetents([.height(UIScreen.main.bounds.width)])
+            } else {
+                calendarSheet
+            }
+        }
+    }
+
+    var calendarSheet: some View {
+        VStack(spacing: 0) {
+            DatePicker("View timeline date", selection: $timelineState.selectedDate, in: Settings.firstDate...Date(), displayedComponents: [.date])
+                .datePickerStyle(.graphical)
+                .padding(20)
+            Spacer()
+        }
     }
 
     var dailyTitle: String {
