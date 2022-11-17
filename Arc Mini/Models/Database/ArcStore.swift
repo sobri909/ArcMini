@@ -12,10 +12,16 @@ import LocoKit
 final class ArcStore: TimelineStore {
 
     override var dbDir: URL { get { return arcDbDir } set {} }
+    override var modelsDir: URL { get { return arcModelsDir } set {} }
 
     lazy var arcDbDir: URL = {
         if let groupDir = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ArcApp") { return groupDir }
         return try! FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+    }()
+
+    lazy var arcModelsDir: URL = {
+        return FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ArcApp")!
+            .appendingPathComponent("MLModels", isDirectory: true)
     }()
 
     lazy var arcDbUrl: URL = {
