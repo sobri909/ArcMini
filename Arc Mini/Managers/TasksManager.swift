@@ -17,6 +17,7 @@ class TasksManager {
         case updateTrustFactors = "com.bigpaua.ArcMini.updateTrustFactors"
         case sanitiseStore = "com.bigpaua.ArcMini.sanitiseStore"
         case iCloudDriveBackups = "com.bigpaua.ArcMini.iCloudDriveBackups"
+        case coreMLModelUpdates = "com.bigpaua.ArcMini.coreMLModelUpdates"
         
         // Arc v3 only
         case housekeepCloudKit = "com.bigpaua.ArcMini.housekeepCloudKit"
@@ -71,6 +72,16 @@ class TasksManager {
         register(.activityTypeModelUpdates, minimumDelay: .oneHour) { task in
             TasksManager.update(.activityTypeModelUpdates, to: .running)
             UserActivityTypesCache.highlander.updateQueuedModels(task: task as! BGProcessingTask)
+        }
+        
+        register(.coreMLModelUpdates, minimumDelay: .oneHour * 6) { task in
+            TasksManager.update(.coreMLModelUpdates, to: .running)
+            RecordingManager.store.connectToDatabase()
+            CoreMLModelUpdater.highlander.updateQueuedModels(task: task as! BGProcessingTask, store: RecordingManager.store) { expired in
+                TasksManager.update(.coreMLModelUpdates, to: expired ? .expired : .completed)
+                TasksManager.highlander.scheduleBackgroundTasks()
+                RecordingManager.safelyDisconnectFromDatabase()
+            }
         }
 
         register(.updateTrustFactors, minimumDelay: .oneDay, queue: Jobs.highlander.secondaryQueue.underlyingQueue) { task in
