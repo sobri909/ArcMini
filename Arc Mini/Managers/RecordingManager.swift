@@ -23,16 +23,10 @@ class RecordingManager {
     static let highlander = RecordingManager()
     static let store = ArcStore()
     static let recorder = {
-        if let classifier = try? CoreMLClassifier(modelURL: coreMLModelURL) {
-            logger.info("Using Core ML classifier", subsystem: .locokit)
-            return TimelineRecorder(store: store, classifier: classifier)
-        }
-        logger.info("Using LocoKit classifier", subsystem: .locokit)
-        return TimelineRecorder(store: store, classifier: UserTimelineClassifier.highlander)
+        logger.info("Using Core ML classifier", subsystem: .locokit)
+        return TimelineRecorder(store: store, classifier: ActivityClassifier.highlander)
     }()
-    static var coreMLModelURL: URL {
-        return RecordingManager.store.arcDbDir.appendingPathComponent("CoreMLModel.mlmodelc")
-    }
+
     static var recordingState: RecordingState { return LocomotionManager.highlander.recordingState }
 
     var recorder: TimelineRecorder { return RecordingManager.recorder }
