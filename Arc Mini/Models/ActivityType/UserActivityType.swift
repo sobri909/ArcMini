@@ -11,7 +11,7 @@ import LocoKit
 import CoreLocation
 import BackgroundTasks
 
-class UserActivityType: MutableActivityType {
+final class UserActivityType: MutableActivityType {
 
     init?(dict: [String: Any?]) {
         super.init(dict: dict, geoKeyPrefix: "U", in: RecordingManager.store)
@@ -43,26 +43,28 @@ class UserActivityType: MutableActivityType {
                 UserActivityTypesCache.highlander.updateQueuedModels(task: task)
             }
 
-            guard self.shouldUpdate else {
-                self.needsUpdate = false
-                self.save()
-                done()
-                return
-            }
-            
             self.needsUpdate = false
             self.save()
 
             logger.info("UPDATING: \(self.geoKey)")
 
+            // only include the last 2 years of samples
             let dateBoundary = Date(timeIntervalSinceNow: -.oneYear * 2)
 
-            // only update from the last X months of samples
+            let rect = CoordinateRect(
+                latitudeRange: self.latitudeRange.min...self.latitudeRange.max,
+                longitudeRange: self.longitudeRange.min...self.longitudeRange.max
+            )
+
+            let start = Date()
+
             let samples = RecordingManager.store.samples(
-                where: "confirmedType = ? AND latitude > ? AND latitude < ? AND longitude > ? AND longitude < ? "
-                    + "AND date > ? AND source = ? ORDER BY date",
-                arguments: [self.name.rawValue, self.latitudeRange.min, self.latitudeRange.max, self.longitudeRange.min,
-                            self.longitudeRange.max, dateBoundary, "LocoKit"])
+                inside: rect,
+                where: "confirmedType = ? AND date > ? ORDER BY date",
+                arguments: [self.name.rawValue, dateBoundary]
+            ).filter { $0.source == "LocoKit" }
+
+            print("FETCHED samples: \(samples.count), duration: \(duration: start.age)")
 
             // only reclassify the most recent samples, for accuracyScores
             let toClassify = samples.suffix(2000)
@@ -71,6 +73,7 @@ class UserActivityType: MutableActivityType {
                 sample.classifierResults = RecordingManager.recorder.classifier?.classify(sample, previousResults: nil)
             }
 
+            // update model using all confirmed samples since date boundary
             self.updateFrom(samples: samples)
 
             if let accuracy = self.accuracyScore {
@@ -96,37 +99,6 @@ class UserActivityType: MutableActivityType {
 
             done()
         }
-    }
-
-    private var shouldUpdate: Bool {
-        if isShared { return false }
-
-        // never updated?
-        guard let lastUpdated = lastUpdated else { return true }
-
-        // version is too old?
-        if version < ActivityType.currentVersion { return true }
-
-        // is empty?
-        if totalSamples == 0 { return true }
-
-        guard let pool = RecordingManager.store.pool else { fatalError("Attempting to access the database when disconnected") }
-
-        do {
-            let query = "SELECT MAX(lastSaved) FROM LocomotionSample "
-                + "WHERE confirmedType = ? AND latitude > ? AND latitude < ? AND longitude > ? AND longitude < ?"
-            let lastSavedSample = try pool.read { db in
-                return try Date.fetchOne(db, sql: query, arguments: [name.rawValue, latitudeRange.min, latitudeRange.max,
-                                                                     longitudeRange.min, longitudeRange.max])
-            }
-            if let lastSaved = lastSavedSample, lastSaved > lastUpdated { return true }
-
-        } catch {
-            logger.info("\(error)")
-            return false
-        }
-
-        return false
     }
 
 }
