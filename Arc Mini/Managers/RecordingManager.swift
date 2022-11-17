@@ -51,7 +51,7 @@ class RecordingManager {
         when(loco, does: .willStartSleepMode) { _ in
             self.willStartSleeping()
         }
-        when(loco, does: .wentFromSleepModeToRecording) { _ in
+        when(loco, does: .wentFromRecordingToSleepMode) { _ in
             self.didStartSleeping()
         }
         when(.updatedTimelineItem) { _ in
