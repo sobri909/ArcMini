@@ -43,7 +43,6 @@ struct ClassifierResultsView: View {
                     }
                 }
             }
-            .listStyle(SidebarListStyle())
             .navigationBarTitle("Arc \(Bundle.versionNumber) (\(String(format: "%d", Bundle.buildNumber)))")
             .environment(\.defaultMinListRowHeight, 34)
         }
