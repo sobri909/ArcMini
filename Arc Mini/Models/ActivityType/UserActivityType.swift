@@ -70,7 +70,7 @@ final class UserActivityType: MutableActivityType {
             let toClassify = samples.suffix(2000)
 
             for sample in toClassify where sample.classifierResults == nil {
-                sample.classifierResults = RecordingManager.recorder.classifier?.classify(sample, previousResults: nil)
+                sample.classifierResults = RecordingManager.recorder.classifier.classify(sample, previousResults: nil)
             }
 
             // update model using all confirmed samples since date boundary

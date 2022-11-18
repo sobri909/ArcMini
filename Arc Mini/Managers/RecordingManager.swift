@@ -23,8 +23,7 @@ class RecordingManager {
     static let highlander = RecordingManager()
     static let store = ArcStore()
     static let recorder = {
-        logger.info("Using Core ML classifier", subsystem: .locokit)
-        return TimelineRecorder(store: store, classifier: ActivityClassifier.highlander)
+        return TimelineRecorder(store: store)
     }()
 
     static var recordingState: RecordingState { return LocomotionManager.highlander.recordingState }
