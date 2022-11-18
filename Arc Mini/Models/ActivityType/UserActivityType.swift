@@ -82,10 +82,9 @@ final class UserActivityType: MutableActivityType {
                 logger.info("UPDATED: \(self.geoKey) (samples: \(self.totalSamples))")
             }
 
-            if self.totalSamples > 0 {
-                self.save()
+            self.save()
 
-            } else if !ActivityTypeName.baseTypes.contains(self.name) { // empty and not base? delete it
+            if self.totalSamples == 0, !ActivityTypeName.baseTypes.contains(self.name) { // empty and not base? delete it
                 do {
                     try RecordingManager.store.auxiliaryPool.write { db in
                         try db.execute(sql: "DELETE FROM ActivityTypeModel WHERE geoKey = ?", arguments: [self.geoKey])
