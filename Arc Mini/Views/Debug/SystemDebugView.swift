@@ -69,7 +69,6 @@ struct SystemDebugView: View {
                 debugActionRows
 #endif
             }
-            .listStyle(SidebarListStyle())
             .navigationBarTitle("Arc \(Bundle.versionNumber) (\(String(format: "%d", Bundle.buildNumber)))")
             .environment(\.defaultMinListRowHeight, 28)
         }
