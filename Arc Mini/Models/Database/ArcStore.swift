@@ -6,6 +6,7 @@
 //  Copyright © 2020 Matt Greenfield. All rights reserved.
 //
 
+import Foundation
 import GRDB
 import LocoKit
 
@@ -445,6 +446,67 @@ final class ArcStore: TimelineStore {
     override var boolFields: [String] {
         return super.boolFields + ["restoring", "manualActivityType", "uncertainActivityType", "unknownActivityType", "manualPlace",
                                    "isHome", "isFavourite"]
+    }
+
+    // MARK: - Housekeeping
+
+    func housekeep() {
+        hardDeleteSoftDeletedObjects()
+        deleteStaleSharedModels()
+        pruneSampleRTreeRows()
+    }
+
+    override func hardDeleteSoftDeletedObjects() {
+        process {
+            RecordingManager.store.connectToDatabase()
+            guard let pool = self.pool else { fatalError("Attempting to access the database when disconnected") }
+
+            do {
+                try pool.write { db in
+                    try db.execute(sql: "DELETE FROM LocomotionSample WHERE deleted = 1 AND (backupLastSaved IS NULL OR backupLastSaved > lastSaved)")
+                }
+            } catch {
+                logger.error(error, subsystem: .misc)
+            }
+            do {
+                try pool.write { db in
+                    try db.execute(sql: "DELETE FROM TimelineItem WHERE deleted = 1 AND (backupLastSaved IS NULL OR backupLastSaved > lastSaved)")
+                }
+            } catch {
+                logger.error(error, subsystem: .misc)
+                // don't need these reports, because they're all foreign key constraint fails,
+                // which are now handled in new databases by ON DELETE SET NULL
+                // logToSentry(error: error)
+            }
+        }
+    }
+
+    // MARK: - Copy database to local container
+
+    func copyDatabasesToLocal() {
+        let manager = FileManager.default
+        let localDir = try! manager.url(
+            for: .applicationSupportDirectory, in: .userDomainMask,
+            appropriateFor: nil, create: true
+        )
+        let localSQLFile = localDir.appendingPathComponent("LocoKitCopy.sqlite")
+        let localWALFile = localDir.appendingPathComponent("LocoKitCopy.sqlite-wal")
+
+        do {
+            try manager.removeItem(at: localSQLFile)
+            try manager.removeItem(at: localWALFile)
+            try manager.copyItem(
+                at: RecordingManager.store.dbDir.appendingPathComponent("LocoKit.sqlite"),
+                to: localSQLFile
+            )
+            try manager.copyItem(
+                at: RecordingManager.store.dbDir.appendingPathComponent("LocoKit.sqlite-wal"),
+                to: localWALFile
+            )
+
+        } catch {
+            logger.error(error, subsystem: .misc)
+        }
     }
 
 }

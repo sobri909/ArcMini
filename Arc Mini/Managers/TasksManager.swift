@@ -23,13 +23,14 @@ class TasksManager {
         case housekeepCloudKit = "com.bigpaua.ArcMini.housekeepCloudKit"
         case activitySummaryUpdates = "com.bigpaua.ArcMini.activitySummaryUpdates"
         case simpleItemUpdates = "com.bigpaua.ArcMini.simpleItemUpdates"
-        case cloudKitBackups = "com.bigpaua.ArcMini.cloudKitBackups"
         case dailyAutoExportUpdates = "com.bigpaua.ArcMini.dailyAutoExportUpdates"
         case monthlyAutoExportUpdates = "com.bigpaua.ArcMini.monthlyAutoExportUpdates"
         case wakeupCheck = "com.bigpaua.ArcMini.wakeupCheck"
         
         var shortName: String { String(rawValue.split(separator: ".").last!) }
-        
+
+        static let deprecatedIdentifiers = ["cloudKitBackups", "placeModelUpdates2", "coreMLModelUpdate"]
+
         init?(shortName: String) {
             self.init(rawValue: "com.bigpaua.ArcMini." + shortName)
         }
@@ -37,6 +38,16 @@ class TasksManager {
 
     enum TaskState: String, Codable {
         case registered, scheduled, running, expired, unfinished, completed
+        var sortIndex: Int {
+            switch self {
+            case .running: return 0
+            case .expired: return 1
+            case .unfinished: return 2
+            case .completed: return 3
+            case .scheduled: return 4
+            case .registered: return 5
+            }
+        }
     }
 
     struct TaskStatus: Codable {
@@ -69,7 +80,7 @@ class TasksManager {
             PlaceCache.cache.updateQueuedPlaces(task: task as! BGProcessingTask)
         }
 
-        register(.activityTypeModelUpdates, minimumDelay: .oneHour) { task in
+        register(.activityTypeModelUpdates, minimumDelay: .oneHour * 6) { task in
             TasksManager.update(.activityTypeModelUpdates, to: .running)
             UserActivityTypesCache.highlander.updateQueuedModels(task: task as! BGProcessingTask)
         }
@@ -102,6 +113,7 @@ class TasksManager {
             TasksManager.update(.sanitiseStore, to: .running)
             RecordingManager.store.connectToDatabase()
             TimelineProcessor.sanitise(store: RecordingManager.store)
+            RecordingManager.store.housekeep()
             RecordingManager.safelyDisconnectFromDatabase()
             
             if TasksManager.currentState(of: .sanitiseStore) == .expired {
@@ -136,6 +148,10 @@ class TasksManager {
             TasksManager.schedule(.updateTrustFactors, requiresPower: true)
         }
 
+        if RecordingManager.store.coreMLModelsPendingUpdate > 0 {
+            TasksManager.schedule(.coreMLModelUpdates, requiresPower: true)
+        }
+
         TasksManager.schedule(.sanitiseStore, requiresPower: true)
     }
 
@@ -155,10 +171,7 @@ class TasksManager {
     }
 
     static func schedule(_ identifier: TaskIdentifier, requiresPower: Bool, requiresNetwork: Bool = false) {
-        guard currentState(of: identifier) != .running else {
-            logger.info("\(identifier.rawValue.split(separator: ".").last!) is already running", subsystem: .tasks)
-            return
-        }
+        guard currentState(of: identifier) != .running else { return }
 
         guard let currentStatus = highlander.mutex.sync(execute: { highlander.taskStates[identifier.shortName] }) else { fatalError("Task not registered") }
 
@@ -217,7 +230,7 @@ class TasksManager {
         if let status = taskStates[identifier.shortName] {
             mutex.sync {
                 taskStates[identifier.shortName] = TaskStatus(state: status.state, lastUpdated: Date(), minimumDelay: minimumDelay,
-                                                    lastCompleted: status.lastCompleted)
+                                                              lastCompleted: status.lastCompleted)
             }
         } else {
             mutex.sync {
@@ -233,11 +246,11 @@ class TasksManager {
         mutex.sync {
             if state == .completed {
                 taskStates[identifier.shortName] =
-                    TaskStatus(state: state, lastUpdated: Date(), minimumDelay: status.minimumDelay, lastCompleted: Date())
+                TaskStatus(state: state, lastUpdated: Date(), minimumDelay: status.minimumDelay, lastCompleted: Date())
             } else {
                 taskStates[identifier.shortName] =
-                    TaskStatus(state: state, lastUpdated: Date(), minimumDelay: status.minimumDelay,
-                               lastCompleted: status.lastCompleted)
+                TaskStatus(state: state, lastUpdated: Date(), minimumDelay: status.minimumDelay,
+                           lastCompleted: status.lastCompleted)
             }
             if state != .running {
                 activeTasks[identifier] = nil
