@@ -13,9 +13,11 @@ struct PlacesPendingUpdateView: View {
     var body: some View {
         List(pendingPlaceNames, id: \.hashValue) { name in
             Text(name)
+                .font(.system(size: 13, weight: .regular))
+                .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
         }
         .navigationBarTitle("Pending Update")
-        .environment(\.defaultMinListRowHeight, 44)
+        .environment(\.defaultMinListRowHeight, 34)
     }
 
     var pendingPlaceNames: [String] {

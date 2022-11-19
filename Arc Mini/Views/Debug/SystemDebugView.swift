@@ -12,10 +12,11 @@ struct SystemDebugView: View {
     
     @State var refreshingSamplesPending = false
     @State var samplesPendingBackup: Int?
-    
-    var samplesPendingString: String {
-        if let samplesPendingBackup = samplesPendingBackup { return "\(samplesPendingBackup)" }
-        return "?"
+    @State var copyingDatabase = false
+
+    var samplesPendingText: Text {
+        if let count = samplesPendingBackup { return Text("\(count)") }
+        return Text("?")
     }
     
     var body: some View {
@@ -28,12 +29,22 @@ struct SystemDebugView: View {
                 Section(header: Text("Task Queues")) {
                     self.row(leftText: "Primary queue jobs", right: Text("\(Jobs.highlander.primaryQueue.operationCount)"))
                     self.row(leftText: "Secondary queue jobs", right: Text("\(Jobs.highlander.secondaryQueue.operationCount)"))
+                    if Backups.backupQueue.operationCount > 0 {
+                        self.row(leftText: "Backup queue jobs", right: Text("\(Backups.backupQueue.operationCount)"))
+                    }
+                    if Backups.samplesBackupQueue.operationCount > 0 {
+                        self.row(leftText: "Backup samples queue jobs", right: Text("\(Backups.samplesBackupQueue.operationCount)"))
+                    }
                     NavigationLink(destination: PlacesPendingUpdateView()) {
                         self.row(leftText: "Places pending update", right: Text("\(RecordingManager.store.placesPendingUpdate)"))
                     }
                     .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                     NavigationLink(destination: ModelsPendingUpdateView()) {
-                        self.row(leftText: "UD models pending update", right: Text("\(RecordingManager.store.modelsPendingUpdate)"))
+                        self.row(leftText: "CD2 models pending update", right: Text("\(RecordingManager.store.coreMLModelsPendingUpdate)"))
+                    }
+                    .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+                    NavigationLink(destination: ModelsPendingUpdateView()) {
+                        self.row(leftText: "UD2 models pending update", right: Text("\(RecordingManager.store.modelsPendingUpdate)"))
                     }
                     .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                 }
@@ -42,17 +53,21 @@ struct SystemDebugView: View {
                     self.row(leftText: "Places pending backup", right: Text("\(Backups.backupPlacesCount)"))
                     self.row(leftText: "Timeline Summaries pending backup", right: Text("\(Backups.backupTimelineSummariesCount)"))
                     self.row(leftText: "Items pending backup", right: Text("\(Backups.backupItemsCount)"))
-                    self.row(leftText: "Samples pending backup", right: Text(samplesPendingString), rightButtonText: Text("refresh"))
+                    self.row(leftText: "Samples pending backup", right: samplesPendingText, rightButtonText: Text("refresh"))
                         .opacity(refreshingSamplesPending ? 0.5 : 1)
                         .onTapGesture {
                             refreshingSamplesPending = true
-                            Arc_Mini.background {
+                            Task {
                                 samplesPendingBackup = Backups.backupSamplesCount
                                 refreshingSamplesPending = false
                             }
                         }
                 }
-                self.taskRows
+
+                taskRows
+#if DEBUG || MERELEASE
+                debugActionRows
+#endif
             }
             .listStyle(SidebarListStyle())
             .navigationBarTitle("Arc \(Bundle.versionNumber) (\(String(format: "%d", Bundle.buildNumber)))")
@@ -65,10 +80,36 @@ struct SystemDebugView: View {
     var taskRows: some View {
         Section(header: Text("Task States")) {
             let sortedStates = TasksManager.highlander.taskStates.sorted {
-                $0.value.lastCompleted ?? $0.value.lastUpdated - .oneYear > $1.value.lastCompleted ?? $0.value.lastUpdated - .oneYear
-            }
+                if $0.value.state == $1.value.state {
+                    return $0.value.lastCompleted ?? $0.value.lastUpdated - .oneYear > $1.value.lastCompleted ?? $0.value.lastUpdated - .oneYear
+                } else {
+                    return $0.value.state.sortIndex < $1.value.state.sortIndex
+                }
+            }.filter { !TasksManager.TaskIdentifier.deprecatedIdentifiers.contains($0.key) }
+
             ForEach(sortedStates, id: \.0) { identifier, status in
                 self.row(leftText: taskNameString(for: status, identifier: identifier), right: Text(statusString(for: status)))
+            }
+        }
+    }
+
+    var debugActionRows: some View {
+        Section(header: Text("Debug Actions")) {
+            if copyingDatabase {
+                Text("Copying database...")
+                    .font(.system(size: 13, weight: .regular))
+            } else {
+                Button {
+                    Task {
+                        copyingDatabase = true
+                        RecordingManager.store.copyDatabasesToLocal()
+                        copyingDatabase = false
+                    }
+                } label: {
+                    Text("Copy LocoKit database to app container")
+                        .font(.system(size: 13, weight: .regular))
+                        .foregroundColor(Color(uiColor: .link))
+                }
             }
         }
     }
@@ -92,6 +133,12 @@ struct SystemDebugView: View {
     }
     
     func taskNameString(for task: TasksManager.TaskStatus, identifier: String) -> String {
+        if task.state == .expired {
+            return "✕ " + identifier
+        }
+        if task.state == .unfinished {
+            return "!! " + identifier
+        }
         if task.state == .running {
             return "▶︎ " + identifier
         }
