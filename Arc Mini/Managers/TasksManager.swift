@@ -271,7 +271,7 @@ class TasksManager {
                     lastStarted: .now,
                     lastExpired: status.lastExpired,
                     lastCompleted: status.lastCompleted,
-                    lastRanInApp: "ArcMini"
+                    lastRanInApp: "Arc Mini"
                 )
             case .expired:
                 taskStates[identifier.shortName] = TaskStatus(
