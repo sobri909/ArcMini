@@ -454,6 +454,7 @@ final class ArcStore: TimelineStore {
         hardDeleteSoftDeletedObjects()
         deleteStaleSharedModels()
         pruneSampleRTreeRows()
+        backfillSampleRTree()
     }
 
     override func hardDeleteSoftDeletedObjects() {
