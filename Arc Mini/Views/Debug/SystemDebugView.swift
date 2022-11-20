@@ -134,11 +134,13 @@ struct SystemDebugView: View {
             }
             .padding(.bottom, 14)
             row(leftText: "State", right: Text(task.state.rawValue))
-            if let runningApp = task.runningInApp {
-                row(leftText: "Running in", right: Text(runningApp))
-            }
             if task.state == .running, let started = task.lastStarted {
+                if let runningApp = task.lastRanInApp {
+                    row(leftText: "Running in", right: Text(runningApp))
+                }
                 row(leftText: "Running for", right: Text("\(duration: started.age)"))
+            } else if let lastApp = task.lastRanInApp {
+                row(leftText: "Last ran in", right: Text(lastApp))
             }
             row(leftText: "Last updated", right: Text("\(task.lastUpdated, style: .relative) ago"))
             if let lastStarted = task.lastStarted {

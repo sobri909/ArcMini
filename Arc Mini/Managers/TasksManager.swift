@@ -58,7 +58,7 @@ class TasksManager {
         var lastStarted: Date?
         var lastExpired: Date?
         var lastCompleted: Date?
-        var runningInApp: String?
+        var lastRanInApp: String?
         var id: String { return shortName }
         var overdueBy: TimeInterval {
             guard let lastCompleted else { return 0 }
@@ -243,7 +243,8 @@ class TasksManager {
                     lastUpdated: .now,
                     lastStarted: status.lastStarted,
                     lastExpired: status.lastExpired,
-                    lastCompleted: status.lastCompleted
+                    lastCompleted: status.lastCompleted,
+                    lastRanInApp: status.lastRanInApp
                 )
             }
         } else {
@@ -270,7 +271,7 @@ class TasksManager {
                     lastStarted: .now,
                     lastExpired: status.lastExpired,
                     lastCompleted: status.lastCompleted,
-                    runningInApp: "ArcMini"
+                    lastRanInApp: "ArcMini"
                 )
             case .expired:
                 taskStates[identifier.shortName] = TaskStatus(
@@ -278,7 +279,8 @@ class TasksManager {
                     lastUpdated: .now,
                     lastStarted: status.lastStarted,
                     lastExpired: .now,
-                    lastCompleted: status.lastCompleted
+                    lastCompleted: status.lastCompleted,
+                    lastRanInApp: status.lastRanInApp
                 )
             case .completed:
                 taskStates[identifier.shortName] = TaskStatus(
@@ -286,7 +288,8 @@ class TasksManager {
                     lastUpdated: .now,
                     lastStarted: status.lastStarted,
                     lastExpired: status.lastExpired,
-                    lastCompleted: .now
+                    lastCompleted: .now,
+                    lastRanInApp: status.lastRanInApp
                 )
             default:
                 taskStates[identifier.shortName] = TaskStatus(
@@ -294,7 +297,8 @@ class TasksManager {
                     lastUpdated: .now,
                     lastStarted: status.lastStarted,
                     lastExpired: status.lastExpired,
-                    lastCompleted: status.lastCompleted
+                    lastCompleted: status.lastCompleted,
+                    lastRanInApp: status.lastRanInApp
                 )
             }
 
