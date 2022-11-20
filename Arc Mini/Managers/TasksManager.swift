@@ -50,11 +50,20 @@ class TasksManager {
         }
     }
 
-    struct TaskStatus: Codable {
+    struct TaskStatus: Codable, Identifiable {
+        var shortName: String
         var state: TaskState
-        var lastUpdated: Date
         var minimumDelay: TimeInterval
+        var lastUpdated: Date
+        var lastStarted: Date?
+        var lastExpired: Date?
         var lastCompleted: Date?
+        var runningInApp: String?
+        var id: String { return shortName }
+        var overdueBy: TimeInterval {
+            guard let lastCompleted else { return 0 }
+            return lastCompleted.age - minimumDelay
+        }
     }
 
     // MARK: -
@@ -80,12 +89,12 @@ class TasksManager {
             PlaceCache.cache.updateQueuedPlaces(task: task as! BGProcessingTask)
         }
 
-        register(.activityTypeModelUpdates, minimumDelay: .oneHour * 6) { task in
+        register(.activityTypeModelUpdates, minimumDelay: .oneHour) { task in
             TasksManager.update(.activityTypeModelUpdates, to: .running)
             UserActivityTypesCache.highlander.updateQueuedModels(task: task as! BGProcessingTask)
         }
-        
-        register(.coreMLModelUpdates, minimumDelay: .oneHour * 6) { task in
+
+        register(.coreMLModelUpdates, minimumDelay: .oneHour) { task in
             TasksManager.update(.coreMLModelUpdates, to: .running)
             RecordingManager.store.connectToDatabase()
             CoreMLModelUpdater.highlander.updateQueuedModels(task: task as! BGProcessingTask, store: RecordingManager.store) { expired in
@@ -229,12 +238,20 @@ class TasksManager {
         BGTaskScheduler.shared.register(forTaskWithIdentifier: identifier.rawValue, using: queue, launchHandler: launchHandler)
         if let status = taskStates[identifier.shortName] {
             mutex.sync {
-                taskStates[identifier.shortName] = TaskStatus(state: status.state, lastUpdated: Date(), minimumDelay: minimumDelay,
-                                                              lastCompleted: status.lastCompleted)
+                taskStates[identifier.shortName] = TaskStatus(
+                    shortName: identifier.shortName, state: status.state, minimumDelay: minimumDelay,
+                    lastUpdated: .now,
+                    lastStarted: status.lastStarted,
+                    lastExpired: status.lastExpired,
+                    lastCompleted: status.lastCompleted
+                )
             }
         } else {
             mutex.sync {
-                taskStates[identifier.shortName] = TaskStatus(state: .registered, lastUpdated: Date(), minimumDelay: minimumDelay)
+                taskStates[identifier.shortName] = TaskStatus(
+                    shortName: identifier.shortName, state: .registered, minimumDelay: minimumDelay,
+                    lastUpdated: .now
+                )
             }
         }
         saveStates()
@@ -243,21 +260,50 @@ class TasksManager {
     private func update(_ shortName: String, to state: TaskState) {
         guard let identifier = TaskIdentifier(shortName: shortName) else { fatalError("Unknown task identifier: \(shortName)") }
         guard let status = mutex.sync(execute: { taskStates[identifier.shortName] }) else { fatalError("Task not registered") }
+
         mutex.sync {
-            if state == .completed {
-                taskStates[identifier.shortName] =
-                TaskStatus(state: state, lastUpdated: Date(), minimumDelay: status.minimumDelay, lastCompleted: Date())
-            } else {
-                taskStates[identifier.shortName] =
-                TaskStatus(state: state, lastUpdated: Date(), minimumDelay: status.minimumDelay,
-                           lastCompleted: status.lastCompleted)
+            switch state {
+            case .running:
+                taskStates[identifier.shortName] = TaskStatus(
+                    shortName: identifier.shortName, state: state, minimumDelay: status.minimumDelay,
+                    lastUpdated: .now,
+                    lastStarted: .now,
+                    lastExpired: status.lastExpired,
+                    lastCompleted: status.lastCompleted,
+                    runningInApp: "ArcMini"
+                )
+            case .expired:
+                taskStates[identifier.shortName] = TaskStatus(
+                    shortName: identifier.shortName, state: state, minimumDelay: status.minimumDelay,
+                    lastUpdated: .now,
+                    lastStarted: status.lastStarted,
+                    lastExpired: .now,
+                    lastCompleted: status.lastCompleted
+                )
+            case .completed:
+                taskStates[identifier.shortName] = TaskStatus(
+                    shortName: identifier.shortName, state: state, minimumDelay: status.minimumDelay,
+                    lastUpdated: .now,
+                    lastStarted: status.lastStarted,
+                    lastExpired: status.lastExpired,
+                    lastCompleted: .now
+                )
+            default:
+                taskStates[identifier.shortName] = TaskStatus(
+                    shortName: identifier.shortName, state: state, minimumDelay: status.minimumDelay,
+                    lastUpdated: .now,
+                    lastStarted: status.lastStarted,
+                    lastExpired: status.lastExpired,
+                    lastCompleted: status.lastCompleted
+                )
             }
+
             if state != .running {
                 activeTasks[identifier] = nil
             }
         }
-        self.saveStates()
-        
+        saveStates()
+
         if state == .unfinished {
             logger.error("\(state.rawValue): \(identifier.rawValue.split(separator: ".").last!)")
             

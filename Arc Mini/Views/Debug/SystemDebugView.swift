@@ -13,6 +13,7 @@ struct SystemDebugView: View {
     @State var refreshingSamplesPending = false
     @State var samplesPendingBackup: Int?
     @State var copyingDatabase = false
+    @State var selectedTask: TasksManager.TaskStatus?
 
     var samplesPendingText: Text {
         if let count = samplesPendingBackup { return Text("\(count)") }
@@ -48,22 +49,7 @@ struct SystemDebugView: View {
                     }
                     .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                 }
-                Section(header: Text("Pending Backups")) {
-                    self.row(leftText: "Notes pending backup", right: Text("\(Backups.backupNotesCount)"))
-                    self.row(leftText: "Places pending backup", right: Text("\(Backups.backupPlacesCount)"))
-                    self.row(leftText: "Timeline Summaries pending backup", right: Text("\(Backups.backupTimelineSummariesCount)"))
-                    self.row(leftText: "Items pending backup", right: Text("\(Backups.backupItemsCount)"))
-                    self.row(leftText: "Samples pending backup", right: samplesPendingText, rightButtonText: Text("refresh"))
-                        .opacity(refreshingSamplesPending ? 0.5 : 1)
-                        .onTapGesture {
-                            refreshingSamplesPending = true
-                            Task {
-                                samplesPendingBackup = Backups.backupSamplesCount
-                                refreshingSamplesPending = false
-                            }
-                        }
-                }
-
+                backupRows
                 taskRows
 #if DEBUG || MERELEASE
                 debugActionRows
@@ -71,10 +57,36 @@ struct SystemDebugView: View {
             }
             .navigationBarTitle("Arc \(Bundle.versionNumber) (\(String(format: "%d", Bundle.buildNumber)))")
             .environment(\.defaultMinListRowHeight, 28)
+            .sheet(item: $selectedTask) { item in
+                if #available(iOS 16.0, *) {
+                    taskDetails(for: item)
+                        .presentationDetents([.height(240)])
+                } else {
+                    taskDetails(for: item)
+                }
+            }
         }
     }
 
     // MARK: -
+
+    var backupRows: some View {
+        Section(header: Text("Pending Backups")) {
+            self.row(leftText: "Notes pending backup", right: Text("\(Backups.backupNotesCount)"))
+            self.row(leftText: "Places pending backup", right: Text("\(Backups.backupPlacesCount)"))
+            self.row(leftText: "Timeline Summaries pending backup", right: Text("\(Backups.backupTimelineSummariesCount)"))
+            self.row(leftText: "Items pending backup", right: Text("\(Backups.backupItemsCount)"))
+            self.row(leftText: "Samples pending backup", right: samplesPendingText, rightButtonText: Text("refresh"))
+                .opacity(refreshingSamplesPending ? 0.5 : 1)
+                .onTapGesture {
+                    refreshingSamplesPending = true
+                    Task {
+                        samplesPendingBackup = Backups.backupSamplesCount
+                        refreshingSamplesPending = false
+                    }
+                }
+        }
+    }
 
     var taskRows: some View {
         Section(header: Text("Task States")) {
@@ -87,7 +99,8 @@ struct SystemDebugView: View {
             }.filter { !TasksManager.TaskIdentifier.deprecatedIdentifiers.contains($0.key) }
 
             ForEach(sortedStates, id: \.0) { identifier, status in
-                self.row(leftText: taskNameString(for: status, identifier: identifier), right: Text(statusString(for: status)))
+                row(leftText: taskNameString(for: status, identifier: identifier), right: Text(statusString(for: status)), showChevron: true)
+                    .onTapGesture { selectedTask = status }
             }
         }
     }
@@ -113,18 +126,65 @@ struct SystemDebugView: View {
         }
     }
 
+    func taskDetails(for task: TasksManager.TaskStatus) -> some View {
+        VStack(spacing: 0) {
+            HStack {
+                Text(task.shortName).font(.headline)
+                Spacer()
+            }
+            .padding(.bottom, 14)
+            row(leftText: "State", right: Text(task.state.rawValue))
+            if let runningApp = task.runningInApp {
+                row(leftText: "Running in", right: Text(runningApp))
+            }
+            if task.state == .running, let started = task.lastStarted {
+                row(leftText: "Running for", right: Text("\(duration: started.age)"))
+            }
+            row(leftText: "Last updated", right: Text("\(task.lastUpdated, style: .relative) ago"))
+            if let lastStarted = task.lastStarted {
+                row(leftText: "Last started", right: Text("\(lastStarted, style: .relative) ago"))
+            }
+            if let lastExpired = task.lastExpired {
+                row(leftText: "Last expired", right: Text("\(lastExpired, style: .relative) ago"))
+            }
+            if let lastCompleted = task.lastCompleted {
+                row(leftText: "Last completed", right: Text("\(lastCompleted, style: .relative) ago"))
+            }
+            if task.state == .scheduled, task.overdueBy > 0 {
+                row(leftText: "Overdue by", right: Text("\(duration: task.overdueBy)"))
+            }
+        }
+        .padding(20)
+        .alignTop()
+    }
+
     // MARK: -
 
-    func row(leftText: String, right rightText: Text, rightButtonText: Text? = nil) -> some View {
+    func row(leftText: String, right rightText: Text? = nil, rightButtonText: Text? = nil, showChevron: Bool = false) -> some View {
         return HStack {
-            Text(leftText).font(.system(size: 12, weight: .regular))
+            Text(leftText)
+                .font(.system(size: 12, weight: .regular))
             Spacer()
-            rightText.font(.system(size: 12, weight: .regular)).opacity(0.6)
+            if let rightText {
+                rightText
+                    .font(.system(size: 12, weight: .regular))
+                    .monospacedDigit()
+                    .opacity(0.6)
+            }
             if let rightButtonText = rightButtonText {
                 rightButtonText.font(.system(size: 12, weight: .regular))
                     .padding([.leading, .trailing], 8)
-                    .foregroundColor(.white).background(Color.black)
+                    .foregroundColor(.white)
+                    .background(Color.black)
                     .cornerRadius(10)
+            }
+            if showChevron {
+                if #available(iOS 16.0, *) {
+                    Image(systemName: "chevron.right")
+                        .fontWeight(.semibold)
+                        .imageScale(.small)
+                        .foregroundColor(Color(uiColor: .systemGray3))
+                }
             }
         }
         .frame(height: 28)
