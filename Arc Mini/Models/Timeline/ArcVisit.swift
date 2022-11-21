@@ -403,7 +403,6 @@ class ArcVisit: LocoKit.Visit, ArcTimelineItem {
         // ArcVisit
         case streetAddress
         case manualPlace
-        case placeCKRecordName
         case customTitle
         case placeId
         case place

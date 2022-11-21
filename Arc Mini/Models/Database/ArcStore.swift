@@ -444,7 +444,7 @@ final class ArcStore: TimelineStore {
     }
     
     override var boolFields: [String] {
-        return super.boolFields + ["restoring", "manualActivityType", "uncertainActivityType", "unknownActivityType", "manualPlace",
+        return super.boolFields + ["manualActivityType", "uncertainActivityType", "unknownActivityType", "manualPlace",
                                    "isHome", "isFavourite"]
     }
 

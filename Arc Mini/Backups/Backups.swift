@@ -174,7 +174,7 @@ enum Backups {
 
     static var backupItemsCount: Int {
         return RecordingManager.store.countItems(
-            where: "(backupLastSaved IS NULL OR backupLastSaved < lastSaved) AND restoring = 0")
+            where: "(backupLastSaved IS NULL OR backupLastSaved < lastSaved)")
     }
 
     static var backupSamplesCount: Int {
@@ -204,7 +204,7 @@ enum Backups {
     private static var itemsBackupBatch: [ArcTimelineItem] {
         RecordingManager.store.saveNoDate()
         let results = RecordingManager.store.items(
-            where: "(backupLastSaved IS NULL OR backupLastSaved < lastSaved) AND restoring = 0 LIMIT ?",
+            where: "(backupLastSaved IS NULL OR backupLastSaved < lastSaved) LIMIT ?",
             arguments: [itemsBatchSize])
         if results.isEmpty { return [] }
         return results as? [ArcTimelineItem] ?? []
