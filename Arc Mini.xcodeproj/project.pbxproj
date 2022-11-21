@@ -112,7 +112,6 @@
 		C9F1EB13288957CB00D9324C /* UserActivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F1EB0F288957CB00D9324C /* UserActivityType.swift */; };
 		C9F1EB14288957CB00D9324C /* UserActivityTypesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F1EB10288957CB00D9324C /* UserActivityTypesCache.swift */; };
 		C9F1EB15288957CB00D9324C /* UserActivityTypeClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F1EB11288957CB00D9324C /* UserActivityTypeClassifier.swift */; };
-		C9F1EB16288957CB00D9324C /* UserTimelineClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F1EB12288957CB00D9324C /* UserTimelineClassifier.swift */; };
 		C9F32F47242A5BBE00184862 /* Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F32F46242A5BBE00184862 /* Health.swift */; };
 		C9F32F4A242A60A100184862 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F32F49242A60A100184862 /* HealthKit.framework */; };
 		C9F98B77242FAB38003D2A23 /* ItemSegmentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F98B76242FAB38003D2A23 /* ItemSegmentsView.swift */; };
@@ -261,7 +260,6 @@
 		C9F1EB0F288957CB00D9324C /* UserActivityType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityType.swift; sourceTree = "<group>"; };
 		C9F1EB10288957CB00D9324C /* UserActivityTypesCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityTypesCache.swift; sourceTree = "<group>"; };
 		C9F1EB11288957CB00D9324C /* UserActivityTypeClassifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityTypeClassifier.swift; sourceTree = "<group>"; };
-		C9F1EB12288957CB00D9324C /* UserTimelineClassifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTimelineClassifier.swift; sourceTree = "<group>"; };
 		C9F32F46242A5BBE00184862 /* Health.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Health.swift; sourceTree = "<group>"; };
 		C9F32F49242A60A100184862 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		C9F98B76242FAB38003D2A23 /* ItemSegmentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSegmentsView.swift; sourceTree = "<group>"; };
@@ -420,7 +418,6 @@
 				C9F1EB0F288957CB00D9324C /* UserActivityType.swift */,
 				C9F1EB11288957CB00D9324C /* UserActivityTypeClassifier.swift */,
 				C9F1EB10288957CB00D9324C /* UserActivityTypesCache.swift */,
-				C9F1EB12288957CB00D9324C /* UserTimelineClassifier.swift */,
 			);
 			path = ActivityType;
 			sourceTree = "<group>";
@@ -867,7 +864,6 @@
 				C95705092589D6A300A7E691 /* TextRow.swift in Sources */,
 				C9F98B77242FAB38003D2A23 /* ItemSegmentsView.swift in Sources */,
 				C95E0E252417AEB8008418A1 /* VisitListBox.swift in Sources */,
-				C9F1EB16288957CB00D9324C /* UserTimelineClassifier.swift in Sources */,
 				C9C874F32458484000BAB9A3 /* ItemDetailsHeader.swift in Sources */,
 				C9CA45F525D7F84A00154592 /* PlaceRTree.swift in Sources */,
 				C93062B1243F1B0D00DE47CC /* DebugLogsView.swift in Sources */,
