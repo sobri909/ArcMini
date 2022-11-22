@@ -358,7 +358,7 @@ class TasksManager {
     }
 
     private func flushRunning() {
-        let failed = mutex.sync { taskStates.filter { $0.value.state == .running } }
+        let failed = mutex.sync { taskStates.filter { $0.value.state == .running && $0.value.lastRanInApp == "Arc Mini" } }
         for shortName in failed.keys {
             guard TaskIdentifier(shortName: shortName) != nil else { continue }
             update(shortName, to: .unfinished)
