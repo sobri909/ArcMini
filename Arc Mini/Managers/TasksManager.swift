@@ -164,6 +164,19 @@ class TasksManager {
         TasksManager.schedule(.sanitiseStore, requiresPower: true)
     }
 
+    func updateQueuePriorities() {
+        if LocomotionManager.highlander.applicationState == .active {
+            CoreMLModelUpdater.highlander.updatesQueue.qualityOfService = .utility
+            UserActivityTypesCache.highlander.updatesQueue.qualityOfService = .utility
+            PlaceCache.cache.updatesQueue.qualityOfService = .utility
+
+        } else {
+            CoreMLModelUpdater.highlander.updatesQueue.qualityOfService = .background
+            UserActivityTypesCache.highlander.updatesQueue.qualityOfService = .background
+            PlaceCache.cache.updatesQueue.qualityOfService = .background
+        }
+    }
+
     static func scheduleRefresh(_ identifier: TaskIdentifier, after delay: TimeInterval? = nil) {
         onMain {
             let request = BGAppRefreshTaskRequest(identifier: identifier.rawValue)

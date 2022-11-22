@@ -72,6 +72,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             loco.becomeTheActiveRecorder()
         }
 
+        delay(1) {
+            TasksManager.highlander.updateQueuePriorities()
+        }
+
         growAFullHead()
     }
     
@@ -83,6 +87,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             if self.timeInBackground >= self.goHeadlessAfterBackgroundTime {
                 self.goFullyHeadless()
             }
+        }
+
+        delay(1) {
+            TasksManager.highlander.updateQueuePriorities()
+            TasksManager.highlander.scheduleBackgroundTasks()
         }
     }
 
