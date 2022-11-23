@@ -162,7 +162,6 @@
 		C9120BD5250BBDD80063A2B7 /* CurrentItemWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentItemWidget.swift; sourceTree = "<group>"; };
 		C9120BD8250BBDDA0063A2B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9120BDA250BBDDA0063A2B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C91CB40624CDB30E00AF0CF1 /* WorkoutImporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutImporter.swift; sourceTree = "<group>"; };
 		C91CB40824CDB86000AF0CF1 /* HealthKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKit.swift; sourceTree = "<group>"; };
 		C91F10EF25307DA900D3BD99 /* Backups.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Backups.swift; sourceTree = "<group>"; };
 		C91F10F025307DA900D3BD99 /* ConcreteBackupable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteBackupable.swift; sourceTree = "<group>"; };
@@ -475,7 +474,6 @@
 				C9524008242F50BA00F4522D /* Maths */,
 				C99F5EB5242A2C5000E172AE /* Note.swift */,
 				C91F11072530848100D3BD99 /* TimelineRangeSummary.swift */,
-				C91CB40624CDB30E00AF0CF1 /* WorkoutImporter.swift */,
 				C9B86B87242CAD8900D52C0D /* ArcError.swift */,
 			);
 			path = Models;
