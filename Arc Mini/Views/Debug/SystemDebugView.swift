@@ -48,6 +48,9 @@ struct SystemDebugView: View {
                 if !runningTasks.isEmpty {
                     runningTaskRows
                 }
+                if !overdueTasks.isEmpty {
+                    overdueTaskRows
+                }
                 if !waitingTasks.isEmpty {
                     waitingTaskRows
                 }
@@ -99,6 +102,19 @@ struct SystemDebugView: View {
         }
     }
 
+    var overdueTaskRows: some View {
+        Section(header: Text("Overdue Tasks")) {
+            ForEach(overdueTasks, id: \.shortName) { status in
+                row(
+                    leftText: taskNameString(for: status),
+                    right: Text(statusString(for: status)),
+                    showChevron: true
+                )
+                .onTapGesture { selectedTask = status }
+            }
+        }
+    }
+
     var waitingTaskRows: some View {
         Section(header: Text("Scheduled Tasks")) {
             ForEach(waitingTasks, id: \.shortName) { status in
@@ -130,9 +146,15 @@ struct SystemDebugView: View {
             .filter { $0.state == .running }
     }
 
+    var overdueTasks: [TasksManager.TaskStatus] {
+        return TasksManager.highlander.taskStates.values
+            .filter { $0.state == .scheduled && $0.minimumDelay > 0 && $0.overdueBy > 0 }
+            .sorted { $0.overdueBy > $1.overdueBy }
+    }
+
     var waitingTasks: [TasksManager.TaskStatus] {
         return TasksManager.highlander.taskStates.values
-            .filter { $0.state == .scheduled }
+            .filter { $0.state == .scheduled && ($0.minimumDelay == 0 || $0.overdueBy <= 0) }
             .sorted { $0.lastCompleted ?? $0.lastUpdated - .oneYear > $1.lastCompleted ?? $1.lastUpdated - .oneYear }
     }
 
