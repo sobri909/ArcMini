@@ -262,6 +262,9 @@ struct SystemDebugView: View {
                 return "running"
             }
         }
+        if task.state == .scheduled, task.overdueBy > 0 {
+            return "overdue by \(String(duration: task.overdueBy, style: .short, maximumUnits: 1))"
+        }
         if let lastCompleted = task.lastCompleted {
             return "completed \(String(duration: -lastCompleted.timeIntervalSinceNow, style: .short, maximumUnits: 1)) ago"
         }
