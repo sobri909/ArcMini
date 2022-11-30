@@ -201,6 +201,7 @@ class PlaceCache {
         if backgroundTaskExpired {
             RecordingManager.safelyDisconnectFromDatabase()
             TasksManager.highlander.scheduleBackgroundTasks()
+            backgroundTaskExpired = false
             return
         }
 

@@ -176,12 +176,11 @@ final class UserActivityTypesCache: MLModelSource {
 
     func updateQueuedModels(task: BGProcessingTask) {
 
-        // handle background expiration
+        // not allowed to continue?
         if backgroundTaskExpired {
-            TasksManager.update(.activityTypeModelUpdates, to: .expired)
             RecordingManager.safelyDisconnectFromDatabase()
-            task.setTaskCompleted(success: false)
             TasksManager.highlander.scheduleBackgroundTasks()
+            backgroundTaskExpired = false
             return
         }
 
@@ -190,6 +189,8 @@ final class UserActivityTypesCache: MLModelSource {
             backgroundTaskExpired = false
             task.expirationHandler = {
                 self.backgroundTaskExpired = true
+                TasksManager.update(.activityTypeModelUpdates, to: .expired)
+                task.setTaskCompleted(success: false)
             }
         }
 
