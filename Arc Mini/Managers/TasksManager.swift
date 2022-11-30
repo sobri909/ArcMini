@@ -89,7 +89,7 @@ class TasksManager {
             PlaceCache.cache.updateQueuedPlaces(task: task as! BGProcessingTask)
         }
 
-        register(.activityTypeModelUpdates, minimumDelay: .oneHour) { task in
+        register(.activityTypeModelUpdates, minimumDelay: .oneDay) { task in
             TasksManager.update(.activityTypeModelUpdates, to: .running)
             UserActivityTypesCache.highlander.updateQueuedModels(task: task as! BGProcessingTask)
         }
