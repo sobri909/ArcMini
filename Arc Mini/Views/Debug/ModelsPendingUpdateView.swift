@@ -16,11 +16,6 @@ struct ModelsPendingUpdateView: View {
                     Text(name)
                         .font(.system(size: 13, weight: .regular))
                         .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
-                        .onTapGesture {
-                            print("TAPPED: \(name)")
-                            let model = RecordingManager.store.coreMLModel(where: "geoKey = ?", arguments: [name])
-                            model?.updatedModel(in: RecordingManager.store)
-                        }
                 }
             }
             Section("UD2 models") {
