@@ -396,10 +396,11 @@ final class ArcStore: TimelineStore {
 
     var arcMigrator = DatabaseMigrator()
 
-    override func migrateDatabases() {
-        super.migrateDatabases()
+    override func migrateDatabases(includeDelayed: Bool = false) {
+        super.migrateDatabases(includeDelayed: false)
 
-        guard let pool = pool else { fatalError("Attempting to access the database when disconnected") }
+        connectToDatabase()
+        guard let pool = pool else { return }
 
         Migrations.addLocoKitMigrations(to: &migrator)
         Migrations.addLocoKitAuxiliaryMigrations(to: &auxiliaryDbMigrator)
@@ -408,32 +409,68 @@ final class ArcStore: TimelineStore {
         do {
             try migrator.migrate(pool)
         } catch {
-            logger.info("\(error)")
+            logger.error(error, subsystem: .misc)
             fatalError()
         }
 
         do {
             try auxiliaryDbMigrator.migrate(auxiliaryPool)
         } catch {
-            logger.info("\(error)")
+            logger.error(error, subsystem: .misc)
             fatalError()
         }
 
         do {
             try arcMigrator.migrate(arcPool)
         } catch {
-            logger.info("\(error)")
+            logger.error(error, subsystem: .misc)
             fatalError()
         }
 
-        delay(20, onQueue: DispatchQueue.global()) {
+        delay(4) {
+            self.runSlowDatabaseMigrations()
+        }
+    }
+
+    var haveDelayedMigrationsToDo: Bool {
+        guard let pool = pool else { return false }
+
+        var migrator = DatabaseMigrator()
+        registerDelayedMigrations(to: &migrator)
+        Migrations.addDelayedLocoKitMigrations(to: &migrator)
+
+        do {
+            let registered = migrator.migrations
+            let done = try pool.read { try migrator.appliedMigrations($0) }
+            let remaining = Set(registered).subtracting(Set(done))
+            return !remaining.isEmpty
+
+        } catch {
+            logger.error(error, subsystem: .misc)
+            return false
+        }
+    }
+
+    override func runSlowDatabaseMigrations() {
+        guard haveDelayedMigrationsToDo else { return }
+
+        Task(priority: .userInitiated) {
+            guard let pool = pool else { return }
+
+            RecordingManager.recorder.stopRecording()
+
             var migrator = DatabaseMigrator()
+            registerDelayedMigrations(to: &migrator)
             Migrations.addDelayedLocoKitMigrations(to: &migrator)
+
             do {
                 try migrator.migrate(pool)
             } catch {
+                logger.error(error, subsystem: .misc)
                 fatalError()
             }
+
+            RecordingManager.highlander.startRecording()
         }
     }
 
