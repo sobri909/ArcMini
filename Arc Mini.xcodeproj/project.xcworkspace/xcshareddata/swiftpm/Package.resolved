@@ -42,7 +42,7 @@
       "location" : "https://github.com/sobri909/LocoKit.git",
       "state" : {
         "branch" : "core-ml",
-        "revision" : "ef73c14fd9d7b101254b87fad3dc811a8a96104d"
+        "revision" : "ebac3ee3f5236eb1c424b75f86420bf1dc86329b"
       }
     },
     {
@@ -50,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mxcl/PromiseKit",
       "state" : {
-        "revision" : "43772616c46a44a9977e41924ae01d0e55f2f9ca",
-        "version" : "6.18.1"
+        "revision" : "5b90042bb419e6f3b1719c973f37e1eab46ce991",
+        "version" : "6.21.0"
       }
     },
     {
@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-log",
       "state" : {
-        "revision" : "6fe203dc33195667ce1759bf0182975e4653ba1c",
-        "version" : "1.4.4"
+        "revision" : "32e8d724467f8fe623624570367e3d50c5638e46",
+        "version" : "1.5.2"
       }
     },
     {
@@ -87,7 +87,7 @@
       "location" : "https://github.com/timbersoftware/SwiftUI-Introspect.git",
       "state" : {
         "branch" : "master",
-        "revision" : "d3cbf32788250741d397cfb5bcd532c37aa1096d"
+        "revision" : "c18951c747ab62af7c15e17a81bd37d4fd5a9979"
       }
     },
     {
