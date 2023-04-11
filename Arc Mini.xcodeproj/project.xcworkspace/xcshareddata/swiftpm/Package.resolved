@@ -42,7 +42,7 @@
       "location" : "https://github.com/sobri909/LocoKit.git",
       "state" : {
         "branch" : "core-ml",
-        "revision" : "ebac3ee3f5236eb1c424b75f86420bf1dc86329b"
+        "revision" : "ec1dcce78ea900909b5def6610ea93a20548aac9"
       }
     },
     {
@@ -50,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mxcl/PromiseKit",
       "state" : {
-        "revision" : "5b90042bb419e6f3b1719c973f37e1eab46ce991",
-        "version" : "6.21.0"
+        "revision" : "8a98e31a47854d3180882c8068cc4d9381bf382d",
+        "version" : "6.22.1"
       }
     },
     {
@@ -87,7 +87,7 @@
       "location" : "https://github.com/timbersoftware/SwiftUI-Introspect.git",
       "state" : {
         "branch" : "master",
-        "revision" : "c18951c747ab62af7c15e17a81bd37d4fd5a9979"
+        "revision" : "54d0aa0d314e649a08b525717ae64da48d51c121"
       }
     },
     {
