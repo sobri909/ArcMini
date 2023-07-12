@@ -133,6 +133,8 @@ extension UIColor {
             return .arcDarkBlue
         case .horseback:
             return .arcByzantine
+        case .surfing:
+            return .arcRuby
         }
     }
 
