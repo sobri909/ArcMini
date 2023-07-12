@@ -42,7 +42,7 @@
       "location" : "https://github.com/sobri909/LocoKit.git",
       "state" : {
         "branch" : "core-ml",
-        "revision" : "ec1dcce78ea900909b5def6610ea93a20548aac9"
+        "revision" : "f58bca0f9ca2252ca6cdb981a081f2a3cc278589"
       }
     },
     {
@@ -87,7 +87,7 @@
       "location" : "https://github.com/timbersoftware/SwiftUI-Introspect.git",
       "state" : {
         "branch" : "master",
-        "revision" : "54d0aa0d314e649a08b525717ae64da48d51c121"
+        "revision" : "2b8e809a21e588cf27aefb1aef65f223e8572f45"
       }
     },
     {
