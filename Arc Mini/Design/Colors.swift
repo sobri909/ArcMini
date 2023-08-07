@@ -101,7 +101,7 @@ extension UIColor {
             return .arcBrown
         case .stationary:
             return .arcPurple
-        case .walking, .golf, .wheelchair:
+        case .walking, .golf, .wheelchair, .hiking:
             return .arcGreen
         case .running:
             return .arcOrange
