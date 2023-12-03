@@ -30,8 +30,8 @@ class Foursquare {
 
             urlString += String(format: "?limit=50&ll=%f,%f", location.coordinate.latitude, location.coordinate.longitude)
 
-            if let query = query, query.count > 0 {
-                urlString += "&query=\(query)"
+            if let query, query.count > 0, let encoded = query.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
+                urlString += "&query=\(encoded)"
             }
 
             // authed user?
