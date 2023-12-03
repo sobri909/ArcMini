@@ -32,7 +32,7 @@ class PlaceClassifier: ObservableObject {
         PlaceCache.cache.flushFoursquareResultsIndexes()
         queryObserver = $query
             .removeDuplicates()
-            .debounce(for: 0.3, scheduler: PlaceClassifier.updatesQueue)
+            .debounce(for: 1, scheduler: PlaceClassifier.updatesQueue)
             .sink { newQuery in
                 self.debouncedQuery = newQuery
                 self.updateResults(includingRemote: true)
