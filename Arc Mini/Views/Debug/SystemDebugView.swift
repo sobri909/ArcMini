@@ -36,11 +36,7 @@ struct SystemDebugView: View {
                     }
                     .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                     NavigationLink(destination: ModelsPendingUpdateView()) {
-                        self.row(leftText: "CD2 models pending update", right: Text("\(RecordingManager.store.coreMLModelsPendingUpdate)"))
-                    }
-                    .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
-                    NavigationLink(destination: ModelsPendingUpdateView()) {
-                        self.row(leftText: "UD2 models pending update", right: Text("\(RecordingManager.store.modelsPendingUpdate)"))
+                        self.row(leftText: "ActivityType models pending update", right: Text("\(RecordingManager.store.coreMLModelsPendingUpdate)"))
                     }
                     .listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
                 }

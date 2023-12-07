@@ -13,14 +13,12 @@ class TasksManager {
 
     enum TaskIdentifier: String, Codable {
         case placeModelUpdates = "com.bigpaua.ArcMini.placeModelUpdates"
-        case activityTypeModelUpdates = "com.bigpaua.ArcMini.activityTypeModelUpdates"
         case updateTrustFactors = "com.bigpaua.ArcMini.updateTrustFactors"
         case sanitiseStore = "com.bigpaua.ArcMini.sanitiseStore"
         case iCloudDriveBackups = "com.bigpaua.ArcMini.iCloudDriveBackups"
         case coreMLModelUpdates = "com.bigpaua.ArcMini.coreMLModelUpdates"
         
         // Arc v3 only
-        case housekeepCloudKit = "com.bigpaua.ArcMini.housekeepCloudKit"
         case activitySummaryUpdates = "com.bigpaua.ArcMini.activitySummaryUpdates"
         case simpleItemUpdates = "com.bigpaua.ArcMini.simpleItemUpdates"
         case dailyAutoExportUpdates = "com.bigpaua.ArcMini.dailyAutoExportUpdates"
@@ -29,7 +27,9 @@ class TasksManager {
         
         var shortName: String { String(rawValue.split(separator: ".").last!) }
 
-        static let deprecatedIdentifiers = ["cloudKitBackups", "placeModelUpdates2", "coreMLModelUpdate"]
+        static let deprecatedIdentifiers = [
+            "cloudKitBackups", "placeModelUpdates2", "coreMLModelUpdate", "activityTypeModelUpdates", "housekeepCloudKit"
+        ]
 
         init?(shortName: String) {
             self.init(rawValue: "com.bigpaua.ArcMini." + shortName)
@@ -87,11 +87,6 @@ class TasksManager {
         register(.placeModelUpdates, minimumDelay: .oneHour) { task in
             TasksManager.update(.placeModelUpdates, to: .running)
             PlaceCache.cache.updateQueuedPlaces(task: task as! BGProcessingTask)
-        }
-
-        register(.activityTypeModelUpdates, minimumDelay: .oneDay) { task in
-            TasksManager.update(.activityTypeModelUpdates, to: .running)
-            UserActivityTypesCache.highlander.updateQueuedModels(task: task as! BGProcessingTask)
         }
 
         register(.coreMLModelUpdates, minimumDelay: .oneHour) { task in
@@ -152,13 +147,9 @@ class TasksManager {
             TasksManager.schedule(.placeModelUpdates, requiresPower: true)
         }
 
-        if RecordingManager.store.modelsPendingUpdate > 0 {
-            TasksManager.schedule(.activityTypeModelUpdates, requiresPower: true)
-            TasksManager.schedule(.updateTrustFactors, requiresPower: true)
-        }
-
         if RecordingManager.store.coreMLModelsPendingUpdate > 0 {
             TasksManager.schedule(.coreMLModelUpdates, requiresPower: true)
+            TasksManager.schedule(.updateTrustFactors, requiresPower: true)
         }
 
         TasksManager.schedule(.sanitiseStore, requiresPower: true)
@@ -168,7 +159,6 @@ class TasksManager {
     func updateQueuePriorities() {
         let qos: QualityOfService = LocomotionManager.highlander.applicationState == .active ? .utility : .background
         CoreMLModelUpdater.highlander.updatesQueue.updateQualityOfService(to: qos)
-        UserActivityTypesCache.highlander.updatesQueue.updateQualityOfService(to: qos)
         PlaceCache.cache.updatesQueue.updateQualityOfService(to: qos)
     }
 

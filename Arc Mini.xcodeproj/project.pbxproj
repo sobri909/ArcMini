@@ -109,9 +109,6 @@
 		C9DBE429243746FF00FCB8E5 /* TimelineScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9DBE428243746FF00FCB8E5 /* TimelineScrollView.swift */; };
 		C9E072E72510F181006C6BFC /* MiniStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E072E62510F181006C6BFC /* MiniStore.swift */; };
 		C9EB6644241A60FA00F545AF /* ArcStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB6643241A60FA00F545AF /* ArcStore.swift */; };
-		C9F1EB13288957CB00D9324C /* UserActivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F1EB0F288957CB00D9324C /* UserActivityType.swift */; };
-		C9F1EB14288957CB00D9324C /* UserActivityTypesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F1EB10288957CB00D9324C /* UserActivityTypesCache.swift */; };
-		C9F1EB15288957CB00D9324C /* UserActivityTypeClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F1EB11288957CB00D9324C /* UserActivityTypeClassifier.swift */; };
 		C9F32F47242A5BBE00184862 /* Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F32F46242A5BBE00184862 /* Health.swift */; };
 		C9F32F4A242A60A100184862 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F32F49242A60A100184862 /* HealthKit.framework */; };
 		C9F98B77242FAB38003D2A23 /* ItemSegmentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F98B76242FAB38003D2A23 /* ItemSegmentsView.swift */; };
@@ -256,9 +253,6 @@
 		C9E072E62510F181006C6BFC /* MiniStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniStore.swift; sourceTree = "<group>"; };
 		C9E072E8251115B2006C6BFC /* CurrentItemWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CurrentItemWidgetExtension.entitlements; sourceTree = "<group>"; };
 		C9EB6643241A60FA00F545AF /* ArcStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArcStore.swift; sourceTree = "<group>"; };
-		C9F1EB0F288957CB00D9324C /* UserActivityType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityType.swift; sourceTree = "<group>"; };
-		C9F1EB10288957CB00D9324C /* UserActivityTypesCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityTypesCache.swift; sourceTree = "<group>"; };
-		C9F1EB11288957CB00D9324C /* UserActivityTypeClassifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserActivityTypeClassifier.swift; sourceTree = "<group>"; };
 		C9F32F46242A5BBE00184862 /* Health.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Health.swift; sourceTree = "<group>"; };
 		C9F32F49242A60A100184862 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		C9F98B76242FAB38003D2A23 /* ItemSegmentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSegmentsView.swift; sourceTree = "<group>"; };
@@ -411,16 +405,6 @@
 			path = Debug;
 			sourceTree = "<group>";
 		};
-		C94808142441BE6D00091943 /* ActivityType */ = {
-			isa = PBXGroup;
-			children = (
-				C9F1EB0F288957CB00D9324C /* UserActivityType.swift */,
-				C9F1EB11288957CB00D9324C /* UserActivityTypeClassifier.swift */,
-				C9F1EB10288957CB00D9324C /* UserActivityTypesCache.swift */,
-			);
-			path = ActivityType;
-			sourceTree = "<group>";
-		};
 		C9524008242F50BA00F4522D /* Maths */ = {
 			isa = PBXGroup;
 			children = (
@@ -466,7 +450,6 @@
 		C95E0E2A2417B6E8008418A1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C94808142441BE6D00091943 /* ActivityType */,
 				C952400D242F652A00F4522D /* Database */,
 				C9F32F48242A5BD200184862 /* External */,
 				C9D4717D242E2EF4005F2AA3 /* Timeline */,
@@ -826,12 +809,9 @@
 				C9F32F47242A5BBE00184862 /* Health.swift in Sources */,
 				C969D1DE245199B600874305 /* ArcAnnotation.swift in Sources */,
 				C9BF9539244744CC000F3299 /* DeleteVisitAlert.swift in Sources */,
-				C9F1EB14288957CB00D9324C /* UserActivityTypesCache.swift in Sources */,
 				C98783042435F1EB001B4E7D /* SegmentAnnotationView.swift in Sources */,
 				C994D5F02455967F003B3152 /* GPX.swift in Sources */,
-				C9F1EB13288957CB00D9324C /* UserActivityType.swift in Sources */,
 				C99F5EB7242A2C5000E172AE /* Note.swift in Sources */,
-				C9F1EB15288957CB00D9324C /* UserActivityTypeClassifier.swift in Sources */,
 				C9C827AD243C7B1E00F3199B /* Calendar+extensions.swift in Sources */,
 				C9822A85240CF8D5006B70F4 /* SceneDelegate.swift in Sources */,
 				C97C193C2432164700FC45A1 /* ItemSegmentEditView.swift in Sources */,

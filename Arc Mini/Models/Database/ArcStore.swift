@@ -35,12 +35,10 @@ final class ArcStore: TimelineStore {
 
     let placeMap = NSMapTable<NSUUID, Place>.strongToWeakObjects()
     let noteMap = NSMapTable<NSUUID, Note>.strongToWeakObjects()
-    let userModelMap = NSMapTable<NSString, UserActivityType>.strongToWeakObjects()
     let timelineSummaryMap = NSMapTable<NSUUID, TimelineRangeSummary>.strongToWeakObjects()
 
     var placesInStore: Int { return mutex.sync { placeMap.objectEnumerator()?.allObjects.count ?? 0 } }
     var notesInStore: Int { return mutex.sync { noteMap.objectEnumerator()?.allObjects.count ?? 0 } }
-    var userModelsInStore: Int { return mutex.sync { userModelMap.objectEnumerator()?.allObjects.count ?? 0 } }
     var timelineSummariesInStore: Int { return mutex.sync { timelineSummaryMap.objectEnumerator()?.allObjects.count ?? 0 } }
     
     static var saveNoDateBatchSize = 50
@@ -201,45 +199,6 @@ final class ArcStore: TimelineStore {
         mutex.sync { noteMap.setObject(note, forKey: note.noteId as NSUUID) }
     }
 
-    // MARK: - Models
-
-    public func userModel(where query: String, arguments: StatementArguments = StatementArguments()) -> UserActivityType? {
-        return userModel(for: "SELECT * FROM ActivityTypeModel WHERE " + query, arguments: arguments)
-    }
-
-    public func userModel(for query: String, arguments: StatementArguments = StatementArguments()) -> UserActivityType? {
-        return try! auxiliaryPool.read { db in
-            guard let row = try Row.fetchOne(db, sql: query, arguments: arguments) else { return nil }
-            return userModel(for: row)
-        }
-    }
-
-    public func userModels(where query: String, arguments: StatementArguments = StatementArguments()) -> [UserActivityType] {
-        return userModels(for: "SELECT * FROM ActivityTypeModel WHERE " + query, arguments: arguments)
-    }
-
-    public func userModels(for query: String, arguments: StatementArguments = StatementArguments()) -> [UserActivityType] {
-        let rows = try! auxiliaryPool.read { db in
-            return try Row.fetchAll(db, sql: query, arguments: arguments)
-        }
-        return rows.map { userModel(for: $0) }
-    }
-
-    func userModel(for row: Row) -> UserActivityType {
-        guard let geoKey = row["geoKey"] as String? else { fatalError("MISSING GEOKEY") }
-        if let cached = mutex.sync(execute: { userModelMap.object(forKey: geoKey as NSString) }) { return cached }
-        if let model = UserActivityType(dict: row.asDict(in: self)) { return model }
-        fatalError("FAILED MODEL INIT FROM ROW")
-    }
-
-    override func add(_ model: ActivityType) {
-        if let model = model as? UserActivityType {
-            mutex.sync { userModelMap.setObject(model, forKey: model.geoKey as NSString) }
-        } else {
-            super.add(model)
-        }
-    }
-
     // MARK: - Timeline Summaries
 
     func timelineSummary(for summaryId: UUID) -> TimelineRangeSummary? {
@@ -388,10 +347,6 @@ final class ArcStore: TimelineStore {
         return countPlaces(where: "needsUpdate = 1")
     }
 
-    var modelsPendingUpdate: Int {
-       return countModels(where: "isShared = 0 AND needsUpdate = 1")
-    }
-
     // MARK: - Database migrations
 
     var arcMigrator = DatabaseMigrator()
@@ -489,7 +444,6 @@ final class ArcStore: TimelineStore {
 
     func housekeep() {
         hardDeleteSoftDeletedObjects()
-        deleteStaleSharedModels()
         pruneSampleRTreeRows()
         backfillSampleRTree()
     }

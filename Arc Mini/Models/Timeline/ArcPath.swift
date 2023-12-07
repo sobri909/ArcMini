@@ -91,7 +91,6 @@ class ArcPath: Path, ArcTimelineItem {
 
         if _manualActivityType == true {
             CoreMLModelUpdater.highlander.queueUpdatesForModelsContaining(self)
-            UserActivityTypesCache.highlander.updateModelsContaining(self)
         }
     }
 
@@ -215,14 +214,8 @@ class ArcPath: Path, ArcTimelineItem {
 
         samplesChanged()
 
-        // update the ML models
+        // update the ML model
         CoreMLModelUpdater.highlander.queueUpdatesForModelsContaining(self)
-        UserActivityTypesCache.highlander.updateModelsContaining(self, activityType: confirmedType)
-
-        // previous type model might need an update too
-        if confirmedType != previousType {
-            UserActivityTypesCache.highlander.updateModelsContaining(self, activityType: previousType)
-        }
 
         trigger(.updatedTimelineItem, on: self)
 

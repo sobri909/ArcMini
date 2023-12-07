@@ -48,7 +48,6 @@ extension ItemSegment {
         if changed {
             (timelineItem as? ArcTimelineItem)?.samplesChanged()
             CoreMLModelUpdater.highlander.queueUpdatesForModelsContaining(self)
-            UserActivityTypesCache.highlander.updateModelsContaining(self)
         }
     }
 }
