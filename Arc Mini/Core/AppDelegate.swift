@@ -24,8 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         logger.info("didFinishLaunchingWithOptions")
 
-        LocoKitService.apiKey = "bee1aa1af978486b9186780a07cc240e"
-        ActivityTypesCache.highlander.store = RecordingManager.store
+        CoreMLModelUpdater.highlander.store = RecordingManager.store
         LocomotionManager.highlander.coordinateAssessor = CoordinateTrustManager(store: RecordingManager.store)
         LocomotionManager.highlander.appGroup = AppGroup(appName: .arcMini, suiteName: "group.ArcApp")
         LocomotionManager.highlander.appGroup?.timelineRecorder = RecordingManager.recorder

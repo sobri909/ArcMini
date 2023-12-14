@@ -92,7 +92,9 @@ class TasksManager {
         register(.coreMLModelUpdates, minimumDelay: .oneHour) { task in
             TasksManager.update(.coreMLModelUpdates, to: .running)
             RecordingManager.store.connectToDatabase()
-            CoreMLModelUpdater.highlander.updateQueuedModels(task: task as! BGProcessingTask, store: RecordingManager.store) { expired in
+            CoreMLModelUpdater.highlander.updateQueuedModels(
+                task: task as! BGProcessingTask, currentClassifier: RecordingManager.highlander.recorder.classifier
+            ) { expired in
                 TasksManager.update(.coreMLModelUpdates, to: expired ? .expired : .completed)
                 TasksManager.highlander.scheduleBackgroundTasks()
                 RecordingManager.safelyDisconnectFromDatabase()
