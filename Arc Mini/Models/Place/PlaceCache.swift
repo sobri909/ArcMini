@@ -239,6 +239,7 @@ class PlaceCache {
 
             let unusedPlaces = store.places(where: "visitsCount = 0 AND needsUpdate != 1")
             for place in unusedPlaces {
+                RecordingManager.store.connectToDatabase()
                 let visitsCount = store.countItems(where: "placeId = ? AND deleted = 0 AND disabled = 0", arguments: [place.placeId.uuidString])
                 guard visitsCount == 0 else { place.setNeedsUpdate(); continue }
                 do {
