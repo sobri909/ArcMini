@@ -79,11 +79,13 @@ struct CurrentItemWidgetEntryView : View {
                         if let currentItemTitle = currentItemTitle {
                             Text(currentItemTitle)
                                 .font(.system(size: 14, weight: .semibold))
+                                .lineLimit(3)
                         }
                         Text(CurrentItemWidgetEntryView.dateFormatter.string(from: dateRange.start))
                             .font(.system(size: 26, weight: .regular))
+                            .lineLimit(1)
                         Text(dateRange.start, style: .relative)
-                            .font(.system(size: 10, weight: .regular))
+                            .font(.system(size: 11, weight: .regular))
                             .opacity(0.6)
                         Spacer()
                     }
@@ -108,7 +110,7 @@ struct CurrentItemWidgetEntryView : View {
                 HStack {
                     Text("\(Date(), style: .relative) ago")
                         .font(.system(size: 9, weight: .regular))
-                        .opacity(0.3)
+                        .opacity(0.4)
                     Spacer()
                     HStack(spacing: 3) {
                         ForEach(appGroup.apps.values.sorted { $0.appName.sortIndex < $1.appName.sortIndex }, id: \.updated) { appState in
@@ -118,18 +120,18 @@ struct CurrentItemWidgetEntryView : View {
                                         Text("●")
                                             .font(.system(size: 11, weight: .regular))
                                             .foregroundColor(Color.green)
-                                            .opacity(0.4)
+                                            .opacity(0.5)
                                     } else {
                                         Text("■")
                                             .font(.system(size: 11, weight: .regular))
                                             .foregroundColor(Color.green)
-                                            .opacity(0.4)
+                                            .opacity(0.5)
                                     }
                                 } else {
                                     Text("◆")
                                         .font(.system(size: 11, weight: .regular))
                                         .foregroundColor(Color.red)
-                                        .opacity(0.4)
+                                        .opacity(0.5)
                                 }
                             }
                         }
