@@ -107,20 +107,27 @@ struct CurrentItemWidgetEntryView : View {
                 Spacer()
                 HStack {
                     Text("\(Date(), style: .relative) ago")
-                        .font(.system(size: 8, weight: .regular))
+                        .font(.system(size: 9, weight: .regular))
                         .opacity(0.3)
                     Spacer()
                     HStack(spacing: 3) {
                         ForEach(appGroup.apps.values.sorted { $0.appName.sortIndex < $1.appName.sortIndex }, id: \.updated) { appState in
                             if appState.updated.age < .oneMonth {
                                 if appState.isAlive {
-                                    Text("●")
-                                        .font(.system(size: 8, weight: .regular))
-                                        .foregroundColor(Color.green)
-                                        .opacity(0.4)
+                                    if appState.isAliveAndRecording {
+                                        Text("●")
+                                            .font(.system(size: 11, weight: .regular))
+                                            .foregroundColor(Color.green)
+                                            .opacity(0.4)
+                                    } else {
+                                        Text("■")
+                                            .font(.system(size: 11, weight: .regular))
+                                            .foregroundColor(Color.green)
+                                            .opacity(0.4)
+                                    }
                                 } else {
-                                    Text("■")
-                                        .font(.system(size: 10, weight: .regular))
+                                    Text("◆")
+                                        .font(.system(size: 11, weight: .regular))
                                         .foregroundColor(Color.red)
                                         .opacity(0.4)
                                 }
