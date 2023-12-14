@@ -80,8 +80,9 @@ struct RecordersWidgetEntryView: View {
                     .opacity(0.3)
             }
         }
-        .padding([.top, .leading, .trailing], family == .systemSmall ? 16 : 20)
+        .padding([.top, .leading, .trailing], 16)
         .padding([.bottom], 4)
+        .widgetBackground(Color.clear)
     }
 
     func row(leftText: Text, rightText: Text, isActiveRecorder: Bool = false, isAlive: Bool = false) -> some View {
@@ -105,6 +106,18 @@ struct RecordersWidget: Widget {
         }
         .configurationDisplayName("Arc Recorders")
         .description("Status of Arc recorders.")
-        .supportedFamilies([.systemSmall, .systemMedium])
+        .supportedFamilies([.systemSmall])
+        .contentMarginsDisabled()
+    }
+}
+
+// workaround for iOS 17's required new background thing while still supporting iOS 16
+extension View {
+    func widgetBackground(_ backgroundView: some View) -> some View {
+        if #available(iOSApplicationExtension 17.0, *) {
+            return containerBackground(for: .widget) { backgroundView }
+        } else {
+            return background(backgroundView)
+        }
     }
 }
