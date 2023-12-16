@@ -41,6 +41,8 @@ class RecordingManager {
     // MARK: - Init
 
     private init() {
+        loco.showsBackgroundLocationIndicator = Settings.showBackgroundLocationIndicator
+
         when(loco, does: .willStartSleepMode) { _ in
             self.willStartSleeping()
         }

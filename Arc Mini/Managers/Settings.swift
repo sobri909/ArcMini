@@ -33,10 +33,12 @@ enum SettingsKey: String {
     case allowMapRotate
     case allowMapTilt
 
+    case showBackgroundLocationIndicator
+
     case taskStates
 
     static let sharedSettings: [SettingsKey] = [
-        .recordingOn, .backupsOn, .isActiveBacker
+        .recordingOn, .backupsOn, .isActiveBacker, .showBackgroundLocationIndicator
     ]
 }
 
@@ -60,6 +62,7 @@ class Settings {
     static var sharingOn: Bool { return highlander[.sharingOn] as? Bool ?? true }
     static var backupsOn: Bool { return highlander[.backupsOn] as? Bool ?? false }
     static var isActiveBacker: Bool { return highlander[.isActiveBacker] as? Bool ?? false }
+    static var showBackgroundLocationIndicator: Bool { highlander[.showBackgroundLocationIndicator] as? Bool ?? false }
 
     static var showEndTimesOnTimeline: Bool {
         get { return highlander[.showEndTimesOnTimeline] as? Bool ?? false }
