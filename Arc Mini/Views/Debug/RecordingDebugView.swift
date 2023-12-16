@@ -41,6 +41,10 @@ struct RecordingDebugView: View {
                         self.row(leftText: "Sleep cycle duration", rightText: String(duration: loco.sleepCycleDuration))
                         self.leavingProbabilityRow
                     }
+                    row(
+                        leftText: "Status bar location indicator",
+                        rightText: String(describing: RecordingManager.highlander.loco.locationManager.showsBackgroundLocationIndicator)
+                    )
                 }
                 Section(header: Text("Location")) {
                     self.row(leftText: "Requesting", rightText: self.desiredAccuracyString)
@@ -85,13 +89,13 @@ struct RecordingDebugView: View {
     var trustFactorRow: AnyView {
         guard let location = latestSample?.location else { return AnyView(SwiftUI.EmptyView()) }
         guard let trustFactor = trustFactor(for: location) else { return AnyView(SwiftUI.EmptyView()) }
-        return AnyView(row(leftText: "Trust factor", rightText: String(format: "%.1f", trustFactor)))
+        return AnyView(row(leftText: "Trust factor", rightText: String(format: "%.2f", trustFactor)))
     }
 
     var horizontalAccuracyRow: AnyView {
         guard let location = latestSample?.location else { return AnyView(SwiftUI.EmptyView()) }
         if let trustFactor = trustFactor(for: location) {
-            let fudge = 100.0 * (1.0 - trustFactor)
+            let fudge = 200.0 * (1.0 - trustFactor)
             return AnyView(row(leftText: "Receiving horizontal accuracy",
                                rightText: String(format: "%.0fm (%.0fm)", location.horizontalAccuracy, location.horizontalAccuracy - fudge)))
         }
@@ -118,6 +122,8 @@ struct RecordingDebugView: View {
             Spacer()
             Text(rightText).font(font).opacity(0.6).opacity(fade ? 0.6 : 1)
         }
+        .frame(height: 32)
+        .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
     }
 
 }
