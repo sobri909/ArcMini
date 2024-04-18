@@ -139,18 +139,21 @@ struct SystemDebugView: View {
 
     var runningTasks: [TasksManager.TaskStatus] {
         return TasksManager.highlander.taskStates.values
+            .filter { !TasksManager.TaskIdentifier.deprecatedIdentifiers.contains($0.shortName) }
             .filter { $0.state == .running }
     }
 
     var overdueTasks: [TasksManager.TaskStatus] {
         return TasksManager.highlander.taskStates.values
             .filter { $0.state == .scheduled && $0.minimumDelay > 0 && $0.overdueBy > 0 }
+            .filter { !TasksManager.TaskIdentifier.deprecatedIdentifiers.contains($0.shortName) }
             .sorted { $0.overdueBy > $1.overdueBy }
     }
 
     var waitingTasks: [TasksManager.TaskStatus] {
         return TasksManager.highlander.taskStates.values
             .filter { $0.state == .scheduled && ($0.minimumDelay == 0 || $0.overdueBy <= 0) }
+            .filter { !TasksManager.TaskIdentifier.deprecatedIdentifiers.contains($0.shortName) }
             .sorted { $0.lastCompleted ?? $0.lastUpdated - .oneYear > $1.lastCompleted ?? $1.lastUpdated - .oneYear }
     }
 
