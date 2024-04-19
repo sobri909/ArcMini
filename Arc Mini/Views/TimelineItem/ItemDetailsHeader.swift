@@ -54,7 +54,7 @@ struct ItemDetailsHeader: View {
         guard let dateRange = timelineItem.dateRange else { return "" }
         guard let startString = arcItem.startTimeString else { return "" }
 
-        if dateRange.start.isToday, let endString = arcItem.endTimeString {
+        if dateRange.start.isToday(), let endString = arcItem.endTimeString {
             return String(format: "%@ · %@ - %@", dateRange.shortDurationString, startString, endString)
         }
 

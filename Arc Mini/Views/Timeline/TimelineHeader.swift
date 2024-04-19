@@ -136,7 +136,7 @@ struct TimelineHeader: View {
     var dailyTitle: String {
         guard let day = timelineState.visibleDateRange?.start else { return "Eh?" }
         let formatter = TimelineState.dateFormatter
-        if day.isToday || day.isYesterday {
+        if day.isToday() || day.isYesterday() {
             formatter.dateFormat = nil
             formatter.doesRelativeDateFormatting = true
             formatter.dateStyle = .long

@@ -42,7 +42,7 @@ class TimelineState: ObservableObject {
     private var observers: [AnyCancellable] = []
 
     init() {
-        dateRanges.append(Calendar.current.dateInterval(of: .day, for: Date().previousDay)!)
+        dateRanges.append(Calendar.current.dateInterval(of: .day, for: Date().previousDay())!)
         dateRanges.append(Calendar.current.dateInterval(of: .day, for: Date())!)
         currentCardIndex = 1
 
@@ -78,17 +78,17 @@ class TimelineState: ObservableObject {
 
     func gotoPrevious() {
         guard let visibleDateRange = visibleDateRange else { return }
-        goto(date: visibleDateRange.middle.previousDay)
+        goto(date: visibleDateRange.middle.previousDay())
     }
 
     func gotoNext() {
         guard let visibleDateRange = visibleDateRange else { return }
-        goto(date: visibleDateRange.middle.nextDay)
+        goto(date: visibleDateRange.middle.nextDay())
     }
 
     func goto(date: Date) {
-        guard date.endOfDay > Settings.firstDate else { return }
-        guard date.startOfDay.timeIntervalSinceNow < 0 else { return }
+        guard date.endOfDay() > Settings.firstDate else { return }
+        guard date.startOfDay().timeIntervalSinceNow < 0 else { return }
 
         guard let range = Calendar.current.dateInterval(of: .day, for: date) else { return }
 

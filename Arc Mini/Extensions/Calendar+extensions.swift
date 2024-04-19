@@ -27,14 +27,7 @@ public func -(lhs: Date, rhs: Date) -> TimeInterval {
 }
 
 extension Date {
-    var isToday: Bool { return Calendar.current.isDateInToday(self) }
-    var isYesterday: Bool { return Calendar.current.isDateInYesterday(self) }
-    var isTomorrow: Bool { return Calendar.current.isDateInTomorrow(self) }
-    var nextDay: Date { return Calendar.current.date(byAdding: .day, value: 1, to: self)! }
-    var previousDay: Date { return Calendar.current.date(byAdding: .day, value: -1, to: self)! }
-    var endOfDay: Date { return nextDay.startOfDay }
     var weekday: Weekday { return Weekday(rawValue: greg.dateComponents([.weekday], from: self).weekday!)! }
-    var nextWeek: Date { return Calendar.current.date(byAdding: .weekOfYear, value: 1, to: self)! }
 
     var dayLogString: String {
         cachedLogStringFormatter.dateFormat = "yyyy-MM-dd"

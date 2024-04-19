@@ -215,7 +215,7 @@ extension Place {
             // starting values
             var workingDate = visitDateRange.start
             var workingWeekday = workingDate.weekday
-            var workingStartOfDay = workingDate.startOfDay
+            var workingStartOfDay = workingDate.startOfDay()
 
             // performance helpers
             var absoluteTimestamp = visitDateRange.start.timeIntervalSince1970
@@ -228,7 +228,7 @@ extension Place {
                 // has the weekday changed?
                 if workingTimestamp > 60 * 60 * 24 {
                     workingWeekday = workingDate.weekday
-                    workingStartOfDay = workingDate.startOfDay
+                    workingStartOfDay = workingDate.startOfDay()
                     workingTimestamp = workingDate.timeIntervalSince(workingStartOfDay)
                 }
 
@@ -291,7 +291,7 @@ extension Place {
     // MARK: - Misc histograms
 
     func updateStartTimes(visits: [ArcVisit]) {
-        let startTimesOfDay = visits.compactMap { $0.startDate?.sinceStartOfDay }
+        let startTimesOfDay = visits.compactMap { $0.startDate?.sinceStartOfDay() }
         startTimes = ArcHistogram(values: startTimesOfDay, minBoundary: 0, maxBoundary: 60 * 60 * 24,
                                snapToBoundaries: true, name: "Arrival Times", printFormat: "%8.2f h",
                                printModifier: 60 / 60 / 60 / 60)
@@ -301,7 +301,7 @@ extension Place {
     }
     
     func updateEndTimes(visits: [ArcVisit]) {
-        let endTimesOfDay = visits.compactMap { $0.endDate?.sinceStartOfDay }
+        let endTimesOfDay = visits.compactMap { $0.endDate?.sinceStartOfDay() }
         endTimes = ArcHistogram(values: endTimesOfDay, minBoundary: 0, maxBoundary: 60 * 60 * 24, snapToBoundaries: true,
                              name: "Leaving Times", printFormat: "%8.2f h", printModifier: 60 / 60 / 60 / 60)
         endTimes?.binName = "Leaving time"

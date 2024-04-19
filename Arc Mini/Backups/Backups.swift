@@ -232,7 +232,7 @@ enum Backups {
             for day in days {
                 let weekString = Backups.weekFormatter.string(from: day)
                 guard let start = Backups.weekFormatter.date(from: weekString) else { continue }
-                let range = DateInterval(start: start, end: start.nextWeek)
+                let range = DateInterval(start: start, end: start.nextWeek())
                 weeks.insert(range)
             }
             return Array(weeks)

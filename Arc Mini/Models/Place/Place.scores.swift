@@ -34,7 +34,7 @@ extension Place {
             scores.append(latLongScoreFor(location: center))
             scores.append(distanceScoreFor(location: center))
         }
-        if let sinceStartOfDay = startDate?.sinceStartOfDay {
+        if let sinceStartOfDay = startDate?.sinceStartOfDay() {
             scores.append(scoreFor(startTime: sinceStartOfDay) ?? 0.5)
         }
         if let duration = duration {
@@ -49,7 +49,7 @@ extension Place {
         guard let binCount = endTimes?.binCount, binCount > 2 else { return nil }
 
         guard let durationScore = scoreFor(duration: duration) else { return nil }
-        guard let endTimeScore = scoreFor(endTime: date.sinceStartOfDay) else { return nil }
+        guard let endTimeScore = scoreFor(endTime: date.sinceStartOfDay()) else { return nil }
 
         return endTimeScore * durationScore
     }

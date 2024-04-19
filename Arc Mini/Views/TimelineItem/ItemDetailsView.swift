@@ -88,7 +88,7 @@ struct ItemDetailsView: View {
                         
                         row(left: "Chance of leaving now", right: Text(String(format: "%.0f%%", floor(leavingScore * 100))))
 
-                        if let date = visit.predictedLeavingTime, date.isToday || date.isTomorrow {
+                        if let date = visit.predictedLeavingTime, date.isToday() || date.isTomorrow() {
                             row(left: "Leaving time", right: Text(date, style: .time))
                         }
                     }

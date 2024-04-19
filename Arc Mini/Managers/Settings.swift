@@ -187,8 +187,9 @@ class Settings {
     // MARK: - Item getters
 
     static var dataDateRange: DateInterval {
-        return DateInterval(start: firstDate.startOfDay, end: Date())
+        return DateInterval(start: firstDate.startOfDay(), end: .now)
     }
+
     static var firstDate: Date {
         guard let firstItemStartDate = firstTimelineItem?.startDate else { return Date() }
         return firstItemStartDate > earliestAllowedDate ? firstItemStartDate : earliestAllowedDate
