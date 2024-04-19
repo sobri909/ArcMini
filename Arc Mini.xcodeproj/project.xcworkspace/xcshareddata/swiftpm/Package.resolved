@@ -1,4 +1,5 @@
 {
+  "originHash" : "96f21f709f533dd974d3f77f32751f8e509b2db04d5f238a797821642c4f9a40",
   "pins" : [
     {
       "identity" : "aexml",
@@ -23,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/groue/GRDB.swift.git",
       "state" : {
-        "revision" : "dd7e7f39e8e4d7a22d258d9809a882f914690b01",
-        "version" : "5.26.1"
+        "revision" : "77b85bed259b7f107710a0b78c439b1c5839dc45",
+        "version" : "6.26.0"
       }
     },
     {
@@ -42,7 +43,7 @@
       "location" : "https://github.com/sobri909/LocoKit.git",
       "state" : {
         "branch" : "core-ml",
-        "revision" : "398059fc096abd03b20d387d26660edbacb34306"
+        "revision" : "fb00d96aaf3b72f98f99c1826deeb4f56d886a9f"
       }
     },
     {
@@ -91,5 +92,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }
