@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/groue/GRDB.swift.git",
       "state" : {
-        "revision" : "639fa9168d36931b36a79e60dc06b7d23852f1f4",
-        "version" : "6.27.0"
+        "revision" : "1cd6c7cbffa7ecac14a8a7c0f27d5c3e7c35c87e",
+        "version" : "6.29.0"
       }
     },
     {
@@ -43,7 +43,7 @@
       "location" : "https://github.com/sobri909/LocoKit.git",
       "state" : {
         "branch" : "core-ml",
-        "revision" : "fb00d96aaf3b72f98f99c1826deeb4f56d886a9f"
+        "revision" : "68eade472a3283d71b67dfc95faa36e3070e6de5"
       }
     },
     {
@@ -60,8 +60,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-log",
       "state" : {
-        "revision" : "e97a6fcb1ab07462881ac165fdbb37f067e205d5",
-        "version" : "1.5.4"
+        "revision" : "9cb486020ebf03bfa5b5df985387a14a98744537",
+        "version" : "1.6.1"
       }
     },
     {
